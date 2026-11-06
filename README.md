@@ -45,6 +45,7 @@ Both steps are needed for other people to join:
 | Banking | `Renewed-Banking` |
 | Paychecks | `qbx_core` (`config\server.lua`, pay rates in `shared\jobs.lua`) |
 | Income tax and treasury | `city_economy` (custom) |
+| Loading screen | `highcrest_loadscreen` (custom). To change the background, replace `html\assets\background.png`. |
 | Police and jail | `qbx_police`, `xt-prison` |
 | Ambulance and medical | `qbx_ambulancejob`, `qbx_medical` |
 | Housing | `qbx_properties` |

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Highcrest RP</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="backdrop"></div>
+
+    <div class="stage">
+        <header class="hero">
+            <img class="banner" src="assets/background.png" alt="Highcrest RP">
+            <p class="tagline">Everybody wants the top. Not everybody makes it.</p>
+        </header>
+
+        <main class="panel">
+            <div class="readout">
+                <p id="message" class="message"></p>
+                <p class="percent"><span id="percent">0</span><small>%</small></p>
+            </div>
+
+            <div id="tach" class="tach" role="progressbar" aria-label="Loading" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div id="ticks" class="ticks"></div>
+                <div class="track">
+                    <div class="redzone"></div>
+                    <div id="fill" class="fill"></div>
+                    <div id="tip" class="tip"></div>
+                </div>
+            </div>
+
+            <p id="status" class="status">Connecting to the city</p>
+        </main>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

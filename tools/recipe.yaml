@@ -32,10 +32,6 @@ tasks:
     src: ./tmp/qbox/misc.cfg
     dest: ./misc.cfg
 
-  - action: move_path
-    src: ./tmp/qbox/myLogo.png
-    dest: ./myLogo.png
-
   # Prepare Database
   - action: connect_database
   - action: query_database
@@ -129,17 +125,6 @@ tasks:
   - action: unzip
     dest: ./resources/[standalone]
     src: ./tmp/vehiclehandler.zip
-
-  - action: download_file
-    path: ./tmp/loadscreen.zip
-    url: https://github.com/D4isDAVID/loadscreen/releases/latest/download/loadscreen.zip
-  - action: unzip
-    dest: ./resources/[standalone]
-    src: ./tmp/loadscreen.zip
-  - action: copy_path
-    src: ./myLogo.png
-    dest: ./resources/[standalone]/loadscreen/html/assets/logo.png
-    overwrite: true
 
   - action: download_file
     path: ./tmp/mana_audio.zip
