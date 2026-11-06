@@ -14,8 +14,18 @@ $client = Join-Path $root 'database\client.cnf'
 $zip = Join-Path $deploy 'server-data.zip'
 if (Test-Path -LiteralPath $zip) { Remove-Item -LiteralPath $zip -Force }
 & tar.exe -a -c -f $zip -C (Join-Path $root 'server-data') `
-    --exclude=secrets.cfg --exclude=cache --exclude=tmp --exclude=sv_npwd.log --exclude='_*.cfg' .
+    --exclude='^./secrets.cfg' --exclude='^./cache' --exclude='^./tmp' --exclude='^./_*.cfg' --exclude=sv_npwd.log .
 if ($LASTEXITCODE -ne 0) { throw "tar failed: $LASTEXITCODE" }
+
+# Resources have their own folders named cache and tmp, so confirm only the intended files were left out.
+$serverData = Join-Path $root 'server-data'
+$packed = @{}
+& tar.exe -tf $zip | ForEach-Object { $packed[($_ -replace '^\./', '')] = $true }
+if ($packed.ContainsKey('secrets.cfg')) { throw 'secrets.cfg was packaged' }
+$missing = @([IO.Directory]::EnumerateFiles($serverData, '*', [IO.SearchOption]::AllDirectories) |
+    ForEach-Object { $_.Substring($serverData.Length + 1).Replace('\', '/') } |
+    Where-Object { -not $packed.ContainsKey($_) -and $_ -notmatch '^(cache|tmp)/|^secrets\.cfg$|^_.*\.cfg$|/sv_npwd\.log$' })
+if ($missing.Count -gt 0) { throw "Files missing from the package: $($missing -join ', ')" }
 
 $sql = Join-Path $deploy 'database.sql'
 $err = [IO.Path]::GetTempFileName()
