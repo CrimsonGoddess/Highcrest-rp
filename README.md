@@ -1,6 +1,6 @@
-# FiveM Server
+# Highcrest RP
 
-Built on Qbox and the ox stack.
+Built on Qbox and the ox stack. See docs\HIGHCREST_BRIEF.md for the project direction.
 
 ## Running it
 
