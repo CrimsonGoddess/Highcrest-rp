@@ -64,6 +64,12 @@ These are lost if you redownload a script, so reapply them afterwards:
 - `qbx_core\shared\jobs.lua`: all pay multiplied by 5, and a `government` job added.
 - `qbx_ambulancejob\server\main.lua`: waits for `ox_inventory` before registering the EMS armory. Without this it fails at startup.
 
+- `ox_lib` and `ox_inventory` compiled interfaces: Highcrest colors. Reapply with `tools\apply-branding.ps1`.
+
+## Letting people join from outside your network
+
+Forward port 30120 (TCP and UDP) on your router to this PC, and reserve this PC's local IP address in the router so it doesn't change. People then connect with F8 and `connect YOUR_PUBLIC_IP:30120`.
+
 ## Maintenance scripts
 
     powershell -ExecutionPolicy Bypass -File tools\check-resources.ps1
