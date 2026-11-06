@@ -3,7 +3,14 @@ game 'gta5'
 lua54 'yes'
 
 name 'highcrest_ui'
-description 'Highcrest colors for the GTA V pause menu'
-version '1.0.0'
+description 'Highcrest pause menu colors and on-screen icon'
+version '1.1.0'
 
 client_script 'client/main.lua'
+
+ui_page 'html/index.html'
+
+files {
+    'html/index.html',
+    'html/assets/icon.png',
+}

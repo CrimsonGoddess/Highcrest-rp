@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Highcrest UI</title>
+    <style>
+        html, body {
+            margin: 0;
+            height: 100%;
+            overflow: hidden;
+            background: transparent;
+            pointer-events: none;
+        }
+
+        /* To move the icon, change top and left. To resize it, change the two 6.5vh values. */
+        #icon {
+            position: fixed;
+            top: 1.2vh;
+            left: 50%;
+            width: 6.5vh;
+            height: 6.5vh;
+            border-radius: 50%;
+            opacity: 0;
+            transform: translateX(-50%);
+            transition: opacity 0.4s ease;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+        }
+
+        #icon.visible {
+            opacity: 0.92;
+        }
+    </style>
+</head>
+<body>
+    <img id="icon" src="assets/icon.png" alt="">
+    <script>
+        const icon = document.getElementById('icon');
+
+        window.addEventListener('message', ({ data }) => {
+            if (data && typeof data.iconVisible === 'boolean') {
+                icon.classList.toggle('visible', data.iconVisible);
+            }
+        });
+
+        // Browser preview only: index.html?preview
+        if (location.search.includes('preview')) {
+            icon.classList.add('visible');
+        }
+    </script>
+</body>
+</html>
