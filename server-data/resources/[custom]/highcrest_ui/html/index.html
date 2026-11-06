@@ -5,6 +5,18 @@
     <title>Highcrest UI</title>
     <style>
         @font-face {
+            font-family: 'Rajdhani';
+            src: url('assets/fonts/rajdhani-latin-500-normal.woff2') format('woff2');
+            font-weight: 500;
+        }
+
+        @font-face {
+            font-family: 'Rajdhani';
+            src: url('assets/fonts/rajdhani-latin-700-normal.woff2') format('woff2');
+            font-weight: 700;
+        }
+
+        @font-face {
             font-family: 'Cinzel';
             src: url('assets/fonts/cinzel-latin-600-normal.woff2') format('woff2');
             font-weight: 600;
@@ -23,11 +35,49 @@
             position: fixed;
             top: 1.4vh;
             left: 1.6vh;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        #brand {
             display: flex;
             align-items: center;
             gap: 1vh;
-            opacity: 0;
-            transition: opacity 0.4s ease;
+        }
+
+        #stats {
+            display: grid;
+            grid-template-columns: auto auto;
+            justify-content: start;
+            gap: 0.25vh 1.2vh;
+            margin-block-start: 0.8vh;
+            padding: 0.7vh 1.2vh;
+            border-left: 0.25vh solid #c8102e;
+            border-radius: 0.5vh;
+            background: rgba(11, 11, 13, 0.68);
+            color: #f5f5f5;
+            font-family: 'Rajdhani', 'Segoe UI', Arial, sans-serif;
+            font-weight: 500;
+            font-size: 1.65vh;
+            line-height: 1.25;
+        }
+
+        #stats dt {
+            color: #b4b4bd;
+        }
+
+        #stats dd {
+            margin: 0;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+
+        #stats .money {
+            color: #d4af37;
+        }
+
+        [hidden] {
+            display: none !important;
         }
 
         #badge.visible {
@@ -58,21 +108,43 @@
 </head>
 <body>
     <div id="badge">
-        <img id="icon" src="assets/icon.png" alt="">
-        <div id="name">HIGHCREST <span>RP</span></div>
+        <div id="brand">
+            <img id="icon" src="assets/icon.png" alt="">
+            <div id="name">HIGHCREST <span>RP</span></div>
+        </div>
+        <dl id="stats">
+            <dt>ID</dt><dd id="statId"></dd>
+            <dt>Cash</dt><dd id="statCash" class="money"></dd>
+            <dt>Bank</dt><dd id="statBank" class="money"></dd>
+            <dt id="statJobLabel" hidden>Job</dt><dd id="statJob" hidden></dd>
+        </dl>
     </div>
     <script>
         const badge = document.getElementById('badge');
+        const element = (id) => document.getElementById(id);
+        const money = (value) => `$${Number(value).toLocaleString('en-US')}`;
+
+        function showStats(stats) {
+            element('statId').textContent = stats.id;
+            element('statCash').textContent = money(stats.cash);
+            element('statBank').textContent = money(stats.bank);
+            element('statJob').textContent = stats.job || '';
+            element('statJob').hidden = !stats.job;
+            element('statJobLabel').hidden = !stats.job;
+        }
 
         window.addEventListener('message', ({ data }) => {
-            if (data && typeof data.iconVisible === 'boolean') {
+            if (!data) return;
+            if (typeof data.iconVisible === 'boolean') {
                 badge.classList.toggle('visible', data.iconVisible);
             }
+            if (data.stats) showStats(data.stats);
         });
 
         // Browser preview only: index.html?preview
         if (location.search.includes('preview')) {
             badge.classList.add('visible');
+            showStats({ id: 12, cash: 260, bank: 3375, job: 'LSPD - Recruit' });
         }
     </script>
 </body>
