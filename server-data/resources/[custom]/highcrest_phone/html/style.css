@@ -1,0 +1,346 @@
+@font-face {
+    font-family: 'Rajdhani';
+    src: url('assets/fonts/rajdhani-latin-500-normal.woff2') format('woff2');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Rajdhani';
+    src: url('assets/fonts/rajdhani-latin-700-normal.woff2') format('woff2');
+    font-weight: 700;
+}
+
+:root {
+    --case: #0b0b0d;
+    --accent: #c8102e;
+    --on-accent: #f5f5f5;
+    --wallpaper: #0b0b0d;
+    --gold: #d4af37;
+    --white: #f5f5f5;
+    --muted: #b4b4bd;
+    --glass: rgba(11, 11, 13, 0.72);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+    background: transparent;
+    color: var(--white);
+    font-family: 'Rajdhani', 'Segoe UI', Arial, sans-serif;
+    font-weight: 500;
+    font-size: 1.75vh;
+    user-select: none;
+}
+
+button {
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+}
+
+.phone {
+    position: fixed;
+    right: 3vh;
+    bottom: 3vh;
+    width: 39vh;
+    height: 80vh;
+    padding: 1.1vh;
+    border-radius: 5.5vh;
+    background: var(--case);
+    box-shadow: 0 2vh 5vh rgba(0, 0, 0, 0.75), inset 0 0 0 0.25vh rgba(255, 255, 255, 0.16);
+    transition: background-color 0.25s ease;
+    animation: rise 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.screen {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 4.5vh;
+    background: var(--wallpaper) center / cover no-repeat;
+}
+
+.statusbar {
+    display: flex;
+    flex: none;
+    justify-content: space-between;
+    padding: 1.6vh 2.6vh 0.6vh;
+    font-weight: 700;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.brand {
+    color: var(--gold);
+    letter-spacing: 0.14em;
+    font-size: 0.8em;
+}
+
+.view {
+    flex: 1;
+    min-height: 0;
+    padding: 1vh 2vh;
+}
+
+.page {
+    overflow-y: auto;
+    padding-block-end: 3.5vh;
+    background: var(--glass);
+    backdrop-filter: blur(1.4vh);
+}
+
+.page::-webkit-scrollbar {
+    display: none;
+}
+
+.home-clock {
+    margin-block: 5vh 6vh;
+    font-weight: 700;
+    font-size: 7vh;
+    line-height: 1;
+    text-align: center;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.75);
+}
+
+.apps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2vh 1vh;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6vh;
+    font-size: 0.85em;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+}
+
+.app-icon {
+    display: grid;
+    place-items: center;
+    width: 6.2vh;
+    height: 6.2vh;
+    border-radius: 1.6vh;
+    background: var(--accent);
+    box-shadow: 0 0.5vh 1.2vh rgba(0, 0, 0, 0.5);
+    transition: transform 0.15s ease;
+}
+
+.app:hover .app-icon {
+    transform: scale(1.07);
+}
+
+.app-icon svg {
+    width: 62%;
+    fill: none;
+    stroke: var(--on-accent);
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+h2 {
+    margin-block-end: 1vh;
+    font-size: 2.6vh;
+}
+
+h2 small {
+    color: var(--muted);
+    font-size: 0.6em;
+    font-weight: 500;
+}
+
+h3 {
+    margin-block: 2vh 0.8vh;
+    color: var(--gold);
+    font-size: 1.7vh;
+    letter-spacing: 0.06em;
+}
+
+.muted,
+.empty {
+    color: var(--muted);
+}
+
+.empty {
+    padding-block: 3vh;
+    text-align: center;
+}
+
+.swatches {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.8vh;
+}
+
+.swatch {
+    aspect-ratio: 1;
+    border: 0.2vh solid rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+}
+
+.swatch.selected,
+.wallpaper.selected {
+    outline: 0.28vh solid var(--gold);
+    outline-offset: 0.2vh;
+}
+
+.custom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-block-start: 1vh;
+    color: var(--muted);
+}
+
+.custom input {
+    width: 7vh;
+    height: 3vh;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+}
+
+.wallpapers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.9vh;
+    margin-block-end: 1vh;
+}
+
+.wallpaper {
+    display: flex;
+    align-items: flex-end;
+    aspect-ratio: 0.72;
+    padding: 0.5vh;
+    border-radius: 1vh;
+    font-size: 0.82em;
+    text-shadow: 0 1px 3px #000;
+}
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5vh;
+}
+
+.photo {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 0.6vh;
+    background: #1c1c22 center / cover no-repeat;
+}
+
+.viewer-image {
+    display: block;
+    width: 100%;
+    min-height: 15vh;
+    border-radius: 1vh;
+    background: #1c1c22;
+}
+
+.viewer-image + .muted {
+    margin-block: 1vh;
+}
+
+.button {
+    display: block;
+    width: 100%;
+    margin-block-start: 0.8vh;
+    padding: 1.1vh;
+    border-radius: 1vh;
+    background: rgba(255, 255, 255, 0.1);
+    font-weight: 700;
+}
+
+.button.accent {
+    background: var(--accent);
+    color: var(--on-accent);
+}
+
+.button.danger {
+    background: #8a0b20;
+}
+
+.home-bar {
+    position: absolute;
+    bottom: 0.8vh;
+    left: 50%;
+    width: 13vh;
+    height: 0.55vh;
+    padding: 0;
+    border-radius: 1vh;
+    background: var(--white);
+    box-shadow: 0 0 0 0.9vh transparent;
+    opacity: 0.85;
+    transform: translateX(-50%);
+}
+
+.camera-hud {
+    position: fixed;
+    bottom: 6vh;
+    left: 50%;
+    padding: 1.2vh 2.4vh;
+    border: 0.1vh solid rgba(212, 175, 55, 0.5);
+    border-radius: 1vh;
+    background: rgba(11, 11, 13, 0.82);
+    text-align: center;
+    transform: translateX(-50%);
+}
+
+.camera-message {
+    min-height: 1.3em;
+    color: var(--gold);
+}
+
+kbd {
+    padding: 0.1vh 0.7vh;
+    margin-inline: 0.7vh 0.2vh;
+    border-radius: 0.4vh;
+    background: var(--white);
+    color: #0b0b0d;
+    font: inherit;
+    font-weight: 700;
+}
+
+.flash {
+    position: fixed;
+    inset: 0;
+    background: #fff;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.flash.go {
+    animation: flash 0.35s ease-out;
+}
+
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(4vh);
+    }
+}
+
+@keyframes flash {
+    from {
+        opacity: 0.8;
+    }
+}

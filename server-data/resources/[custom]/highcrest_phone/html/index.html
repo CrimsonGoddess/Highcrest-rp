@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Highcrest Phone</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="phone" class="phone" hidden>
+        <div id="screen" class="screen">
+            <div class="statusbar"><span id="clock">12:00</span><span class="brand">HIGHCREST</span></div>
+
+            <section id="home" class="view">
+                <div class="home-clock" id="homeClock">12:00</div>
+                <div class="apps">
+                    <button class="app" data-open="camera">
+                        <span class="app-icon"><svg viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
+                        Camera
+                    </button>
+                    <button class="app" data-open="gallery">
+                        <span class="app-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1.5"/><circle cx="8.5" cy="10" r="1.6"/><path d="M4 17l5-4.5 3.5 3 3-2.5 4.5 4"/></svg></span>
+                        Gallery
+                    </button>
+                    <button class="app" data-open="settings">
+                        <span class="app-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1"/></svg></span>
+                        Settings
+                    </button>
+                </div>
+            </section>
+
+            <section id="gallery" class="view page" hidden>
+                <h2>Gallery <small id="photoCount"></small></h2>
+                <div id="photoGrid" class="photo-grid"></div>
+                <p id="galleryEmpty" class="empty" hidden>No photos yet. Open the Camera to take one.</p>
+            </section>
+
+            <section id="viewer" class="view page" hidden>
+                <img id="viewerImage" class="viewer-image" alt="">
+                <p id="viewerDate" class="muted"></p>
+                <button id="setWallpaper" class="button accent">Set as wallpaper</button>
+                <button id="deletePhoto" class="button">Delete</button>
+            </section>
+
+            <section id="settings" class="view page" hidden>
+                <h2>Settings</h2>
+                <p class="muted">Your number: <span id="phoneNumber"></span></p>
+
+                <h3>Phone color</h3>
+                <div id="caseSwatches" class="swatches"></div>
+                <label class="custom">Custom <input id="caseCustom" type="color"></label>
+
+                <h3>Accent color</h3>
+                <div id="accentSwatches" class="swatches"></div>
+                <label class="custom">Custom <input id="accentCustom" type="color"></label>
+
+                <h3>Wallpaper</h3>
+                <div id="wallpapers" class="wallpapers"></div>
+                <p class="muted">To use your own photo, open it in the Gallery.</p>
+            </section>
+
+            <button id="homeBar" class="home-bar" aria-label="Home"></button>
+        </div>
+    </div>
+
+    <div id="cameraHud" class="camera-hud" hidden>
+        <p id="cameraMessage" class="camera-message"></p>
+        <p class="camera-keys"><kbd>Enter</kbd> Take photo <kbd>Backspace</kbd> Back to phone</p>
+    </div>
+    <div id="flash" class="flash"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
