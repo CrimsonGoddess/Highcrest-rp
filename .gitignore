@@ -2,6 +2,9 @@
 server-data/secrets.cfg
 database/client.cnf
 
+# Transfer package, which contains player data
+deploy/
+
 # Binaries, fetched by the setup steps in README.md
 artifacts/
 database/mariadb/
