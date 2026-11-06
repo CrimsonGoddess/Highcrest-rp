@@ -20,5 +20,5 @@ if not errorlevel 1 (
 )
 
 cd /d "%~dp0server-data"
-"..\artifacts\FXServer.exe" +exec server.cfg
+"..\artifacts\FXServer.exe" +set onesync on +exec server.cfg
 pause

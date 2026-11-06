@@ -215,6 +215,17 @@ end)
 AddEventHandler('onResourceStart', function(resource)
     if resource ~= GetCurrentResourceName() then return end
 
-    registerArmory()
     registerStashes()
+
+    -- ox_inventory only exports RegisterShop after its items load, which happens after
+    -- this resource starts. Retry until it's available.
+    CreateThread(function()
+        local ok, err
+        for _ = 1, 120 do
+            ok, err = pcall(registerArmory)
+            if ok then return end
+            Wait(500)
+        end
+        lib.print.error(('could not register the EMS armory: %s'):format(err))
+    end)
 end)

@@ -61,6 +61,7 @@ Both steps are needed for other people to join:
 These are lost if you redownload a script, so reapply them afterwards:
 
 - `qbx_core\shared\jobs.lua`: all pay multiplied by 5, and a `government` job added.
+- `qbx_ambulancejob\server\main.lua`: waits for `ox_inventory` before registering the EMS armory. Without this it fails at startup.
 
 ## Maintenance scripts
 
