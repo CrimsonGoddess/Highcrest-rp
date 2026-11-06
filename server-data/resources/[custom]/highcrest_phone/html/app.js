@@ -23,10 +23,16 @@ function post(name, body = {}) {
 
 /* Navigation */
 
-const VIEWS = ['home', 'gallery', 'viewer', 'settings'];
+const VIEWS = ['home', 'gallery', 'viewer', 'settings', 'dialer', 'call', 'contacts', 'contact', 'messages', 'conversation'];
+
+// Apps register themselves here so each one can live in its own file.
+const openers = {};
+const backTargets = { viewer: () => showGallery() };
+const onViewChange = [];
 
 function show(view) {
     VIEWS.forEach((name) => { $(name).hidden = name !== view; });
+    onViewChange.forEach((callback) => callback());
 }
 
 function currentView() {
@@ -35,8 +41,8 @@ function currentView() {
 
 function goBack() {
     const view = currentView();
-    if (view === 'viewer') showGallery();
-    else if (view === 'home') closePhone();
+    if (view === 'home' || view === 'call') closePhone();
+    else if (backTargets[view]) backTargets[view]();
     else show('home');
 }
 
@@ -253,13 +259,12 @@ function openPhone(data) {
 
 /* Wiring */
 
+openers.camera = startCamera;
+openers.gallery = showGallery;
+openers.settings = () => show('settings');
+
 document.querySelectorAll('[data-open]').forEach((button) => {
-    button.addEventListener('click', () => {
-        const target = button.dataset.open;
-        if (target === 'camera') startCamera();
-        else if (target === 'gallery') showGallery();
-        else show(target);
-    });
+    button.addEventListener('click', () => openers[button.dataset.open]());
 });
 
 $('homeBar').addEventListener('click', () => show('home'));

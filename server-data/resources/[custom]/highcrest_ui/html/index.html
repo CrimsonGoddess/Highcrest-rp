@@ -4,6 +4,12 @@
     <meta charset="utf-8">
     <title>Highcrest UI</title>
     <style>
+        @font-face {
+            font-family: 'Cinzel';
+            src: url('assets/fonts/cinzel-latin-600-normal.woff2') format('woff2');
+            font-weight: 600;
+        }
+
         html, body {
             margin: 0;
             height: 100%;
@@ -12,39 +18,61 @@
             pointer-events: none;
         }
 
-        /* To move the icon, change top and left. To resize it, change the two 6.5vh values. */
-        #icon {
+        /* To move the badge, change top and left. To resize it, change the icon size and font-size. */
+        #badge {
             position: fixed;
-            top: 1.2vh;
-            left: 50%;
-            width: 6.5vh;
-            height: 6.5vh;
-            border-radius: 50%;
+            top: 1.4vh;
+            left: 1.6vh;
+            display: flex;
+            align-items: center;
+            gap: 1vh;
             opacity: 0;
-            transform: translateX(-50%);
             transition: opacity 0.4s ease;
-            box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
         }
 
-        #icon.visible {
-            opacity: 0.92;
+        #badge.visible {
+            opacity: 0.95;
+        }
+
+        #icon {
+            width: 5.6vh;
+            height: 5.6vh;
+            border-radius: 50%;
+            box-shadow: 0 0 1.2vh rgba(0, 0, 0, 0.6);
+        }
+
+        #name {
+            color: #d4af37;
+            font-family: 'Cinzel', Georgia, serif;
+            font-weight: 600;
+            font-size: 2.3vh;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+            text-shadow: 0 0.1vh 0.5vh #000, 0 0 1.2vh rgba(0, 0, 0, 0.8);
+        }
+
+        #name span {
+            color: #e0203c;
         }
     </style>
 </head>
 <body>
-    <img id="icon" src="assets/icon.png" alt="">
+    <div id="badge">
+        <img id="icon" src="assets/icon.png" alt="">
+        <div id="name">HIGHCREST <span>RP</span></div>
+    </div>
     <script>
-        const icon = document.getElementById('icon');
+        const badge = document.getElementById('badge');
 
         window.addEventListener('message', ({ data }) => {
             if (data && typeof data.iconVisible === 'boolean') {
-                icon.classList.toggle('visible', data.iconVisible);
+                badge.classList.toggle('visible', data.iconVisible);
             }
         });
 
         // Browser preview only: index.html?preview
         if (location.search.includes('preview')) {
-            icon.classList.add('visible');
+            badge.classList.add('visible');
         }
     </script>
 </body>

@@ -293,6 +293,177 @@ h3 {
     transform: translateX(-50%);
 }
 
+.field {
+    width: 100%;
+    padding: 1vh 1.2vh;
+    border: 0.1vh solid rgba(255, 255, 255, 0.18);
+    border-radius: 1vh;
+    outline: none;
+    background: rgba(11, 11, 13, 0.75);
+    color: var(--white);
+    font: inherit;
+    user-select: text;
+}
+
+.field:focus {
+    border-color: var(--gold);
+}
+
+.field-label {
+    display: block;
+    margin-block-end: 1vh;
+    color: var(--muted);
+}
+
+.error {
+    min-height: 1.2em;
+    margin-block: 0.5vh;
+    color: #ff8a9b;
+}
+
+.rows {
+    margin-block-start: 1vh;
+}
+
+.row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2vh;
+    width: 100%;
+    padding: 1vh 0.4vh;
+    border-bottom: 0.1vh solid rgba(255, 255, 255, 0.12);
+    text-align: left;
+}
+
+.preview {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.badge {
+    display: inline-block;
+    min-width: 2vh;
+    padding-inline: 0.5vh;
+    border-radius: 1vh;
+    background: var(--gold);
+    color: #0b0b0d;
+    font-size: 1.3vh;
+    line-height: 2vh;
+    text-align: center;
+}
+
+.app-icon {
+    position: relative;
+}
+
+.app-badge {
+    position: absolute;
+    top: -0.6vh;
+    right: -0.6vh;
+}
+
+.dial-number {
+    font-size: 2.4vh;
+    text-align: center;
+}
+
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1vh;
+    margin-block-start: 0.5vh;
+}
+
+.keypad button {
+    padding-block: 1.6vh;
+    border-radius: 1.4vh;
+    background: rgba(255, 255, 255, 0.1);
+    font-size: 2.3vh;
+    font-weight: 700;
+}
+
+.keypad .key-call {
+    background: var(--accent);
+    color: var(--on-accent);
+    font-size: 1.8vh;
+}
+
+.call-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1vh;
+    text-align: center;
+}
+
+.call-actions {
+    width: 100%;
+    margin-block-start: 6vh;
+}
+
+.call-strip {
+    flex: none;
+    padding: 0.7vh;
+    background: var(--gold);
+    color: #0b0b0d;
+    font-weight: 700;
+}
+
+.compose {
+    display: flex;
+    gap: 0.6vh;
+}
+
+.compose .button {
+    flex: none;
+    width: auto;
+    margin: 0;
+    padding-inline: 1.4vh;
+}
+
+.conversation {
+    display: flex;
+    flex-direction: column;
+}
+
+.bubbles {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.6vh;
+    min-height: 0;
+    overflow-y: auto;
+    padding-block: 0.5vh;
+}
+
+.bubbles::-webkit-scrollbar {
+    display: none;
+}
+
+.bubble {
+    align-self: flex-start;
+    max-width: 82%;
+    padding: 0.7vh 1.1vh;
+    border-radius: 1.2vh;
+    background: rgba(255, 255, 255, 0.13);
+    overflow-wrap: anywhere;
+    user-select: text;
+}
+
+.bubble.mine {
+    align-self: flex-end;
+    background: var(--accent);
+    color: var(--on-accent);
+}
+
+.bubble small {
+    display: block;
+    opacity: 0.7;
+    font-size: 0.72em;
+}
+
 .camera-hud {
     position: fixed;
     bottom: 6vh;

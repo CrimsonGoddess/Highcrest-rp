@@ -129,6 +129,12 @@ These are future goals, not features that are already implemented.
 4. **City Spotlight:** A custom event system for car shows, nightlife events, competitions, business expos and community activities.
 5. **Risk & Consequence:** Meaningful but balanced consequences for criminal activity, financial decisions and reputation. Avoid overly punishing systems that make semi-serious RP frustrating.
 
+## Custom phone
+
+The owner asked for a custom phone (`highcrest_phone`) to eventually replace NPWD, with player customization of phone color, accent and wallpaper, plus a camera and gallery.
+
+Planned apps: phone, messages, contacts, camera, gallery, settings, Twitter-style, dating, marketplace and darkweb. It is being built ahead of the Empire System, and NPWD stays until the new phone has been tested with real players.
+
 ## 7. Development priorities
 
 Follow this order.

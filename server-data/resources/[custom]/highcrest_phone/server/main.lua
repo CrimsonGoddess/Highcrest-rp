@@ -42,6 +42,7 @@ local function getOwner(src)
     if exports.ox_inventory:Search(src, 'count', Config.phoneItem) < 1 then return end
     return player
 end
+GetPhoneOwner = getOwner
 
 local function isColor(value)
     return type(value) == 'string' and value:match('^#%x%x%x%x%x%x$') ~= nil
@@ -81,6 +82,8 @@ lib.callback.register('highcrest_phone:server:getPhone', function(source)
         settings = loadSettings(citizenid),
         photos = listPhotos(citizenid),
         phoneNumber = player.PlayerData.charinfo.phone,
+        contacts = ListContacts(citizenid),
+        unreadMessages = CountUnreadMessages(player.PlayerData.charinfo.phone),
         swatches = Config.swatches,
         wallpapers = Config.wallpapers,
         maxPhotos = Config.maxPhotosPerCharacter,

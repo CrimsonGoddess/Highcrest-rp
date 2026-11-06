@@ -64,6 +64,56 @@ local function runCamera()
 end
 
 RegisterCommand('hcphone', openPhone, false)
+RegisterKeyMapping('hcphone', 'Open Highcrest phone', 'keyboard', 'F3')
+
+-- These just pass a request to the server, which validates everything.
+for _, name in ipairs({
+    'saveContact', 'deleteContact', 'listConversations', 'getConversation',
+    'sendMessage', 'startCall', 'answerCall', 'hangUp',
+}) do
+    RegisterNUICallback(name, function(data, cb)
+        cb(lib.callback.await('highcrest_phone:server:' .. name, false, data) or false)
+    end)
+end
+
+local ringing = false
+
+local function startRinging()
+    if ringing then return end
+    ringing = true
+
+    CreateThread(function()
+        while ringing do
+            PlaySoundFrontend(-1, 'Remote_Ring', 'Phone_SoundSet_Michael', true)
+            Wait(3000)
+        end
+    end)
+end
+
+RegisterNetEvent('highcrest_phone:client:incomingCall', function(call)
+    startRinging()
+    SendNUIMessage({ action = 'incomingCall', call = call })
+    if not isOpen then
+        lib.notify({ title = 'Incoming call', description = ('%s is calling. Press F3 to answer.'):format(call.name or call.number) })
+    end
+end)
+
+RegisterNetEvent('highcrest_phone:client:callConnected', function()
+    ringing = false
+    SendNUIMessage({ action = 'callConnected' })
+end)
+
+RegisterNetEvent('highcrest_phone:client:callEnded', function(reason)
+    ringing = false
+    SendNUIMessage({ action = 'callEnded', reason = reason })
+end)
+
+RegisterNetEvent('highcrest_phone:client:message', function(message)
+    SendNUIMessage({ action = 'message', message = message })
+    if not isOpen then
+        lib.notify({ title = message.name or message.from, description = message.body })
+    end
+end)
 
 RegisterNUICallback('close', function(_, cb)
     closePhone()

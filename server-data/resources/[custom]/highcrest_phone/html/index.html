@@ -9,10 +9,23 @@
     <div id="phone" class="phone" hidden>
         <div id="screen" class="screen">
             <div class="statusbar"><span id="clock">12:00</span><span class="brand">HIGHCREST</span></div>
+            <button id="callStrip" class="call-strip" hidden>On a call. Tap to return.</button>
 
             <section id="home" class="view">
                 <div class="home-clock" id="homeClock">12:00</div>
                 <div class="apps">
+                    <button class="app" data-open="phone">
+                        <span class="app-icon"><svg viewBox="0 0 24 24"><path d="M6.5 3.5h3l1.5 4.5-2 1.5a12 12 0 0 0 5.5 5.5l1.5-2 4.5 1.5v3a2 2 0 0 1-2 2A15.5 15.5 0 0 1 4.500 5.500a2 2 0 0 1 2-2z"/></svg></span>
+                        Phone
+                    </button>
+                    <button class="app" data-open="messages">
+                        <span class="app-icon"><svg viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-5 4v-4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg><b id="messagesBadge" class="badge app-badge" hidden>0</b></span>
+                        Messages
+                    </button>
+                    <button class="app" data-open="contacts">
+                        <span class="app-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span>
+                        Contacts
+                    </button>
                     <button class="app" data-open="camera">
                         <span class="app-icon"><svg viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
                         Camera
@@ -58,6 +71,68 @@
                 <p class="muted">To use your own photo, open it in the Gallery.</p>
             </section>
 
+            <section id="dialer" class="view page" hidden>
+                <h2>Phone</h2>
+                <input id="dialNumber" class="field dial-number" inputmode="numeric" maxlength="15" placeholder="Enter a number">
+                <p id="dialError" class="error"></p>
+                <div class="keypad">
+                    <button data-digit="1">1</button><button data-digit="2">2</button><button data-digit="3">3</button>
+                    <button data-digit="4">4</button><button data-digit="5">5</button><button data-digit="6">6</button>
+                    <button data-digit="7">7</button><button data-digit="8">8</button><button data-digit="9">9</button>
+                    <button id="dialClear" aria-label="Delete">&#9003;</button><button data-digit="0">0</button><button id="dialCall" class="key-call">Call</button>
+                </div>
+            </section>
+
+            <section id="call" class="view page call-view" hidden>
+                <p id="callState" class="muted"></p>
+                <h2 id="callName"></h2>
+                <div class="call-actions">
+                    <button id="callAnswer" class="button accent">Answer</button>
+                    <button id="callHangUp" class="button danger">Hang up</button>
+                </div>
+            </section>
+
+            <section id="contacts" class="view page" hidden>
+                <h2>Contacts</h2>
+                <button id="contactAdd" class="button accent">Add contact</button>
+                <div id="contactList" class="rows"></div>
+                <p id="contactsEmpty" class="empty" hidden>No contacts yet.</p>
+            </section>
+
+            <section id="contact" class="view page" hidden>
+                <h2>Contact</h2>
+                <label class="field-label">Name <input id="contactName" class="field" maxlength="40"></label>
+                <label class="field-label">Number <input id="contactNumber" class="field" maxlength="15"></label>
+                <p id="contactError" class="error"></p>
+                <button id="contactSave" class="button accent">Save</button>
+                <div id="contactActions">
+                    <button id="contactCall" class="button">Call</button>
+                    <button id="contactMessage" class="button">Message</button>
+                    <button id="contactDelete" class="button">Delete</button>
+                </div>
+            </section>
+
+            <section id="messages" class="view page" hidden>
+                <h2>Messages</h2>
+                <div class="compose">
+                    <input id="newMessageNumber" class="field" maxlength="15" placeholder="Number">
+                    <button id="newMessageGo" class="button accent">New</button>
+                </div>
+                <p id="newMessageError" class="error"></p>
+                <div id="conversationList" class="rows"></div>
+                <p id="messagesEmpty" class="empty" hidden>No messages yet.</p>
+            </section>
+
+            <section id="conversation" class="view page conversation" hidden>
+                <h2 id="conversationName"></h2>
+                <div id="bubbles" class="bubbles"></div>
+                <p id="messageError" class="error"></p>
+                <div class="compose">
+                    <input id="messageInput" class="field" maxlength="500" placeholder="Message">
+                    <button id="messageSend" class="button accent">Send</button>
+                </div>
+            </section>
+
             <button id="homeBar" class="home-bar" aria-label="Home"></button>
         </div>
     </div>
@@ -69,5 +144,6 @@
     <div id="flash" class="flash"></div>
 
     <script src="app.js"></script>
+    <script src="comms.js"></script>
 </body>
 </html>

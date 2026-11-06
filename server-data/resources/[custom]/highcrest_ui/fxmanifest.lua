@@ -13,4 +13,5 @@ ui_page 'html/index.html'
 files {
     'html/index.html',
     'html/assets/icon.png',
+    'html/assets/fonts/*.woff2',
 }
