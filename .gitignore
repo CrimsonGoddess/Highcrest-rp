@@ -1,0 +1,14 @@
+# Secrets
+server-data/secrets.cfg
+database/client.cnf
+
+# Binaries, fetched by the setup steps in README.md
+artifacts/
+database/mariadb/
+
+# Runtime data
+database/data/
+database/my.ini
+server-data/cache/
+server-data/tmp/
+*.log
