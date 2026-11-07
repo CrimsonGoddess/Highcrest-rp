@@ -65,6 +65,7 @@ These are lost if you redownload a script, so reapply them afterwards:
 - `qbx_ambulancejob\server\main.lua`: waits for `ox_inventory` before registering the EMS armory. Without this it fails at startup.
 
 - `ox_lib` and `ox_inventory` compiled interfaces: Highcrest colors. Reapply with `tools\apply-branding.ps1`.
+- `qbx_core\config\shared.lua`: notifications moved to the top left, because the HUD is top right.
 
 ## Letting people join from outside your network
 

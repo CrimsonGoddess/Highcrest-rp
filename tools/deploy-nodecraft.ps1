@@ -60,7 +60,7 @@ foreach ($resource in $Resources) {
     $local = Join-Path $localBase $resource
     if (-not (Test-Path -LiteralPath $local)) { throw "No such resource: $resource" }
     $mode = if ($Preview) { '-preview' } else { '' }
-    [void]$lines.Add(('synchronize remote {0} -criteria=size "{1}" "{2}/{3}"' -f $mode, $local, $remoteBase, $resource))
+    [void]$lines.Add(('synchronize remote {0} -criteria=either "{1}" "{2}/{3}"' -f $mode, $local, $remoteBase, $resource))
 }
 foreach ($file in $Files) {
     if ($file -match '(^|[\\/])secrets\.cfg$') { throw 'secrets.cfg is never deployed by this script.' }
