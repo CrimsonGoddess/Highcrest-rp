@@ -505,12 +505,12 @@ kbd {
 }
 
 /* Camera: the phone is the viewfinder, and everything around it is dimmed. */
-/* To move the viewfinder sideways, change left. 50% is the centre of the screen. */
+/* The camera aims at the centre of the screen, so the viewfinder stays centred to frame it. */
 .phone.camera {
     top: 50%;
     right: auto;
     bottom: auto;
-    left: 36%;
+    left: 50%;
     padding: 0;
     border: 1.1vh solid var(--case);
     background: transparent;
