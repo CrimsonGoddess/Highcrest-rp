@@ -1027,3 +1027,7 @@ select.field option {
     line-height: 1.35;
     user-select: text;
 }
+
+.camera-pose {
+    color: var(--gold);
+}

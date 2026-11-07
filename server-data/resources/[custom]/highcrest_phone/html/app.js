@@ -342,10 +342,15 @@ window.addEventListener('message', ({ data }) => {
         case 'cameraClosed':
             $('phone').classList.remove('camera', 'landscape');
             $('cameraBar').hidden = true;
+            $('cameraPoseKeys').hidden = true;
             show('home');
             break;
         case 'cameraRotate':
             rotateCamera();
+            break;
+        case 'cameraPose':
+            $('cameraPoseKeys').hidden = !data.label;
+            $('cameraPoseName').textContent = data.label || '';
             break;
     }
 });

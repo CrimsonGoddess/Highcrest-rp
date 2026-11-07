@@ -29,12 +29,23 @@ local PHONE_ANIM_DICT = 'cellphone@'
 local PHONE_ANIM = 'cellphone_text_read_base'
 local HAND_BONE = 28422
 
--- GTA Online's own selfie gesture, which holds the phone out in the left hand.
-local SELFIE_ANIM_DICT = 'anim@mp_player_intuppertake_selfie'
-local SELFIE_ANIM = 'idle_a'
+local CONTROL_POSE_PREVIOUS = 174 -- left arrow
+local CONTROL_POSE_NEXT = 175 -- right arrow
 local SELFIE_MODEL = `prop_phone_ing`
-local SELFIE_HAND_BONE = 60309
 local SELFIE_LOOK_INTERVAL_MS = 500
+local RIGHT_HAND_BONE = 28422
+local LEFT_HAND_BONE = 60309
+
+-- These clips are gestures, so each one is frozen partway through to hold it as a pose.
+-- hold is how far through the clip to freeze: 0.5 is halfway. Change it if a pose looks off.
+local SELFIE_POSES = {
+    { label = 'Peace', dict = 'cellphone@self@franklin@', anim = 'peace', bone = RIGHT_HAND_BONE, hold = 0.5 },
+    { label = 'West Coast', dict = 'cellphone@self@franklin@', anim = 'west_coast', bone = RIGHT_HAND_BONE, hold = 0.5 },
+    { label = 'Chest Bump', dict = 'cellphone@self@franklin@', anim = 'chest_bump', bone = RIGHT_HAND_BONE, hold = 0.5 },
+    { label = 'Thumbs Up', dict = 'anim@mp_player_intselfiethumbs_up', anim = 'idle_a', bone = LEFT_HAND_BONE, hold = 0.5 },
+    { label = 'OK', dict = 'anim@mp_player_intselfiedock', anim = 'idle_a', bone = LEFT_HAND_BONE, hold = 0.5 },
+    { label = 'Middle Finger', dict = 'cellphone@self@trevor@', anim = 'proud_finger', bone = RIGHT_HAND_BONE, hold = 0.5 },
+}
 
 local isOpen = false
 local inCamera = false
@@ -42,6 +53,8 @@ local phoneProp
 local cameraHandle
 local cameraCrop
 local inSelfiePose = false
+local selfiePoseIndex = 1
+local activePose
 
 local function sendClock()
     SendNUIMessage({ action = 'clock', hours = GetClockHours(), minutes = GetClockMinutes() })
@@ -56,8 +69,9 @@ local function stopHolding()
     if IsEntityPlayingAnim(ped, PHONE_ANIM_DICT, PHONE_ANIM, 3) then
         StopAnimTask(ped, PHONE_ANIM_DICT, PHONE_ANIM, 2.0)
     end
-    if IsEntityPlayingAnim(ped, SELFIE_ANIM_DICT, SELFIE_ANIM, 3) then
-        StopAnimTask(ped, SELFIE_ANIM_DICT, SELFIE_ANIM, 2.0)
+    if activePose then
+        StopAnimTask(ped, activePose.dict, activePose.anim, 2.0)
+        activePose = nil
     end
     if inSelfiePose then
         TaskClearLookAt(ped)
@@ -85,18 +99,35 @@ end
 local function startSelfiePose()
     stopHolding()
     local ped = PlayerPedId()
-    lib.requestAnimDict(SELFIE_ANIM_DICT)
+    local pose = SELFIE_POSES[selfiePoseIndex]
+    lib.requestAnimDict(pose.dict)
     lib.requestModel(SELFIE_MODEL)
 
     -- Flag 49: loop and upper body only.
-    TaskPlayAnim(ped, SELFIE_ANIM_DICT, SELFIE_ANIM, 3.0, 3.0, -1, 49, 0, false, false, false)
+    TaskPlayAnim(ped, pose.dict, pose.anim, 4.0, 4.0, -1, 49, 0, false, false, false)
+    activePose = pose
+
+    -- Wait for the clip to start before freezing it.
+    local timeout = GetGameTimer() + 1000
+    while not IsEntityPlayingAnim(ped, pose.dict, pose.anim, 3) and GetGameTimer() < timeout do
+        Wait(0)
+    end
+    SetEntityAnimCurrentTime(ped, pose.dict, pose.anim, pose.hold)
+    SetEntityAnimSpeed(ped, pose.dict, pose.anim, 0.0)
 
     local coords = GetEntityCoords(ped)
     phoneProp = CreateObject(SELFIE_MODEL, coords.x, coords.y, coords.z, true, true, false)
-    AttachEntityToEntity(phoneProp, ped, GetPedBoneIndex(ped, SELFIE_HAND_BONE),
+    AttachEntityToEntity(phoneProp, ped, GetPedBoneIndex(ped, pose.bone),
         0.0, 0.0, 0.0, 0.0, 0.0, 0.0, true, true, false, true, 1, true)
     SetModelAsNoLongerNeeded(SELFIE_MODEL)
     inSelfiePose = true
+
+    SendNUIMessage({ action = 'cameraPose', label = pose.label })
+end
+
+local function changeSelfiePose(step)
+    selfiePoseIndex = (selfiePoseIndex - 1 + step) % #SELFIE_POSES + 1
+    startSelfiePose()
 end
 
 local function openPhone()
@@ -217,7 +248,12 @@ local function runCamera()
                 else
                     stopHolding()
                     startHolding()
+                    SendNUIMessage({ action = 'cameraPose' })
                 end
+            elseif selfie and IsDisabledControlJustPressed(0, CONTROL_POSE_NEXT) then
+                changeSelfiePose(1)
+            elseif selfie and IsDisabledControlJustPressed(0, CONTROL_POSE_PREVIOUS) then
+                changeSelfiePose(-1)
             elseif IsDisabledControlJustPressed(0, CONTROL_ORIENTATION) then
                 SendNUIMessage({ action = 'cameraRotate' })
             elseif IsDisabledControlJustPressed(0, CONTROL_BACKSPACE) then
