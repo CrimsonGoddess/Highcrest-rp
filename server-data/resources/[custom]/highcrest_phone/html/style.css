@@ -852,9 +852,37 @@ textarea.field {
     overflow: hidden;
 }
 
-#snakeBoard {
+.snake-board {
+    display: grid;
+    aspect-ratio: 4 / 5;
+    background: #0b0b0d;
+}
+
+.snake-board i {
     display: block;
-    width: 100%;
+    border-radius: 12%;
+}
+
+.snake-board .body {
+    margin: 4%;
+    background: var(--accent-text);
+}
+
+.snake-board .head {
+    background: var(--accent-text);
+    box-shadow: 0 0 0 1px var(--white) inset;
+}
+
+.snake-board .food {
+    margin: 14%;
+    border-radius: 50%;
+    background: var(--gold);
+}
+
+/* A blurred backdrop can stop the page repainting in-game, so Snake doesn't use one. */
+.snake-page {
+    background: rgba(11, 11, 13, 0.94);
+    backdrop-filter: none;
 }
 
 .snake-overlay {

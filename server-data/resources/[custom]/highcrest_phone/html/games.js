@@ -32,7 +32,7 @@ function showSnakeDebug() {
     const line = $('snakeDebug');
     if (!line) return;
     const d = snakeDebug;
-    line.textContent = `v0.6.2 tick ${d.ticks} pause ${d.paused} | page keys ${d.pageKeys} (${d.lastKey}) | game keys ${d.gameKeys} | client ${d.beats} ack ${d.ack} | turns ${d.turns} | dir ${snake ? snake.direction : '-'} q${snake ? snake.queue.length : 0} run ${snake ? snake.running : '-'}`;
+    line.textContent = `v0.6.3 tick ${d.ticks} pause ${d.paused} | page keys ${d.pageKeys} (${d.lastKey}) | game keys ${d.gameKeys} | client ${d.beats} ack ${d.ack} | turns ${d.turns} | dir ${snake ? snake.direction : '-'} q${snake ? snake.queue.length : 0} run ${snake ? snake.running : '-'}`;
 }
 
 window.addEventListener('keydown', (event) => {
@@ -74,27 +74,27 @@ function updateSnakeScore() {
     $('snakeBest').textContent = snakeBest;
 }
 
-function drawSnake() {
-    const canvas = $('snakeBoard');
-    const context = canvas.getContext('2d');
-    const cell = canvas.width / SNAKE_COLUMNS;
-    const styles = getComputedStyle(document.documentElement);
+// The board is built from page elements rather than a canvas, so it always repaints in-game.
+const snakeCells = [];
 
-    context.fillStyle = '#0b0b0d';
-    context.fillRect(0, 0, canvas.width, canvas.height);
+function buildSnakeBoard() {
+    const board = $('snakeBoard');
+    board.style.gridTemplateColumns = `repeat(${SNAKE_COLUMNS}, 1fr)`;
+    for (let index = 0; index < SNAKE_COLUMNS * SNAKE_ROWS; index++) {
+        const cell = document.createElement('i');
+        board.append(cell);
+        snakeCells.push(cell);
+    }
+}
+
+function drawSnake() {
+    snakeCells.forEach((cell) => { cell.className = ''; });
     if (!snake) return;
 
-    if (snake.food) {
-        context.fillStyle = '#d4af37';
-        context.beginPath();
-        context.arc((snake.food.x + 0.5) * cell, (snake.food.y + 0.5) * cell, cell * 0.38, 0, Math.PI * 2);
-        context.fill();
-    }
-
-    context.fillStyle = styles.getPropertyValue('--accent').trim() || '#c8102e';
+    const at = (spot) => snakeCells[spot.y * SNAKE_COLUMNS + spot.x];
+    if (snake.food) at(snake.food).className = 'food';
     snake.body.forEach((part, index) => {
-        const inset = index === 0 ? 0.5 : 1.5;
-        context.fillRect(part.x * cell + inset, part.y * cell + inset, cell - inset * 2, cell - inset * 2);
+        at(part).className = index === 0 ? 'head' : 'body';
     });
 }
 
@@ -198,6 +198,7 @@ function showSnake() {
     setSnakeInputActive(true);
 }
 
+buildSnakeBoard();
 openers.snake = showSnake;
 
 // Leaving the Snake screen gives the controls back.
