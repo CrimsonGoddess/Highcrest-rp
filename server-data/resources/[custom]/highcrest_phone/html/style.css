@@ -888,6 +888,18 @@ textarea.field {
     background: rgba(255, 255, 255, 0.12);
 }
 
-.snake-pad button:first-child {
-    grid-column: 2;
+.snake-pad [data-snake-turn="up"] {
+    grid-area: 1 / 2;
+}
+
+.snake-pad [data-snake-turn="left"] {
+    grid-area: 2 / 1;
+}
+
+.snake-pad [data-snake-turn="down"] {
+    grid-area: 2 / 2;
+}
+
+.snake-pad [data-snake-turn="right"] {
+    grid-area: 2 / 3;
 }
