@@ -29,11 +29,19 @@ local PHONE_ANIM_DICT = 'cellphone@'
 local PHONE_ANIM = 'cellphone_text_read_base'
 local HAND_BONE = 28422
 
+-- GTA Online's own selfie gesture, which holds the phone out in the left hand.
+local SELFIE_ANIM_DICT = 'anim@mp_player_intuppertake_selfie'
+local SELFIE_ANIM = 'idle_a'
+local SELFIE_MODEL = `prop_phone_ing`
+local SELFIE_HAND_BONE = 60309
+local SELFIE_LOOK_INTERVAL_MS = 500
+
 local isOpen = false
 local inCamera = false
 local phoneProp
 local cameraHandle
 local cameraCrop
+local inSelfiePose = false
 
 local function sendClock()
     SendNUIMessage({ action = 'clock', hours = GetClockHours(), minutes = GetClockMinutes() })
@@ -47,6 +55,13 @@ local function stopHolding()
     local ped = PlayerPedId()
     if IsEntityPlayingAnim(ped, PHONE_ANIM_DICT, PHONE_ANIM, 3) then
         StopAnimTask(ped, PHONE_ANIM_DICT, PHONE_ANIM, 2.0)
+    end
+    if IsEntityPlayingAnim(ped, SELFIE_ANIM_DICT, SELFIE_ANIM, 3) then
+        StopAnimTask(ped, SELFIE_ANIM_DICT, SELFIE_ANIM, 2.0)
+    end
+    if inSelfiePose then
+        TaskClearLookAt(ped)
+        inSelfiePose = false
     end
 end
 
@@ -65,6 +80,23 @@ local function startHolding()
             0.0, 0.0, 0.0, 0.0, 0.0, 0.0, true, true, false, true, 1, true)
     end
     SetModelAsNoLongerNeeded(PHONE_MODEL)
+end
+
+local function startSelfiePose()
+    stopHolding()
+    local ped = PlayerPedId()
+    lib.requestAnimDict(SELFIE_ANIM_DICT)
+    lib.requestModel(SELFIE_MODEL)
+
+    -- Flag 49: loop and upper body only.
+    TaskPlayAnim(ped, SELFIE_ANIM_DICT, SELFIE_ANIM, 3.0, 3.0, -1, 49, 0, false, false, false)
+
+    local coords = GetEntityCoords(ped)
+    phoneProp = CreateObject(SELFIE_MODEL, coords.x, coords.y, coords.z, true, true, false)
+    AttachEntityToEntity(phoneProp, ped, GetPedBoneIndex(ped, SELFIE_HAND_BONE),
+        0.0, 0.0, 0.0, 0.0, 0.0, 0.0, true, true, false, true, 1, true)
+    SetModelAsNoLongerNeeded(SELFIE_MODEL)
+    inSelfiePose = true
 end
 
 local function openPhone()
@@ -104,6 +136,10 @@ local function leaveCamera()
         cameraHandle = nil
     end
     TriggerEvent('highcrest_ui:setHidden', false)
+    if inSelfiePose then
+        stopHolding()
+        startHolding()
+    end
     isOpen = true
     SendNUIMessage({ action = 'cameraClosed' })
     SetNuiFocus(true, true)
@@ -128,6 +164,7 @@ local function runCamera()
         local fov = CAMERA_DEFAULT_FOV
         local yaw = GetEntityHeading(ped)
         local pitch = 0.0
+        local nextLook = 0
 
         while inCamera do
             Wait(0)
@@ -153,9 +190,14 @@ local function runCamera()
             local radians = math.rad(yaw)
             local forwardX, forwardY = -math.sin(radians), math.cos(radians)
             local distance = selfie and SELFIE_DISTANCE or CAMERA_FORWARD_DISTANCE
-            SetCamCoord(cameraHandle, head.x + forwardX * distance, head.y + forwardY * distance, head.z + 0.03)
+            local camX, camY, camZ = head.x + forwardX * distance, head.y + forwardY * distance, head.z + 0.03
+            SetCamCoord(cameraHandle, camX, camY, camZ)
             if selfie then
                 SetCamRot(cameraHandle, pitch, 0.0, yaw + 180.0, 2)
+                if GetGameTimer() >= nextLook then
+                    nextLook = GetGameTimer() + SELFIE_LOOK_INTERVAL_MS
+                    TaskLookAtCoord(ped, camX, camY, camZ, SELFIE_LOOK_INTERVAL_MS + 200, 2048, 3)
+                end
             else
                 SetCamRot(cameraHandle, pitch, 0.0, yaw, 2)
             end
@@ -170,6 +212,12 @@ local function runCamera()
                 end)
             elseif IsDisabledControlJustPressed(0, CONTROL_SELFIE) then
                 selfie = not selfie
+                if selfie then
+                    startSelfiePose()
+                else
+                    stopHolding()
+                    startHolding()
+                end
             elseif IsDisabledControlJustPressed(0, CONTROL_ORIENTATION) then
                 SendNUIMessage({ action = 'cameraRotate' })
             elseif IsDisabledControlJustPressed(0, CONTROL_BACKSPACE) then
