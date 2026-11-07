@@ -16,6 +16,7 @@
     --on-accent: #f5f5f5;
     --phone-scale: 0.76;
     --accent-text: #c8102e;
+    --snake-color: #c8102e;
     --wallpaper: #0b0b0d;
     --gold: #d4af37;
     --white: #f5f5f5;
@@ -865,12 +866,12 @@ textarea.field {
 
 .snake-board .body {
     margin: 4%;
-    background: var(--accent-text);
+    background: var(--snake-color);
 }
 
 .snake-board .head {
-    background: var(--accent-text);
-    box-shadow: 0 0 0 1px var(--white) inset;
+    background: var(--snake-color);
+    box-shadow: 0 0 0 2px var(--gold) inset;
 }
 
 .snake-board .food {
@@ -988,14 +989,4 @@ select.field option {
     color: inherit;
     font-weight: 700;
     text-decoration: underline;
-}
-
-/* TEMPORARY: Snake diagnostics */
-.snake-debug {
-    margin-block-start: 0.4vh;
-    color: #7dffb0;
-    font-family: Consolas, 'Courier New', monospace;
-    font-size: 1.15vh;
-    line-height: 1.2;
-    overflow-wrap: anywhere;
 }

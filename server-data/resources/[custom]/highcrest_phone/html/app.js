@@ -127,6 +127,7 @@ function applyAppearance() {
     root.setProperty('--accent', accentColor);
     root.setProperty('--on-accent', contrastColor(accentColor));
     root.setProperty('--accent-text', isDarkColor(accentColor) ? '#d4af37' : accentColor);
+    root.setProperty('--snake-color', isDarkColor(accentColor) ? '#f5f5f5' : accentColor);
 
     const [kind, value] = wallpaper.split(':');
     if (kind === 'photo') {

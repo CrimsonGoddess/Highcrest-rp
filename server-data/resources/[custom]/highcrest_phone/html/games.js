@@ -25,21 +25,6 @@ const SNAKE_KEYS = {
 let snake = null;
 let snakeTimer = null;
 
-// TEMPORARY: shows where Snake's input stops. Remove once steering is fixed.
-const snakeDebug = { ticks: 0, paused: 0, pageKeys: 0, lastKey: '-', gameKeys: 0, turns: 0, beats: 0, ack: '-' };
-
-function showSnakeDebug() {
-    const line = $('snakeDebug');
-    if (!line) return;
-    const d = snakeDebug;
-    line.textContent = `v0.6.3 tick ${d.ticks} pause ${d.paused} | page keys ${d.pageKeys} (${d.lastKey}) | game keys ${d.gameKeys} | client ${d.beats} ack ${d.ack} | turns ${d.turns} | dir ${snake ? snake.direction : '-'} q${snake ? snake.queue.length : 0} run ${snake ? snake.running : '-'}`;
-}
-
-window.addEventListener('keydown', (event) => {
-    snakeDebug.pageKeys += 1;
-    snakeDebug.lastKey = event.key;
-    showSnakeDebug();
-}, true);
 
 function readSnakeBest() {
     try {
@@ -120,12 +105,9 @@ function finishSnake(won) {
 function stepSnake() {
     // Pause while the phone is closed or another screen is showing.
     if ($('phone').hidden || currentView() !== 'snake') {
-        snakeDebug.paused += 1;
         snakeTimer = setTimeout(stepSnake, 300);
         return;
     }
-    snakeDebug.ticks += 1;
-    showSnakeDebug();
 
     if (snake.queue.length) snake.direction = snake.queue.shift();
     const move = SNAKE_DIRECTIONS[snake.direction];
@@ -171,8 +153,6 @@ function startSnake() {
 
 // Queued so two quick presses both count, and a reverse into the snake's own neck is ignored.
 function turnSnake(direction) {
-    snakeDebug.turns += 1;
-    showSnakeDebug();
     if (!snake || !snake.running || snake.queue.length >= 2) return;
     const last = snake.queue.length ? snake.queue[snake.queue.length - 1] : snake.direction;
     const from = SNAKE_DIRECTIONS[last];
@@ -181,43 +161,14 @@ function turnSnake(direction) {
     if (last !== direction) snake.queue.push(direction);
 }
 
-let snakeInputActive = false;
-
-function setSnakeInputActive(active) {
-    if (active === snakeInputActive) return;
-    snakeInputActive = active;
-    post('snakeInput', { active }).then((reply) => {
-        snakeDebug.ack = String(reply);
-        showSnakeDebug();
-    });
-}
-
 function showSnake() {
     show('snake');
     updateSnakeScore();
     drawSnake();
-    setSnakeInputActive(true);
 }
 
 buildSnakeBoard();
 openers.snake = showSnake;
-
-// Leaving the Snake screen gives the controls back.
-onViewChange.push(() => {
-    if (currentView() !== 'snake') setSnakeInputActive(false);
-});
-
-window.addEventListener('message', ({ data }) => {
-    if (data.action === 'snakeTurn') {
-        snakeDebug.gameKeys += 1;
-        turnSnake(data.direction);
-    }
-    if (data.action === 'snakeBeat') {
-        snakeDebug.beats += 1;
-        showSnakeDebug();
-    }
-    if (data.action === 'open') snakeInputActive = false;
-});
 
 $('snakeStart').addEventListener('click', () => {
     $('snakeStart').blur();
