@@ -12,13 +12,15 @@ local CONTROL_ZOOM_OUT = 44 -- Q
 -- Field of view: a smaller number is more zoomed in.
 local CAMERA_DEFAULT_FOV = 50.0
 local CAMERA_MIN_FOV = 12.0
-local CAMERA_MAX_FOV = 75.0
+local CAMERA_MAX_FOV = 90.0
 local CAMERA_ZOOM_STEP = 4.0
 local CAMERA_ZOOM_HOLD_STEP = 0.5
 local CAMERA_LOOK_SPEED = 6.0
 local CAMERA_MAX_PITCH = 70.0
 local CAMERA_FORWARD_DISTANCE = 0.35
 local SELFIE_DISTANCE = 0.75
+-- Zooming out in selfie mode also backs the camera away, so hands fit without distorting faces.
+local SELFIE_DISTANCE_PER_FOV = 0.03
 local HEAD_BONE = 31086
 
 -- Pause menu, chat and push to talk still work while using the camera.
@@ -220,7 +222,7 @@ local function runCamera()
             local head = GetPedBoneCoords(ped, HEAD_BONE, 0.0, 0.0, 0.0)
             local radians = math.rad(yaw)
             local forwardX, forwardY = -math.sin(radians), math.cos(radians)
-            local distance = selfie and SELFIE_DISTANCE or CAMERA_FORWARD_DISTANCE
+            local distance = selfie and (SELFIE_DISTANCE + math.max(0.0, fov - CAMERA_DEFAULT_FOV) * SELFIE_DISTANCE_PER_FOV) or CAMERA_FORWARD_DISTANCE
             local camX, camY, camZ = head.x + forwardX * distance, head.y + forwardY * distance, head.z + 0.03
             SetCamCoord(cameraHandle, camX, camY, camZ)
             if selfie then
