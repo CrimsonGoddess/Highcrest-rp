@@ -4,7 +4,7 @@ lua54 'yes'
 
 name 'highcrest_phone'
 description 'Highcrest RP phone'
-version '0.6.4'
+version '0.6.5'
 
 dependencies {
     'ox_lib',

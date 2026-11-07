@@ -24,7 +24,7 @@ local HEAD_BONE = 31086
 -- Pause menu, chat and push to talk still work while using the camera.
 local CAMERA_ALLOWED_CONTROLS = { 199, 200, 245, 249 }
 
-local PHONE_MODEL = `prop_npc_phone_01`
+local PHONE_MODEL = `prop_amb_phone`
 local PHONE_ANIM_DICT = 'cellphone@'
 local PHONE_ANIM = 'cellphone_text_read_base'
 local HAND_BONE = 28422
