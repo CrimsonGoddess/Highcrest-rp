@@ -215,3 +215,143 @@ $('emergencySend').addEventListener('click', async () => {
             : 'Sent, but no one is on duty right now.';
     });
 });
+
+/* Garage */
+
+function renderGarage(data) {
+    show('garage');
+    setError('garageError', '');
+    $('garageEmpty').hidden = data.vehicles.length > 0;
+    $('garageList').replaceChildren(...data.vehicles.map((vehicle) => {
+        const card = el('article', 'card');
+        const head = el('div', 'card-head');
+        head.append(el('strong', '', vehicle.brand ? `${vehicle.brand} ${vehicle.name}` : vehicle.name), el('span', `vehicle-state state-${vehicle.state}`, vehicle.stateLabel));
+
+        const place = vehicle.state === 2 && vehicle.depotPrice > 0
+            ? `Impound fee ${dollars(vehicle.depotPrice)}`
+            : vehicle.garage;
+        const stats = el('p', 'muted', `Plate ${vehicle.plate}${place ? ` | ${place}` : ''}`);
+        const health = el('p', 'muted', `Fuel ${vehicle.fuel}% | Engine ${vehicle.engine}% | Body ${vehicle.body}%`);
+        card.append(head, stats, health);
+
+        if (vehicle.state === 0) {
+            const actions = el('div', 'card-actions');
+            actions.append(button('Find on map', 'text-button', async () => {
+                const spot = await post_('garageLocate', vehicle.plate);
+                if (!spot || spot.error) {
+                    setError('garageError', (spot && spot.error) || 'Your vehicle could not be located.');
+                    return;
+                }
+                setError('garageError', '');
+                setWaypoint(spot);
+            }));
+            card.append(actions);
+        }
+        return card;
+    }));
+}
+
+openers.garage = async () => {
+    show('garage');
+    const data = await post_('garageGet');
+    if (data) renderGarage(data);
+};
+
+/* Mail */
+
+let mailOpen = null;
+
+function setMailBadge(count) {
+    $('mailBadge').textContent = count;
+    $('mailBadge').hidden = !(count > 0);
+}
+
+function renderMail(data) {
+    show('mail');
+    $('mailEmpty').hidden = data.mail.length > 0;
+    $('mailList').replaceChildren(...data.mail.map((mail) => {
+        const row = el('button', Number(mail.isRead) ? 'row' : 'row unread');
+        const sender = el('strong', '', mail.sender || 'Unknown');
+        row.append(sender, el('span', 'preview', mail.subject || '(No subject)'), el('span', 'muted preview', timeAgo(mail.sentAt)));
+        row.addEventListener('click', () => showMailMessage(mail));
+        return row;
+    }));
+    setMailBadge(data.mail.filter((mail) => !Number(mail.isRead)).length);
+}
+
+async function showMailMessage(mail) {
+    mailOpen = mail;
+    show('mailView');
+    setError('mailError', '');
+    $('mailSubject').textContent = mail.subject || '(No subject)';
+    $('mailMeta').textContent = `${mail.sender || 'Unknown'} | ${timeAgo(mail.sentAt)}`;
+    $('mailBody').textContent = mail.message || '';
+    $('mailActionButton').hidden = !mail.hasAction;
+
+    const remove = $('mailDeleteButton');
+    remove.textContent = 'Delete';
+    remove.classList.remove('danger');
+    remove.dataset.armed = '';
+
+    if (!Number(mail.isRead)) {
+        const result = await post_('mailRead', mail.id);
+        if (result) {
+            mail.isRead = 1;
+            setMailBadge(result.unread);
+        }
+    }
+}
+
+openers.mail = async () => {
+    show('mail');
+    const data = await post_('mailGet');
+    if (data) renderMail(data);
+};
+
+backTargets.mailView = () => openers.mail();
+
+$('mailActionButton').addEventListener('click', async () => {
+    const result = await post_('mailAction', mailOpen.id);
+    if (!result || result.error) {
+        setError('mailError', (result && result.error) || 'That action is no longer available.');
+        return;
+    }
+    setError('mailError', '');
+    mailOpen.hasAction = false;
+    $('mailActionButton').hidden = true;
+});
+
+$('mailDeleteButton').addEventListener('click', async () => {
+    const remove = $('mailDeleteButton');
+    if (!remove.dataset.armed) {
+        remove.dataset.armed = '1';
+        remove.textContent = 'Press again to delete';
+        remove.classList.add('danger');
+        return;
+    }
+    await post_('mailDelete', mailOpen.id);
+    openers.mail();
+});
+
+window.addEventListener('message', ({ data }) => {
+    if (data.action === 'open') setMailBadge(data.data.unreadMail || 0);
+    if (data.action === 'newMail') {
+        setMailBadge(Number($('mailBadge').textContent) + 1);
+        if (currentView() === 'mail' && !$('phone').hidden) openers.mail();
+    }
+});
+
+/* Browser preview only */
+if (PREVIEW === 'garage') {
+    renderGarage({ vehicles: [
+        { name: 'Adder', brand: 'Truffade', plate: 'CRIM 777', state: 1, stateLabel: 'In garage', garage: 'Legion Square', fuel: 88, engine: 100, body: 96, depotPrice: 0 },
+        { name: 'Sultan', brand: 'Karin', plate: 'HIGHCRST', state: 0, stateLabel: 'Out', fuel: 42, engine: 74, body: 61, depotPrice: 0 },
+        { name: 'Bati 801', brand: 'Pegassi', plate: 'NIGHT 01', state: 2, stateLabel: 'Impounded', fuel: 10, engine: 40, body: 22, depotPrice: 1500 },
+    ] });
+}
+if (PREVIEW === 'mail') {
+    renderMail({ mail: [
+        { id: 1, sender: 'Maze Bank', subject: 'Your statement is ready', message: 'Thanks for banking with us.', isRead: 0, sentAt: 1793000000, hasAction: false },
+        { id: 2, sender: 'Pawn Shop', subject: 'Your items are ready', message: 'Come collect them.', isRead: 1, sentAt: 1792990000, hasAction: false },
+    ] });
+}

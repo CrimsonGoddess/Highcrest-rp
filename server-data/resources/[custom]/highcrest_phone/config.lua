@@ -15,6 +15,12 @@ Config = {
         wallpaper = 'preset:crimson',
     },
 
+    -- Events a mail's action button may trigger. Anything else is ignored, because
+    -- the mail system lets clients send mail that names its own event.
+    mailButtonEvents = {
+        'qb-drugs:client:setLocation',
+    },
+
     -- Quick choices shown in Settings. Players can also pick any custom color.
     swatches = {
         '#0B0B0D', '#1C1C22', '#F5F5F5', '#C8102E', '#D4AF37',

@@ -121,6 +121,7 @@ lib.callback.register('highcrest_phone:server:getPhone', function(source)
         phoneNumber = player.PlayerData.charinfo.phone,
         contacts = ListContacts(citizenid),
         unreadMessages = CountUnreadMessages(player.PlayerData.charinfo.phone),
+        unreadMail = CountUnreadMail(citizenid),
         swatches = Config.swatches,
         wallpapers = Config.wallpapers,
         maxPhotos = Config.maxPhotosPerCharacter,

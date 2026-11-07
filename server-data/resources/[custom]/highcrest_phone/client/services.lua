@@ -17,11 +17,32 @@ for _, name in ipairs({
     'locationGet', 'locationShare', 'locationStop', 'locationHide', 'locationFind',
     'taxiGet', 'taxiRequest', 'taxiAccept', 'taxiEnd',
     'emergencyCall', 'emergencyGet',
+    'garageGet', 'garageLocate',
+    'mailGet', 'mailRead', 'mailDelete',
 }) do
     RegisterNUICallback(name, function(data, cb)
         cb(lib.callback.await('highcrest_phone:server:' .. name, false, data) or false)
     end)
 end
+
+local approvedMailEvents = {}
+for _, event in ipairs(Config.mailButtonEvents) do
+    approvedMailEvents[event] = true
+end
+
+RegisterNUICallback('mailAction', function(id, cb)
+    local result = lib.callback.await('highcrest_phone:server:mailAction', false, id)
+    if result and result.event and approvedMailEvents[result.event] then
+        TriggerEvent(result.event, result.data)
+    end
+    cb(result or false)
+end)
+
+-- Mail still arrives through npwd_qbx_mail, so the phone listens for the same event.
+RegisterNetEvent('npwd:qbx_mail:newMail', function(mail)
+    SendNUIMessage({ action = 'newMail' })
+    lib.notify({ title = 'New mail', description = mail.subject or mail.sender or '', position = NOTIFY_POSITION })
+end)
 
 RegisterNUICallback('setWaypoint', function(data, cb)
     local x, y = tonumber(data.x), tonumber(data.y)

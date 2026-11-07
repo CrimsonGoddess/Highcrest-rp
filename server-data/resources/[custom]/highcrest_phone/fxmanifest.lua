@@ -4,13 +4,14 @@ lua54 'yes'
 
 name 'highcrest_phone'
 description 'Highcrest RP phone'
-version '0.6.5'
+version '0.7.0'
 
 dependencies {
     'ox_lib',
     'oxmysql',
     'qbx_core',
     'ox_inventory',
+    'qbx_garages',
     'screencapture',
 }
 
@@ -36,6 +37,8 @@ server_scripts {
     'server/darkweb.lua',
     'server/location.lua',
     'server/services.lua',
+    'server/garage.lua',
+    'server/mail.lua',
 }
 
 ui_page 'html/index.html'

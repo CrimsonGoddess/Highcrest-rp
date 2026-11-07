@@ -990,3 +990,40 @@ select.field option {
     font-weight: 700;
     text-decoration: underline;
 }
+
+/* Garage and Mail */
+.vehicle-state {
+    padding: 0.2vh 0.8vh;
+    border-radius: 1vh;
+    background: rgba(255, 255, 255, 0.12);
+    font-size: 0.82em;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.vehicle-state.state-0 {
+    background: rgba(212, 175, 55, 0.25);
+    color: var(--gold);
+}
+
+.vehicle-state.state-2 {
+    background: rgba(200, 16, 46, 0.35);
+    color: #ff8a9b;
+}
+
+.row.unread strong::before {
+    content: '';
+    display: inline-block;
+    width: 0.8vh;
+    height: 0.8vh;
+    margin-inline-end: 0.6vh;
+    border-radius: 50%;
+    background: var(--gold);
+    vertical-align: middle;
+}
+
+.mail-body {
+    margin-block: 1.2vh;
+    line-height: 1.35;
+    user-select: text;
+}
