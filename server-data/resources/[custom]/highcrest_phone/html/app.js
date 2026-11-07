@@ -25,7 +25,7 @@ function post(name, body = {}) {
 
 const VIEWS = [
     'home', 'gallery', 'viewer', 'settings', 'dialer', 'call', 'contacts', 'contact', 'messages', 'conversation',
-    'cameraView', 'picker', 'pulse', 'pulseProfile', 'pulseEdit', 'pulseThread', 'market', 'marketForm', 'spark', 'sparkForm', 'darkweb',
+    'cameraView', 'picker', 'pulse', 'pulseProfile', 'pulseEdit', 'pulseThread', 'market', 'marketForm', 'spark', 'sparkForm', 'darkweb', 'snake',
 ];
 
 // Apps register themselves here so each one can live in its own file.

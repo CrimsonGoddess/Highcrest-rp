@@ -4,7 +4,7 @@ lua54 'yes'
 
 name 'highcrest_phone'
 description 'Highcrest RP phone'
-version '0.4.0'
+version '0.5.0'
 
 dependencies {
     'ox_lib',
@@ -40,6 +40,7 @@ files {
     'html/style.css',
     'html/app.js',
     'html/comms.js',
+    'html/games.js',
     'html/apps.js',
     'html/assets/fonts/*.woff2',
 }

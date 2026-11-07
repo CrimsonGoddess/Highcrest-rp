@@ -50,6 +50,10 @@
                         <span class="app-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.500"/><path d="M3.500 12h17M12 3.500c-5 5.500-5 11.500 0 17 5-5.500 5-11.500 0-17z"/></svg></span>
                         Darkweb
                     </button>
+                    <button class="app" data-open="snake">
+                        <span class="app-icon"><svg viewBox="0 0 24 24"><path d="M5 18h9a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h9"/><circle cx="19.500" cy="6" r="0.600"/></svg></span>
+                        Snake
+                    </button>
                     <button class="app" data-open="settings">
                         <span class="app-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1"/></svg></span>
                         Settings
@@ -207,6 +211,26 @@
                 <p id="darkwebEmpty" class="empty" hidden>The board is empty.</p>
             </section>
 
+            <section id="snake" class="view page snake-page" hidden>
+                <div class="snake-head">
+                    <h2>Snake</h2>
+                    <p class="muted">Score <b id="snakeScore">0</b> Â· Best <b id="snakeBest">0</b></p>
+                </div>
+                <div class="snake-frame">
+                    <canvas id="snakeBoard" width="320" height="400"></canvas>
+                    <div id="snakeOverlay" class="snake-overlay">
+                        <p id="snakeMessage">Use the arrow keys or WASD</p>
+                        <button id="snakeStart" class="button accent">Start</button>
+                    </div>
+                </div>
+                <div class="snake-pad">
+                    <button data-snake-turn="up" aria-label="Up">&#9650;</button>
+                    <button data-snake-turn="left" aria-label="Left">&#9664;</button>
+                    <button data-snake-turn="down" aria-label="Down">&#9660;</button>
+                    <button data-snake-turn="right" aria-label="Right">&#9654;</button>
+                </div>
+            </section>
+
             <section id="dialer" class="view page" hidden>
                 <h2>Phone</h2>
                 <input id="dialNumber" class="field dial-number" inputmode="numeric" maxlength="15" placeholder="Enter a number">
@@ -277,6 +301,7 @@
 
     <script src="app.js"></script>
     <script src="comms.js"></script>
+    <script src="games.js"></script>
     <script src="apps.js"></script>
 </body>
 </html>
