@@ -6,6 +6,12 @@ ReplaceHudColourWithRgba(HUD_COLOUR_FREEMODE, 200, 16, 46, 255)
 ReplaceHudColourWithRgba(HUD_COLOUR_FREEMODE_DARK, 92, 7, 20, 255)
 
 local lastStats
+local hiddenByApp = false
+
+-- Other resources can hide the badge, such as the phone camera.
+AddEventHandler('highcrest_ui:setHidden', function(hidden)
+    hiddenByApp = hidden == true
+end)
 
 local function jobTitle(job)
     if not job or job.name == 'unemployed' then return nil end
@@ -55,8 +61,8 @@ CreateThread(function()
     local visible = false
 
     while true do
-        Wait(500)
-        local shouldShow = LocalPlayer.state.isLoggedIn == true and not IsPauseMenuActive()
+        Wait(200)
+        local shouldShow = LocalPlayer.state.isLoggedIn == true and not IsPauseMenuActive() and not hiddenByApp
 
         if shouldShow ~= visible then
             visible = shouldShow

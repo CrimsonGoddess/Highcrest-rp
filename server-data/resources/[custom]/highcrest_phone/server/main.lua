@@ -11,6 +11,9 @@ local lastPhotoAt = {}
 local capturing = {}
 local sendingPhoto = {}
 
+-- Resolved once the photos table exists, because other app tables reference it.
+PhotoTableReady = promise.new()
+
 MySQL.ready(function()
     MySQL.query.await([[
         CREATE TABLE IF NOT EXISTS `highcrest_phone_settings` (
@@ -33,7 +36,41 @@ MySQL.ready(function()
             FOREIGN KEY (`citizenid`) REFERENCES `players` (`citizenid`) ON DELETE CASCADE
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     ]])
+    MySQL.query.await('ALTER TABLE `highcrest_phone_photos` ADD COLUMN IF NOT EXISTS `crop` VARCHAR(120) NULL')
+    PhotoTableReady:resolve(true)
 end)
+
+local rateTimes = {}
+
+-- Returns true if this player did `key` less than `ms` milliseconds ago.
+function IsRateLimited(src, key, ms)
+    local now = GetGameTimer()
+    rateTimes[src] = rateTimes[src] or {}
+    local last = rateTimes[src][key]
+    if last and now - last < ms then return true end
+    rateTimes[src][key] = now
+    return false
+end
+
+function TrimText(value)
+    if type(value) ~= 'string' then return '' end
+    return (value:gsub('^%s+', ''):gsub('%s+$', ''))
+end
+
+-- A photo id the player is allowed to attach, or nil.
+function CleanPhotoId(citizenid, value)
+    local id = tonumber(value)
+    if id and OwnsPhoto(citizenid, id) then return id end
+end
+
+-- The phone screen's position as fractions of the screen. Anything else means no crop.
+local function cleanCrop(crop)
+    if type(crop) ~= 'table' then return nil end
+    local x, y, w, h = tonumber(crop.x), tonumber(crop.y), tonumber(crop.w), tonumber(crop.h)
+    if not (x and y and w and h) then return nil end
+    if x < 0 or y < 0 or w < 0.05 or h < 0.05 or x + w > 1.001 or y + h > 1.001 then return nil end
+    return json.encode({ x = x, y = y, w = w, h = h })
+end
 
 -- Every request goes through this: the player must be in a character and carrying a phone.
 local function getOwner(src)
@@ -48,7 +85,7 @@ local function isColor(value)
     return type(value) == 'string' and value:match('^#%x%x%x%x%x%x$') ~= nil
 end
 
-local function ownsPhoto(citizenid, photoId)
+function OwnsPhoto(citizenid, photoId)
     return MySQL.scalar.await('SELECT 1 FROM highcrest_phone_photos WHERE id = ? AND citizenid = ?', { photoId, citizenid }) ~= nil
 end
 
@@ -57,7 +94,7 @@ local function isValidWallpaper(citizenid, value)
     local preset = value:match('^preset:([%w_]+)$')
     if preset then return presetIds[preset] == true end
     local photoId = tonumber(value:match('^photo:(%d+)$'))
-    return photoId ~= nil and ownsPhoto(citizenid, photoId)
+    return photoId ~= nil and OwnsPhoto(citizenid, photoId)
 end
 
 local function loadSettings(citizenid)
@@ -127,7 +164,7 @@ local function capture(src)
 end
 
 -- The server takes the picture itself, so the client never supplies image data.
-lib.callback.register('highcrest_phone:server:takePhoto', function(source)
+lib.callback.register('highcrest_phone:server:takePhoto', function(source, crop)
     local player = getOwner(source)
     if not player then return { error = 'You need a phone.' } end
     if capturing[source] then return { error = 'Hold on, still saving your last photo.' } end
@@ -152,7 +189,7 @@ lib.callback.register('highcrest_phone:server:takePhoto', function(source)
         return { error = 'The photo could not be saved.' }
     end
 
-    local id = MySQL.insert.await('INSERT INTO highcrest_phone_photos (citizenid, data) VALUES (?, ?)', { citizenid, data })
+    local id = MySQL.insert.await('INSERT INTO highcrest_phone_photos (citizenid, data, crop) VALUES (?, ?, ?)', { citizenid, data, cleanCrop(crop) })
     return { photo = { id = id, takenAt = os.time() } }
 end)
 
@@ -181,14 +218,24 @@ RegisterNetEvent('highcrest_phone:server:requestPhoto', function(photoId)
     local player = getOwner(src)
     if not player then return end
 
+    -- A player can see their own photos, plus any they or others chose to publish in an app.
     sendingPhoto[src] = true
-    local data = MySQL.scalar.await('SELECT data FROM highcrest_phone_photos WHERE id = ? AND citizenid = ?', { photoId, player.PlayerData.citizenid })
-    TriggerLatentClientEvent('highcrest_phone:client:photo', src, 1000000, photoId, data)
+    local row = MySQL.single.await([[
+        SELECT p.data, p.crop FROM highcrest_phone_photos p
+        WHERE p.id = ? AND (
+            p.citizenid = ?
+            OR EXISTS (SELECT 1 FROM highcrest_feed_posts f WHERE f.photo_id = p.id)
+            OR EXISTS (SELECT 1 FROM highcrest_market_listings m WHERE m.photo_id = p.id)
+            OR EXISTS (SELECT 1 FROM highcrest_dating_profiles d WHERE d.photo_id = p.id)
+        )
+    ]], { photoId, player.PlayerData.citizenid })
+    TriggerLatentClientEvent('highcrest_phone:client:photo', src, 1000000, photoId, row and row.data, row and row.crop)
     sendingPhoto[src] = nil
 end)
 
 AddEventHandler('playerDropped', function()
     local src = source
+    rateTimes[src] = nil
     lastPhotoAt[src] = nil
     capturing[src] = nil
     sendingPhoto[src] = nil

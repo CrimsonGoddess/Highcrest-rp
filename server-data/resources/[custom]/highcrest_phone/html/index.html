@@ -34,6 +34,22 @@
                         <span class="app-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1.5"/><circle cx="8.5" cy="10" r="1.6"/><path d="M4 17l5-4.5 3.5 3 3-2.5 4.5 4"/></svg></span>
                         Gallery
                     </button>
+                    <button class="app" data-open="pulse">
+                        <span class="app-icon"><svg viewBox="0 0 24 24"><path d="M3 12h4l2.500-6 4 12 2.500-6h5"/></svg></span>
+                        Pulse
+                    </button>
+                    <button class="app" data-open="market">
+                        <span class="app-icon"><svg viewBox="0 0 24 24"><path d="M4 9h16l-1 11H5L4 9z"/><path d="M8.500 9V7a3.500 3.500 0 0 1 7 0v2"/></svg></span>
+                        Market
+                    </button>
+                    <button class="app" data-open="spark">
+                        <span class="app-icon"><svg viewBox="0 0 24 24"><path d="M12 20s-7.500-4.600-7.500-10A4.200 4.200 0 0 1 12 7.500 4.200 4.200 0 0 1 19.500 10c0 5.400-7.500 10-7.500 10z"/></svg></span>
+                        Spark
+                    </button>
+                    <button class="app" data-open="darkweb">
+                        <span class="app-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.500"/><path d="M3.500 12h17M12 3.500c-5 5.500-5 11.500 0 17 5-5.500 5-11.500 0-17z"/></svg></span>
+                        Darkweb
+                    </button>
                     <button class="app" data-open="settings">
                         <span class="app-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1"/></svg></span>
                         Settings
@@ -69,6 +85,87 @@
                 <h3>Wallpaper</h3>
                 <div id="wallpapers" class="wallpapers"></div>
                 <p class="muted">To use your own photo, open it in the Gallery.</p>
+            </section>
+
+            <section id="cameraView" class="view camera-view" hidden>
+                <div class="camera-grid"></div>
+                <p id="cameraMessage" class="camera-message"></p>
+                <p class="camera-keys"><kbd>Enter</kbd> Photo <kbd>&#8593;</kbd> Selfie <kbd>Backspace</kbd> Exit</p>
+            </section>
+
+            <section id="picker" class="view page" hidden>
+                <h2>Choose a photo</h2>
+                <div id="pickerGrid" class="photo-grid"></div>
+                <p id="pickerEmpty" class="empty" hidden>Take a photo with the Camera first.</p>
+            </section>
+
+            <section id="pulse" class="view page" hidden>
+                <h2>Pulse</h2>
+                <div id="pulseSetup" hidden>
+                    <p class="muted">Set up your profile to start posting.</p>
+                    <label class="field-label">Handle <input id="pulseHandle" class="field" maxlength="20"></label>
+                    <label class="field-label">Display name <input id="pulseName" class="field" maxlength="40"></label>
+                    <p id="pulseSetupError" class="error"></p>
+                    <button id="pulseSaveProfile" class="button accent">Save profile</button>
+                </div>
+                <div id="pulseCompose" hidden>
+                    <textarea id="pulseBody" class="field" maxlength="280" rows="2" placeholder="What is happening in the city?"></textarea>
+                    <p id="pulseError" class="error"></p>
+                    <div class="compose">
+                        <button id="pulseAttach" class="button">Add photo</button>
+                        <button id="pulseSend" class="button accent">Post</button>
+                    </div>
+                </div>
+                <div id="pulsePosts" class="cards"></div>
+                <p id="pulseEmpty" class="empty" hidden>No posts yet.</p>
+            </section>
+
+            <section id="market" class="view page" hidden>
+                <h2>Marketplace</h2>
+                <button id="marketNew" class="button accent">New listing</button>
+                <div id="marketList" class="cards"></div>
+                <p id="marketEmpty" class="empty" hidden>Nothing for sale yet.</p>
+            </section>
+
+            <section id="marketForm" class="view page" hidden>
+                <h2>New listing</h2>
+                <label class="field-label">Title <input id="marketTitle" class="field" maxlength="60"></label>
+                <label class="field-label">Price <input id="marketPrice" class="field" type="number" min="0"></label>
+                <label class="field-label">Description <textarea id="marketDescription" class="field" maxlength="500" rows="3"></textarea></label>
+                <p id="marketError" class="error"></p>
+                <button id="marketAttach" class="button">Add photo</button>
+                <button id="marketSubmit" class="button accent">Post listing</button>
+            </section>
+
+            <section id="spark" class="view page" hidden>
+                <h2>Spark</h2>
+                <div id="sparkCandidate"></div>
+                <h3>Matches</h3>
+                <div id="sparkMatches" class="cards"></div>
+                <p id="sparkMatchesEmpty" class="empty" hidden>No matches yet.</p>
+                <button id="sparkEdit" class="button">Edit my profile</button>
+            </section>
+
+            <section id="sparkForm" class="view page" hidden>
+                <h2>Your Spark profile</h2>
+                <p class="muted">For adult characters, 18 and over. Your number is only shared when you both match.</p>
+                <label class="field-label">Name <input id="sparkName" class="field" maxlength="40"></label>
+                <label class="field-label">Age <input id="sparkAge" class="field" type="number" min="18" max="120"></label>
+                <label class="field-label">Bio <textarea id="sparkBio" class="field" maxlength="300" rows="3"></textarea></label>
+                <p id="sparkError" class="error"></p>
+                <button id="sparkAttach" class="button">Add photo</button>
+                <button id="sparkSave" class="button accent">Save</button>
+                <button id="sparkRemove" class="button" hidden>Delete my profile</button>
+            </section>
+
+            <section id="darkweb" class="view page dark-page" hidden>
+                <h2>Darkweb</h2>
+                <p id="darkwebAlias" class="muted"></p>
+                <textarea id="darkwebBody" class="field" maxlength="500" rows="2" placeholder="Post anonymously"></textarea>
+                <p id="darkwebError" class="error"></p>
+                <button id="darkwebSend" class="button accent">Post</button>
+                <div id="darkwebPosts" class="cards"></div>
+                <p id="darkwebEmpty" class="empty" hidden>The board is empty.</p>
             </section>
 
             <section id="dialer" class="view page" hidden>
@@ -134,16 +231,13 @@
             </section>
 
             <button id="homeBar" class="home-bar" aria-label="Home"></button>
+            <div id="flash" class="flash"></div>
         </div>
     </div>
 
-    <div id="cameraHud" class="camera-hud" hidden>
-        <p id="cameraMessage" class="camera-message"></p>
-        <p class="camera-keys"><kbd>Enter</kbd> Take photo <kbd>Backspace</kbd> Back to phone</p>
-    </div>
-    <div id="flash" class="flash"></div>
 
     <script src="app.js"></script>
     <script src="comms.js"></script>
+    <script src="apps.js"></script>
 </body>
 </html>

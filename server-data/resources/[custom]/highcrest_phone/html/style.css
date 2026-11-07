@@ -464,23 +464,6 @@ h3 {
     font-size: 0.72em;
 }
 
-.camera-hud {
-    position: fixed;
-    bottom: 6vh;
-    left: 50%;
-    padding: 1.2vh 2.4vh;
-    border: 0.1vh solid rgba(212, 175, 55, 0.5);
-    border-radius: 1vh;
-    background: rgba(11, 11, 13, 0.82);
-    text-align: center;
-    transform: translateX(-50%);
-}
-
-.camera-message {
-    min-height: 1.3em;
-    color: var(--gold);
-}
-
 kbd {
     padding: 0.1vh 0.7vh;
     margin-inline: 0.7vh 0.2vh;
@@ -492,7 +475,7 @@ kbd {
 }
 
 .flash {
-    position: fixed;
+    position: absolute;
     inset: 0;
     background: #fff;
     opacity: 0;
@@ -514,4 +497,138 @@ kbd {
     from {
         opacity: 0.8;
     }
+}
+
+/* Camera: the phone is the viewfinder, and everything around it is dimmed. */
+.phone.camera {
+    right: 50%;
+    transform: translateX(50%);
+    box-shadow: 0 0 0 200vmax rgba(0, 0, 0, 0.62), 0 2vh 5vh rgba(0, 0, 0, 0.75), inset 0 0 0 0.25vh rgba(255, 255, 255, 0.16);
+    animation: none;
+}
+
+.phone.camera .screen {
+    background: transparent;
+}
+
+.phone.camera .statusbar,
+.phone.camera .home-bar {
+    display: none;
+}
+
+.camera-view {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 0.6vh;
+    padding-block-end: 2vh;
+    text-align: center;
+    text-shadow: 0 1px 4px #000;
+}
+
+.camera-grid {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(to right, transparent 33.2%, rgba(255, 255, 255, 0.22) 33.2% 33.5%, transparent 33.5% 66.5%, rgba(255, 255, 255, 0.22) 66.5% 66.8%, transparent 66.8%),
+        linear-gradient(to bottom, transparent 33.2%, rgba(255, 255, 255, 0.22) 33.2% 33.5%, transparent 33.5% 66.5%, rgba(255, 255, 255, 0.22) 66.5% 66.8%, transparent 66.8%);
+}
+
+.camera-message,
+.camera-keys {
+    position: relative;
+}
+
+.camera-keys {
+    font-size: 0.85em;
+}
+
+/* App content */
+textarea.field {
+    display: block;
+    resize: none;
+}
+
+.cards {
+    margin-block-start: 1vh;
+}
+
+.card {
+    margin-block-end: 1vh;
+    padding: 1.1vh;
+    border-radius: 1.2vh;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.card-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.6vh;
+}
+
+.card-body {
+    margin-block: 0.5vh;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+.card-image {
+    display: block;
+    width: 100%;
+    max-height: 30vh;
+    margin-block: 0.6vh;
+    border-radius: 0.8vh;
+    background: #1c1c22;
+    object-fit: cover;
+}
+
+.card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1vh;
+    margin-block-start: 0.5vh;
+    font-size: 0.9em;
+}
+
+.text-button {
+    color: var(--gold);
+    font-weight: 700;
+}
+
+.price {
+    color: var(--gold);
+    font-weight: 700;
+}
+
+.spark-name {
+    margin-block: 0.6vh 0;
+    color: var(--white);
+    font-size: 2.2vh;
+    letter-spacing: 0;
+}
+
+.spark-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8vh;
+}
+
+.dark-page {
+    background: rgba(0, 0, 0, 0.92);
+    font-family: Consolas, 'Courier New', monospace;
+    font-size: 0.92em;
+}
+
+.dark-card {
+    border: 0.1vh solid rgba(200, 16, 46, 0.45);
+    background: rgba(200, 16, 46, 0.06);
+}
+
+.compose .button:first-child {
+    flex: 1;
 }

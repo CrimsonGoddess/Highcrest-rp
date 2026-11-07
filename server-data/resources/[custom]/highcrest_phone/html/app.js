@@ -23,7 +23,10 @@ function post(name, body = {}) {
 
 /* Navigation */
 
-const VIEWS = ['home', 'gallery', 'viewer', 'settings', 'dialer', 'call', 'contacts', 'contact', 'messages', 'conversation'];
+const VIEWS = [
+    'home', 'gallery', 'viewer', 'settings', 'dialer', 'call', 'contacts', 'contact', 'messages', 'conversation',
+    'cameraView', 'picker', 'pulse', 'market', 'marketForm', 'spark', 'sparkForm', 'darkweb',
+];
 
 // Apps register themselves here so each one can live in its own file.
 const openers = {};
@@ -70,6 +73,28 @@ function pumpPhotos() {
     photoInFlight = photoQueue.shift();
     post('getPhoto', { id: photoInFlight });
     photoTimer = setTimeout(() => finishPhoto(photoInFlight, null), PHOTO_TIMEOUT_MS);
+}
+
+// Photos are captured full screen, then cropped here to what the phone screen showed.
+function cropPhoto(src, crop) {
+    if (!src || !crop) return Promise.resolve(src);
+    const area = typeof crop === 'string' ? JSON.parse(crop) : crop;
+    return new Promise((resolve) => {
+        const image = new Image();
+        image.onerror = () => resolve(src);
+        image.onload = () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = Math.round(image.naturalWidth * area.w);
+            canvas.height = Math.round(image.naturalHeight * area.h);
+            canvas.getContext('2d').drawImage(
+                image,
+                image.naturalWidth * area.x, image.naturalHeight * area.y, canvas.width, canvas.height,
+                0, 0, canvas.width, canvas.height,
+            );
+            resolve(canvas.toDataURL('image/webp', 0.92));
+        };
+        image.src = src;
+    });
 }
 
 function finishPhoto(id, src) {
@@ -221,10 +246,22 @@ async function onDeletePressed() {
 /* Camera */
 
 function startCamera() {
-    $('phone').hidden = true;
+    $('phone').classList.add('camera');
+    show('cameraView');
     $('cameraMessage').textContent = '';
-    $('cameraHud').hidden = false;
-    post('startCamera');
+
+    // Wait for the phone to move into position, then send where its screen is.
+    setTimeout(() => {
+        const rect = $('screen').getBoundingClientRect();
+        post('startCamera', {
+            crop: {
+                x: rect.left / window.innerWidth,
+                y: rect.top / window.innerHeight,
+                w: rect.width / window.innerWidth,
+                h: rect.height / window.innerHeight,
+            },
+        });
+    }, 50);
 }
 
 function onCaptured(result) {
@@ -263,9 +300,11 @@ openers.camera = startCamera;
 openers.gallery = showGallery;
 openers.settings = () => show('settings');
 
-document.querySelectorAll('[data-open]').forEach((button) => {
-    button.addEventListener('click', () => openers[button.dataset.open]());
-});
+function wireAppButtons() {
+    document.querySelectorAll('[data-open]').forEach((appButton) => {
+        appButton.addEventListener('click', () => openers[appButton.dataset.open]());
+    });
+}
 
 $('homeBar').addEventListener('click', () => show('home'));
 $('deletePhoto').addEventListener('click', onDeletePressed);
@@ -284,12 +323,11 @@ window.addEventListener('message', ({ data }) => {
     switch (data.action) {
         case 'open': openPhone(data.data); break;
         case 'clock': setClock(data.hours, data.minutes); break;
-        case 'photo': finishPhoto(data.id, data.src); break;
+        case 'photo': cropPhoto(data.src, data.crop).then((src) => finishPhoto(data.id, src)); break;
         case 'captured': onCaptured(data.result); break;
         case 'cameraClosed':
-            $('cameraHud').hidden = true;
-            $('phone').hidden = false;
-            if (currentView() === 'gallery') showGallery();
+            $('phone').classList.remove('camera');
+            show('home');
             break;
     }
 });
@@ -312,6 +350,7 @@ if (PREVIEW !== null) {
         maxPhotos: 40,
     });
     setClock(21, 47);
-    if (PREVIEW === 'settings') show('settings');
     if (PREVIEW === 'gallery') showGallery();
+    else if (PREVIEW === 'cameraView') { $('phone').classList.add('camera'); show('cameraView'); }
+    else if (VIEWS.includes(PREVIEW)) show(PREVIEW);
 }

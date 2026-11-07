@@ -5,8 +5,9 @@ Config = {
     -- Gallery limits. Photos are stored in the database, so these control its growth.
     maxPhotosPerCharacter = 40,
     photoCooldownSeconds = 3,
-    photoMaxWidth = 1280,
-    photoMaxHeight = 720,
+    -- Photos are cropped to the phone screen when viewed, so they're captured at higher resolution.
+    photoMaxWidth = 1920,
+    photoMaxHeight = 1080,
 
     defaults = {
         caseColor = '#0B0B0D',
