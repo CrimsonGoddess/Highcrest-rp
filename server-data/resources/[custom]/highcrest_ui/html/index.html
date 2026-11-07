@@ -34,7 +34,7 @@
         #badge {
             position: fixed;
             top: 1.4vh;
-            left: 1.6vh;
+            right: 1.6vh;
             opacity: 0;
             transition: opacity 0.4s ease;
         }
@@ -42,38 +42,49 @@
         #brand {
             display: flex;
             align-items: center;
+            justify-content: flex-end;
             gap: 1vh;
         }
 
         #stats {
-            display: grid;
-            grid-template-columns: auto auto;
-            justify-content: start;
-            gap: 0.25vh 1.2vh;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 0.6vh;
+            max-width: 34vh;
             margin-block-start: 0.8vh;
-            padding: 0.7vh 1.2vh;
-            border-left: 0.25vh solid #c8102e;
-            border-radius: 0.5vh;
-            background: rgba(11, 11, 13, 0.68);
-            color: #f5f5f5;
+            margin-inline-start: auto;
             font-family: 'Rajdhani', 'Segoe UI', Arial, sans-serif;
-            font-weight: 500;
-            font-size: 1.65vh;
-            line-height: 1.25;
+            font-size: 1.6vh;
+            line-height: 1;
         }
 
-        #stats dt {
-            color: #b4b4bd;
-        }
-
-        #stats dd {
-            margin: 0;
+        .bubble {
+            display: flex;
+            align-items: baseline;
+            gap: 0.6vh;
+            padding: 0.6vh 1.1vh;
+            border: 0.1vh solid rgba(212, 175, 55, 0.45);
+            border-radius: 2vh;
+            background: rgba(11, 11, 13, 0.78);
+            color: #f5f5f5;
             font-weight: 700;
             font-variant-numeric: tabular-nums;
+            white-space: nowrap;
         }
 
-        #stats .money {
+        .bubble small {
+            color: #b4b4bd;
+            font-size: 0.82em;
+            font-weight: 500;
+        }
+
+        .bubble.money {
             color: #d4af37;
+        }
+
+        .bubble.job {
+            border-color: rgba(200, 16, 46, 0.75);
         }
 
         [hidden] {
@@ -112,12 +123,12 @@
             <img id="icon" src="assets/icon.png" alt="">
             <div id="name">HIGHCREST <span>RP</span></div>
         </div>
-        <dl id="stats">
-            <dt>ID</dt><dd id="statId"></dd>
-            <dt>Cash</dt><dd id="statCash" class="money"></dd>
-            <dt>Bank</dt><dd id="statBank" class="money"></dd>
-            <dt id="statJobLabel" hidden>Job</dt><dd id="statJob" hidden></dd>
-        </dl>
+        <div id="stats">
+            <div class="bubble"><small>ID</small><span id="statId"></span></div>
+            <div class="bubble money"><small>Cash</small><span id="statCash"></span></div>
+            <div class="bubble money"><small>Bank</small><span id="statBank"></span></div>
+            <div id="statJobBubble" class="bubble job" hidden><span id="statJob"></span></div>
+        </div>
     </div>
     <script>
         const badge = document.getElementById('badge');
@@ -129,8 +140,7 @@
             element('statCash').textContent = money(stats.cash);
             element('statBank').textContent = money(stats.bank);
             element('statJob').textContent = stats.job || '';
-            element('statJob').hidden = !stats.job;
-            element('statJobLabel').hidden = !stats.job;
+            element('statJobBubble').hidden = !stats.job;
         }
 
         window.addEventListener('message', ({ data }) => {

@@ -5,12 +5,19 @@
     tools\deploy-nodecraft.ps1 -Preview                  show what would change
     tools\deploy-nodecraft.ps1                           upload
     tools\deploy-nodecraft.ps1 -Resources a,b            choose resources in [custom]
+    tools\deploy-nodecraft.ps1 -Files x,y                upload single files, relative to server-data
+                                                         (with -Preview, downloads them to deploy\remote-check to compare)
 #>
 param(
     [switch]$Preview,
-    [string[]]$Resources = @('highcrest_phone', 'highcrest_ui')
+    [string[]]$Resources = @('highcrest_phone', 'highcrest_ui'),
+    [string[]]$Files = @()
 )
 $ErrorActionPreference = 'Stop'
+# A list arrives as one comma-separated value when this script is run with -File.
+$Files = @($Files | ForEach-Object { $_ -split ',' } | Where-Object { $_ })
+# Asking for single files means only those files, unless resources are named too.
+if ($Files.Count -gt 0 -and -not $PSBoundParameters.ContainsKey('Resources')) { $Resources = @() }
 $root = Split-Path -Parent $PSScriptRoot
 $loginFile = Join-Path $root 'deploy\sftp.txt'
 $keyFile = Join-Path $root 'deploy\sftp-hostkey.txt'
@@ -55,9 +62,21 @@ foreach ($resource in $Resources) {
     $mode = if ($Preview) { '-preview' } else { '' }
     [void]$lines.Add(('synchronize remote {0} -criteria=size "{1}" "{2}/{3}"' -f $mode, $local, $remoteBase, $resource))
 }
+foreach ($file in $Files) {
+    if ($file -match '(^|[\\/])secrets\.cfg$') { throw 'secrets.cfg is never deployed by this script.' }
+    $local = Join-Path (Join-Path $root 'server-data') $file
+    $remote = '/servers/highcrest/' + $file.Replace('\', '/')
+    if ($Preview) {
+        $checkDir = Join-Path $root ('deploy\remote-check\' + [IO.Path]::GetDirectoryName($file))
+        [void][IO.Directory]::CreateDirectory($checkDir)
+        [void]$lines.Add(('get "{0}" "{1}\"' -f $remote, $checkDir))
+    } else {
+        [void]$lines.Add(('put "{0}" "{1}"' -f $local, $remote))
+    }
+}
 [void]$lines.Add('exit')
 
-$script = [IO.Path]::GetTempFileName()
+$script =[IO.Path]::GetTempFileName()
 try {
     [IO.File]::WriteAllLines($script, [string[]]$lines)
     # The script file holds the password, so it's deleted straight after this runs.

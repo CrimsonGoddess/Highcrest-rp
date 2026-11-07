@@ -50,7 +50,7 @@ local function openPhone()
 
     local data = lib.callback.await('highcrest_phone:server:getPhone', false)
     if not data then
-        lib.notify({ description = 'You need a phone.', type = 'error' })
+        lib.notify({ description = 'You need a phone.', type = 'error', position = 'top-left' })
         return
     end
 
@@ -132,7 +132,8 @@ RegisterKeyMapping('hcphone', 'Open Highcrest phone', 'keyboard', 'F3')
 for _, name in ipairs({
     'saveContact', 'deleteContact', 'listConversations', 'getConversation',
     'sendMessage', 'startCall', 'answerCall', 'hangUp',
-    'feedGet', 'feedSaveProfile', 'feedPost', 'feedLike', 'feedDelete',
+    'feedGet', 'feedProfile', 'feedSaveProfile', 'feedPost', 'feedLike', 'feedFollow', 'feedDelete',
+    'feedComments', 'feedComment', 'feedDeleteComment',
     'marketGet', 'marketCreate', 'marketDelete',
     'datingGet', 'datingSave', 'datingDelete', 'datingSwipe',
     'darkwebGet', 'darkwebPost', 'darkwebDelete',
@@ -160,7 +161,7 @@ RegisterNetEvent('highcrest_phone:client:incomingCall', function(call)
     startRinging()
     SendNUIMessage({ action = 'incomingCall', call = call })
     if not isOpen then
-        lib.notify({ title = 'Incoming call', description = ('%s is calling. Press F3 to answer.'):format(call.name or call.number) })
+        lib.notify({ title = 'Incoming call', description = ('%s is calling. Press F3 to answer.'):format(call.name or call.number), position = 'top-left' })
     end
 end)
 
@@ -177,7 +178,7 @@ end)
 RegisterNetEvent('highcrest_phone:client:message', function(message)
     SendNUIMessage({ action = 'message', message = message })
     if not isOpen then
-        lib.notify({ title = message.name or message.from, description = message.body })
+        lib.notify({ title = message.name or message.from, description = message.body, position = 'top-left' })
     end
 end)
 

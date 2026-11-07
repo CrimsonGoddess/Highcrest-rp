@@ -1,5 +1,7 @@
 'use strict';
 
+const post_ = post; // Named separately because `post` reads naturally as a loop variable.
+
 /* Small helpers. All player text goes through textContent, so it can't inject markup. */
 
 function el(tag, className, text) {
@@ -78,65 +80,239 @@ function attachControl(buttonId, returnView, setValue) {
 
 backTargets.picker = () => show(pickerReturn);
 
-/* Pulse (Twitter-style) */
+/* Pulse (social media) */
 
-let pulsePhoto = null;
+let pulseState = { tab: 'all', profile: null, photo: null };
+let pulseViewing = null;
+let pulseThread = null;
+let pulseDraft = {};
 
-function renderPulse(data) {
-    show('pulse');
-    $('pulseSetup').hidden = Boolean(data.profile);
-    $('pulseCompose').hidden = !data.profile;
-    $('pulsePosts').replaceChildren(...data.posts.map((post) => {
-        const card = el('article', 'card');
-        const head = el('div', 'card-head');
-        head.append(el('strong', '', post.displayName), el('span', 'muted', `@${post.handle}`));
-        card.append(head, el('p', 'card-body', post.body));
-        if (post.photoId) card.append(photoElement(post.photoId));
-
-        const actions = el('div', 'card-actions');
-        actions.append(
-            button(`${Number(post.liked) ? 'Liked' : 'Like'} ${post.likes}`, 'text-button', async () => {
-                const result = await post_('feedLike', post.id);
-                if (result) renderPulse(result);
-            }),
-            el('span', 'muted', timeAgo(post.createdAt)),
-        );
-        if (Number(post.mine)) {
-            actions.append(deleteButton(async () => {
-                const result = await post_('feedDelete', post.id);
-                if (result) renderPulse(result);
-            }));
-        }
-        card.append(actions);
-        return card;
-    }));
-    $('pulseEmpty').hidden = data.posts.length > 0;
+function avatarElement(photoId, name, size = '') {
+    const avatar = el('div', `avatar ${size}`, (name || '?').charAt(0).toUpperCase());
+    if (photoId) {
+        requestPhoto(photoId).then((src) => {
+            if (!src) return;
+            avatar.textContent = '';
+            avatar.style.backgroundImage = `url("${src}")`;
+        });
+    }
+    return avatar;
 }
 
-const post_ = post; // `post` is also a common loop variable in this file.
+function authorElement(item) {
+    const author = el('button', 'author');
+    const names = el('span', 'author-names');
+    names.append(el('strong', '', item.displayName), el('span', 'muted', `@${item.handle} · ${timeAgo(item.createdAt)}`));
+    author.append(avatarElement(item.avatarId, item.displayName), names);
+    author.addEventListener('click', () => showPulseProfile(item.handle));
+    return author;
+}
 
-openers.pulse = async () => {
+function postCard(item, refresh) {
+    const card = el('article', 'post');
+    card.append(authorElement(item), el('p', 'card-body', item.body));
+    if (item.photoId) card.append(photoElement(item.photoId));
+
+    const actions = el('div', 'post-actions');
+    const like = button(`${Number(item.liked) ? '♥' : '♡'} ${item.likes}`, Number(item.liked) ? 'action liked' : 'action', async () => {
+        await post_('feedLike', item.id);
+        refresh();
+    });
+    actions.append(button(`💬 ${item.comments}`, 'action', () => showPulseThread(item, refresh)), like);
+    if (Number(item.mine)) {
+        actions.append(deleteButton(async () => {
+            await post_('feedDelete', item.id);
+            refresh();
+        }));
+    }
+    card.append(actions);
+    return card;
+}
+
+function renderPulse(data) {
+    pulseState.tab = data.tab || pulseState.tab;
+    pulseState.profile = data.profile || null;
     show('pulse');
-    const data = await post_('feedGet');
-    if (data) renderPulse(data);
-};
+    document.querySelectorAll('[data-pulse-tab]').forEach((tab) => {
+        tab.classList.toggle('active', tab.dataset.pulseTab === pulseState.tab);
+    });
+    $('pulseMe').replaceChildren(avatarElement(data.profile && data.profile.avatarId, data.profile && data.profile.displayName, 'small'));
+    $('pulseEmpty').hidden = data.posts.length > 0;
+    $('pulsePosts').replaceChildren(...data.posts.map((item) => postCard(item, loadPulseFeed)));
+}
 
-$('pulseSaveProfile').addEventListener('click', async () => {
-    const result = await post_('feedSaveProfile', { handle: $('pulseHandle').value, displayName: $('pulseName').value });
-    handleResult(result, 'pulseSetupError', renderPulse);
+async function loadPulseFeed() {
+    const data = await post_('feedGet', { tab: pulseState.tab });
+    if (!data) return;
+    if (!data.profile) {
+        showPulseEdit(null);
+        return;
+    }
+    renderPulse(data);
+}
+
+openers.pulse = loadPulseFeed;
+
+document.querySelectorAll('[data-pulse-tab]').forEach((tab) => {
+    tab.addEventListener('click', () => {
+        pulseState.tab = tab.dataset.pulseTab;
+        loadPulseFeed();
+    });
+});
+
+$('pulseMe').addEventListener('click', () => {
+    if (pulseState.profile) showPulseProfile(pulseState.profile.handle);
 });
 
 $('pulseSend').addEventListener('click', async () => {
-    const result = await post_('feedPost', { body: $('pulseBody').value, photoId: pulsePhoto });
+    const result = await post_('feedPost', { body: $('pulseBody').value, photoId: pulseState.photo, tab: pulseState.tab });
     handleResult(result, 'pulseError', (data) => {
         $('pulseBody').value = '';
-        pulsePhoto = null;
+        pulseState.photo = null;
         $('pulseAttach').textContent = 'Add photo';
         renderPulse(data);
     });
 });
 
-attachControl('pulseAttach', 'pulse', (id) => { pulsePhoto = id; });
+attachControl('pulseAttach', 'pulse', (id) => { pulseState.photo = id; });
+
+/* Profile page */
+
+function renderPulseProfile(profile) {
+    pulseViewing = profile;
+    show('pulseProfile');
+
+    const banner = $('profileBanner');
+    banner.style.backgroundImage = '';
+    if (profile.bannerId) {
+        requestPhoto(profile.bannerId).then((src) => {
+            if (src) banner.style.backgroundImage = `url("${src}")`;
+        });
+    }
+    $('profileAvatar').replaceChildren(avatarElement(profile.avatarId, profile.displayName, 'large'));
+    $('profileName').textContent = profile.displayName;
+    $('profileHandle').textContent = `@${profile.handle}`;
+    $('profileBio').textContent = profile.bio || '';
+    $('profilePosts').textContent = profile.postCount;
+    $('profileFollowers').textContent = profile.followers;
+    $('profileFollowing').textContent = profile.following;
+
+    const action = $('profileAction');
+    action.textContent = profile.isMine ? 'Edit profile' : (profile.isFollowing ? 'Following' : 'Follow');
+    action.classList.toggle('accent', !profile.isMine && !profile.isFollowing);
+
+    $('profileFeedEmpty').hidden = profile.posts.length > 0;
+    $('profileFeed').replaceChildren(...profile.posts.map((item) => postCard(item, () => showPulseProfile(profile.handle))));
+}
+
+async function showPulseProfile(handle) {
+    const profile = await post_('feedProfile', handle);
+    if (profile) renderPulseProfile(profile);
+}
+
+$('profileAction').addEventListener('click', async () => {
+    if (pulseViewing.isMine) {
+        showPulseEdit(pulseViewing);
+        return;
+    }
+    const profile = await post_('feedFollow', pulseViewing.handle);
+    if (profile) renderPulseProfile(profile);
+});
+
+backTargets.pulseProfile = () => loadPulseFeed();
+
+/* Editing a profile */
+
+function showPulseEdit(profile) {
+    pulseDraft = profile
+        ? { avatarId: profile.avatarId, bannerId: profile.bannerId }
+        : { avatarId: null, bannerId: null };
+    $('editHandle').value = profile ? profile.handle : '';
+    $('editName').value = profile ? profile.displayName : '';
+    $('editBio').value = profile ? profile.bio : '';
+    $('editAvatar').textContent = pulseDraft.avatarId ? 'Change profile picture' : 'Add profile picture';
+    $('editBanner').textContent = pulseDraft.bannerId ? 'Change banner' : 'Add banner';
+    $('pulseEditTitle').textContent = profile ? 'Edit profile' : 'Create your profile';
+    setError('editError', '');
+    show('pulseEdit');
+}
+
+attachControl('editAvatar', 'pulseEdit', (id) => { pulseDraft.avatarId = id; });
+attachControl('editBanner', 'pulseEdit', (id) => { pulseDraft.bannerId = id; });
+
+$('editSave').addEventListener('click', async () => {
+    const result = await post_('feedSaveProfile', {
+        handle: $('editHandle').value,
+        displayName: $('editName').value,
+        bio: $('editBio').value,
+        avatarId: pulseDraft.avatarId,
+        bannerId: pulseDraft.bannerId,
+    });
+    handleResult(result, 'editError', renderPulseProfile);
+});
+
+backTargets.pulseEdit = () => {
+    if (pulseViewing) showPulseProfile(pulseViewing.handle);
+    else show('home');
+};
+
+/* Comments */
+
+function renderThread(comments) {
+    const { item } = pulseThread;
+    $('threadEmpty').hidden = comments.length > 0;
+    $('threadComments').replaceChildren(...comments.map((comment) => {
+        const row = el('article', 'post');
+        row.append(authorElement(comment), el('p', 'card-body', comment.body));
+        if (Number(comment.mine)) {
+            const actions = el('div', 'post-actions');
+            actions.append(deleteButton(async () => {
+                const result = await post_('feedDeleteComment', { id: comment.id, postId: item.id });
+                if (result) renderThread(result.comments);
+            }));
+            row.append(actions);
+        }
+        return row;
+    }));
+}
+
+async function showPulseThread(item, refresh) {
+    pulseThread = { item, refresh };
+    show('pulseThread');
+    setError('threadError', '');
+    $('threadBody').value = '';
+    const original = el('article', 'post');
+    original.append(authorElement(item), el('p', 'card-body', item.body));
+    if (item.photoId) original.append(photoElement(item.photoId));
+    $('threadPost').replaceChildren(original);
+    $('threadComments').replaceChildren();
+    const result = await post_('feedComments', item.id);
+    if (result) renderThread(result.comments);
+}
+
+$('threadSend').addEventListener('click', async () => {
+    const result = await post_('feedComment', { postId: pulseThread.item.id, body: $('threadBody').value });
+    handleResult(result, 'threadError', (data) => {
+        $('threadBody').value = '';
+        renderThread(data.comments);
+    });
+});
+
+backTargets.pulseThread = () => pulseThread.refresh();
+
+/* Browser preview only */
+
+if (PREVIEW === 'pulse' || PREVIEW === 'pulseProfile') {
+    const sample = [
+        { id: 1, body: 'Just landed at the Vanilla Unicorn. Who is out tonight?', handle: 'crim', displayName: 'Crim Johnson', createdAt: 1793000000, likes: 12, comments: 3, liked: 1, mine: 1 },
+        { id: 2, body: 'Car meet at the docks, midnight. Bring something loud.', handle: 'nightshift', displayName: 'Night Shift', createdAt: 1792990000, likes: 41, comments: 9, liked: 0, mine: 0 },
+    ];
+    if (PREVIEW === 'pulse') {
+        renderPulse({ tab: 'all', profile: { handle: 'crim', displayName: 'Crim Johnson' }, posts: sample });
+    } else {
+        renderPulseProfile({ handle: 'crim', displayName: 'Crim Johnson', bio: 'Everybody wants the top.', isMine: false, isFollowing: false, postCount: 24, followers: 318, following: 77, posts: sample });
+    }
+}
 
 /* Marketplace */
 
@@ -216,12 +392,15 @@ function renderSpark(data) {
     const slot = $('sparkCandidate');
     slot.replaceChildren();
     if (candidate) {
-        const card = el('article', 'card');
-        if (candidate.photoId) card.append(photoElement(candidate.photoId));
-        card.append(
-            el('h3', 'spark-name', `${candidate.name}, ${candidate.age}`),
-            el('p', 'card-body', candidate.bio),
-        );
+        const card = el('article', 'card spark-card');
+        const picture = el('div', 'spark-photo');
+        if (candidate.photoId) {
+            requestPhoto(candidate.photoId).then((src) => {
+                if (src) picture.style.backgroundImage = `url("${src}")`;
+            });
+        }
+        picture.append(el('h3', 'spark-name', `${candidate.name}, ${candidate.age}`));
+        card.append(picture, el('p', 'card-body', candidate.bio));
         const actions = el('div', 'spark-actions');
         const swipe = (liked) => async () => {
             const result = await post_('datingSwipe', { id: candidate.id, liked });
@@ -236,8 +415,8 @@ function renderSpark(data) {
 
     $('sparkMatchesEmpty').hidden = data.matches.length > 0;
     $('sparkMatches').replaceChildren(...data.matches.map((match) => {
-        const card = el('article', 'card');
-        card.append(el('strong', '', match.name));
+        const card = el('article', 'card match-card');
+        card.append(avatarElement(match.photoId, match.name), el('strong', '', match.name));
         const actions = el('div', 'card-actions');
         actions.append(
             button('Call', 'text-button', () => placeCall(match.phone)),

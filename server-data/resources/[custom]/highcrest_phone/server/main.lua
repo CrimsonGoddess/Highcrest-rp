@@ -225,6 +225,7 @@ RegisterNetEvent('highcrest_phone:server:requestPhoto', function(photoId)
         WHERE p.id = ? AND (
             p.citizenid = ?
             OR EXISTS (SELECT 1 FROM highcrest_feed_posts f WHERE f.photo_id = p.id)
+            OR EXISTS (SELECT 1 FROM highcrest_feed_profiles fp WHERE fp.avatar_id = p.id OR fp.banner_id = p.id)
             OR EXISTS (SELECT 1 FROM highcrest_market_listings m WHERE m.photo_id = p.id)
             OR EXISTS (SELECT 1 FROM highcrest_dating_profiles d WHERE d.photo_id = p.id)
         )

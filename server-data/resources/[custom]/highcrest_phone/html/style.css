@@ -14,6 +14,7 @@
     --case: #0b0b0d;
     --accent: #c8102e;
     --on-accent: #f5f5f5;
+    --phone-scale: 0.76;
     --wallpaper: #0b0b0d;
     --gold: #d4af37;
     --white: #f5f5f5;
@@ -54,6 +55,8 @@ button {
     position: fixed;
     right: 3vh;
     bottom: 3vh;
+    transform: scale(var(--phone-scale));
+    transform-origin: bottom right;
     width: 39vh;
     height: 80vh;
     padding: 1.1vh;
@@ -489,7 +492,7 @@ kbd {
 @keyframes rise {
     from {
         opacity: 0;
-        transform: translateY(4vh);
+        translate: 0 4vh;
     }
 }
 
@@ -500,12 +503,17 @@ kbd {
 }
 
 /* Camera: the phone is the viewfinder, and everything around it is dimmed. */
+/* To move the viewfinder sideways, change left. 50% is the centre of the screen. */
 .phone.camera {
-    right: 50%;
+    top: 50%;
+    right: auto;
+    bottom: auto;
+    left: 36%;
     padding: 0;
     border: 1.1vh solid var(--case);
     background: transparent;
-    transform: translateX(50%);
+    transform: translate(-50%, -50%) scale(var(--phone-scale));
+    transform-origin: center;
     box-shadow: 0 0 0 200vmax rgba(0, 0, 0, 0.62), 0 2vh 5vh rgba(0, 0, 0, 0.75), inset 0 0 0 0.25vh rgba(255, 255, 255, 0.16);
     animation: none;
 }
@@ -634,4 +642,188 @@ textarea.field {
 
 .compose .button:first-child {
     flex: 1;
+}
+
+/* Social apps */
+.social h2 {
+    margin: 0;
+}
+
+.social-top {
+    display: flex;
+    align-items: center;
+    gap: 1vh;
+    margin-block-end: 1vh;
+}
+
+.social-me {
+    padding: 0;
+}
+
+.tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-block-end: 1vh;
+    border-bottom: 0.1vh solid rgba(255, 255, 255, 0.15);
+}
+
+.tabs button {
+    padding-block: 0.8vh;
+    border-bottom: 0.3vh solid transparent;
+    color: var(--muted);
+    font-weight: 700;
+}
+
+.tabs button.active {
+    border-bottom-color: var(--accent);
+    color: var(--white);
+}
+
+.avatar {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 4.4vh;
+    height: 4.4vh;
+    border-radius: 50%;
+    background: #33333d center / cover no-repeat;
+    color: var(--white);
+    font-weight: 700;
+}
+
+.avatar.small {
+    width: 3.4vh;
+    height: 3.4vh;
+    font-size: 0.85em;
+}
+
+.avatar.large {
+    width: 9vh;
+    height: 9vh;
+    border: 0.4vh solid #0b0b0d;
+    font-size: 3.4vh;
+}
+
+.posts {
+    margin-block-start: 1vh;
+}
+
+.post {
+    padding-block: 1vh;
+    border-bottom: 0.1vh solid rgba(255, 255, 255, 0.12);
+}
+
+.author {
+    display: flex;
+    gap: 0.9vh;
+    align-items: center;
+    width: 100%;
+    text-align: left;
+}
+
+.author-names {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    line-height: 1.2;
+}
+
+.author-names .muted {
+    font-size: 0.85em;
+}
+
+.post-actions {
+    display: flex;
+    align-items: center;
+    gap: 2vh;
+    margin-block-start: 0.6vh;
+    color: var(--muted);
+}
+
+.action.liked {
+    color: var(--accent);
+    font-weight: 700;
+}
+
+.profile-page {
+    padding-block-start: 0;
+    padding-inline: 0;
+}
+
+.profile-page > *:not(.profile-banner):not(.profile-head) {
+    margin-inline: 2vh;
+}
+
+.profile-banner {
+    height: 13vh;
+    background: linear-gradient(135deg, var(--accent), #0b0b0d) center / cover no-repeat;
+}
+
+.profile-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-block-start: -4.5vh;
+    padding-inline: 2vh;
+}
+
+.profile-action {
+    flex: none;
+    width: auto;
+    margin: 0;
+    padding-inline: 1.8vh;
+    border-radius: 3vh;
+}
+
+.profile-name {
+    margin-block: 0.6vh 0;
+}
+
+.profile-stats {
+    display: flex;
+    gap: 1.6vh;
+    margin-block-start: 0.8vh;
+    color: var(--muted);
+    font-size: 0.9em;
+}
+
+.profile-stats b {
+    color: var(--white);
+}
+
+.edit-first {
+    margin-block-start: 1.4vh;
+}
+
+.spark-card {
+    overflow: hidden;
+    padding: 0 0 1vh;
+}
+
+.spark-card .card-body,
+.spark-card .spark-actions {
+    margin-inline: 1vh;
+}
+
+.spark-photo {
+    display: flex;
+    align-items: flex-end;
+    height: 34vh;
+    padding: 1.2vh;
+    background: linear-gradient(135deg, var(--accent), #0b0b0d) center / cover no-repeat;
+}
+
+.spark-photo .spark-name {
+    text-shadow: 0 1px 6px #000;
+}
+
+.match-card {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1vh;
+}
+
+.match-card .card-actions {
+    flex: 1 1 100%;
 }

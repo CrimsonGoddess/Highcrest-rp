@@ -99,25 +99,64 @@
                 <p id="pickerEmpty" class="empty" hidden>Take a photo with the Camera first.</p>
             </section>
 
-            <section id="pulse" class="view page" hidden>
-                <h2>Pulse</h2>
-                <div id="pulseSetup" hidden>
-                    <p class="muted">Set up your profile to start posting.</p>
-                    <label class="field-label">Handle <input id="pulseHandle" class="field" maxlength="20"></label>
-                    <label class="field-label">Display name <input id="pulseName" class="field" maxlength="40"></label>
-                    <p id="pulseSetupError" class="error"></p>
-                    <button id="pulseSaveProfile" class="button accent">Save profile</button>
+            <section id="pulse" class="view page social" hidden>
+                <div class="social-top">
+                    <button id="pulseMe" class="social-me" aria-label="My profile"></button>
+                    <h2>Pulse</h2>
                 </div>
-                <div id="pulseCompose" hidden>
-                    <textarea id="pulseBody" class="field" maxlength="280" rows="2" placeholder="What is happening in the city?"></textarea>
-                    <p id="pulseError" class="error"></p>
-                    <div class="compose">
-                        <button id="pulseAttach" class="button">Add photo</button>
-                        <button id="pulseSend" class="button accent">Post</button>
-                    </div>
+                <div class="tabs">
+                    <button data-pulse-tab="all">For you</button>
+                    <button data-pulse-tab="following">Following</button>
                 </div>
-                <div id="pulsePosts" class="cards"></div>
+                <textarea id="pulseBody" class="field" maxlength="280" rows="2" placeholder="What is happening in the city?"></textarea>
+                <p id="pulseError" class="error"></p>
+                <div class="compose">
+                    <button id="pulseAttach" class="button">Add photo</button>
+                    <button id="pulseSend" class="button accent">Post</button>
+                </div>
+                <div id="pulsePosts" class="posts"></div>
                 <p id="pulseEmpty" class="empty" hidden>No posts yet.</p>
+            </section>
+
+            <section id="pulseProfile" class="view page social profile-page" hidden>
+                <div id="profileBanner" class="profile-banner"></div>
+                <div class="profile-head">
+                    <div id="profileAvatar" class="profile-avatar"></div>
+                    <button id="profileAction" class="button profile-action"></button>
+                </div>
+                <h2 id="profileName" class="profile-name"></h2>
+                <p id="profileHandle" class="muted"></p>
+                <p id="profileBio" class="card-body"></p>
+                <div class="profile-stats">
+                    <span><b id="profilePosts">0</b> Posts</span>
+                    <span><b id="profileFollowers">0</b> Followers</span>
+                    <span><b id="profileFollowing">0</b> Following</span>
+                </div>
+                <div id="profileFeed" class="posts"></div>
+                <p id="profileFeedEmpty" class="empty" hidden>No posts yet.</p>
+            </section>
+
+            <section id="pulseEdit" class="view page" hidden>
+                <h2 id="pulseEditTitle">Edit profile</h2>
+                <button id="editBanner" class="button">Add banner</button>
+                <button id="editAvatar" class="button">Add profile picture</button>
+                <label class="field-label edit-first">Display name <input id="editName" class="field" maxlength="40"></label>
+                <label class="field-label">Handle <input id="editHandle" class="field" maxlength="20"></label>
+                <label class="field-label">Bio <textarea id="editBio" class="field" maxlength="160" rows="3"></textarea></label>
+                <p id="editError" class="error"></p>
+                <button id="editSave" class="button accent">Save</button>
+            </section>
+
+            <section id="pulseThread" class="view page social" hidden>
+                <h2>Comments</h2>
+                <div id="threadPost"></div>
+                <div id="threadComments" class="posts"></div>
+                <p id="threadEmpty" class="empty" hidden>No comments yet.</p>
+                <p id="threadError" class="error"></p>
+                <div class="compose">
+                    <input id="threadBody" class="field" maxlength="200" placeholder="Add a comment">
+                    <button id="threadSend" class="button accent">Reply</button>
+                </div>
             </section>
 
             <section id="market" class="view page" hidden>
