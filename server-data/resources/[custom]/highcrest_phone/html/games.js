@@ -159,17 +159,42 @@ function turnSnake(direction) {
     if (last !== direction) snake.queue.push(direction);
 }
 
+let snakeInputActive = false;
+
+function setSnakeInputActive(active) {
+    if (active === snakeInputActive) return;
+    snakeInputActive = active;
+    post('snakeInput', { active });
+}
+
 function showSnake() {
     show('snake');
     updateSnakeScore();
     drawSnake();
+    setSnakeInputActive(true);
 }
 
 openers.snake = showSnake;
 
-$('snakeStart').addEventListener('click', startSnake);
+// Leaving the Snake screen gives the controls back.
+onViewChange.push(() => {
+    if (currentView() !== 'snake') setSnakeInputActive(false);
+});
+
+window.addEventListener('message', ({ data }) => {
+    if (data.action === 'snakeTurn') turnSnake(data.direction);
+    if (data.action === 'open') snakeInputActive = false;
+});
+
+$('snakeStart').addEventListener('click', () => {
+    $('snakeStart').blur();
+    startSnake();
+});
 document.querySelectorAll('[data-snake-turn]').forEach((pad) => {
-    pad.addEventListener('click', () => turnSnake(pad.dataset.snakeTurn));
+    pad.addEventListener('click', () => {
+        turnSnake(pad.dataset.snakeTurn);
+        pad.blur();
+    });
 });
 
 document.addEventListener('keydown', (event) => {

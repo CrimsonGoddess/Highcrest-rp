@@ -32,6 +32,12 @@ local HAND_BONE = 28422
 local isOpen = false
 local inCamera = false
 local phoneProp
+local snakeInput = false
+
+local SNAKE_CONTROLS = {
+    [172] = 'up', [173] = 'down', [174] = 'left', [175] = 'right', -- arrow keys
+    [32] = 'up', [33] = 'down', [34] = 'left', [35] = 'right', -- WASD
+}
 local cameraHandle
 local cameraCrop
 
@@ -90,8 +96,30 @@ local function openPhone()
     end)
 end
 
+local function setSnakeInput(active)
+    if active == snakeInput then return end
+    snakeInput = active
+    SetNuiFocusKeepInput(active)
+    if not active then return end
+
+    -- The phone's page doesn't always get the keyboard in-game, so the keys are read here and passed on.
+    -- Everything else is disabled, so the character doesn't walk while the player steers.
+    CreateThread(function()
+        while snakeInput do
+            Wait(0)
+            DisableAllControlActions(0)
+            for control, direction in pairs(SNAKE_CONTROLS) do
+                if IsDisabledControlJustPressed(0, control) then
+                    SendNUIMessage({ action = 'snakeTurn', direction = direction })
+                end
+            end
+        end
+    end)
+end
+
 local function closePhone()
     isOpen = false
+    setSnakeInput(false)
     SetNuiFocus(false, false)
     stopHolding()
 end
@@ -236,6 +264,11 @@ RegisterNetEvent('highcrest_phone:client:message', function(message)
     end
 end)
 
+RegisterNUICallback('snakeInput', function(data, cb)
+    setSnakeInput(data.active == true)
+    cb(1)
+end)
+
 RegisterNUICallback('close', function(_, cb)
     closePhone()
     cb(1)
@@ -273,6 +306,7 @@ end)
 AddEventHandler('onResourceStop', function(resource)
     if resource ~= GetCurrentResourceName() then return end
     if isOpen or inCamera then SetNuiFocus(false, false) end
+    if snakeInput then SetNuiFocusKeepInput(false) end
     if inCamera then
         RenderScriptCams(false, false, 0, true, true)
         if cameraHandle then DestroyCam(cameraHandle, false) end
