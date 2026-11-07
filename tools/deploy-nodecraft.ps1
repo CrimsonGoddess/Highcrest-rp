@@ -10,7 +10,7 @@
 #>
 param(
     [switch]$Preview,
-    [string[]]$Resources = @('highcrest_phone', 'highcrest_ui'),
+    [string[]]$Resources = @('highcrest_phone', 'highcrest_ui', 'highcrest_empire'),
     [string[]]$Files = @()
 )
 $ErrorActionPreference = 'Stop'
@@ -60,6 +60,12 @@ foreach ($resource in $Resources) {
     $local = Join-Path $localBase $resource
     if (-not (Test-Path -LiteralPath $local)) { throw "No such resource: $resource" }
     $mode = if ($Preview) { '-preview' } else { '' }
+    if (-not $Preview) {
+        # The folder may already exist, so a failure here is fine.
+        [void]$lines.Add('option batch continue')
+        [void]$lines.Add(('mkdir "{0}/{1}"' -f $remoteBase, $resource))
+        [void]$lines.Add('option batch abort')
+    }
     [void]$lines.Add(('synchronize remote {0} -criteria=either "{1}" "{2}/{3}"' -f $mode, $local, $remoteBase, $resource))
 }
 foreach ($file in $Files) {

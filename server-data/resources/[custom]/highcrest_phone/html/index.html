@@ -50,6 +50,10 @@
                         <span class="app-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.500"/><path d="M3.500 12h17M12 3.500c-5 5.500-5 11.500 0 17 5-5.500 5-11.500 0-17z"/></svg></span>
                         Darkweb
                     </button>
+                    <button class="app" data-open="empire">
+                        <span class="app-icon"><svg viewBox="0 0 24 24"><path d="M3.500 18.500h17M4.500 18.500 3 8l5 4 4-7 4 7 5-4-1.500 10.500"/></svg></span>
+                        Empire
+                    </button>
                     <button class="app" data-open="mail">
                         <span class="app-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5.500" width="18" height="13" rx="1.500"/><path d="M3.500 7l8.500 6.500L20.500 7"/></svg><b id="mailBadge" class="badge app-badge" hidden>0</b></span>
                         Mail
@@ -227,6 +231,66 @@
                 <button id="darkwebSend" class="button accent">Post</button>
                 <div id="darkwebPosts" class="cards"></div>
                 <p id="darkwebEmpty" class="empty" hidden>The board is empty.</p>
+            </section>
+
+            <section id="empire" class="view page" hidden>
+                <h2>Empire</h2>
+                <p id="empireError" class="error"></p>
+                <div id="empireOffersBox" hidden>
+                    <h3>Job offers</h3>
+                    <div id="empireOffers" class="cards"></div>
+                </div>
+                <h3>My businesses</h3>
+                <div id="empireMine" class="rows"></div>
+                <p id="empireMineEmpty" class="empty" hidden>You do not own or work at a business yet.</p>
+                <h3>For sale</h3>
+                <div id="empireMarket" class="cards"></div>
+                <p id="empireMarketEmpty" class="empty" hidden>Nothing is for sale right now.</p>
+            </section>
+
+            <section id="empireBusiness" class="view page" hidden>
+                <h2 id="bizName"></h2>
+                <p id="bizMeta" class="muted"></p>
+                <button id="bizWaypoint" class="text-button biz-link">Set waypoint</button>
+                <p id="bizError" class="error"></p>
+                <p id="bizNotice" class="biz-notice"></p>
+
+                <div id="bizMoney" class="card biz-money" hidden>
+                    <p class="muted">Business account</p>
+                    <p id="bizBalance" class="biz-balance"></p>
+                    <div id="bizAmountRow">
+                        <input id="bizAmount" class="field" type="number" min="1" placeholder="Amount">
+                        <div class="spark-actions biz-buttons">
+                            <button id="bizDeposit" class="button">Deposit</button>
+                            <button id="bizWithdraw" class="button">Withdraw</button>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Staff</h3>
+                <div id="bizHireRow" class="compose" hidden>
+                    <input id="bizHireNumber" class="field" maxlength="15" placeholder="Phone number">
+                    <button id="bizHire" class="button accent">Offer job</button>
+                </div>
+                <div id="bizStaff" class="cards"></div>
+
+                <div id="bizLedgerBox" hidden>
+                    <h3>Transactions</h3>
+                    <div id="bizLedger"></div>
+                    <p id="bizLedgerEmpty" class="empty" hidden>No transactions yet.</p>
+                </div>
+
+                <button id="bizRanksButton" class="button" hidden>Ranks and permissions</button>
+                <button id="bizLeave" class="button" hidden>Leave this job</button>
+                <button id="bizSell" class="button" hidden></button>
+            </section>
+
+            <section id="empireRanks" class="view page" hidden>
+                <h2>Ranks</h2>
+                <p class="muted">Choose what each rank is allowed to do.</p>
+                <p id="ranksError" class="error"></p>
+                <p id="ranksSaved" class="biz-notice"></p>
+                <div id="ranksList" class="cards"></div>
             </section>
 
             <section id="garage" class="view page" hidden>
@@ -411,6 +475,7 @@
     <script src="games.js"></script>
     <script src="apps.js"></script>
     <script src="services.js"></script>
+    <script src="empire.js"></script>
     <script>wireAppButtons();</script>
 </body>
 </html>

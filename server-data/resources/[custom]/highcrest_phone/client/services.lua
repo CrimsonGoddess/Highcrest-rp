@@ -25,6 +25,17 @@ for _, name in ipairs({
     end)
 end
 
+local EMPIRE_ACTIONS = {
+    overview = true, business = true, buy = true, sell = true, leave = true,
+    deposit = true, withdraw = true, pay = true,
+    hire = true, respondOffer = true, fire = true, setRank = true, saveRank = true,
+}
+
+RegisterNUICallback('empire', function(data, cb)
+    if not EMPIRE_ACTIONS[data.op] then return cb(false) end
+    cb(lib.callback.await('highcrest_empire:server:' .. data.op, false, data.args) or false)
+end)
+
 local approvedMailEvents = {}
 for _, event in ipairs(Config.mailButtonEvents) do
     approvedMailEvents[event] = true

@@ -112,7 +112,7 @@ button {
 }
 
 .home-clock {
-    margin-block: 5vh 6vh;
+    margin-block: 1.5vh 3vh;
     font-weight: 700;
     font-size: 7vh;
     line-height: 1;
@@ -1030,4 +1030,59 @@ select.field option {
 
 .camera-pose {
     color: var(--gold);
+}
+
+/* Empire */
+.biz-link {
+    margin-block: 0.4vh;
+}
+
+.biz-notice {
+    color: var(--gold);
+}
+
+.biz-money {
+    margin-block-end: 1vh;
+}
+
+.biz-balance {
+    margin-block: 0.2vh 0.8vh;
+    color: var(--gold);
+    font-size: 3vh;
+    font-weight: 700;
+}
+
+.biz-buttons {
+    margin-block-start: 0.6vh;
+}
+
+.biz-buttons .button {
+    margin: 0;
+}
+
+.ledger-row {
+    padding-block: 0.7vh;
+    border-bottom: 0.1vh solid rgba(255, 255, 255, 0.12);
+}
+
+.perm-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5vh;
+    margin-block: 0.8vh;
+}
+
+.perm {
+    padding: 0.5vh 1vh;
+    border: 0.1vh solid rgba(255, 255, 255, 0.25);
+    border-radius: 2vh;
+    color: var(--muted);
+    font-size: 0.9em;
+}
+
+.perm.on {
+    border-color: var(--gold);
+    background: rgba(212, 175, 55, 0.2);
+    color: var(--gold);
+    font-weight: 700;
 }

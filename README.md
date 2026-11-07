@@ -50,6 +50,7 @@ Both steps are needed for other people to join:
 | Ambulance and medical | `qbx_ambulancejob`, `qbx_medical` |
 | Housing | `qbx_properties` |
 | Phone, apps, mail | `highcrest_phone` (custom) |
+| Player-owned businesses | `highcrest_empire` (custom). Admins list them with `/empirecreate price type name`, and see `/empirelist`, `/empiregive` and `/empiredelete`. |
 | Radio and voice | `mm_radio`, `pma-voice` |
 | Emotes and dances | `scully_emotemenu` |
 | Clothing | `illenium-appearance` |
