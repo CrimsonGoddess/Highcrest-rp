@@ -105,8 +105,13 @@ local function setSnakeInput(active)
     -- The phone's page doesn't always get the keyboard in-game, so the keys are read here and passed on.
     -- Everything else is disabled, so the character doesn't walk while the player steers.
     CreateThread(function()
+        local nextBeat = 0
         while snakeInput do
             Wait(0)
+            if GetGameTimer() >= nextBeat then
+                nextBeat = GetGameTimer() + 1000
+                SendNUIMessage({ action = 'snakeBeat' })
+            end
             DisableAllControlActions(0)
             for control, direction in pairs(SNAKE_CONTROLS) do
                 if IsDisabledControlJustPressed(0, control) then

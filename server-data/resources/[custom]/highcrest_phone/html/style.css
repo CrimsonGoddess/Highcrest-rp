@@ -961,3 +961,13 @@ select.field option {
     font-weight: 700;
     text-decoration: underline;
 }
+
+/* TEMPORARY: Snake diagnostics */
+.snake-debug {
+    margin-block-start: 0.4vh;
+    color: #7dffb0;
+    font-family: Consolas, 'Courier New', monospace;
+    font-size: 1.15vh;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+}
