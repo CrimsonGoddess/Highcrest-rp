@@ -80,6 +80,7 @@ const snakeCells = [];
 function buildSnakeBoard() {
     const board = $('snakeBoard');
     board.style.gridTemplateColumns = `repeat(${SNAKE_COLUMNS}, 1fr)`;
+    board.style.gridTemplateRows = `repeat(${SNAKE_ROWS}, 1fr)`;
     for (let index = 0; index < SNAKE_COLUMNS * SNAKE_ROWS; index++) {
         const cell = document.createElement('i');
         board.append(cell);
@@ -246,7 +247,7 @@ if (PREVIEW === 'snake') {
     $('snakeOverlay').hidden = true;
     snake = {
         body: [{ x: 9, y: 9 }, { x: 8, y: 9 }, { x: 7, y: 9 }, { x: 6, y: 9 }, { x: 6, y: 10 }],
-        direction: 'right', queue: [], score: 12, food: { x: 12, y: 5 }, running: false,
+        direction: 'right', queue: [], score: 12, food: { x: 10, y: 3 }, running: false,
     };
     updateSnakeScore();
     drawSnake();
