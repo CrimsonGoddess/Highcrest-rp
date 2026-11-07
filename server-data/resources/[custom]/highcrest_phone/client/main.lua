@@ -265,8 +265,10 @@ local function runCamera()
     end)
 end
 
+RegisterCommand('phone', openPhone, false)
+RegisterKeyMapping('phone', 'Open phone', 'keyboard', 'M')
 RegisterCommand('hcphone', openPhone, false)
-RegisterKeyMapping('hcphone', 'Open Highcrest phone', 'keyboard', 'F3')
+exports('OpenPhone', openPhone)
 
 -- These just pass a request to the server, which validates everything.
 for _, name in ipairs({
@@ -301,7 +303,7 @@ RegisterNetEvent('highcrest_phone:client:incomingCall', function(call)
     startRinging()
     SendNUIMessage({ action = 'incomingCall', call = call })
     if not isOpen then
-        lib.notify({ title = 'Incoming call', description = ('%s is calling. Press F3 to answer.'):format(call.name or call.number), position = 'top-left' })
+        lib.notify({ title = 'Incoming call', description = ('%s is calling. Press M to answer.'):format(call.name or call.number), position = 'top-left' })
     end
 end)
 

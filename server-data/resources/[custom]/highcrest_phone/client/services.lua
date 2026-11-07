@@ -38,8 +38,7 @@ RegisterNUICallback('mailAction', function(id, cb)
     cb(result or false)
 end)
 
--- Mail still arrives through npwd_qbx_mail, so the phone listens for the same event.
-RegisterNetEvent('npwd:qbx_mail:newMail', function(mail)
+RegisterNetEvent('highcrest_phone:client:newMail', function(mail)
     SendNUIMessage({ action = 'newMail' })
     lib.notify({ title = 'New mail', description = mail.subject or mail.sender or '', position = NOTIFY_POSITION })
 end)

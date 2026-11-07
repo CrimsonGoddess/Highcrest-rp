@@ -1,4 +1,4 @@
--- Mail: reads the player_mails table. Other scripts still send mail through npwd_qbx_mail for now.
+-- Mail: stores and reads the player_mails table.
 local MAIL_LIMIT = 100
 
 local approvedEvents = {}
@@ -64,4 +64,57 @@ lib.callback.register('highcrest_phone:server:mailAction', function(source, valu
 
     MySQL.update.await('UPDATE player_mails SET button = NULL WHERE id = ? AND citizenid = ?', { id, citizenid })
     return { event = button.buttonEvent, data = button.buttonData }
+end)
+
+-- Delivery. Other scripts send mail through these qb-phone event names, so they don't need changing.
+local MAX_SENDER_LENGTH = 50
+local MAX_SUBJECT_LENGTH = 50
+local MAX_MESSAGE_LENGTH = 2000
+local SEND_COOLDOWN_MS = 1000
+
+local function cutText(value, limit)
+    local text = TrimText(value)
+    return text:sub(1, limit)
+end
+
+local function deliverMail(citizenid, mail)
+    if type(mail) ~= 'table' then return end
+
+    -- A button only survives if it names an approved event.
+    local button = type(mail.button) == 'table' and approvedEvents[mail.button.buttonEvent] and mail.button or nil
+    local sender = cutText(mail.sender, MAX_SENDER_LENGTH)
+    local subject = cutText(mail.subject, MAX_SUBJECT_LENGTH)
+
+    MySQL.insert.await('INSERT INTO player_mails (citizenid, sender, subject, message, `read`, mailid, button) VALUES (?, ?, ?, ?, 0, ?, ?)', {
+        citizenid, sender, subject, cutText(mail.message, MAX_MESSAGE_LENGTH),
+        math.random(111111, 999999), button and json.encode(button) or nil,
+    })
+
+    local recipient = exports.qbx_core:GetPlayerByCitizenId(citizenid)
+    if recipient then
+        TriggerClientEvent('highcrest_phone:client:newMail', recipient.PlayerData.source, { sender = sender, subject = subject })
+    end
+end
+
+-- Client scripts use this one, so it can only ever mail the player who triggered it.
+RegisterNetEvent('qb-phone:server:sendNewMail', function(mail)
+    local src = source
+    local player = exports.qbx_core:GetPlayer(src)
+    if not player or IsRateLimited(src, 'sendMail', SEND_COOLDOWN_MS) then return end
+    deliverMail(player.PlayerData.citizenid, mail)
+end)
+
+-- Server scripts only. It isn't a net event, so clients can't use it to mail other players.
+AddEventHandler('qb-phone:server:sendNewMailToOffline', function(citizenid, mail)
+    if type(citizenid) == 'string' then deliverMail(citizenid, mail) end
+end)
+
+lib.addCommand('testemail', { help = 'Send yourself a test email', restricted = 'group.admin' }, function(source)
+    local player = exports.qbx_core:GetPlayer(source)
+    if not player then return end
+    deliverMail(player.PlayerData.citizenid, {
+        sender = 'Highcrest RP',
+        subject = 'Test email',
+        message = 'This is a test of the mail system.',
+    })
 end)

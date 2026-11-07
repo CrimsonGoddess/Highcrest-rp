@@ -33,7 +33,7 @@ Both steps are needed for other people to join:
 | `server-data\secrets.cfg` | License key and database password. Never share this. |
 | `server-data\ox.cfg` | Inventory, targeting and UI settings |
 | `server-data\resources\[custom]` | Scripts written for this server |
-| `server-data\resources\[qbx]`, `[ox]`, `[standalone]`, `[voice]`, `[npwd]` | Third-party scripts |
+| `server-data\resources\[qbx]`, `[ox]`, `[standalone]`, `[voice]` | Third-party scripts |
 | `sql\` and `tools\sql-order.txt` | Database scripts, each applied once |
 | `tools\recipe.yaml` | The list of third-party scripts to download |
 
@@ -49,7 +49,7 @@ Both steps are needed for other people to join:
 | Police and jail | `qbx_police`, `xt-prison` |
 | Ambulance and medical | `qbx_ambulancejob`, `qbx_medical` |
 | Housing | `qbx_properties` |
-| Phone | `npwd` |
+| Phone, apps, mail | `highcrest_phone` (custom) |
 | Radio and voice | `mm_radio`, `pma-voice` |
 | Emotes and dances | `scully_emotemenu` |
 | Clothing | `illenium-appearance` |
@@ -66,6 +66,8 @@ These are lost if you redownload a script, so reapply them afterwards:
 
 - `ox_lib` and `ox_inventory` compiled interfaces: Highcrest colors. Reapply with `tools\apply-branding.ps1`.
 - `qbx_core\config\shared.lua`: notifications moved to the top left, because the HUD is top right.
+- `qbx_core\config\server.lua`: NPWD tables removed from character deletion.
+- `ox_inventory\modules\items\client.lua`: using the phone item opens `highcrest_phone`.
 
 ## Letting people join from outside your network
 
