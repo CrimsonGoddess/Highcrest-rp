@@ -25,7 +25,7 @@ function post(name, body = {}) {
 
 const VIEWS = [
     'home', 'gallery', 'viewer', 'settings', 'dialer', 'call', 'contacts', 'contact', 'messages', 'conversation',
-    'cameraView', 'picker', 'pulse', 'pulseProfile', 'pulseEdit', 'pulseThread', 'market', 'marketForm', 'spark', 'sparkForm', 'darkweb', 'snake',
+    'cameraView', 'picker', 'pulse', 'pulseProfile', 'pulseEdit', 'pulseThread', 'market', 'marketForm', 'spark', 'sparkForm', 'darkweb', 'snake', 'findFriends', 'taxi', 'emergency',
 ];
 
 // Apps register themselves here so each one can live in its own file.
@@ -109,6 +109,11 @@ function finishPhoto(id, src) {
 /* Appearance */
 
 // Icons and button text switch to dark on a light accent so they stay readable.
+function isDarkColor(hex) {
+    const channel = (start) => parseInt(hex.slice(start, start + 2), 16);
+    return (channel(1) * 299 + channel(3) * 587 + channel(5) * 114) / 1000 < 70;
+}
+
 function contrastColor(hex) {
     const channel = (start) => parseInt(hex.slice(start, start + 2), 16);
     const brightness = (channel(1) * 299 + channel(3) * 587 + channel(5) * 114) / 1000;
@@ -121,6 +126,7 @@ function applyAppearance() {
     root.setProperty('--case', caseColor);
     root.setProperty('--accent', accentColor);
     root.setProperty('--on-accent', contrastColor(accentColor));
+    root.setProperty('--accent-text', isDarkColor(accentColor) ? '#d4af37' : accentColor);
 
     const [kind, value] = wallpaper.split(':');
     if (kind === 'photo') {
@@ -245,23 +251,30 @@ async function onDeletePressed() {
 
 /* Camera */
 
+function viewfinderCrop() {
+    const rect = $('screen').getBoundingClientRect();
+    return {
+        x: rect.left / window.innerWidth,
+        y: rect.top / window.innerHeight,
+        w: rect.width / window.innerWidth,
+        h: rect.height / window.innerHeight,
+    };
+}
+
 function startCamera() {
     $('phone').classList.add('camera');
+    $('phone').classList.remove('landscape');
     show('cameraView');
     $('cameraMessage').textContent = '';
+    $('cameraBar').hidden = false;
 
     // Wait for the phone to move into position, then send where its screen is.
-    setTimeout(() => {
-        const rect = $('screen').getBoundingClientRect();
-        post('startCamera', {
-            crop: {
-                x: rect.left / window.innerWidth,
-                y: rect.top / window.innerHeight,
-                w: rect.width / window.innerWidth,
-                h: rect.height / window.innerHeight,
-            },
-        });
-    }, 50);
+    setTimeout(() => post('startCamera', { crop: viewfinderCrop() }), 50);
+}
+
+function rotateCamera() {
+    $('phone').classList.toggle('landscape');
+    setTimeout(() => post('cameraCrop', { crop: viewfinderCrop() }), 50);
 }
 
 function onCaptured(result) {
@@ -326,8 +339,12 @@ window.addEventListener('message', ({ data }) => {
         case 'photo': cropPhoto(data.src, data.crop).then((src) => finishPhoto(data.id, src)); break;
         case 'captured': onCaptured(data.result); break;
         case 'cameraClosed':
-            $('phone').classList.remove('camera');
+            $('phone').classList.remove('camera', 'landscape');
+            $('cameraBar').hidden = true;
             show('home');
+            break;
+        case 'cameraRotate':
+            rotateCamera();
             break;
     }
 });
@@ -351,6 +368,6 @@ if (PREVIEW !== null) {
     });
     setClock(21, 47);
     if (PREVIEW === 'gallery') showGallery();
-    else if (PREVIEW === 'cameraView') { $('phone').classList.add('camera'); show('cameraView'); }
+    else if (PREVIEW === 'cameraView' || PREVIEW === 'cameraLandscape') { $('phone').classList.add('camera'); $('phone').classList.toggle('landscape', PREVIEW === 'cameraLandscape'); $('cameraBar').hidden = false; show('cameraView'); }
     else if (VIEWS.includes(PREVIEW)) show(PREVIEW);
 }

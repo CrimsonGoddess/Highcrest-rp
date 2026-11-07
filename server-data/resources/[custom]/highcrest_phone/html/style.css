@@ -15,6 +15,7 @@
     --accent: #c8102e;
     --on-accent: #f5f5f5;
     --phone-scale: 0.76;
+    --accent-text: #c8102e;
     --wallpaper: #0b0b0d;
     --gold: #d4af37;
     --white: #f5f5f5;
@@ -675,7 +676,7 @@ textarea.field {
 }
 
 .tabs button.active {
-    border-bottom-color: var(--accent);
+    border-bottom-color: var(--accent-text);
     color: var(--white);
 }
 
@@ -741,7 +742,7 @@ textarea.field {
 }
 
 .action.liked {
-    color: var(--accent);
+    color: var(--accent-text);
     font-weight: 700;
 }
 
@@ -902,4 +903,61 @@ textarea.field {
 
 .snake-pad [data-snake-turn="right"] {
     grid-area: 2 / 3;
+}
+
+/* Camera orientation and controls */
+.phone.camera.landscape {
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(90deg) scale(1.08);
+}
+
+.camera-bar {
+    position: fixed;
+    bottom: 2vh;
+    left: 50%;
+    padding: 0.8vh 1.6vh;
+    border-radius: 1vh;
+    background: rgba(11, 11, 13, 0.85);
+    text-align: center;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+.camera-bar .camera-message {
+    min-height: 1.2em;
+    color: var(--gold);
+}
+
+/* Find Friends, Taxi and 911 */
+select.field {
+    appearance: none;
+}
+
+select.field option {
+    background: #1c1c22;
+}
+
+.share-number {
+    margin-block-start: 0.6vh;
+}
+
+.share-choices,
+.emergency-choices {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6vh;
+    margin-block-end: 1vh;
+}
+
+.share-choices .button,
+.emergency-choices .button {
+    margin: 0;
+}
+
+.bubble-pin {
+    display: block;
+    margin-block-start: 0.4vh;
+    color: inherit;
+    font-weight: 700;
+    text-decoration: underline;
 }

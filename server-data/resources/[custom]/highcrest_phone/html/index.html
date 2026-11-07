@@ -50,6 +50,18 @@
                         <span class="app-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.500"/><path d="M3.500 12h17M12 3.500c-5 5.500-5 11.500 0 17 5-5.500 5-11.500 0-17z"/></svg></span>
                         Darkweb
                     </button>
+                    <button class="app" data-open="findFriends">
+                        <span class="app-icon"><svg viewBox="0 0 24 24"><path d="M12 21s-6.500-6.300-6.500-11a6.500 6.500 0 0 1 13 0c0 4.700-6.500 11-6.500 11z"/><circle cx="12" cy="10" r="2.200"/></svg></span>
+                        Find Friends
+                    </button>
+                    <button class="app" data-open="taxi">
+                        <span class="app-icon"><svg viewBox="0 0 24 24"><path d="M5 16V11l2-5h10l2 5v5M3.500 16h17v3h-3v-1h-11v1h-3zM5 11h14M9.500 6V4h5v2"/></svg></span>
+                        Taxi
+                    </button>
+                    <button class="app" data-open="emergency">
+                        <span class="app-icon"><svg viewBox="0 0 24 24"><path d="M12 3.500 22 20H2L12 3.500zM12 10v5M12 17.500v.5"/></svg></span>
+                        911
+                    </button>
                     <button class="app" data-open="snake">
                         <span class="app-icon"><svg viewBox="0 0 24 24"><path d="M5 18h9a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h9"/><circle cx="19.500" cy="6" r="0.600"/></svg></span>
                         Snake
@@ -93,8 +105,6 @@
 
             <section id="cameraView" class="view camera-view" hidden>
                 <div class="camera-grid"></div>
-                <p id="cameraMessage" class="camera-message"></p>
-                <p class="camera-keys"><kbd>Enter</kbd> Photo <kbd>&#8593;</kbd> Selfie <kbd>Backspace</kbd> Exit</p>
             </section>
 
             <section id="picker" class="view page" hidden>
@@ -211,6 +221,66 @@
                 <p id="darkwebEmpty" class="empty" hidden>The board is empty.</p>
             </section>
 
+            <section id="findFriends" class="view page" hidden>
+                <h2>Find Friends</h2>
+                <h3>Friends sharing with you</h3>
+                <div id="friendsList" class="cards"></div>
+                <p id="friendsEmpty" class="empty" hidden>No one is sharing with you yet.</p>
+                <p id="friendsError" class="error"></p>
+                <h3>Share my location</h3>
+                <select id="shareContact" class="field"></select>
+                <input id="shareNumber" class="field share-number" maxlength="15" placeholder="Or enter a number">
+                <p id="shareError" class="error"></p>
+                <div class="share-choices">
+                    <button class="button" data-share="1">1 hour</button>
+                    <button class="button" data-share="8">8 hours</button>
+                    <button class="button" data-share="24">24 hours</button>
+                    <button class="button accent" data-share="forever">Forever</button>
+                </div>
+                <h3>You are sharing with</h3>
+                <div id="sharingList" class="cards"></div>
+                <p id="sharingEmpty" class="empty" hidden>You are not sharing with anyone.</p>
+            </section>
+
+            <section id="taxi" class="view page" hidden>
+                <h2>Taxi</h2>
+                <div id="taxiCompose">
+                    <textarea id="taxiNote" class="field" maxlength="200" rows="2" placeholder="Where are you headed? (optional)"></textarea>
+                    <p id="taxiError" class="error"></p>
+                    <button id="taxiCall" class="button accent">Call a taxi</button>
+                </div>
+                <div id="taxiStatus" class="card" hidden>
+                    <p id="taxiStatusText"></p>
+                    <button id="taxiCallDriver" class="button" hidden>Call driver</button>
+                    <button id="taxiCancel" class="button">Cancel</button>
+                </div>
+                <div id="taxiDriver" hidden>
+                    <h3>Driver desk</h3>
+                    <p id="taxiDriverError" class="error"></p>
+                    <div id="taxiJob"></div>
+                    <div id="taxiOpen" class="cards"></div>
+                    <p id="taxiOpenEmpty" class="empty" hidden>No one is waiting for a ride.</p>
+                </div>
+            </section>
+
+            <section id="emergency" class="view page" hidden>
+                <h2>911</h2>
+                <p class="muted">Your message and location go to on-duty responders.</p>
+                <div class="emergency-choices">
+                    <button class="button accent" data-emergency="police">Police</button>
+                    <button class="button" data-emergency="ems">EMS</button>
+                </div>
+                <textarea id="emergencyMessage" class="field" maxlength="200" rows="3" placeholder="What is your emergency?"></textarea>
+                <p id="emergencyError" class="error"></p>
+                <button id="emergencySend" class="button accent">Send to 911</button>
+                <p id="emergencyResult" class="muted"></p>
+                <div id="emergencyDesk" hidden>
+                    <h3>Recent calls</h3>
+                    <div id="emergencyCalls" class="cards"></div>
+                    <p id="emergencyEmpty" class="empty" hidden>No recent calls.</p>
+                </div>
+            </section>
+
             <section id="snake" class="view page snake-page" hidden>
                 <div class="snake-head">
                     <h2>Snake</h2>
@@ -288,6 +358,7 @@
                 <div id="bubbles" class="bubbles"></div>
                 <p id="messageError" class="error"></p>
                 <div class="compose">
+                    <button id="messageLocation" class="button" aria-label="Send my location">&#128205;</button>
                     <input id="messageInput" class="field" maxlength="500" placeholder="Message">
                     <button id="messageSend" class="button accent">Send</button>
                 </div>
@@ -299,9 +370,16 @@
     </div>
 
 
+    <div id="cameraBar" class="camera-bar" hidden>
+        <p id="cameraMessage" class="camera-message"></p>
+        <p class="camera-keys"><kbd>Enter</kbd> Photo <kbd>Scroll</kbd> or <kbd>Q</kbd><kbd>E</kbd> Zoom <kbd>L</kbd> Rotate <kbd>&#8593;</kbd> Selfie <kbd>Backspace</kbd> Exit</p>
+    </div>
+
     <script src="app.js"></script>
     <script src="comms.js"></script>
     <script src="games.js"></script>
     <script src="apps.js"></script>
+    <script src="services.js"></script>
+    <script>wireAppButtons();</script>
 </body>
 </html>

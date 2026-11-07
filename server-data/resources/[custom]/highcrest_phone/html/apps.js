@@ -508,5 +508,4 @@ $('darkwebSend').addEventListener('click', async () => {
     });
 });
 
-/* Icons on the home screen are wired up in app.js, so this file loads before that runs. */
-wireAppButtons();
+

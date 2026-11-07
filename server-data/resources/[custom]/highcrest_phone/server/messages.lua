@@ -2,6 +2,8 @@ local MAX_MESSAGE_LENGTH = 500
 local CONVERSATION_LIMIT = 100
 local SEND_COOLDOWN_MS = 800
 
+local LOCATION_MESSAGE = 'Shared a location'
+
 local lastSentAt = {}
 
 MySQL.ready(function()
@@ -18,6 +20,8 @@ MySQL.ready(function()
             KEY `by_recipient` (`recipient_number`, `read_at`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     ]])
+    MySQL.query.await('ALTER TABLE `highcrest_phone_messages` ADD COLUMN IF NOT EXISTS `x` FLOAT NULL')
+    MySQL.query.await('ALTER TABLE `highcrest_phone_messages` ADD COLUMN IF NOT EXISTS `y` FLOAT NULL')
 end)
 
 function NumberExists(number)
@@ -58,7 +62,7 @@ lib.callback.register('highcrest_phone:server:getConversation', function(source,
 
     local mine = player.PlayerData.charinfo.phone
     local rows = MySQL.query.await([[
-        SELECT id, body, UNIX_TIMESTAMP(sent_at) AS sentAt, sender_number = ? AS mine FROM (
+        SELECT id, body, x, y, UNIX_TIMESTAMP(sent_at) AS sentAt, sender_number = ? AS mine FROM (
             SELECT * FROM highcrest_phone_messages
             WHERE (sender_number = ? AND recipient_number = ?) OR (sender_number = ? AND recipient_number = ?)
             ORDER BY id DESC LIMIT ?
@@ -75,7 +79,7 @@ end)
 
 lib.callback.register('highcrest_phone:server:sendMessage', function(source, data)
     local player = GetPhoneOwner(source)
-    if not player or type(data) ~= 'table' or type(data.body) ~= 'string' then return end
+    if not player or type(data) ~= 'table' then return end
 
     local now = GetGameTimer()
     if lastSentAt[source] and now - lastSentAt[source] < SEND_COOLDOWN_MS then
@@ -84,13 +88,23 @@ lib.callback.register('highcrest_phone:server:sendMessage', function(source, dat
 
     local mine = player.PlayerData.charinfo.phone
     local other = CleanPhoneNumber(data.number)
-    local body = data.body:gsub('^%s+', ''):gsub('%s+$', '')
+    local body = TrimText(data.body)
+
+    -- The position always comes from the server, so a location can't be faked.
+    local spot
+    if data.location == true then
+        spot = GetPlayerCoords(source)
+        if not spot then return { error = 'Your location could not be found.' } end
+        body = LOCATION_MESSAGE
+    end
+
     if not other or #body < 1 or #body > MAX_MESSAGE_LENGTH then return { error = 'That message could not be sent.' } end
     if other == mine then return { error = 'You cannot text yourself.' } end
     if not NumberExists(other) then return { error = 'That number is not in service.' } end
 
     lastSentAt[source] = now
-    local id = MySQL.insert.await('INSERT INTO highcrest_phone_messages (sender_number, recipient_number, body) VALUES (?, ?, ?)', { mine, other, body })
+    local x, y = spot and spot.x, spot and spot.y
+    local id = MySQL.insert.await('INSERT INTO highcrest_phone_messages (sender_number, recipient_number, body, x, y) VALUES (?, ?, ?, ?, ?)', { mine, other, body, x, y })
     local sentAt = os.time()
 
     local target = exports.qbx_core:GetPlayerByPhone(other)
@@ -101,10 +115,12 @@ lib.callback.register('highcrest_phone:server:sendMessage', function(source, dat
             name = GetContactName(target.PlayerData.citizenid, mine),
             body = body,
             sentAt = sentAt,
+            x = x,
+            y = y,
         })
     end
 
-    return { message = { id = id, body = body, sentAt = sentAt, mine = 1 } }
+    return { message = { id = id, body = body, sentAt = sentAt, mine = 1, x = x, y = y } }
 end)
 
 AddEventHandler('playerDropped', function()

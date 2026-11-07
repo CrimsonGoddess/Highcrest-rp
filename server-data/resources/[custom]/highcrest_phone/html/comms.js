@@ -157,6 +157,13 @@ function addBubble(message) {
     const time = document.createElement('small');
     time.textContent = formatTime(message.sentAt);
     bubble.append(time);
+    if (message.x !== null && message.x !== undefined) {
+        const pin = document.createElement('button');
+        pin.className = 'bubble-pin';
+        pin.textContent = 'Set waypoint';
+        pin.addEventListener('click', () => post('setWaypoint', { x: message.x, y: message.y }));
+        bubble.append(pin);
+    }
     $('bubbles').append(bubble);
     $('bubbles').scrollTop = $('bubbles').scrollHeight;
 }
@@ -189,6 +196,15 @@ async function sendMessage() {
 }
 
 $('messageSend').addEventListener('click', sendMessage);
+$('messageLocation').addEventListener('click', async () => {
+    const result = await post('sendMessage', { number: openConversation, location: true });
+    if (!result || result.error) {
+        setError('messageError', (result && result.error) || 'Your location could not be sent.');
+        return;
+    }
+    setError('messageError', '');
+    addBubble(result.message);
+});
 $('messageInput').addEventListener('keydown', (event) => {
     if (event.key === 'Enter') sendMessage();
 });

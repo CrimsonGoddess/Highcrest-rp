@@ -4,7 +4,7 @@ lua54 'yes'
 
 name 'highcrest_phone'
 description 'Highcrest RP phone'
-version '0.5.0'
+version '0.6.0'
 
 dependencies {
     'ox_lib',
@@ -19,7 +19,10 @@ shared_scripts {
     'config.lua',
 }
 
-client_script 'client/main.lua'
+client_scripts {
+    'client/main.lua',
+    'client/services.lua',
+}
 
 server_scripts {
     '@oxmysql/lib/MySQL.lua',
@@ -31,6 +34,8 @@ server_scripts {
     'server/market.lua',
     'server/dating.lua',
     'server/darkweb.lua',
+    'server/location.lua',
+    'server/services.lua',
 }
 
 ui_page 'html/index.html'
@@ -42,5 +47,6 @@ files {
     'html/comms.js',
     'html/games.js',
     'html/apps.js',
+    'html/services.js',
     'html/assets/fonts/*.woff2',
 }

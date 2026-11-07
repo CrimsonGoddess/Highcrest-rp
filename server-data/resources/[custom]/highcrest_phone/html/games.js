@@ -2,11 +2,11 @@
 
 /* Snake. It runs only on the phone, so it can't affect the economy. */
 
-const SNAKE_COLUMNS = 16;
-const SNAKE_ROWS = 20;
-const SNAKE_START_DELAY_MS = 150;
-const SNAKE_MIN_DELAY_MS = 70;
-const SNAKE_SPEEDUP_MS = 3;
+const SNAKE_COLUMNS = 12;
+const SNAKE_ROWS = 15;
+const SNAKE_START_DELAY_MS = 260;
+const SNAKE_MIN_DELAY_MS = 110;
+const SNAKE_SPEEDUP_MS = 5;
 const SNAKE_BEST_KEY = 'highcrest_snake_best';
 
 const SNAKE_DIRECTIONS = {
@@ -141,7 +141,7 @@ function stepSnake() {
 
 function startSnake() {
     stopSnakeTimer();
-    const body = [{ x: 8, y: 10 }, { x: 7, y: 10 }, { x: 6, y: 10 }];
+    const body = [{ x: 5, y: 7 }, { x: 4, y: 7 }, { x: 3, y: 7 }];
     snake = { body, direction: 'right', queue: [], score: 0, food: placeSnakeFood(body), running: true };
     $('snakeOverlay').hidden = true;
     updateSnakeScore();

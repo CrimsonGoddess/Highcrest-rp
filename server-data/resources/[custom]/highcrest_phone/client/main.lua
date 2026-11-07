@@ -1,8 +1,28 @@
 local CONTROL_ENTER = 191
 local CONTROL_BACKSPACE = 194
 local CONTROL_SELFIE = 27 -- up arrow
-local CONTROL_ATTACK = 24
-local CONTROL_AIM = 25
+local CONTROL_ORIENTATION = 182 -- L
+local CONTROL_LOOK_X = 1
+local CONTROL_LOOK_Y = 2
+local CONTROL_SCROLL_UP = 241
+local CONTROL_SCROLL_DOWN = 242
+local CONTROL_ZOOM_IN = 38 -- E
+local CONTROL_ZOOM_OUT = 44 -- Q
+
+-- Field of view: a smaller number is more zoomed in.
+local CAMERA_DEFAULT_FOV = 50.0
+local CAMERA_MIN_FOV = 12.0
+local CAMERA_MAX_FOV = 75.0
+local CAMERA_ZOOM_STEP = 4.0
+local CAMERA_ZOOM_HOLD_STEP = 0.5
+local CAMERA_LOOK_SPEED = 6.0
+local CAMERA_MAX_PITCH = 70.0
+local CAMERA_FORWARD_DISTANCE = 0.35
+local SELFIE_DISTANCE = 0.75
+local HEAD_BONE = 31086
+
+-- Pause menu, chat and push to talk still work while using the camera.
+local CAMERA_ALLOWED_CONTROLS = { 199, 200, 245, 249 }
 
 local PHONE_MODEL = `prop_npc_phone_01`
 local PHONE_ANIM_DICT = 'cellphone@'
@@ -12,6 +32,8 @@ local HAND_BONE = 28422
 local isOpen = false
 local inCamera = false
 local phoneProp
+local cameraHandle
+local cameraCrop
 
 local function sendClock()
     SendNUIMessage({ action = 'clock', hours = GetClockHours(), minutes = GetClockMinutes() })
@@ -76,49 +98,81 @@ end
 
 local function leaveCamera()
     inCamera = false
-    CellCamActivate(false, false)
-    DestroyMobilePhone()
+    RenderScriptCams(false, false, 0, true, true)
+    if cameraHandle then
+        DestroyCam(cameraHandle, false)
+        cameraHandle = nil
+    end
     TriggerEvent('highcrest_ui:setHidden', false)
     isOpen = true
     SendNUIMessage({ action = 'cameraClosed' })
     SetNuiFocus(true, true)
-    startHolding()
 end
 
--- Uses GTA's own phone camera, so the view comes from the character's hand.
--- `crop` is the phone screen's position, used to crop the photo to what the player framed.
-local function runCamera(crop)
+-- A custom camera, because it allows zoom. The character holds still while framing the shot.
+-- cameraCrop is the phone screen's position, used to crop the photo to what the player framed.
+local function runCamera()
     inCamera = true
     isOpen = false
     SetNuiFocus(false, false)
-    stopHolding()
     TriggerEvent('highcrest_ui:setHidden', true)
 
-    CreateMobilePhone(1)
-    CellCamActivate(true, true)
+    local ped = PlayerPedId()
+    cameraHandle = CreateCam('DEFAULT_SCRIPTED_CAMERA', true)
+    SetCamActive(cameraHandle, true)
+    RenderScriptCams(true, false, 0, true, true)
 
     CreateThread(function()
         local busy = false
         local selfie = false
+        local fov = CAMERA_DEFAULT_FOV
+        local yaw = GetEntityHeading(ped)
+        local pitch = 0.0
 
         while inCamera do
             Wait(0)
             HideHudAndRadarThisFrame()
-            DisableControlAction(0, CONTROL_ATTACK, true)
-            DisableControlAction(0, CONTROL_AIM, true)
+            DisableAllControlActions(0)
+            for _, control in ipairs(CAMERA_ALLOWED_CONTROLS) do
+                EnableControlAction(0, control, true)
+            end
 
-            if not busy and IsControlJustPressed(0, CONTROL_ENTER) then
+            -- Looking feels the same at any zoom because it scales with the field of view.
+            local sensitivity = CAMERA_LOOK_SPEED * (fov / CAMERA_DEFAULT_FOV)
+            yaw = yaw - GetDisabledControlNormal(0, CONTROL_LOOK_X) * sensitivity
+            pitch = math.max(-CAMERA_MAX_PITCH, math.min(CAMERA_MAX_PITCH, pitch - GetDisabledControlNormal(0, CONTROL_LOOK_Y) * sensitivity))
+
+            if IsDisabledControlJustPressed(0, CONTROL_SCROLL_UP) then fov = fov - CAMERA_ZOOM_STEP end
+            if IsDisabledControlJustPressed(0, CONTROL_SCROLL_DOWN) then fov = fov + CAMERA_ZOOM_STEP end
+            if IsDisabledControlPressed(0, CONTROL_ZOOM_IN) then fov = fov - CAMERA_ZOOM_HOLD_STEP end
+            if IsDisabledControlPressed(0, CONTROL_ZOOM_OUT) then fov = fov + CAMERA_ZOOM_HOLD_STEP end
+            fov = math.max(CAMERA_MIN_FOV, math.min(CAMERA_MAX_FOV, fov))
+
+            SetEntityHeading(ped, yaw)
+            local head = GetPedBoneCoords(ped, HEAD_BONE, 0.0, 0.0, 0.0)
+            local radians = math.rad(yaw)
+            local forwardX, forwardY = -math.sin(radians), math.cos(radians)
+            local distance = selfie and SELFIE_DISTANCE or CAMERA_FORWARD_DISTANCE
+            SetCamCoord(cameraHandle, head.x + forwardX * distance, head.y + forwardY * distance, head.z + 0.03)
+            if selfie then
+                SetCamRot(cameraHandle, pitch, 0.0, yaw + 180.0, 2)
+            else
+                SetCamRot(cameraHandle, pitch, 0.0, yaw, 2)
+            end
+            SetCamFov(cameraHandle, fov)
+
+            if not busy and IsDisabledControlJustPressed(0, CONTROL_ENTER) then
                 busy = true
                 CreateThread(function()
-                    local result = lib.callback.await('highcrest_phone:server:takePhoto', false, crop)
+                    local result = lib.callback.await('highcrest_phone:server:takePhoto', false, cameraCrop)
                     SendNUIMessage({ action = 'captured', result = result })
                     busy = false
                 end)
-            elseif IsControlJustPressed(0, CONTROL_SELFIE) then
+            elseif IsDisabledControlJustPressed(0, CONTROL_SELFIE) then
                 selfie = not selfie
-                -- CELL_FRONT_CAM_ACTIVATE
-                Citizen.InvokeNative(0x2491A93618B7D838, selfie)
-            elseif IsControlJustPressed(0, CONTROL_BACKSPACE) then
+            elseif IsDisabledControlJustPressed(0, CONTROL_ORIENTATION) then
+                SendNUIMessage({ action = 'cameraRotate' })
+            elseif IsDisabledControlJustPressed(0, CONTROL_BACKSPACE) then
                 leaveCamera()
             end
         end
@@ -188,7 +242,14 @@ RegisterNUICallback('close', function(_, cb)
 end)
 
 RegisterNUICallback('startCamera', function(data, cb)
-    runCamera(data.crop)
+    cameraCrop = data.crop
+    runCamera()
+    cb(1)
+end)
+
+-- Sent again whenever the viewfinder rotates, so the crop always matches what's on screen.
+RegisterNUICallback('cameraCrop', function(data, cb)
+    cameraCrop = data.crop
     cb(1)
 end)
 
@@ -213,8 +274,8 @@ AddEventHandler('onResourceStop', function(resource)
     if resource ~= GetCurrentResourceName() then return end
     if isOpen or inCamera then SetNuiFocus(false, false) end
     if inCamera then
-        CellCamActivate(false, false)
-        DestroyMobilePhone()
+        RenderScriptCams(false, false, 0, true, true)
+        if cameraHandle then DestroyCam(cameraHandle, false) end
         TriggerEvent('highcrest_ui:setHidden', false)
     end
     stopHolding()
