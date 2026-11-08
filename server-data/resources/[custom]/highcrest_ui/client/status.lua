@@ -58,7 +58,8 @@ end)
 
 -- /hudborder: line the map border up with the minimap on this screen. Arrow keys move it,
 -- Shift + arrows resize it, Enter saves, Backspace cancels. Values are in vh and saved per player.
-local BORDER_KVP = 'highcrest_map_border'
+-- v2: offsets are relative to the defaults lined up on 2026-11-08, so older saves are ignored.
+local BORDER_KVP = 'highcrest_map_border_v2'
 local STEP = 0.1
 local border = { x = 0.0, y = 0.0, w = 0.0, h = 0.0 }
 do
