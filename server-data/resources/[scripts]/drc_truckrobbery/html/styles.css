@@ -1,0 +1,413 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background: #0d111700;
+    color: white;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+
+.hidden {
+    display: none;
+}
+
+#findTruckText {
+    position: fixed;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 28px;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 35;
+    font-family: 'Arial', sans-serif;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); 
+    transition: all 0.3s ease;
+    @media (max-width: 768px) {
+        font-size: 24px; 
+        padding: 8px 16px; 
+    }
+    @media (max-width: 480px) {
+        font-size: 20px;
+        padding: 6px 12px; 
+    }
+}
+
+
+
+#gameArea {
+    display: none;
+    position: fixed;
+    width: 600px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.overlay, .black-overlay {
+    position: absolute;
+    top: -52%;
+    width: 156%;
+    height: 147%;
+    background-color: black; 
+    pointer-events: none;
+    z-index: 10;
+}
+
+
+#laptopImage {
+    max-width: 1000px;
+    max-height: 1000px;
+}
+
+#truckImage {
+    max-width: 70px;
+    max-height: 70px;
+}
+
+
+.progressBarBackground {
+    width: 100%;
+    height: 30px;
+    border: 5px solid white;
+    overflow: hidden; 
+}
+
+#progressBarContainer {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%; 
+    height: 40px;
+    z-index: 30;
+}
+
+#progressBar {
+    width: 0%; 
+    height: 100%; 
+    background-color: green; 
+    transition: width 3s linear; 
+}
+
+#successMessage {
+    position: absolute;
+    top: -500%;
+    left: 0%;
+    font-size: 40px;
+    color: green;
+    z-index: 35;
+}
+
+#failureMessage {
+    position: absolute;
+    top: -500%;
+    left: 20%;
+    font-size: 40px;
+    color: red;
+    z-index: 35;
+}
+#timer {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    position: absolute;
+    top: -50%;
+    right: -25%;
+    z-index: 35;
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 10px 15px;
+    border: 2px solid #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#progressText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    margin: 0; 
+    font-size: 24px; 
+    color: white; 
+    z-index: 35;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.pulse {
+    animation: pulse 0.6s 2; 
+}
+
+
+
+/* GROUPE TEAM MENU*/
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.flex-container {
+    visibility: hidden; 
+    opacity: 0;
+    transition: opacity 0.5s ease-out, visibility 0s linear 0.5s;
+}
+
+.flex-container.showing {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+}
+.group-lobby {
+    width: 350px;
+    position: absolute; 
+    left: 0;
+    top: 50%; 
+    transform: translateY(-50%); 
+    margin-left: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-size: 16px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5); 
+    border-radius: 6px;
+    overflow: hidden; 
+    background: #161B22;
+    border: 1px solid #30363D;
+}
+
+  
+.main-menu button {
+    width: 100%;
+    padding: 19px;
+    
+    background-color: #58A6FF;
+    color: white;
+    border: none;
+    border-radius: 0; 
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.685);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+}
+
+
+.main-menu button:hover {
+    background-color: #1f4887;
+}
+  
+.team h2, .nearest-players h2 {
+    background-color: #21262D;
+    padding: 15px;
+    margin-bottom: 12px;
+    font-size: 20px;
+}
+
+.nearest-players {
+    /* Existing styles */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers children vertically */
+    text-align: center; /* Centers text horizontally */
+}
+.member {
+    background-color: #0D1117;
+    padding: 12px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #30363D;
+}
+  
+.member i {
+    font-size: 28px; 
+    margin-right: 12px;
+    color: #58A6FF; 
+}
+
+.nearest-players .member {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 12px;
+    background-color: #0D1117;
+    margin-bottom: 12px;
+    border-radius: 6px;
+}
+  
+.nearest-players .member p {
+    flex: 1; 
+    margin: 0 12px; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}
+
+.add-player-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.add-player-btn .fas {
+    color: #58A6FF;
+}
+  
+.player-name, .no-players-msg {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.no-players-msg {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin: auto; /* Helps with centering */
+    margin-bottom: 12px;
+    padding: 5px 0; /* Gives some space, adjust as needed */
+}
+
+.member p {
+    margin: 0;
+    font-size: 16px;
+}
+
+.custom-alert {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.hidden {
+    display: none;
+}
+
+.alert-content {
+    background: #161B22;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    border: 1px solid #30363D;
+    font-size: 16px;
+}
+
+.alert-content p {
+    margin: 0 0 20px 0;
+    font-size: 18px;
+    color: #FFFFFF;
+}
+
+.alert-actions button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    color: white;
+}
+
+.remove-player-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 150px;
+}
+
+
+#stickybombMinigame {
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    z-index: 1000;
+}
+
+#clickableSquare {
+    position: absolute;
+    top: 45%;   
+    left: 35%;
+    width: 35px;
+    height: 80px;
+    cursor: pointer;
+    z-index: 35;
+}
+#changeableImageButton {
+    position: absolute;
+    top: 116px; 
+    left: 262px;
+    display: none;
+    z-index: 30;
+}
+
+#changeableImage {
+    position: absolute;
+    top: 120px; 
+    left: 378px;
+    display: none;
+    z-index: 30;
+}
+
+#gameBoard {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+#stickybombImage {
+    display: block;
+}
+
+
+.remove-player-btn:focus {
+    outline: none;
+}
+
+.blue-minus {
+    color: #1F6FEB;
+}
+
+
+#noButton {
+    background-color: #f44336;
+}
+
+#yesButton {
+    background-color: #4CAF50;
+}
+
+.alert-actions button:hover {
+    filter: brightness(85%);
+}

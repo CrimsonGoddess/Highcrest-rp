@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini-Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <div class="flex-container">
+        <div class="group-lobby">
+            <div class="team">
+                <h2>YOUR TEAM</h2>
+                <div class="member team-leader">
+                    <i class="fas fa-user-secret"></i>
+                    <p id="teamLeaderName"></p>
+                </div>
+            </div>        
+            <div class="nearest-players">
+            </div>
+            <div class="main-menu">
+                <button id="mainMenuButton">START JOB</button>
+            </div>
+        </div>
+    </div>
+    <div id="customAlert" class="custom-alert hidden">
+        <div class="alert-content">
+            <p>Player invited you to the team. Do you accept?</p>
+            <div class="alert-actions">
+                <button id="noButton">NO</button>
+                <button id="yesButton" onclick="acceptInvitation(invitingPlayerId)">YES</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="stickybombMinigame" class="hidden">
+        <div id="gameBoard">
+            <div id="clickableSquare"></div>    
+            <img id="changeableImageButton" src="images/armedButton.png" alt="Armed Button" style="display: none;">
+            <img id="changeableImage" src="images/armed.png" alt="Armed Image" style="display: none;">
+            <img id="stickybombImage" src="images/stickybomb.png" alt="Sticky Bomb">
+            <audio id="beepSound" src="sound/beep.mp3"></audio>
+            <audio id="beepArmedSound" src="sound/beepArmed.mp3"></audio>
+        </div>
+    </div>
+
+    <div id="miniGame" class="hidden">
+        <div id="findTruckText">FIND TRUCK ON SCREEN</div>
+        <div id="gameArea">
+            <img id="laptopImage" src="images/laptop.png" alt="Laptop">
+            <img id="truckImage" src="images/truck.png" alt="Truck" style="position: absolute;"
+                 data-locations='[{"x": 100, "y": 200}, {"x": 300, "y": 100}, {"x": 50, "y": 100}, {"x": 400, "y": 100}, {"x": 400, "y": 10}, {"x": 10, "y": 10}, {"x": 600, "y": 200}]'>
+            <div id="timer">10</div>
+            <div id="progressBarContainer">
+                <p id="progressText">Hacking...</p>
+                <span id="successMessage" style="display: none;">HACKED SUCCESSFULLY</span>
+                <span id="failureMessage" style="display: none;">HACK FAILED</span>
+                <div class="progressBarBackground">
+                    <div id="progressBar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

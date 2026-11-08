@@ -210,18 +210,12 @@ return {
         weight = 1000,
         allowArmed = true,
         consume = 0,
-        client = {
-            event = 'mm_radio:client:use'
-        }
     },
 
     ['jammer'] = {
         label = 'Radio Jammer',
         weight = 10000,
         allowArmed = true,
-        client = {
-            event = 'mm_radio:client:usejammer'
-        }
     },
 
     ['radiocell'] = {
@@ -229,9 +223,6 @@ return {
         weight = 1000,
         stack = true,
         allowArmed = true,
-        client = {
-            event = 'mm_radio:client:recharge'
-        }
     },
 
     ['advancedlockpick'] = {
@@ -642,5 +633,29 @@ return {
     ['handcuffs'] = {
         label = 'Handcuffs',
         weight = 200,
+    },
+
+    ['c4'] = {
+        label = 'C4',
+        weight = 500,
+        stack = true,
+        close = true,
+    },
+
+    ['gold'] = {
+        label = 'Gold Bar',
+        weight = 1000,
+        stack = true,
+        close = true,
+    },
+
+    ['ems'] = {
+        label = 'EMS Tablet',
+        weight = 500,
+        stack = false,
+        close = true,
+        consume = 0,
+        client = { event = 'redutzu-ems:client:openEMS', image = 'redutzu_ems.png' },
+        description = 'Medical records and dispatch for EMS',
     },
 }

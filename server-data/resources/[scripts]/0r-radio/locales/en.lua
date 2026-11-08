@@ -1,0 +1,17 @@
+return {
+	['connected_to'] = "You are connected to: ",
+	['restricted_channel'] = "You can't connect to this signal!",
+	['invalid_frequency'] = "This frequency is not available.",
+	['leave_channel'] = "You left the channel.",
+	['max_volume'] = "The radio volume is already set to the maximum",
+	['min_volume'] = "The radio volume is already set to the lowest",
+	['jammer_restricted_jobs'] = "You can't use this item",
+	['jammer_place_object'] = "Placing Object",
+	['jammer_remove_object'] = "Removing Object",
+	['jammer_cancel_place_object'] = "Cancelled placing Object",
+	['jammer_cancel_remove_object'] = "Cancelled removing Object",
+	['jammer_min_distance_error'] = "There is already a jammer nearby.",
+	["no_signal_disconnected"] = "The radio connection was lost.",
+	["no_signal_reconnect"] = "The radio connection has been reestablished.",
+	["no_signal"] = "It couldn't connect because there was no signal.",
+}

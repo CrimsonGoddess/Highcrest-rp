@@ -1,0 +1,24 @@
+.radio {
+    outline: 0;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.custom-radial-gradient {
+    background: radial-gradient(56.52% 56.52% at 50% 50%, rgba(45, 44, 44, 0.45) 0%, rgba(0, 0, 0, 0.45) 100%);
+}
+
+.custom-gradient-button {
+    background: radial-gradient(107.86% 169.23% at 50% 50%, rgba(45, 44, 44, 0.45) 0%, rgba(0, 0, 0, 0.45) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+}
+
+.custom-gradient-button-active {
+    background: radial-gradient(107.86% 169.23% at 50% 50%, var(--color-gradient-active) 0%, rgba(0, 0, 0, 0.45) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+}
+
+.custom-radial-gradient-two {
+    background: radial-gradient(56.52% 56.52% at 50% 50%, rgba(45, 44, 44, 0.35) 0%, rgba(0, 0, 0, 0.35) 100%);
+}
