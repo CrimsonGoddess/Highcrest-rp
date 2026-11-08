@@ -226,3 +226,16 @@ CreateThread(function()
 end)
 
 end
+-- Highcrest: the config has blip settings for the buyer, but the script never created the blip.
+if Config.SellShop.enabled and Config.SellShop.Blip then
+    local blipSettings = Config.SellShop.Blip
+    local coords = Config.SellShop.Ped.coords
+    local blip = AddBlipForCoord(coords.x, coords.y, coords.z)
+    SetBlipSprite(blip, blipSettings.Sprite)
+    SetBlipScale(blip, blipSettings.Scale)
+    SetBlipColour(blip, blipSettings.Colour)
+    SetBlipAsShortRange(blip, true)
+    BeginTextCommandSetBlipName('STRING')
+    AddTextComponentSubstringPlayerName(blipSettings.Name)
+    EndTextCommandSetBlipName(blip)
+end
