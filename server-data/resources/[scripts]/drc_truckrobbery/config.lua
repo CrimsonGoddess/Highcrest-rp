@@ -100,10 +100,11 @@ Config.Shop = {
     },
     Ped = {
         model = `g_m_m_chicold_01`, 
-        coords = vec4(463.4966, -751.1888, 26.3606, 125.2583), 
+        coords = vec4(236.67, -108.88, 72.35, 343.69), -- Highcrest: C4 dealer
         scenario = "WORLD_HUMAN_AA_SMOKE"
     },
     Blip = {
+        Show = false, -- Highcrest: no blip; players find the dealer themselves
         RequireToAsk = true, -- if true he have to ask lester about location
         Name = 'Explosive Dealer',
         Sprite = 272,
@@ -129,10 +130,11 @@ Config.SellShop = {
     },
     Ped = {
         model = `a_m_m_eastsa_01`, 
-        coords = vec4(558.6343, -1563.3311, 28.2809, 45.8864), 
+        coords = vec4(460.09, -1869.78, 24.98, 228.91), -- Highcrest: illegal dealer
         scenario = "WORLD_HUMAN_AA_COFFEE"
     },
     Blip = {
+        Show = false, -- Highcrest: no blip; players find the buyer themselves
         Name = 'Illegal buyer',
         Sprite = 272,
         Scale = 1.0,

@@ -106,7 +106,7 @@ Citizen.CreateThread(function()
             RemoveBlip(blipBuyer)
         end
 
-        if Config.SellShop.enabled then
+        if Config.SellShop.enabled and Config.SellShop.Blip.Show ~= false then -- Highcrest: blip off
             local buyerPos = vector3(Config.SellShop.Ped.coords.x, Config.SellShop.Ped.coords.y, Config.SellShop.Ped.coords.z)
             blipBuyer = AddBlipForCoord(buyerPos.x, buyerPos.y, buyerPos.z)
 
@@ -119,7 +119,7 @@ Citizen.CreateThread(function()
             EndTextCommandSetBlipName(blipBuyer)
         end
 
-        if not Config.Shop.Blip.RequireToAsk then
+        if Config.Shop.Blip.Show ~= false and not Config.Shop.Blip.RequireToAsk then -- Highcrest: blip off
         if blipExplosivesDealer then
             RemoveBlip(blipExplosivesDealer)
         end

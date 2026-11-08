@@ -45,7 +45,7 @@ Config.LocatorTimeout = 30 -- Minutes
 --BLIPS
 Config.Blips = {
     Shop = { -- do not use same value twice (will result in overwriting of blip)
-        BlipCoords = vec3(-697.9, 271.6, 82.11), -- Blip coords
+        BlipCoords = vec3(-10.21, 530.96, 169.62), -- Blip coords (Highcrest: moved with the seller)
         Sprite = 475, -- Blip Icon
         Display = 4, -- keep 4
         Scale = 0.9, -- Size of blip
@@ -53,7 +53,7 @@ Config.Blips = {
         Name = "Warehouses for sale" -- Blip name
     },
     Upgrades = {
-        BlipCoords = vec3(-262.93, 202.72, 84.37),
+        BlipCoords = vec3(419.59, 66.33, 96.98), -- Highcrest: moved with the dealer
         Sprite = 289,
         Display = 4,
         Scale = 0.8,
@@ -393,7 +393,7 @@ Config.UpgradeShop = {
     },
     Ped = {
         model = `s_m_y_waretech_01`,
-        coords = vec4(-262.93, 202.72, 84.37, 186.32),
+        coords = vec4(419.59, 66.33, 95.98, 201.41), -- Highcrest: upgrade dealer
         scenario = "WORLD_HUMAN_AA_SMOKE",
         renderdistance = 100
     },
@@ -424,7 +424,7 @@ Config.WarehouseShop = {
     enabled = true,
     Ped = {
         model = `a_m_y_business_03`,
-        coords = vec4(-697.9, 271.6, 82.11, 302.21),
+        coords = vec4(-10.21, 530.96, 168.62, 294.89), -- Highcrest: warehouse seller
         scenario = "WORLD_HUMAN_AA_COFFEE",
         renderdistance = 100
     },

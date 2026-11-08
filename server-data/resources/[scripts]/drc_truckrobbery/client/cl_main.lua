@@ -367,7 +367,7 @@ AddEventHandler('drc_truckrobbery:getBlip', function()
         DidAsk = true
 
 
-        if explosivesDealerBlip == nil then 
+        if explosivesDealerBlip == nil and Config.Shop.Blip.Show ~= false then -- Highcrest: blip off
             explosivesDealerBlip = AddBlipForCoord(dealerCoords)
             SetBlipSprite(explosivesDealerBlip, Config.Shop.Blip.Sprite)
             SetBlipDisplay(explosivesDealerBlip, 4)
