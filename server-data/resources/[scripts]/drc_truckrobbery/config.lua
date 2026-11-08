@@ -18,7 +18,7 @@ Config.VehicleModel = `stockade` --vehicle spawn name
 
 Config.Times = {
     HackTime = 20, -- How much seconds you have to hack 
-    CoolDown = 1, -- In minutes cooldown for heist
+    CoolDown = 60, -- In minutes, server-wide, counted from when a robbery starts
     CountDown = 5 -- how much seconds it takes to explode c4
 }
 
