@@ -12,11 +12,13 @@ dependencies {
     'qbx_core',
     'ox_inventory',
     'qbx_garages',
+    'qbx_vehicles',
     'screencapture',
 }
 
 shared_scripts {
     '@ox_lib/init.lua',
+    '@qbx_core/modules/lib.lua',
     'config.lua',
 }
 
