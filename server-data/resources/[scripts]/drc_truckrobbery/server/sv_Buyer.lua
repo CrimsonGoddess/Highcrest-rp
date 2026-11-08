@@ -33,7 +33,6 @@ AddEventHandler("drc_truck:SellShop:sellall", function()
                     onTimerSellShop[src] = GetGameTimer() + (2 * 1000)
                     price = price + (v.price * amount)
                     RemoveItem(v.item, amount, src)
-                    AddMoney(price, src)
                    Logs(src, locale("HasSold", amount, v.item, v.price * amount))
                 else
                --     print('NO ITEMS')
@@ -41,7 +40,7 @@ AddEventHandler("drc_truck:SellShop:sellall", function()
             end
         end
         if price > 0 then
-          --  AddMoney(price, src)
+            PayCash(price, src)
         end
     else
         Logs(src, "TRUCK ROBBERY (SellShop, Coords): Player Tried to exploit Event")
@@ -71,8 +70,8 @@ AddEventHandler("drc_truck:SellShop:giveitems", function(item, price, amount)
             if item == v.item and price == v.price and amount >= v.MinAmount and amount <= v.MaxAmount then
                 if GetItem(item, amount, src) then
                     onTimerSellShop[src] = GetGameTimer() + (2 * 1000)
-                    AddMoney(price * amount, src)
                     RemoveItem(item, amount, src)
+                    PayCash(price * amount, src)
                     Logs(src, locale("HasSold", amount, item, price * amount))
                 end
             end

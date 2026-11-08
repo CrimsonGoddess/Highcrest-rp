@@ -265,7 +265,7 @@ function RemoveItem(name, count, source)
 end
 
 
-local webhook = "https://discord.com/api/webhooks/1054730812127449150/3YWEN7VRZCQhijD7OVP4AwF5UK5TEjMoMAIuVo0OEhh59A73cNaWNu3gQVAffDq7iBtO"
+local webhook = "" -- Highcrest: the script shipped with a stranger's webhook here. Put your own in if you turn logs on.
 function Logs(source, message)
     if message ~= nil then
         if Config.Logs.enabled then
@@ -295,4 +295,17 @@ function Logs(source, message)
             end
         end
     end
+end
+-- Highcrest: selling loot pays clean cash. AddMoney above is for robbery cash, which is dirty.
+function PayCash(count, source)
+    local player = exports.qbx_core:GetPlayer(source)
+    if player and count > 0 then
+        player.Functions.AddMoney('cash', count, 'truck-loot-sale')
+    end
+end
+
+-- Highcrest: the script calls BanPlayer but never defined it, so it crashed instead.
+-- This records the attempt in the server console for staff to review.
+function BanPlayer(source, reason)
+    print(('^3[drc_truckrobbery] Suspicious: %s (%s) - %s^0'):format(GetPlayerName(source) or '?', source, reason))
 end
