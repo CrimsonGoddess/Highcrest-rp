@@ -254,9 +254,14 @@
             color: rgba(245, 245, 245, 0.6);
         }
 
-        /* Minimap border: crimson frame with gold corner accents. Position comes from the game. */
+        /* Minimap border: crimson frame with gold corner accents, placed where qbx_hud puts the square minimap (same values as its own border). */
         #mapFrame {
             position: fixed;
+            left: 2.5vh;
+            bottom: 6%;
+            width: 29vh;
+            height: 18.5vh;
+            box-sizing: border-box;
             border: 0.25vh solid rgba(200, 16, 46, 0.85);
             border-radius: 0.4vh;
             box-shadow: 0 0 1vh rgba(200, 16, 46, 0.35), inset 0 0 0 0.1vh rgba(11, 11, 13, 0.6);
@@ -290,10 +295,11 @@
             border-width: 0 0.3vh 0.3vh 0;
         }
 
-        /* Status rings, beside the minimap. */
+        /* Status rings, in a row above the minimap. */
         #status {
             position: fixed;
-            bottom: 1.6vh;
+            bottom: calc(6% + 18.5vh + 1vh);
+            left: 2.5vh;
             display: flex;
             align-items: center;
             gap: 0.7vh;
@@ -371,6 +377,70 @@
 
         @keyframes low {
             50% { transform: scale(1.08); }
+        }
+
+        #status.no-map {
+            bottom: 1.6vh;
+        }
+
+        /* Voice: pill with a mic and three range bars; glows gold while talking. */
+        .voice {
+            display: flex;
+            align-items: center;
+            gap: 0.5vh;
+            height: 4.4vh;
+            padding: 0 1.1vh 0 0.9vh;
+            border: 0.2vh solid rgba(245, 245, 245, 0.18);
+            border-radius: 2.2vh;
+            background: rgba(11, 11, 13, 0.78);
+            box-sizing: border-box;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .voice svg {
+            width: 2.1vh;
+            height: 2.1vh;
+            fill: none;
+            stroke: #f5f5f5;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: stroke 0.2s ease;
+        }
+
+        .voice .bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 0.3vh;
+            height: 1.8vh;
+        }
+
+        .voice .bars i {
+            width: 0.45vh;
+            border-radius: 0.2vh;
+            background: rgba(245, 245, 245, 0.2);
+            transition: background 0.2s ease;
+        }
+
+        .voice .bars i:nth-child(1) { height: 40%; }
+        .voice .bars i:nth-child(2) { height: 70%; }
+        .voice .bars i:nth-child(3) { height: 100%; }
+
+        .voice .bars i.on {
+            background: #f5f5f5;
+        }
+
+        .voice.talking {
+            border-color: #d4af37;
+            box-shadow: 0 0 1vh rgba(212, 175, 55, 0.55);
+        }
+
+        .voice.talking svg {
+            stroke: #d4af37;
+        }
+
+        .voice.talking .bars i.on {
+            background: #d4af37;
         }
     </style>
 </head>
@@ -465,7 +535,6 @@
 
         /* Status rings. Each ring's icon is drawn on a 24x24 grid. */
         const RINGS = [
-            { key: 'voice', colour: '#f5f5f5', icon: '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M9 21h6"/>' },
             { key: 'health', colour: '#e0203c', low: 25, icon: '<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>' },
             { key: 'armor', colour: '#5b8def', hideAtZero: true, icon: '<path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/>' },
             { key: 'hunger', colour: '#e8962f', low: 20, icon: '<path d="M7 3v18M5 3v5a2 2 0 0 0 4 0V3M17 21V3c-2 1.5-3 4-3 7h3"/>' },
@@ -480,6 +549,14 @@
         const statusEl = document.getElementById('status');
         const mapFrame = document.getElementById('mapFrame');
         const ringNodes = {};
+
+        // Voice: a mic with three range bars (whisper, normal, shout) that glows while talking.
+        const VOICE_RANGES = ['Whisper', 'Normal', 'Shout'];
+        const voiceEl = document.createElement('div');
+        voiceEl.className = 'voice';
+        voiceEl.innerHTML = `<svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M9 21h6"/></svg><span class="bars"><i></i><i></i><i></i></span>`;
+        statusEl.appendChild(voiceEl);
+        const voiceBars = [...voiceEl.querySelectorAll('.bars i')];
 
         RINGS.forEach((ring) => {
             const node = document.createElement('div');
@@ -506,31 +583,18 @@
 
         function showStatus(data) {
             statusEl.classList.toggle('visible', data.visible);
-            const mapOn = data.visible && data.minimapShown && data.minimap;
+            const mapOn = data.visible && data.minimapShown;
             mapFrame.classList.toggle('visible', Boolean(mapOn));
             if (!data.visible) return;
+            // Without the minimap, the row drops to the bottom corner.
+            statusEl.classList.toggle('no-map', !mapOn);
 
-            if (mapOn) {
-                const m = data.minimap;
-                Object.assign(mapFrame.style, {
-                    left: `${m.left * 100}vw`, top: `${m.top * 100}vh`,
-                    width: `${m.width * 100}vw`, height: `${m.height * 100}vh`,
-                });
-                statusEl.style.left = `calc(${(m.left + m.width) * 100}vw + 1.2vh)`;
-                statusEl.style.bottom = `${(1 - m.top - m.height) * 100}vh`;
-            } else {
-                statusEl.style.left = '1.6vh';
-                statusEl.style.bottom = '1.6vh';
-            }
+            const range = Math.max(1, Math.min(3, data.voiceRange || 2));
+            voiceBars.forEach((bar, index) => bar.classList.toggle('on', index < range));
+            voiceEl.classList.toggle('talking', Boolean(data.talking));
+            voiceEl.title = VOICE_RANGES[range - 1];
 
-            RINGS.forEach((ring) => {
-                if (ring.key === 'voice') {
-                    setRing(ring, Math.min(3, data.voiceRange || 2) / 3 * 100);
-                    ringNodes.voice.node.classList.toggle('talking', Boolean(data.talking));
-                } else {
-                    setRing(ring, data[ring.key]);
-                }
-            });
+            RINGS.forEach((ring) => setRing(ring, data[ring.key]));
         }
 
         const badge = document.getElementById('badge');
@@ -570,7 +634,6 @@
             });
             showStatus({
                 visible: true, minimapShown: true,
-                minimap: { left: 0.012, top: 0.735, width: 0.152, height: 0.215 },
                 health: 82, armor: 45, hunger: 15, thirst: 64, stress: 22, stamina: 58, air: 40,
                 talking: true, voiceRange: 2,
             });
