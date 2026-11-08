@@ -22,7 +22,9 @@ end, {
     }
 })
 
-function EnterProperty(playerSource, id, isSpawn)
+-- Highcrest: viewing = a walkthrough of an unowned home. Only the exit works, no stash is
+-- opened, and the player isn't saved as living there.
+function EnterProperty(playerSource, id, isSpawn, viewing)
     local property = MySQL.single.await('SELECT * FROM properties WHERE id = ?', {id})
     if not property then return end -- Lua and its stupid need check nil warnings
     local propertyCoords = json.decode(property.coords)
@@ -35,7 +37,7 @@ function EnterProperty(playerSource, id, isSpawn)
 
     local interactions = {}
     local isInteriorShell = tonumber(property.interior) ~= nil
-    local stashes = json.decode(property.stash_options)
+    local stashes = viewing and {} or json.decode(property.stash_options)
     for i = 1, #stashes do
         local stashCoords = isInteriorShell and CalculateOffsetCoords(propertyCoords, stashes[i].coords) or stashes[i].coords
         interactions[#interactions + 1] = {
@@ -52,10 +54,12 @@ function EnterProperty(playerSource, id, isSpawn)
     local interactData = json.decode(property.interact_options)
     for i = 1, #interactData do
         local coords = isInteriorShell and CalculateOffsetCoords(propertyCoords, interactData[i].coords) or interactData[i].coords
-        interactions[#interactions + 1] = {
-            type = interactData[i].type,
-            coords = vec3(coords.x, coords.y, coords.z)
-        }
+        if not viewing or interactData[i].type == 'exit' then
+            interactions[#interactions + 1] = {
+                type = interactData[i].type,
+                coords = vec3(coords.x, coords.y, coords.z)
+            }
+        end
         if interactData[i].type == 'exit' then
             SetEntityCoords(GetPlayerPed(playerSource), coords.x, coords.y, coords.z, false, false, false, false)
             SetEntityHeading(GetPlayerPed(playerSource), coords.w)
@@ -67,7 +71,7 @@ function EnterProperty(playerSource, id, isSpawn)
     insideProperty[id][#insideProperty[id] + 1] = playerSource
     lib.triggerClientEvent('qbx_properties:client:concealPlayers', insideProperty[id], insideProperty[id])
 
-    player.Functions.SetMetaData('currentPropertyId', id)
+    if not viewing then player.Functions.SetMetaData('currentPropertyId', id) end
 
     local decorations =  MySQL.query.await('SELECT `id`, `model`, `coords`, `rotation` FROM `properties_decorations` WHERE `property_id` = ?', {id})
     for i = 1, #decorations do
@@ -183,6 +187,16 @@ RegisterNetEvent('qbx_properties:server:enterProperty', function(data)
     if not hasAccess(player.PlayerData.citizenid, propertyId) then return end
 
     EnterProperty(playerSource, propertyId, data.isSpawn)
+end)
+
+-- Highcrest: anyone can view a home that's for sale or rent before buying it.
+RegisterNetEvent('qbx_properties:server:viewProperty', function(data)
+    local playerSource = source --[[@as number]]
+    local propertyId = type(data) == 'table' and tonumber(data.id)
+    if not propertyId or enteredProperty[playerSource] then return end
+    local owner = MySQL.scalar.await('SELECT owner FROM properties WHERE id = ?', { propertyId })
+    if owner then return end
+    EnterProperty(playerSource, propertyId, false, true)
 end)
 
 RegisterNetEvent('qbx_properties:server:ringProperty', function(data)

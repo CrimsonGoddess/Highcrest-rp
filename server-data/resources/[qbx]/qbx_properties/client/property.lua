@@ -324,6 +324,19 @@ local function singlePropertyMenu(property, noBackMenu)
             args = { id = property.id }
         }
     elseif property.owner == nil then
+        -- Highcrest: walk through a home before buying or renting it.
+        options[#options + 1] = {
+            title = 'View property',
+            description = 'Take a look inside before you buy.',
+            icon = 'eye',
+            arrow = true,
+            onSelect = function()
+                DoScreenFadeOut(1000)
+                while not IsScreenFadedOut() do Wait(0) end
+            end,
+            serverEvent = 'qbx_properties:server:viewProperty',
+            args = { id = property.id }
+        }
         if property.rent_interval then
             options[#options + 1] = {
                 title = 'Rent',
