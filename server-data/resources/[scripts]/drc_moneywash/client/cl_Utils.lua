@@ -578,12 +578,14 @@ DoorSound = function()
 end
 
 OnHouseEnter = function()
+    TriggerEvent('highcrest_ui:setInsideShell', true) -- Highcrest: hide the map inside
     if Config.TimeChange and Config.TimeSync == "realtime" then
         TriggerServerEvent("realtime:event")
     end
 end
 
 OnHouseLeave = function()
+    TriggerEvent('highcrest_ui:setInsideShell', false)
     if Config.TimeChange and Config.TimeSync == "realtime" then
         TriggerServerEvent("realtime:event")
     end

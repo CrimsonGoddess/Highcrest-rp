@@ -76,6 +76,7 @@ CreateThread(function()
         Wait(UPDATE_MS)
         local visible = LocalPlayer.state.isLoggedIn == true and not IsPauseMenuActive() and not hiddenByApp
             and (settings.compass or settings.street)
+            and not LocalPlayer.state.hcHideMap
 
         if not visible then
             if wasVisible then SendNUIMessage({ compass = { visible = false } }) end
@@ -148,3 +149,17 @@ RegisterCommand('hud', openHudMenu, false)
 TriggerEvent('chat:addSuggestion', '/hud', 'HUD settings: minimap, compass, street name, layout')
 TriggerEvent('chat:addSuggestion', '/hudedit', 'Drag your HUD icons where you want them')
 TriggerEvent('chat:addSuggestion', '/hudborder', 'Line the map border up with the minimap')
+
+-- Inside a house or warehouse (shells and interiors), the minimap and compass are hidden.
+-- qbx_properties and drc_moneywash trigger this on entering and leaving.
+AddEventHandler('highcrest_ui:setInsideShell', function(inside)
+    inside = inside == true
+    LocalPlayer.state:set('hcHideMap', inside, false)
+    if inside then
+        DisplayRadar(false)
+    elseif cache.vehicle then
+        DisplayRadar(true)
+    elseif GetResourceState('qbx_hud') == 'started' then
+        DisplayRadar(exports.qbx_hud:IsOutMapEnabled())
+    end
+end)

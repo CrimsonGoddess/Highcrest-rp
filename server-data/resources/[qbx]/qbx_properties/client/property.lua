@@ -245,6 +245,7 @@ local function hideExterior(name)
 end
 
 RegisterNetEvent('qbx_properties:client:updateInteractions', function(interactionsData, interiorString, isRental)
+    TriggerEvent('highcrest_ui:setInsideShell', true) -- Highcrest: hide the map inside
     DoScreenFadeIn(1000)
     interactions = interactionsData
     insideProperty = true
@@ -299,6 +300,7 @@ RegisterNetEvent('qbx_properties:client:removeDecoration', function(objectId)
 end)
 
 RegisterNetEvent('qbx_properties:client:unloadProperty', function()
+    TriggerEvent('highcrest_ui:setInsideShell', false)
     DoScreenFadeIn(1000)
     insideProperty = false
     if DoesEntityExist(interiorShell) then DeleteEntity(interiorShell) end

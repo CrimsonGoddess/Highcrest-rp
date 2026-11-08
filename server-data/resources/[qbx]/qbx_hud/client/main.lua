@@ -27,6 +27,11 @@ local hasWeapon = false
 
 DisplayRadar(false)
 
+-- Highcrest: highcrest_ui sets hcHideMap while the player is inside a house or warehouse shell.
+local function showRadar(enabled)
+    DisplayRadar(enabled and not LocalPlayer.state.hcHideMap)
+end
+
 local function cinematicShow(bool)
     SetBigmapActive(true, false)
     Wait(0)
@@ -75,7 +80,7 @@ end
 AddEventHandler('qbx_hud:client:setOutMap', function(enabled)
     sharedConfig.menu.isOutMapChecked = enabled == true
     saveSettings()
-    if not cache.vehicle then DisplayRadar(sharedConfig.menu.isOutMapChecked) end
+    if not cache.vehicle then showRadar(sharedConfig.menu.isOutMapChecked) end
 end)
 
 exports('IsOutMapEnabled', function() return sharedConfig.menu.isOutMapChecked end)
@@ -261,7 +266,7 @@ end)
 RegisterNUICallback('HideMap', function(_, cb)
     Wait(50)
     sharedConfig.menu.isHideMapChecked = not sharedConfig.menu.isHideMapChecked
-    DisplayRadar(not sharedConfig.menu.isHideMapChecked)
+    showRadar(not sharedConfig.menu.isHideMapChecked)
     saveSettings()
     cb('ok')
 end)
@@ -433,7 +438,7 @@ RegisterNUICallback('cinematicMode', function(_, cb)
         if sharedConfig.menu.isCinematicNotifChecked then
             exports.qbx_core:Notify(locale('notify.cinematic_off'), 'error')
         end
-        DisplayRadar(true)
+        showRadar(true)
     else
         cinematicShow(true)
         sharedConfig.menu.isCineamticModeChecked = true
@@ -686,7 +691,7 @@ CreateThread(function()
             end
             if cache.vehicle and not IsThisModelABicycle(cache.vehicle) then
                 if not wasInVehicle then
-                    DisplayRadar(true)
+                    showRadar(true)
                 end
                 wasInVehicle = true
                 updatePlayerHud({
@@ -746,7 +751,7 @@ CreateThread(function()
                     })
                     cruiseOn = false
                 end
-                DisplayRadar(sharedConfig.menu.isOutMapChecked)
+                showRadar(sharedConfig.menu.isOutMapChecked)
             end
         else
             SendNUIMessage({
@@ -1046,7 +1051,7 @@ end)
 
 RegisterNetEvent('qbx_hud:client:showHud', function()
     if cache.vehicle then
-        DisplayRadar(true)
+        showRadar(true)
         updateVehicleHud({
             true,
             IsPauseMenuActive(),
