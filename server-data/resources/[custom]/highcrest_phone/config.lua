@@ -30,10 +30,12 @@ Config = {
         realtorJob = 'realestate',      -- This job can add houses, as can admins (group.admin).
         maxPrice = 100000000,
         defaultRentHours = 24,          -- How often rent is taken from the bank (1-24 hours).
-        -- Shells realtors can choose from. Each model also needs an entry under `interiors`
-        -- in qbx_properties/config/shared.lua (exit, stash, wardrobe and logout points).
+        -- Shells realtors can choose from. `door` is where players appear inside, relative to the
+        -- shell (from the shell maker's offsets; z is raised so players stand on the floor).
+        -- The stash, wardrobe and logout spots are set in-game once per shell with /shellsetup.
         shells = {
-            { model = 'furnitured_midapart', label = 'Furnished mid-size apartment' },
+            { model = 'free_shell1', label = 'Small house (furnished)', door = vec4(-0.102, -0.009, -1.64, 92.55) },
+            { model = 'unfurnished_free_shell1', label = 'Small house (unfurnished)', door = vec4(-0.105, -0.011, -1.64, 93.11) },
         },
     },
 

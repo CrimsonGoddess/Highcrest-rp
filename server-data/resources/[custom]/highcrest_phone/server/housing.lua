@@ -1,22 +1,22 @@
 -- Housing: realtors and admins list houses with /addhouse, and players buy or rent them in the app.
 -- Each house is a qbx_properties property, so entering, stashes and keys work as before.
 -- This file adds the address, photo, and separate sale and rent prices.
-local propertiesConfig = require '@qbx_properties.config.shared'
 local propertiesServerConfig = require '@qbx_properties.config.server'
 
 local MAX_PHOTO_LENGTH = 3 * 1024 * 1024
 local PHOTO_PREFIX = 'data:image/webp;base64,'
 local MAX_DOOR_DISTANCE = 150.0   -- The realtor walks back to frame the photo, so allow some distance.
 
+local MAX_SPOT_OFFSET = 40.0      -- Spots inside a shell must be within this distance of its centre.
+local SPOT_TYPES = { "stash", "clothing", "logout" }
+
 local shells = {}
 for _, shell in ipairs(Config.housing.shells) do
-    local hash = joaat(shell.model)
-    if propertiesConfig.interiors[hash] then
-        shells[shell.model] = { hash = hash, label = shell.label }
-    else
-        lib.print.warn(('Housing shell %s has no interior entry in qbx_properties/config/shared.lua and is skipped.'):format(shell.model))
-    end
+    shells[shell.model] = { hash = joaat(shell.model), label = shell.label, door = shell.door }
 end
+
+-- Stash, wardrobe and logout spots per shell, set in-game with /shellsetup.
+local shellSpots = {}
 
 local pendingPhoto = {}
 local capturingHouse = {}
@@ -38,6 +38,64 @@ MySQL.ready(function()
             FOREIGN KEY (`property_id`) REFERENCES `properties` (`id`) ON DELETE CASCADE
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     ]])
+    MySQL.query.await([[
+        CREATE TABLE IF NOT EXISTS `highcrest_housing_shells` (
+            `model` VARCHAR(60) NOT NULL,
+            `spots` JSON NOT NULL,
+            PRIMARY KEY (`model`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    ]])
+    for _, row in ipairs(MySQL.query.await('SELECT model, spots FROM highcrest_housing_shells') or {}) do
+        shellSpots[row.model] = json.decode(row.spots)
+    end
+end)
+
+local function isAdmin(source)
+    return IsPlayerAceAllowed(source, 'admin')
+end
+
+local function shellList(onlyReady)
+    local list = {}
+    for model, shell in pairs(shells) do
+        if not onlyReady or shellSpots[model] then
+            list[#list + 1] = {
+                model = model, label = shell.label, hash = shell.hash,
+                door = { x = shell.door.x, y = shell.door.y, z = shell.door.z },
+                ready = shellSpots[model] ~= nil,
+            }
+        end
+    end
+    table.sort(list, function(a, b) return a.label < b.label end)
+    return list
+end
+
+lib.addCommand('shellsetup', {
+    help = 'Set where the stash, wardrobe and logout are inside a house shell (admins)',
+}, function(source)
+    if not isAdmin(source) then
+        return exports.qbx_core:Notify(source, 'Only admins can set up shells.', 'error')
+    end
+    TriggerClientEvent('highcrest_phone:client:shellSetup', source, shellList(false))
+end)
+
+lib.callback.register('highcrest_phone:server:housingSaveShell', function(source, model, spots)
+    if not isAdmin(source) then return { error = 'Only admins can set up shells.' } end
+    if not shells[model] or type(spots) ~= 'table' then return { error = 'Unknown shell.' } end
+
+    local clean = {}
+    for _, kind in ipairs(SPOT_TYPES) do
+        local spot = spots[kind]
+        local x, y, z = type(spot) == 'table' and tonumber(spot.x), type(spot) == 'table' and tonumber(spot.y), type(spot) == 'table' and tonumber(spot.z)
+        if not (x and y and z) then return { error = 'Set all three spots before saving.' } end
+        if #vec3(x, y, z) > MAX_SPOT_OFFSET then return { error = 'A spot is outside the shell. Set it again.' } end
+        clean[kind] = { x = x, y = y, z = z }
+    end
+
+    MySQL.update.await('INSERT INTO highcrest_housing_shells (model, spots) VALUES (?, ?) ON DUPLICATE KEY UPDATE spots = VALUES(spots)', {
+        model, json.encode(clean),
+    })
+    shellSpots[model] = clean
+    return { ok = true }
 end)
 
 local function canManage(source)
@@ -79,11 +137,9 @@ lib.addCommand('addhouse', {
     if not canManage(source) then
         return exports.qbx_core:Notify(source, 'Only realtors and admins can add houses.', 'error')
     end
-    local options = {}
-    for model, shell in pairs(shells) do options[#options + 1] = { model = model, label = shell.label, hash = shell.hash } end
-    table.sort(options, function(a, b) return a.label < b.label end)
+    local options = shellList(true)
     if #options == 0 then
-        return exports.qbx_core:Notify(source, 'No shells are set up. Add some to Config.housing.shells.', 'error')
+        return exports.qbx_core:Notify(source, "No shells are ready yet. An admin needs to run /shellsetup first.", "error")
     end
     pendingPhoto[source] = nil
     TriggerClientEvent('highcrest_phone:client:addHouse', source, options, Config.housing.defaultRentHours)
@@ -112,7 +168,8 @@ lib.callback.register('highcrest_phone:server:housingCreate', function(source, d
     if not photo then return { error = 'Take a photo of the house first.' } end
 
     local shell = shells[data.shell]
-    if not shell then return { error = 'Pick a shell from the list.' } end
+    local spots = shellSpots[data.shell]
+    if not shell or not spots then return { error = "Pick a shell from the list." } end
 
     local address = cleanAddress(data.address)
     if not address then return { error = 'Enter an address of 3 to 60 letters and numbers.' } end
@@ -135,14 +192,14 @@ lib.callback.register('highcrest_phone:server:housingCreate', function(source, d
         return { error = 'A property with that address already exists.' }
     end
 
-    local interior = propertiesConfig.interiors[shell.hash]
+    -- qbx_properties stores these offsets with each house and adds them to the shell position.
     local interactions = {
-        { type = 'logout', coords = interior.logout },
-        { type = 'clothing', coords = interior.clothing },
-        { type = 'exit', coords = interior.exit },
+        { type = "logout", coords = spots.logout },
+        { type = "clothing", coords = spots.clothing },
+        { type = "exit", coords = { x = shell.door.x, y = shell.door.y, z = shell.door.z, w = shell.door.w } },
     }
     local stashes = {
-        { coords = interior.stash, slots = propertiesServerConfig.apartmentStash.slots, maxWeight = propertiesServerConfig.apartmentStash.maxWeight },
+        { coords = spots.stash, slots = propertiesServerConfig.apartmentStash.slots, maxWeight = propertiesServerConfig.apartmentStash.maxWeight },
     }
     local doorJson = json.encode({ x = door.x, y = door.y, z = door.z })
 

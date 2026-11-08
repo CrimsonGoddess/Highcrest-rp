@@ -40,8 +40,8 @@ local function preview(door, shell)
     previewShell = CreateObject(shell.hash, door.x, door.y, door.z - propertiesConfig.shellUndergroundOffset, false, false, false)
     FreezeEntityPosition(previewShell, true)
     SetModelAsNoLongerNeeded(shell.hash)
-    local exit = propertiesConfig.interiors[shell.hash].exit
-    SetEntityCoords(cache.ped, door.x + exit.x, door.y + exit.y, door.z - propertiesConfig.shellUndergroundOffset + exit.z, false, false, false, false)
+    local inside = shell.door
+    SetEntityCoords(cache.ped, door.x + inside.x, door.y + inside.y, door.z - propertiesConfig.shellUndergroundOffset + inside.z, false, false, false, false)
 end
 
 local function pickShell(door, shells)
@@ -164,6 +164,95 @@ RegisterNetEvent('highcrest_phone:client:addHouse', function(shells, defaultHour
     lib.hideTextUI()
     DisplayRadar(true)
     busy = false
+end)
+
+-- /shellsetup: stand inside a shell and mark where its stash, wardrobe and logout go.
+-- Spots are saved relative to the shell, so every house using it gets the same layout.
+local SETUP_KEYS = {
+    { control = 157, kind = 'stash', label = 'Stash' },        -- 1
+    { control = 158, kind = 'clothing', label = 'Wardrobe' },  -- 2
+    { control = 160, kind = 'logout', label = 'Logout (bed)' }, -- 3
+}
+local KEY_SAVE = 191 -- Enter
+
+local function setupText(spots)
+    local lines = {}
+    for i, key in ipairs(SETUP_KEYS) do
+        lines[#lines + 1] = ('[%d] %s here%s'):format(i, key.label, spots[key.kind] and ' (set)' or '')
+    end
+    lines[#lines + 1] = '[Enter] Save  \n[Backspace] Cancel'
+    return table.concat(lines, '  \n')
+end
+
+local function runShellSetup(shell)
+    local start = GetEntityCoords(cache.ped)
+    local door = vec3(start.x, start.y, start.z)
+    local origin = vec3(door.x, door.y, door.z - propertiesConfig.shellUndergroundOffset)
+    returnPoint = door
+    preview(door, shell)
+
+    local spots = {}
+    lib.showTextUI(setupText(spots))
+    while true do
+        for _, key in ipairs(SETUP_KEYS) do DisableControlAction(0, key.control, true) end
+        for _, key in ipairs(SETUP_KEYS) do
+            if IsDisabledControlJustPressed(0, key.control) then
+                local coords = GetEntityCoords(cache.ped)
+                spots[key.kind] = { x = coords.x - origin.x, y = coords.y - origin.y, z = coords.z - origin.z }
+                lib.showTextUI(setupText(spots))
+                notify(('%s set.'):format(key.label), 'success')
+            end
+        end
+        if IsControlJustPressed(0, KEY_SAVE) then
+            if spots.stash and spots.clothing and spots.logout then
+                local result = lib.callback.await('highcrest_phone:server:housingSaveShell', false, shell.model, spots)
+                if result and result.ok then
+                    notify(('%s is ready. Realtors can now use it in /addhouse.'):format(shell.label), 'success')
+                    break
+                end
+                notify((result and result.error) or 'Could not save.', 'error')
+            else
+                notify('Set all three spots first.', 'error')
+            end
+        end
+        if IsControlJustPressed(0, KEY_CANCEL) then
+            notify('Cancelled. Nothing was saved.')
+            break
+        end
+        Wait(0)
+    end
+    lib.hideTextUI()
+end
+
+RegisterNetEvent('highcrest_phone:client:shellSetup', function(shells)
+    if busy then return end
+    local options = {}
+    for _, shell in ipairs(shells) do
+        local installed = IsModelInCdimage(shell.hash)
+        options[#options + 1] = {
+            title = shell.label,
+            description = not installed and 'Shell files are not installed' or (shell.ready and 'Ready. Choose to set it up again' or 'Not set up yet'),
+            icon = shell.ready and 'circle-check' or 'house',
+            disabled = not installed,
+            onSelect = function() CreateThread(function()
+                busy = true
+                local ok, err = pcall(runShellSetup, shell)
+                if not ok then
+                    print(('[highcrest_phone] shellsetup failed: %s'):format(err))
+                    notify('Something went wrong. Nothing was saved.', 'error')
+                end
+                clearPreview()
+                lib.hideTextUI()
+                if returnPoint then
+                    SetEntityCoords(cache.ped, returnPoint.x, returnPoint.y, returnPoint.z, false, false, false, false)
+                    returnPoint = nil
+                end
+                busy = false
+            end) end,
+        }
+    end
+    lib.registerContext({ id = 'highcrest_shell_setup', title = 'Shell setup', options = options })
+    lib.showContext('highcrest_shell_setup')
 end)
 
 RegisterNetEvent('highcrest_phone:client:housePhoto', function(id, src)

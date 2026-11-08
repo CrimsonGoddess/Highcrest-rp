@@ -15,3 +15,6 @@ database/my.ini
 server-data/cache/
 server-data/tmp/
 *.log
+
+# Downloaded scripts waiting to be reviewed and installed
+Scripts/
