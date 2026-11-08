@@ -37,7 +37,7 @@ Config.Blip = {
     Colour = 3,
     ShortRange = true,
     Name = "Lester House",
-    Enabled = true,
+    Enabled = false, -- Highcrest: no public blips for illegal places
 }
 
 Config.TruckBlip = {

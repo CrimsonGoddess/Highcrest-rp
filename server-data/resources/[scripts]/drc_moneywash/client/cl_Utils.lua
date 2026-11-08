@@ -392,6 +392,8 @@ end
 
 --Blip creating
 CreateThread(function()
+    -- Highcrest: the warehouse seller, upgrade dealer and tech shop are illegal, so no public blips.
+    if true then return end
     for _, v in pairs(Config.Blips) do
         local blip = AddBlipForCoord(v.BlipCoords)
         SetBlipSprite(blip, v.Sprite)
