@@ -247,6 +247,20 @@ function renderGarage(data) {
             }));
             card.append(actions);
         }
+
+        if (vehicle.state === 1) {
+            const fee = data.valetFee > 0 ? ` (${dollars(data.valetFee)})` : '';
+            const actions = el('div', 'card-actions');
+            actions.append(confirmButton(`Bring to me${fee}`, 'Press again to send a valet', async () => {
+                const result = await post_('garageValet', vehicle.plate);
+                if (!result || result.error) {
+                    setError('garageError', (result && result.error) || 'The valet could not get your vehicle out.');
+                    return;
+                }
+                openers.garage();
+            }));
+            card.append(actions);
+        }
         return card;
     }));
 }
