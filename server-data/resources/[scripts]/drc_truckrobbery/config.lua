@@ -18,7 +18,8 @@ Config.VehicleModel = `stockade` --vehicle spawn name
 
 Config.Times = {
     HackTime = 20, -- How much seconds you have to hack 
-    CoolDown = 60, -- In minutes, server-wide, counted from when a robbery starts
+    CoolDown = 60, -- In minutes. Applies only to the robbers, from when the robbery starts
+    ActiveLock = 15, -- In minutes. Server-wide wait after any robbery starts, so two never overlap
     CountDown = 5 -- how much seconds it takes to explode c4
 }
 
@@ -64,7 +65,7 @@ Config.MissionStart = {
     VoiceTalk = true, -- Voice over after you successfully hack money truck location
     Cutscene = true, -- If you want cutscene to be turned on
     MaxTeamMembers = 2,  -- How many people can be in team recommended 2
-    PoliceRequire = 0    -- How many police / sheriff needs to be on server
+    PoliceRequire = 2    -- How many on-duty police / sheriff must be on the server
 }
 Config.Offset = { x = 0.0, y = -3.5, z = 1.0 }
 

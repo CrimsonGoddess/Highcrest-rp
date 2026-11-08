@@ -100,33 +100,66 @@ lib.callback.register('drc_truck:getNames', function(source, potentialTeamMember
 end)
 
 
-local missionActive = false
+-- Highcrest: the cooldown applies only to the people who did the robbery, tracked by character
+-- so reconnecting doesn't reset it. A short server-wide lock stops two robberies overlapping,
+-- because the script runs one armored truck at a time.
+local PERSONAL_COOLDOWN = Config.Times.CoolDown * 60
+local ACTIVE_LOCK = (Config.Times.ActiveLock or 15) * 60
+local TEAM_RADIUS = 30.0
 local lastMissionStartTime = 0
-local missionCooldown = Config.Times.CoolDown * 60 
+local cooldownUntil = {} -- citizenid -> os.time() when they can rob again
 
+local function citizenIdOf(src)
+    local player = exports.qbx_core:GetPlayer(src)
+    return player and player.PlayerData.citizenid
+end
 
-lib.callback.register('drc_truck:startMissionCooldown', function()
-    if not missionActive then
-        lastMissionStartTime = os.time()
-        missionActive = true
-        return true, "Mission started and cooldown timer initiated"
-    else
-        return false, "Mission is already active"
-    end
+local function personalSecondsLeft(src)
+    local citizenid = citizenIdOf(src)
+    local untilTime = citizenid and cooldownUntil[citizenid]
+    return untilTime and untilTime - os.time() or 0
+end
+
+-- Minutes until this player can start, or nil if they can start now.
+local function minutesLeft(src)
+    local left = math.max(lastMissionStartTime + ACTIVE_LOCK - os.time(), personalSecondsLeft(src))
+    if left > 0 then return math.ceil(left / 60) end
+end
+
+lib.callback.register('drc_truck:startMissionCooldown', function(source)
+    if minutesLeft(source) then return false, "Mission is on cooldown" end
+    lastMissionStartTime = os.time()
+    return true, "Mission started and cooldown timer initiated"
 end)
 
-
-lib.callback.register('drc_truck:isMissionOnCooldown', function()
-    local currentTime = os.time()
-    if currentTime < lastMissionStartTime + missionCooldown then
-        local timeLeft = lastMissionStartTime + missionCooldown - currentTime
-        local timeLeftInMinutes = math.ceil(timeLeft / 60)
-        return true, timeLeftInMinutes
-    else
-        missionActive = false 
-        return false, 0
-    end
+lib.callback.register('drc_truck:isMissionOnCooldown', function(source)
+    local left = minutesLeft(source)
+    if left then return true, left end
+    return false, 0
 end)
+
+-- Keeps team members who are nearby and not on cooldown, and starts their cooldown.
+function HighcrestStartTeamCooldown(source, teamPlayerIds)
+    local origin = GetEntityCoords(GetPlayerPed(source))
+    local team = { source }
+    for _, id in ipairs(type(teamPlayerIds) == 'table' and teamPlayerIds or {}) do
+        id = tonumber(id)
+        local ped = id and GetPlayerPed(id)
+        if id and id ~= source and ped and ped ~= 0 and #(GetEntityCoords(ped) - origin) <= TEAM_RADIUS then
+            if personalSecondsLeft(id) > 0 then
+                TriggerClientEvent('ox_lib:notify', id, { type = 'error', description = 'You robbed a truck too recently to join this one.' })
+            else
+                team[#team + 1] = id
+            end
+        end
+    end
+    local untilTime = os.time() + PERSONAL_COOLDOWN
+    for _, id in ipairs(team) do
+        local citizenid = citizenIdOf(id)
+        if citizenid then cooldownUntil[citizenid] = untilTime end
+    end
+    return team
+end
 
 
 local MIN_POLICE_REQUIRED = Config.MissionStart.PoliceRequire
@@ -187,6 +220,7 @@ end)
 RegisterNetEvent('drc_truck:missionReadyToStart')
 AddEventHandler('drc_truck:missionReadyToStart', function(teamPlayerIds)
     local source = source
+    teamPlayerIds = HighcrestStartTeamCooldown(source, teamPlayerIds)
         TriggerClientEvent('drc_truck:startMission', source, teamPlayerIds)
 end)
 

@@ -111,7 +111,7 @@ function CheckJob()
         for i = 1, #xPlayers do
             local xPlayer = QBCore.Functions.GetPlayer(xPlayers[i])
             for _, job in pairs(Config.PoliceJobs) do
-                if xPlayer and xPlayer.PlayerData.job.name == job then
+                if xPlayer and xPlayer.PlayerData.job.name == job and xPlayer.PlayerData.job.onduty then
                     PoliceCount = PoliceCount + 1
                 end
             end
