@@ -13,13 +13,13 @@ lib.addCommand('givedirty', {
     if amount < 1 or amount > 10000000 then
         return lib.notify(source, { type = 'error', description = 'Enter an amount between $1 and $10,000,000.' })
     end
-    local ok = exports.ox_inventory:AddItem(args.target, 'markedbills', 1, {
+    local ok, reason = exports.ox_inventory:AddItem(args.target, 'markedbills', 1, {
         worth = amount,
         description = ('Value: $%d'):format(amount),
     })
     if source > 0 then
         lib.notify(source, ok
             and { type = 'success', description = ('Gave $%d in marked bills.'):format(amount) }
-            or { type = 'error', description = 'Their inventory is full.' })
+            or { type = 'error', description = ('Could not give marked bills: %s'):format(tostring(reason)) })
     end
 end)
