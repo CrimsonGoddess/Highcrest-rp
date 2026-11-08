@@ -189,6 +189,15 @@ return {
         label = 'Dirty Money',
     },
 
+    -- Dirty money from robberies and drug runs. Each stack's value is in its metadata (worth).
+    ['markedbills'] = {
+        label = 'Marked Bills',
+        weight = 100,
+        stack = false,
+        close = true,
+        description = 'Dirty money. Wash it before you can spend it.',
+    },
+
     ['id_card'] = {
         label = 'Identification Card',
     },
