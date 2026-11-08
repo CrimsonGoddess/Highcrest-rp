@@ -612,3 +612,49 @@ RegisterNetEvent('qbx_properties:server:removeDecoration', function(objectId)
         webhook = config.discordWebhook
     })
 end)
+
+-- Highcrest: /deletehouse lets admins remove the property whose front door they're standing at,
+-- even if someone owns it. It asks for confirmation first and won't run while anyone is inside.
+local DELETE_RANGE = 3.0
+local pendingDelete = {}
+
+lib.addCommand('deletehouse', {
+    help = 'Delete the property at this front door (admins). Run again with "confirm".',
+    params = { { name = 'confirm', type = 'string', help = 'Type confirm to delete', optional = true } },
+    restricted = 'group.admin',
+}, function(source, args)
+    local origin = GetEntityCoords(GetPlayerPed(source))
+    local nearest, nearestDistance
+    for _, row in ipairs(MySQL.query.await('SELECT id, property_name, owner, coords FROM properties') or {}) do
+        local coords = json.decode(row.coords)
+        local distance = coords and #(vec3(coords.x, coords.y, coords.z) - origin)
+        if distance and distance <= DELETE_RANGE and (not nearestDistance or distance < nearestDistance) then
+            nearest, nearestDistance = row, distance
+        end
+    end
+    if not nearest then
+        return exports.qbx_core:Notify(source, 'Stand at the front door of the property you want to delete.', 'error')
+    end
+
+    local pending = pendingDelete[source]
+    if args.confirm ~= 'confirm' or not pending or pending.id ~= nearest.id or os.time() > pending.expires then
+        pendingDelete[source] = { id = nearest.id, expires = os.time() + 30 }
+        local ownerText = nearest.owner and ('owned by %s'):format(nearest.owner) or 'not owned'
+        return exports.qbx_core:Notify(source, ('Delete %s (%s)? Type /deletehouse confirm within 30 seconds.'):format(nearest.property_name, ownerText), 'inform', 10000)
+    end
+    pendingDelete[source] = nil
+
+    if insideProperty[nearest.id] and #insideProperty[nearest.id] > 0 then
+        return exports.qbx_core:Notify(source, 'Someone is inside. Wait until it is empty.', 'error')
+    end
+
+    MySQL.update.await('DELETE FROM properties WHERE id = ?', { nearest.id })
+    MySQL.update.await('DELETE FROM ox_inventory WHERE name = ?', { ('qbx_properties_%s'):format(nearest.property_name) })
+    exports.qbx_core:Notify(source, ('%s was deleted. Its door marker disappears after the next restart.'):format(nearest.property_name), 'success')
+    logger.log({
+        source = source,
+        event = 'qbx_properties:deletehouse',
+        message = ('Deleted property %s (%s), owner %s'):format(nearest.id, nearest.property_name, tostring(nearest.owner)),
+        webhook = config.discordWebhook
+    })
+end)
