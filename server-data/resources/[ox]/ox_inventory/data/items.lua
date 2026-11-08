@@ -658,4 +658,40 @@ return {
         client = { event = 'redutzu-ems:client:openEMS', image = 'redutzu_ems.png' },
         description = 'Medical records and dispatch for EMS',
     },
+
+    -- drc_moneywash: dirty money goes unmarked, then wet, then dry, then clean.
+    ['unmarked_money'] = {
+        label = 'Unmarked Dirty Money',
+        weight = 0,
+        stack = true,
+        close = true,
+    },
+
+    ['wet_money'] = {
+        label = 'Wet Money',
+        weight = 0,
+        stack = true,
+        close = true,
+    },
+
+    ['dry_money'] = {
+        label = 'Dry Money',
+        weight = 0,
+        stack = true,
+        close = true,
+    },
+
+    ['warehouse_locator'] = {
+        label = 'Warehouse Locator',
+        weight = 100,
+        stack = true,
+        close = true,
+    },
+
+    ['hack_laptop'] = {
+        label = 'Hacking Laptop',
+        weight = 2000,
+        stack = true,
+        close = true,
+    },
 }

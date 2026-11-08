@@ -9,6 +9,8 @@ local FILES = {
     '005_redutzu_ems_invoices.sql',
     -- The EMS tables must match the players table's collation, or lookups fail.
     '006_redutzu_ems_collation.sql',
+    '007_drc_moneywash.sql',
+    '008_drc_moneywash_collation.sql',
 }
 
 local function statements(sql)
