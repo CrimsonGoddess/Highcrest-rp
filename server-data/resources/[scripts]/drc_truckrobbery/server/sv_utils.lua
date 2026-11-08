@@ -296,12 +296,10 @@ function Logs(source, message)
         end
     end
 end
--- Highcrest: selling loot pays clean cash. AddMoney above is for robbery cash, which is dirty.
+-- Highcrest: the buyer pays one marked-bills stack (dirty money) for the whole sale,
+-- which players clean at the money wash.
 function PayCash(count, source)
-    local player = exports.qbx_core:GetPlayer(source)
-    if player and count > 0 then
-        player.Functions.AddMoney('cash', count, 'truck-loot-sale')
-    end
+    if count > 0 then AddMoney(count, source) end
 end
 
 -- Highcrest: the script calls BanPlayer but never defined it, so it crashed instead.
