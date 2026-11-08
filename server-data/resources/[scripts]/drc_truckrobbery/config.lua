@@ -83,9 +83,11 @@ Config.LootOdds = {
 
 Config.Reward = {
     DirtyMoney = true,
-    Money = {Min = 1000, Max = 2500},
-    Gold = {Min = 1, Max = 3},
-    Diamond = {Min = 1, Max = 2},
+    -- Paid per grab. Only the first MaxGrabs grabs per player pay, so a full trolley is worth about $10,000.
+    MaxGrabs = 40,
+    Money = {Min = 250, Max = 250},
+    Gold = {Min = 1, Max = 1},
+    Diamond = {Min = 1, Max = 1},
 }
 
 
@@ -121,8 +123,8 @@ Config.SellShop = {
     EnabledSellAll = true,
     Header = "Sell",
     Items = {   
-        { label = 'Diamond', item = 'diamond', description = "Sell diamonds for : $", price = 100, MinAmount = 1, MaxAmount = 20},
-        { label = 'Gold', item = 'gold', description = "Sell gold for : $", price = 40, MinAmount = 1, MaxAmount = 20},
+        { label = 'Diamond', item = 'diamond', description = "Sell diamonds for : $", price = 250, MinAmount = 1, MaxAmount = 20},
+        { label = 'Gold', item = 'gold', description = "Sell gold for : $", price = 250, MinAmount = 1, MaxAmount = 20},
     },
     Ped = {
         model = `a_m_m_eastsa_01`, 

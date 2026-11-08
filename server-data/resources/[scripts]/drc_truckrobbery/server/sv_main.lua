@@ -25,14 +25,23 @@ AddEventHandler("drc_truck:getMoney", function(grabobjCoords, grabModel, teamPla
         return
     end
     
-    if not playerTriggerCounts[playerID] then
-        playerTriggerCounts[playerID] = 0
-    end
-
         if not teamPlayerIds or not table.contains(teamPlayerIds, playerID) then
             print("Player " .. playerID .. " is not part of the team.")
             return
         end
+
+    -- Highcrest: the client reports each grab, so the server caps how many pay and how fast.
+    -- A robbery's grabs count for 30 minutes, which also stops anyone requesting endless loot.
+    local now, nowMs = os.time(), GetGameTimer()
+    local record = playerTriggerCounts[playerID]
+    if not record or now - record.started > 1800 then
+        record = { started = now, count = 0, last = 0 }
+        playerTriggerCounts[playerID] = record
+    end
+    if nowMs - record.last < 300 then return end
+    record.last = nowMs
+    if record.count >= (Config.Reward.MaxGrabs or 40) then return end
+    record.count = record.count + 1
 
     local function getRandomMoneyAmount()
         local minMoney = Config.Reward.Money.Min
