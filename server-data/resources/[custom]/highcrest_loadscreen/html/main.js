@@ -160,3 +160,24 @@ music.play().catch(() => {
     // If the browser blocks autoplay, start on the first click instead.
     document.addEventListener('click', () => music.play().catch(() => {}), { once: true });
 });
+
+// Community links. Leave a link empty to hide its button.
+const LINKS = {
+    discord: 'https://discord.gg/Se7Sx7nnkv',
+    store: '',
+};
+
+function openLink(url) {
+    // FiveM opens links in the player's browser through invokeNative; a normal browser uses window.open.
+    if (window.invokeNative) window.invokeNative('openUrl', url);
+    else window.open(url, '_blank', 'noopener');
+}
+
+[['linkDiscord', LINKS.discord], ['linkStore', LINKS.store]].forEach(([id, url]) => {
+    const button = document.getElementById(id);
+    button.hidden = !url;
+    button.addEventListener('click', (event) => {
+        event.preventDefault();
+        if (url) openLink(url);
+    });
+});

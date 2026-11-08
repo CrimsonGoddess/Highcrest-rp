@@ -277,7 +277,7 @@ body {
 /* Music control. The cursor is shown on the loading screen so players can mute or adjust it. */
 .music {
     position: fixed;
-    inset-block-end: 3vh;
+    inset-block-start: 3vh;
     inset-inline-start: 2.5vw;
     display: flex;
     align-items: center;
@@ -358,4 +358,52 @@ body {
 
 .muted .music-title {
     color: var(--muted);
+}
+
+/* Community links, top right. They open in the player's own browser. */
+.links {
+    position: fixed;
+    inset-block-start: 3vh;
+    inset-inline-end: 2.5vw;
+    display: flex;
+    gap: 0.8vw;
+    animation: fade-in 1.2s var(--ease) both;
+}
+
+.link-button {
+    display: flex;
+    align-items: center;
+    gap: 0.6vw;
+    padding: 1vh 1.3vw;
+    border: 1px solid rgba(212, 175, 55, 0.45);
+    border-radius: 999px;
+    background: rgba(11, 11, 13, 0.72);
+    color: var(--white);
+    font-size: clamp(12px, 0.85vw, 17px);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.link-button:hover,
+.link-button:focus-visible {
+    border-color: var(--gold);
+    background: rgba(200, 16, 46, 0.35);
+    outline: none;
+}
+
+.link-button svg {
+    width: clamp(16px, 1.2vw, 24px);
+    height: clamp(16px, 1.2vw, 24px);
+    fill: currentColor;
+}
+
+#linkDiscord svg {
+    color: #8c9eff;
+}
+
+.link-button[hidden] {
+    display: none;
 }

@@ -74,3 +74,26 @@ CreateThread(function()
         end
     end
 end)
+
+-- Community links. /discord and /store copy the link and show it in chat.
+-- Leave a link empty until it exists; its command then says it's coming soon.
+local LINKS = {
+    discord = 'https://discord.gg/Se7Sx7nnkv',
+    store = '',
+}
+
+local function shareLink(name, label)
+    local url = LINKS[name]
+    if not url or url == '' then
+        lib.notify({ description = ('The %s is coming soon.'):format(label), type = 'inform' })
+        return
+    end
+    lib.setClipboard(url)
+    TriggerEvent('chat:addMessage', { args = { label, url } })
+    lib.notify({ title = label, description = 'Link copied. Paste it into your browser.', type = 'success' })
+end
+
+RegisterCommand('discord', function() shareLink('discord', 'Highcrest Discord') end, false)
+RegisterCommand('store', function() shareLink('store', 'Highcrest store') end, false)
+TriggerEvent('chat:addSuggestion', '/discord', 'Get the Highcrest Discord link')
+TriggerEvent('chat:addSuggestion', '/store', 'Get the Highcrest store link')
