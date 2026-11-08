@@ -185,7 +185,7 @@ Config.MoneyWash = {
     },
     WashItems = {
         RequiredItems = { item = "unmarked_money", minimum = 2000, maximum = 50000 },
-        Cooldown = 0.2, -- how much seconds for each money
+        Cooldown = 0.033, -- seconds per dollar. About 5 minutes per $10,000 here, so wash plus dry takes about 10
         UpgradeReduction = 10, -- % of time to be reduced
         AnimationDuration = 4000, -- Duration of animation
         PercentageLost = 91.5, -- % kept at this stage. Four stages at 91.5% leave players about 70%
@@ -203,7 +203,7 @@ Config.MoneyWash = {
     },
     DryItems = {
         RequiredItems = { item = "wet_money", minimum = 2000, maximum = 50000 },
-        Cooldown = 0.2, -- how much seconds for each money
+        Cooldown = 0.033, -- seconds per dollar. About 5 minutes per $10,000 here, so wash plus dry takes about 10
         UpgradeReduction = 10, -- % of time to be reduced
         AnimationDuration = 4000, -- Duration of animation
         PercentageLost = 91.5, -- % kept at this stage. Four stages at 91.5% leave players about 70%
