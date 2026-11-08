@@ -287,6 +287,11 @@ local function spawnAt(coords)
     end
 end
 
+-- Highcrest: highcrest_spawn replaces qbx_spawn as the spawn picker.
+local function spawnPickerRunning()
+    return GetResourceState('highcrest_spawn'):find('start') ~= nil or GetResourceState('qbx_spawn'):find('start') ~= nil
+end
+
 local function spawnDefault() -- We use a callback to make the server wait on this to be done
     spawnAt(defaultSpawn)
     TriggerEvent('qb-clothes:client:CreateFirstCharacter')
@@ -325,7 +330,7 @@ local function createCharacter(cid)
         cid = cid
     })
 
-    if GetResourceState('qbx_spawn') == 'missing' then
+    if not spawnPickerRunning() then
         spawnDefault()
     else
         if config.characters.startingApartment then
@@ -422,7 +427,7 @@ local function chooseCharacter()
                             lib.callback.await('qbx_core:server:loadCharacter', false, character.citizenid)
                             if GetResourceState('qbx_apartments'):find('start') then
                                 TriggerEvent('apartments:client:setupSpawnUI', character.citizenid)
-                            elseif GetResourceState('qbx_spawn'):find('start') then
+                            elseif spawnPickerRunning() then
                                 TriggerEvent('qb-spawn:client:setupSpawns', character.citizenid)
                                 TriggerEvent('qb-spawn:client:openUI', true)
                             else
