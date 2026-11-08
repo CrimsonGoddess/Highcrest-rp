@@ -7,6 +7,8 @@ local FILES = {
     '003_redutzu_ems_qbox.sql',
     '004_redutzu_ems_codes.sql',
     '005_redutzu_ems_invoices.sql',
+    -- The EMS tables must match the players table's collation, or lookups fail.
+    '006_redutzu_ems_collation.sql',
 }
 
 local function statements(sql)

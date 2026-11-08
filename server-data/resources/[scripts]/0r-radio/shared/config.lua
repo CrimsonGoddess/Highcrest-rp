@@ -38,6 +38,8 @@ Config = {
     },
     CheckIsDead = function()
         local pData = GetPlayerData()
-        return gPlayer.isDead or pData.metadata.isdead or pData.metadata.inlaststand
+        -- Highcrest: player data is empty until the character has loaded.
+        local metadata = pData and pData.metadata or {}
+        return (gPlayer and gPlayer.isDead) or metadata.isdead or metadata.inlaststand
     end
 }
