@@ -338,8 +338,8 @@ RegisterNUICallback('notifyMessage', function(data, cb)
     cb(1)
 end)
 
--- Share number: list people standing close by, without naming them.
-local SHARE_DISTANCE = 3.0
+-- Share number: list the people standing right next to you, by character name.
+local SHARE_DISTANCE = 2.0
 
 RegisterNUICallback('shareNearby', function(_, cb)
     local mine = GetEntityCoords(cache.ped)
@@ -353,7 +353,8 @@ RegisterNUICallback('shareNearby', function(_, cb)
         end
     end
     table.sort(nearby, function(a, b) return a.distance < b.distance end)
-    cb(nearby)
+    -- Names come from the server, which also checks each person is really that close.
+    cb(#nearby > 0 and lib.callback.await("highcrest_phone:server:shareNearby", false, nearby) or {})
 end)
 
 RegisterNUICallback('shareNumber', function(target, cb)

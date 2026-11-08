@@ -66,7 +66,7 @@ lib.callback.register('highcrest_phone:server:deleteContact', function(source, i
 end)
 
 -- Share number: sends this character's number as a contact card to someone standing close by.
-local SHARE_MAX_DISTANCE = 5.0
+local SHARE_MAX_DISTANCE = 3.0 -- A little more than the phone's 2 m, for small movements.
 
 lib.callback.register('highcrest_phone:server:shareNumber', function(source, target)
     local player = GetPhoneOwner(source)
@@ -88,4 +88,32 @@ lib.callback.register('highcrest_phone:server:shareNumber', function(source, tar
         number = charinfo.phone,
     })
     return { ok = true }
+end)
+
+local function characterName(src)
+    local player = exports.qbx_core:GetPlayer(src)
+    local charinfo = player and player.PlayerData.charinfo
+    return charinfo and ('%s %s'):format(charinfo.firstname, charinfo.lastname)
+end
+
+-- Names for the people the phone found nearby, keeping only those who really are that close.
+lib.callback.register('highcrest_phone:server:shareNearby', function(source, candidates)
+    if not GetPhoneOwner(source) or type(candidates) ~= 'table' then return {} end
+    local mine = GetPlayerPed(source)
+    if mine == 0 then return {} end
+    local origin = GetEntityCoords(mine)
+
+    local people = {}
+    for i = 1, math.min(#candidates, 8) do
+        local id = tonumber(type(candidates[i]) == 'table' and candidates[i].id)
+        local ped = id and id ~= source and GetPlayerPed(id) or 0
+        if ped ~= 0 then
+            local distance = #(GetEntityCoords(ped) - origin)
+            local name = distance <= SHARE_MAX_DISTANCE and characterName(id)
+            if name then
+                people[#people + 1] = { id = id, name = name, distance = math.floor(distance * 10 + 0.5) / 10 }
+            end
+        end
+    end
+    return people
 end)

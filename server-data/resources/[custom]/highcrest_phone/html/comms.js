@@ -138,13 +138,13 @@ $('shareNumber').addEventListener('click', async () => {
     clearShare();
     const nearby = await post('shareNearby');
     if (!nearby || nearby.length === 0) {
-        setError('shareError', 'Nobody is standing close enough.');
+        setError('shareError', 'Nobody is standing right next to you.');
         return;
     }
     $('shareNearbyBox').hidden = false;
-    $('shareNearby').replaceChildren(...nearby.map((person, index) => {
+    $('shareNearby').replaceChildren(...nearby.map((person) => {
         const row = el('button', 'row');
-        row.append(el('strong', '', `Person ${index + 1}`), el('span', 'muted', `${person.distance} m away`));
+        row.append(el('strong', '', person.name), el('span', 'muted', `${person.distance} m away`));
         row.addEventListener('click', async () => {
             const result = await post('shareNumber', person.id);
             clearShare();
