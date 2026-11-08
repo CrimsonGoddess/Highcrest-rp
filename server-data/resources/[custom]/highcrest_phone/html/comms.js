@@ -94,6 +94,69 @@ function showContact(contact, number = '') {
 }
 
 $('contactAdd').addEventListener('click', () => showContact(null));
+
+/* Share number: send yours to someone standing next to you, and save ones you receive. */
+
+let receivedCards = [];
+
+function clearShare() {
+    setError('shareError', '');
+    $('shareNotice').textContent = '';
+    $('shareNearbyBox').hidden = true;
+}
+
+function renderReceived() {
+    $('receivedBox').hidden = receivedCards.length === 0;
+    $('receivedList').replaceChildren(...receivedCards.map((card) => {
+        const node = el('article', 'card');
+        node.append(el('strong', '', card.name), el('p', 'muted', card.number));
+        const actions = el('div', 'card-actions');
+        const dismiss = () => {
+            receivedCards = receivedCards.filter((other) => other !== card);
+            renderReceived();
+        };
+        actions.append(
+            button('Dismiss', 'text-button', dismiss),
+            button('Save', 'text-button', async () => {
+                const result = await post('saveContact', { name: card.name, number: card.number });
+                if (!result || result.error) {
+                    setError('shareError', (result && result.error) || 'That contact could not be saved.');
+                    return;
+                }
+                contacts = result.contacts;
+                dismiss();
+                showContacts();
+                $('shareNotice').textContent = `Saved ${card.name}.`;
+            }),
+        );
+        node.append(actions);
+        return node;
+    }));
+}
+
+$('shareNumber').addEventListener('click', async () => {
+    clearShare();
+    const nearby = await post('shareNearby');
+    if (!nearby || nearby.length === 0) {
+        setError('shareError', 'Nobody is standing close enough.');
+        return;
+    }
+    $('shareNearbyBox').hidden = false;
+    $('shareNearby').replaceChildren(...nearby.map((person, index) => {
+        const row = el('button', 'row');
+        row.append(el('strong', '', `Person ${index + 1}`), el('span', 'muted', `${person.distance} m away`));
+        row.addEventListener('click', async () => {
+            const result = await post('shareNumber', person.id);
+            clearShare();
+            if (!result || result.error) {
+                setError('shareError', (result && result.error) || 'Your number could not be shared.');
+                return;
+            }
+            $('shareNotice').textContent = 'Your number was sent.';
+        });
+        return row;
+    }));
+});
 $('contactSave').addEventListener('click', async () => {
     const result = await post('saveContact', {
         id: openContact && openContact.id,
@@ -271,7 +334,12 @@ window.addEventListener('message', ({ data }) => {
             } else {
                 setUnread(1);
                 if (currentView() === 'messages' && !$('phone').hidden) showMessages();
+                if (!$('phone').hidden) post('notifyMessage', { name: data.message.name || data.message.from, body: data.message.body });
             }
+            break;
+        case 'numberShared':
+            receivedCards = [data.card, ...receivedCards.filter((card) => card.number !== data.card.number)].slice(0, 5);
+            renderReceived();
             break;
     }
 });

@@ -302,9 +302,14 @@ end
 RegisterNetEvent('highcrest_phone:client:incomingCall', function(call)
     startRinging()
     SendNUIMessage({ action = 'incomingCall', call = call })
-    if not isOpen then
-        lib.notify({ title = 'Incoming call', description = ('%s is calling. Press M to answer.'):format(call.name or call.number), position = 'top-left' })
-    end
+    -- Shown even with the phone open, since another app may be on screen.
+    lib.notify({
+        title = 'Incoming call',
+        description = ('%s is calling. Press M to answer.'):format(call.name or call.number),
+        icon = 'phone',
+        duration = 15000,
+        position = 'top-left',
+    })
 end)
 
 RegisterNetEvent('highcrest_phone:client:callConnected', function()
@@ -317,11 +322,54 @@ RegisterNetEvent('highcrest_phone:client:callEnded', function(reason)
     SendNUIMessage({ action = 'callEnded', reason = reason })
 end)
 
+local function notifyMessage(name, body)
+    PlaySoundFrontend(-1, 'Text_Arrive_Tone', 'Phone_SoundSet_Default', true)
+    lib.notify({ title = name, description = body, icon = 'message', duration = 7000, position = 'top-left' })
+end
+
 RegisterNetEvent('highcrest_phone:client:message', function(message)
     SendNUIMessage({ action = 'message', message = message })
-    if not isOpen then
-        lib.notify({ title = message.name or message.from, description = message.body, position = 'top-left' })
+    -- With the phone open, the screen asks for a notification unless that conversation is showing.
+    if not isOpen then notifyMessage(message.name or message.from, message.body) end
+end)
+
+RegisterNUICallback('notifyMessage', function(data, cb)
+    if type(data) == 'table' then notifyMessage(tostring(data.name or ''), tostring(data.body or '')) end
+    cb(1)
+end)
+
+-- Share number: list people standing close by, without naming them.
+local SHARE_DISTANCE = 3.0
+
+RegisterNUICallback('shareNearby', function(_, cb)
+    local mine = GetEntityCoords(cache.ped)
+    local nearby = {}
+    for _, player in ipairs(GetActivePlayers()) do
+        if player ~= cache.playerId then
+            local distance = #(GetEntityCoords(GetPlayerPed(player)) - mine)
+            if distance <= SHARE_DISTANCE then
+                nearby[#nearby + 1] = { id = GetPlayerServerId(player), distance = math.floor(distance * 10 + 0.5) / 10 }
+            end
+        end
     end
+    table.sort(nearby, function(a, b) return a.distance < b.distance end)
+    cb(nearby)
+end)
+
+RegisterNUICallback('shareNumber', function(target, cb)
+    cb(lib.callback.await('highcrest_phone:server:shareNumber', false, target) or false)
+end)
+
+RegisterNetEvent('highcrest_phone:client:numberShared', function(card)
+    PlaySoundFrontend(-1, 'Text_Arrive_Tone', 'Phone_SoundSet_Default', true)
+    SendNUIMessage({ action = 'numberShared', card = card })
+    lib.notify({
+        title = 'Contact received',
+        description = ('%s shared their number. Open Contacts to save it.'):format(card.name),
+        icon = 'address-card',
+        duration = 8000,
+        position = 'top-left',
+    })
 end)
 
 

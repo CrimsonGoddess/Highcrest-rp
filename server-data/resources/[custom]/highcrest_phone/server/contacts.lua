@@ -64,3 +64,28 @@ lib.callback.register('highcrest_phone:server:deleteContact', function(source, i
     MySQL.update.await('DELETE FROM highcrest_phone_contacts WHERE id = ? AND citizenid = ?', { id, citizenid })
     return { contacts = ListContacts(citizenid) }
 end)
+
+-- Share number: sends this character's number as a contact card to someone standing close by.
+local SHARE_MAX_DISTANCE = 5.0
+
+lib.callback.register('highcrest_phone:server:shareNumber', function(source, target)
+    local player = GetPhoneOwner(source)
+    target = tonumber(target)
+    if not player or not target or target == source then return end
+    if IsRateLimited(source, 'shareNumber', 3000) then return { error = 'Wait a moment before sharing again.' } end
+
+    local receiver = GetPhoneOwner(target)
+    if not receiver then return { error = 'They do not have a phone on them.' } end
+
+    local mine, theirs = GetPlayerPed(source), GetPlayerPed(target)
+    if mine == 0 or theirs == 0 or #(GetEntityCoords(mine) - GetEntityCoords(theirs)) > SHARE_MAX_DISTANCE then
+        return { error = 'They need to be standing next to you.' }
+    end
+
+    local charinfo = player.PlayerData.charinfo
+    TriggerClientEvent('highcrest_phone:client:numberShared', target, {
+        name = ('%s %s'):format(charinfo.firstname, charinfo.lastname),
+        number = charinfo.phone,
+    })
+    return { ok = true }
+end)
