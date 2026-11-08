@@ -12,7 +12,6 @@ dependencies {
     'qbx_core',
     'ox_inventory',
     'qbx_garages',
-    'qbx_vehicles',
     'screencapture',
 }
 
