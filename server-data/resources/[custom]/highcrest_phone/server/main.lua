@@ -164,6 +164,8 @@ local function capture(src)
     return Citizen.Await(result)
 end
 
+CapturePhoto = capture
+
 -- The server takes the picture itself, so the client never supplies image data.
 lib.callback.register('highcrest_phone:server:takePhoto', function(source, crop)
     local player = getOwner(source)

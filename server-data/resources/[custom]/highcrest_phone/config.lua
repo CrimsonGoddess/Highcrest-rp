@@ -24,6 +24,19 @@ Config = {
         giveUpSeconds = 150,            -- After this the vehicle is placed at the nearest road instead.
     },
 
+    -- Housing app and the /addhouse menu. Houses are saved into qbx_properties, which handles
+    -- entering, stashes, wardrobes and keys.
+    housing = {
+        realtorJob = 'realestate',      -- This job can add houses, as can admins (group.admin).
+        maxPrice = 100000000,
+        defaultRentHours = 24,          -- How often rent is taken from the bank (1-24 hours).
+        -- Shells realtors can choose from. Each model also needs an entry under `interiors`
+        -- in qbx_properties/config/shared.lua (exit, stash, wardrobe and logout points).
+        shells = {
+            { model = 'furnitured_midapart', label = 'Furnished mid-size apartment' },
+        },
+    },
+
     -- Events a mail's action button may trigger. Anything else is ignored, because
     -- the mail system lets clients send mail that names its own event.
     mailButtonEvents = {

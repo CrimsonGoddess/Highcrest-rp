@@ -24,6 +24,7 @@ shared_scripts {
 client_scripts {
     'client/main.lua',
     'client/services.lua',
+    'client/housing.lua',
 }
 
 server_scripts {
@@ -40,6 +41,7 @@ server_scripts {
     'server/services.lua',
     'server/garage.lua',
     'server/mail.lua',
+    'server/housing.lua',
 }
 
 ui_page 'html/index.html'
@@ -53,5 +55,6 @@ files {
     'html/apps.js',
     'html/services.js',
     'html/empire.js',
+    'html/housing.js',
     'html/assets/fonts/*.woff2',
 }

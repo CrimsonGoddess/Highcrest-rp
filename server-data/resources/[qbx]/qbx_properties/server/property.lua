@@ -446,6 +446,8 @@ local function startRentThread(propertyId)
     end)
 end
 
+exports('StartRentThread', startRentThread)
+
 RegisterNetEvent('qbx_properties:server:rentProperty', function(propertyId)
     local playerSource = source --[[@as number]]
     local player = exports.qbx_core:GetPlayer(playerSource)
@@ -467,7 +469,7 @@ RegisterNetEvent('qbx_properties:server:rentProperty', function(propertyId)
 
     exports.qbx_core:Notify(playerSource, string.format('Successfully started renting %s', property.property_name), 'success')
     MySQL.update('UPDATE properties SET owner = ? WHERE id = ?', {player.PlayerData.citizenid, propertyId})
-    startRentThread()
+    startRentThread(propertyId)
 
     logger.log({
         source = playerSource,
