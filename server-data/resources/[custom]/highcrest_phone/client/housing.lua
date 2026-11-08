@@ -33,15 +33,31 @@ local function clearPreview()
     previewShell = 0
 end
 
--- Shells sit underground below the front door, as qbx_properties places them.
+-- Holds the player still until the floor under them has loaded, so they can't fall through.
+local function waitForFloor()
+    FreezeEntityPosition(cache.ped, true)
+    local deadline = GetGameTimer() + 5000
+    while not HasCollisionLoadedAroundEntity(cache.ped) and GetGameTimer() < deadline do
+        RequestCollisionAtCoord(GetEntityCoords(cache.ped))
+        Wait(50)
+    end
+    Wait(250)
+    FreezeEntityPosition(cache.ped, false)
+end
+
+-- Shells sit underground below the front door, placed exactly as qbx_properties places them
+-- (no model offset), so spots saved here line up with real houses.
 local function preview(door, shell)
     clearPreview()
     lib.requestModel(shell.hash, 10000)
-    previewShell = CreateObject(shell.hash, door.x, door.y, door.z - propertiesConfig.shellUndergroundOffset, false, false, false)
+    local origin = vec3(door.x, door.y, door.z - propertiesConfig.shellUndergroundOffset)
+    previewShell = CreateObjectNoOffset(shell.hash, origin.x, origin.y, origin.z, false, false, false)
     FreezeEntityPosition(previewShell, true)
     SetModelAsNoLongerNeeded(shell.hash)
     local inside = shell.door
-    SetEntityCoords(cache.ped, door.x + inside.x, door.y + inside.y, door.z - propertiesConfig.shellUndergroundOffset + inside.z, false, false, false, false)
+    FreezeEntityPosition(cache.ped, true)
+    SetEntityCoords(cache.ped, origin.x + inside.x, origin.y + inside.y, origin.z + inside.z, false, false, false, false)
+    waitForFloor()
 end
 
 local function pickShell(door, shells)

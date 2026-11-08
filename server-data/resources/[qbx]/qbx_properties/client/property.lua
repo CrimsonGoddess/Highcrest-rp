@@ -258,6 +258,19 @@ RegisterNetEvent('qbx_properties:client:createInterior', function(interiorHash, 
     interiorShell = CreateObjectNoOffset(interiorHash, interiorCoords.x, interiorCoords.y, interiorCoords.z, false, false, false)
     FreezeEntityPosition(interiorShell, true)
     SetModelAsNoLongerNeeded(interiorHash)
+
+    -- Highcrest: hold the player still until the shell's floor has loaded so they don't fall
+    -- through. The server moves them inside right after this, so wait for that first.
+    FreezeEntityPosition(cache.ped, true)
+    local deadline = GetGameTimer() + 5000
+    while #(GetEntityCoords(cache.ped) - interiorCoords) > 40.0 and GetGameTimer() < deadline do Wait(50) end
+    deadline = GetGameTimer() + 5000
+    while not HasCollisionLoadedAroundEntity(cache.ped) and GetGameTimer() < deadline do
+        RequestCollisionAtCoord(GetEntityCoords(cache.ped))
+        Wait(50)
+    end
+    Wait(250)
+    FreezeEntityPosition(cache.ped, false)
 end)
 
 RegisterNetEvent('qbx_properties:client:loadDecorations', function(decorations)
