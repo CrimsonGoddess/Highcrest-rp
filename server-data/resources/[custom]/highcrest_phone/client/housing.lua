@@ -118,6 +118,17 @@ end
 
 RegisterNetEvent('highcrest_phone:client:addHouse', function(shells, defaultHours)
     if busy then return end
+
+    -- Shells come from separate shell packs, so skip any whose model isn't installed.
+    local installed = {}
+    for _, shell in ipairs(shells) do
+        if IsModelInCdimage(shell.hash) then installed[#installed + 1] = shell end
+    end
+    if #installed == 0 then
+        return notify('No shells are installed yet. Add a shell pack to the server first.', 'error')
+    end
+    shells = installed
+
     busy = true
     local ok, err = pcall(function()
         if not waitForKey('[E] Set the front door here  \n[Backspace] Cancel', true) then return end
@@ -141,7 +152,10 @@ RegisterNetEvent('highcrest_phone:client:addHouse', function(shells, defaultHour
             notify((result and result.error) or 'The house could not be saved.', 'error')
         end
     end)
-    if not ok then print(('[highcrest_phone] addhouse failed: %s'):format(err)) end
+    if not ok then
+        print(('[highcrest_phone] addhouse failed: %s'):format(err))
+        notify('Something went wrong. Nothing was saved.', 'error')
+    end
     clearPreview()
     if returnPoint then
         SetEntityCoords(cache.ped, returnPoint.x, returnPoint.y, returnPoint.z, false, false, false, false)
