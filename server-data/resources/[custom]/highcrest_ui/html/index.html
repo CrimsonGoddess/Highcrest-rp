@@ -116,36 +116,42 @@
             color: #e0203c;
         }
 
-        /* Compass bar and street, top centre. --span is the bar width for its field of view. */
+        /* Compass, attached to the top edge: a thin crimson line with ticks hanging from it,
+           fading out at both ends. --span is the line width for its field of view. */
         #compass {
-            --span: 52vh;
+            --span: 84vh;
             position: fixed;
-            top: 1.2vh;
+            top: 0;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.6vh;
             font-family: 'Rajdhani', 'Segoe UI', Arial, sans-serif;
             opacity: 0;
             transition: opacity 0.3s ease;
         }
 
         #compass.visible {
-            opacity: 1;
+            opacity: 0.92;
         }
 
         #compassBar {
             position: relative;
             width: var(--span);
-            height: 4.8vh;
+            height: 5.2vh;
             overflow: hidden;
-            border: 0.1vh solid rgba(212, 175, 55, 0.4);
-            border-radius: 0.6vh;
-            background: rgba(11, 11, 13, 0.72);
-            -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-            mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+            -webkit-mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent);
+        }
+
+        #compassBar::before {
+            content: '';
+            position: absolute;
+            inset: 0 0 auto;
+            height: 0.3vh;
+            background: #c8102e;
+            box-shadow: 0 0 0.8vh rgba(200, 16, 46, 0.7);
         }
 
         #tape {
@@ -156,35 +162,32 @@
 
         .tick {
             position: absolute;
-            bottom: 0;
-            width: 0.15vh;
+            top: 0.3vh;
+            width: 0.14vh;
             height: 0.8vh;
-            background: rgba(245, 245, 245, 0.45);
+            background: rgba(245, 245, 245, 0.55);
             transform: translateX(-50%);
         }
 
         .tick.major {
-            height: 1.3vh;
-            background: rgba(245, 245, 245, 0.8);
+            height: 1.5vh;
+            background: rgba(245, 245, 245, 0.85);
         }
 
         .heading-label {
             position: absolute;
-            top: 0.5vh;
+            top: 2vh;
             color: #f5f5f5;
-            font-size: 1.5vh;
-            font-weight: 700;
+            font-size: 2.3vh;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            text-shadow: 0 0.1vh 0.4vh rgba(0, 0, 0, 0.9);
             transform: translateX(-50%);
-        }
-
-        .heading-label.cardinal {
-            color: #d4af37;
-            font-size: 1.8vh;
-            top: 0.3vh;
         }
 
         .heading-label.north {
             color: #e0203c;
+            font-weight: 700;
         }
 
         #pointer {
@@ -193,26 +196,29 @@
             left: 50%;
             width: 0;
             height: 0;
-            border-inline: 0.7vh solid transparent;
-            border-top: 0.9vh solid #d4af37;
+            border-inline: 0.65vh solid transparent;
+            border-top: 0.95vh solid #f5f5f5;
+            filter: drop-shadow(0 0.1vh 0.3vh rgba(0, 0, 0, 0.8));
             transform: translateX(-50%);
             z-index: 2;
         }
 
+        /* Markers sit on the line, with their distance under them. */
         .marker {
             position: absolute;
-            bottom: 0.2vh;
+            top: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            gap: 0.2vh;
             transform: translateX(-50%);
             z-index: 1;
         }
 
         .marker i {
-            width: 1vh;
-            height: 1vh;
-            border: 0.15vh solid #0b0b0d;
+            width: 0.9vh;
+            height: 0.9vh;
+            margin-top: 0.15vh;
             border-radius: 50%;
             background: var(--colour);
             box-shadow: 0 0 0.6vh var(--colour);
@@ -220,21 +226,20 @@
 
         .marker span {
             color: var(--colour);
-            font-size: 1.1vh;
+            font-size: 1.2vh;
             font-weight: 700;
             text-shadow: 0 0.1vh 0.3vh #000;
             white-space: nowrap;
         }
 
         #street {
-            padding: 0.4vh 1.4vh;
-            border-radius: 1.6vh;
-            background: rgba(11, 11, 13, 0.72);
+            margin-top: -0.6vh;
             color: #f5f5f5;
-            font-size: 1.7vh;
-            font-weight: 700;
+            font-size: 2.2vh;
+            font-weight: 500;
+            letter-spacing: 0.02em;
             text-align: center;
-            text-shadow: 0 0.1vh 0.3vh #000;
+            text-shadow: 0 0.1vh 0.4vh rgba(0, 0, 0, 0.95), 0 0 1vh rgba(0, 0, 0, 0.6);
             white-space: nowrap;
         }
 
@@ -242,14 +247,11 @@
             margin-inline-start: 0.8vh;
             color: #d4af37;
             font-size: 0.85em;
-            font-weight: 500;
         }
 
-        #heading {
-            margin-inline-start: 0.8vh;
-            color: #b4b4bd;
-            font-size: 0.85em;
-            font-weight: 500;
+        #street small:not(:empty)::before {
+            content: '· ';
+            color: rgba(245, 245, 245, 0.6);
         }
     </style>
 </head>
@@ -268,9 +270,9 @@
     </div>
     <div id="compass">
         <div id="compassBar">
-            <div id="pointer"></div>
             <div id="tape"></div>
             <div id="markers"></div>
+            <div id="pointer"></div>
         </div>
         <div id="street" hidden><span id="streetMain"></span><small id="streetArea"></small></div>
     </div>
@@ -285,20 +287,17 @@
 
         function buildTape() {
             const nodes = [];
-            for (let deg = -180; deg <= 540; deg += 5) {
+            for (let deg = -180; deg <= 540; deg += 15) {
                 const value = ((deg % 360) + 360) % 360;
                 const left = `calc(var(--span) * ${(deg + 180) / fieldOfView})`;
                 const tick = document.createElement('i');
-                tick.className = deg % 15 === 0 ? 'tick major' : 'tick';
+                tick.className = deg % 45 === 0 ? 'tick major' : 'tick';
                 tick.style.left = left;
                 nodes.push(tick);
-                if (LABELS[value] || deg % 15 === 0) {
+                if (LABELS[value]) {
                     const label = document.createElement('span');
-                    const text = LABELS[value];
-                    label.className = text ? (text.length === 1 ? 'heading-label cardinal' : 'heading-label') : 'heading-label';
-                    if (text === 'N') label.classList.add('north');
-                    label.textContent = text || (value % 45 === 0 ? '' : value);
-                    if (!text) label.style.fontSize = '1.1vh';
+                    label.className = LABELS[value] === 'N' ? 'heading-label north' : 'heading-label';
+                    label.textContent = LABELS[value];
                     label.style.left = left;
                     nodes.push(label);
                 }
@@ -330,7 +329,7 @@
                     const dot = document.createElement('i');
                     const label = document.createElement('span');
                     label.textContent = distanceText(marker.distance);
-                    node.append(label, dot);
+                    node.append(dot, label);
                     return node;
                 }));
             }
@@ -338,7 +337,7 @@
             const street = data.showStreet && data.street;
             element('street').hidden = !street || !street.main;
             if (street && street.main) {
-                element('streetMain').textContent = street.cross ? `${street.main} / ${street.cross}` : street.main;
+                element('streetMain').textContent = street.cross ? `${street.main} & ${street.cross}` : street.main;
                 element('streetArea').textContent = street.area || '';
             }
         }
@@ -368,7 +367,7 @@
         if (location.search.includes('preview')) {
             badge.classList.add('visible');
             showStats({ id: 12, cash: 260, bank: 3375, job: 'LSPD - Recruit' });
-            document.body.style.background = '#3a4a5a';
+            document.body.style.background = 'linear-gradient(#141420, #2a2a3a)';
             showCompass({
                 visible: true, showBar: true, showStreet: true, heading: 32, fieldOfView: 180,
                 markers: [
