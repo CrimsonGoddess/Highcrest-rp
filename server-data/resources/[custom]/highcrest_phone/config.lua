@@ -15,15 +15,6 @@ Config = {
         wallpaper = 'preset:crimson',
     },
 
-    -- Garage "Bring to me": a valet drives a stored vehicle to the player and walks off.
-    valet = {
-        fee = 250,                      -- Taken from cash, then bank. 0 makes it free.
-        driverModel = 's_m_y_valet_01',
-        spawnDistance = { min = 120, max = 260 }, -- How far away the valet starts, in metres.
-        cooldownSeconds = 60,
-        giveUpSeconds = 150,            -- After this the vehicle is placed at the nearest road instead.
-    },
-
     -- Events a mail's action button may trigger. Anything else is ignored, because
     -- the mail system lets clients send mail that names its own event.
     mailButtonEvents = {
