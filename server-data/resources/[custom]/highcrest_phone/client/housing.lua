@@ -2,7 +2,7 @@
 -- then photograph the house. The server checks everything again before saving.
 local propertiesConfig = require '@qbx_properties.config.shared'
 
-local NOTIFY_POSITION = 'top-left'
+local NOTIFY_POSITION = 'top'
 local KEY_CONFIRM = 38      -- E
 local KEY_CANCEL = 177      -- Backspace
 

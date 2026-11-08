@@ -1,4 +1,4 @@
-local NOTIFY_POSITION = 'top-left'
+local NOTIFY_POSITION = 'top'
 local FRIEND_BLIP_SPRITE = 280
 local FRIEND_BLIP_COLOUR = 5
 local EMERGENCY_BLIP_SPRITE = 161

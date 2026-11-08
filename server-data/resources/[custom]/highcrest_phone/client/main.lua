@@ -137,7 +137,7 @@ local function openPhone()
 
     local data = lib.callback.await('highcrest_phone:server:getPhone', false)
     if not data then
-        lib.notify({ description = 'You need a phone.', type = 'error', position = 'top-left' })
+        lib.notify({ description = 'You need a phone.', type = 'error', position = 'top' })
         return
     end
 
@@ -308,7 +308,7 @@ RegisterNetEvent('highcrest_phone:client:incomingCall', function(call)
         description = ('%s is calling. Press M to answer.'):format(call.name or call.number),
         icon = 'phone',
         duration = 15000,
-        position = 'top-left',
+        position = 'top',
     })
 end)
 
@@ -324,7 +324,7 @@ end)
 
 local function notifyMessage(name, body)
     PlaySoundFrontend(-1, 'Text_Arrive_Tone', 'Phone_SoundSet_Default', true)
-    lib.notify({ title = name, description = body, icon = 'message', duration = 7000, position = 'top-left' })
+    lib.notify({ title = name, description = body, icon = 'message', duration = 7000, position = 'top' })
 end
 
 RegisterNetEvent('highcrest_phone:client:message', function(message)
@@ -369,7 +369,7 @@ RegisterNetEvent('highcrest_phone:client:numberShared', function(card)
         description = ('%s shared their number. Open Contacts to save it.'):format(card.name),
         icon = 'address-card',
         duration = 8000,
-        position = 'top-left',
+        position = 'top',
     })
 end)
 
