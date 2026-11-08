@@ -11,6 +11,7 @@ shared_script '@ox_lib/init.lua'
 client_scripts {
     'client/main.lua',
     'client/compass.lua',
+    'client/status.lua',
 }
 
 ui_page 'html/index.html'

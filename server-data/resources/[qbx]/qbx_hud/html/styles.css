@@ -292,3 +292,8 @@ altitude {
   font-weight: 600;
   text-shadow: 0 0 1px rgba(0, 0, 0, 0.6), 0 0 1px rgba(0, 0, 0, 0.6), 0 0 1px rgba(0, 0, 0, 0.6), 0 0 1px rgba(0, 0, 0, 0.6);
 }
+
+/* Highcrest: the Highcrest status bar (highcrest_ui) replaces these circles. */
+#playerHud {
+    display: none !important;
+}
