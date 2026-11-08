@@ -100,9 +100,9 @@ $('contactAdd').addEventListener('click', () => showContact(null));
 let receivedCards = [];
 
 function clearShare() {
-    setError('shareError', '');
-    $('shareNotice').textContent = '';
-    $('shareNearbyBox').hidden = true;
+    setError('contactShareError', '');
+    $('contactShareNotice').textContent = '';
+    $('contactShareBox').hidden = true;
 }
 
 function renderReceived() {
@@ -120,13 +120,13 @@ function renderReceived() {
             button('Save', 'text-button', async () => {
                 const result = await post('saveContact', { name: card.name, number: card.number });
                 if (!result || result.error) {
-                    setError('shareError', (result && result.error) || 'That contact could not be saved.');
+                    setError('contactShareError', (result && result.error) || 'That contact could not be saved.');
                     return;
                 }
                 contacts = result.contacts;
                 dismiss();
                 showContacts();
-                $('shareNotice').textContent = `Saved ${card.name}.`;
+                $('contactShareNotice').textContent = `Saved ${card.name}.`;
             }),
         );
         node.append(actions);
@@ -134,25 +134,25 @@ function renderReceived() {
     }));
 }
 
-$('shareNumber').addEventListener('click', async () => {
+$('contactShare').addEventListener('click', async () => {
     clearShare();
     const nearby = await post('shareNearby');
     if (!nearby || nearby.length === 0) {
-        setError('shareError', 'Nobody is standing right next to you.');
+        setError('contactShareError', 'Nobody is standing right next to you.');
         return;
     }
-    $('shareNearbyBox').hidden = false;
-    $('shareNearby').replaceChildren(...nearby.map((person) => {
+    $('contactShareBox').hidden = false;
+    $('contactShareList').replaceChildren(...nearby.map((person) => {
         const row = el('button', 'row');
         row.append(el('strong', '', person.name), el('span', 'muted', `${person.distance} m away`));
         row.addEventListener('click', async () => {
             const result = await post('shareNumber', person.id);
             clearShare();
             if (!result || result.error) {
-                setError('shareError', (result && result.error) || 'Your number could not be shared.');
+                setError('contactShareError', (result && result.error) || 'Your number could not be shared.');
                 return;
             }
-            $('shareNotice').textContent = 'Your number was sent.';
+            $('contactShareNotice').textContent = 'Your number was sent.';
         });
         return row;
     }));
