@@ -115,6 +115,142 @@
         #name span {
             color: #e0203c;
         }
+
+        /* Compass bar and street, top centre. --span is the bar width for its field of view. */
+        #compass {
+            --span: 52vh;
+            position: fixed;
+            top: 1.2vh;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.6vh;
+            font-family: 'Rajdhani', 'Segoe UI', Arial, sans-serif;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #compass.visible {
+            opacity: 1;
+        }
+
+        #compassBar {
+            position: relative;
+            width: var(--span);
+            height: 4.8vh;
+            overflow: hidden;
+            border: 0.1vh solid rgba(212, 175, 55, 0.4);
+            border-radius: 0.6vh;
+            background: rgba(11, 11, 13, 0.72);
+            -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+        }
+
+        #tape {
+            position: absolute;
+            inset: 0;
+            will-change: transform;
+        }
+
+        .tick {
+            position: absolute;
+            bottom: 0;
+            width: 0.15vh;
+            height: 0.8vh;
+            background: rgba(245, 245, 245, 0.45);
+            transform: translateX(-50%);
+        }
+
+        .tick.major {
+            height: 1.3vh;
+            background: rgba(245, 245, 245, 0.8);
+        }
+
+        .heading-label {
+            position: absolute;
+            top: 0.5vh;
+            color: #f5f5f5;
+            font-size: 1.5vh;
+            font-weight: 700;
+            transform: translateX(-50%);
+        }
+
+        .heading-label.cardinal {
+            color: #d4af37;
+            font-size: 1.8vh;
+            top: 0.3vh;
+        }
+
+        .heading-label.north {
+            color: #e0203c;
+        }
+
+        #pointer {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-inline: 0.7vh solid transparent;
+            border-top: 0.9vh solid #d4af37;
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+
+        .marker {
+            position: absolute;
+            bottom: 0.2vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .marker i {
+            width: 1vh;
+            height: 1vh;
+            border: 0.15vh solid #0b0b0d;
+            border-radius: 50%;
+            background: var(--colour);
+            box-shadow: 0 0 0.6vh var(--colour);
+        }
+
+        .marker span {
+            color: var(--colour);
+            font-size: 1.1vh;
+            font-weight: 700;
+            text-shadow: 0 0.1vh 0.3vh #000;
+            white-space: nowrap;
+        }
+
+        #street {
+            padding: 0.4vh 1.4vh;
+            border-radius: 1.6vh;
+            background: rgba(11, 11, 13, 0.72);
+            color: #f5f5f5;
+            font-size: 1.7vh;
+            font-weight: 700;
+            text-align: center;
+            text-shadow: 0 0.1vh 0.3vh #000;
+            white-space: nowrap;
+        }
+
+        #street small {
+            margin-inline-start: 0.8vh;
+            color: #d4af37;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+
+        #heading {
+            margin-inline-start: 0.8vh;
+            color: #b4b4bd;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
@@ -130,7 +266,83 @@
             <div id="statJobBubble" class="bubble job" hidden><span id="statJob"></span></div>
         </div>
     </div>
+    <div id="compass">
+        <div id="compassBar">
+            <div id="pointer"></div>
+            <div id="tape"></div>
+            <div id="markers"></div>
+        </div>
+        <div id="street" hidden><span id="streetMain"></span><small id="streetArea"></small></div>
+    </div>
     <script>
+        /* Compass: a tape of ticks from -180 to 540 degrees, slid so the heading sits under the pointer. */
+        const compass = document.getElementById('compass');
+        const compassBar = document.getElementById('compassBar');
+        const tape = document.getElementById('tape');
+        const markersEl = document.getElementById('markers');
+        const LABELS = { 0: 'N', 45: 'NE', 90: 'E', 135: 'SE', 180: 'S', 225: 'SW', 270: 'W', 315: 'NW' };
+        let fieldOfView = 180;
+
+        function buildTape() {
+            const nodes = [];
+            for (let deg = -180; deg <= 540; deg += 5) {
+                const value = ((deg % 360) + 360) % 360;
+                const left = `calc(var(--span) * ${(deg + 180) / fieldOfView})`;
+                const tick = document.createElement('i');
+                tick.className = deg % 15 === 0 ? 'tick major' : 'tick';
+                tick.style.left = left;
+                nodes.push(tick);
+                if (LABELS[value] || deg % 15 === 0) {
+                    const label = document.createElement('span');
+                    const text = LABELS[value];
+                    label.className = text ? (text.length === 1 ? 'heading-label cardinal' : 'heading-label') : 'heading-label';
+                    if (text === 'N') label.classList.add('north');
+                    label.textContent = text || (value % 45 === 0 ? '' : value);
+                    if (!text) label.style.fontSize = '1.1vh';
+                    label.style.left = left;
+                    nodes.push(label);
+                }
+            }
+            tape.replaceChildren(...nodes);
+        }
+        buildTape();
+
+        const distanceText = (metres) => (metres >= 1000 ? `${(metres / 1000).toFixed(1)} km` : `${metres} m`);
+
+        function showCompass(data) {
+            compass.classList.toggle('visible', data.visible);
+            if (!data.visible) return;
+
+            compassBar.hidden = !data.showBar;
+            if (data.showBar) {
+                if (data.fieldOfView && data.fieldOfView !== fieldOfView) {
+                    fieldOfView = data.fieldOfView;
+                    buildTape();
+                }
+                // Put (heading) at the centre: shift by (heading + 180) degrees, then back half a bar.
+                tape.style.transform = `translateX(calc(var(--span) * ${0.5 - (data.heading + 180) / fieldOfView}))`;
+                markersEl.replaceChildren(...(data.markers || []).map((marker) => {
+                    const node = document.createElement('div');
+                    node.className = 'marker';
+                    node.style.left = `${50 + marker.offset * 100}%`;
+                    node.style.setProperty('--colour', marker.colour);
+                    node.title = marker.label;
+                    const dot = document.createElement('i');
+                    const label = document.createElement('span');
+                    label.textContent = distanceText(marker.distance);
+                    node.append(label, dot);
+                    return node;
+                }));
+            }
+
+            const street = data.showStreet && data.street;
+            element('street').hidden = !street || !street.main;
+            if (street && street.main) {
+                element('streetMain').textContent = street.cross ? `${street.main} / ${street.cross}` : street.main;
+                element('streetArea').textContent = street.area || '';
+            }
+        }
+
         const badge = document.getElementById('badge');
         const element = (id) => document.getElementById(id);
         const money = (value) => `$${Number(value).toLocaleString('en-US')}`;
@@ -149,12 +361,22 @@
                 badge.classList.toggle('visible', data.iconVisible);
             }
             if (data.stats) showStats(data.stats);
+            if (data.compass) showCompass(data.compass);
         });
 
         // Browser preview only: index.html?preview
         if (location.search.includes('preview')) {
             badge.classList.add('visible');
             showStats({ id: 12, cash: 260, bank: 3375, job: 'LSPD - Recruit' });
+            document.body.style.background = '#3a4a5a';
+            showCompass({
+                visible: true, showBar: true, showStreet: true, heading: 32, fieldOfView: 180,
+                markers: [
+                    { offset: 0.12, colour: '#d4af37', label: 'Waypoint', distance: 840 },
+                    { offset: -0.3, colour: '#4aa3ff', label: 'Friend', distance: 2300 },
+                ],
+                street: { main: 'Grove Street', cross: 'Forum Drive', area: 'Davis' },
+            });
         }
     </script>
 </body>

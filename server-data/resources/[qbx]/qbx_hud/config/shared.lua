@@ -4,7 +4,7 @@ return {
     },
 
     menu = { -- Don't touch
-        isOutMapChecked = false, -- isOutMapChecked
+        isOutMapChecked = true, -- isOutMapChecked (Highcrest: minimap on foot by default)
         isOutCompassChecked = false, -- isOutMapChecked
         isCompassFollowChecked = true, -- isCompassFollowChecked
         isMapNotifChecked = true, -- isMapNotifChecked

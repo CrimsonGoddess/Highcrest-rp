@@ -71,6 +71,15 @@ local function saveSettings()
     SetResourceKvp('hudSettings', json.encode(sharedConfig.menu))
 end
 
+-- Highcrest: the Highcrest HUD settings menu switches the on-foot minimap through this.
+AddEventHandler('qbx_hud:client:setOutMap', function(enabled)
+    sharedConfig.menu.isOutMapChecked = enabled == true
+    saveSettings()
+    if not cache.vehicle then DisplayRadar(sharedConfig.menu.isOutMapChecked) end
+end)
+
+exports('IsOutMapEnabled', function() return sharedConfig.menu.isOutMapChecked end)
+
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
     Wait(2000)
     local hudSettings = GetResourceKvpString('hudSettings')
@@ -943,6 +952,7 @@ end)
 local prevBaseplateStats = {nil, nil, nil, nil, nil, nil, nil}
 
 local function updateBaseplateHud(data)
+    data[1] = false -- Highcrest: the Highcrest compass bar replaces this one.
     local shouldUpdate = false
     for k, v in pairs(data) do
         if prevBaseplateStats[k] ~= v then shouldUpdate = true break end
@@ -1019,7 +1029,7 @@ CreateThread(function()
                     })
                     SendNUIMessage ({
                         action = 'baseplate',
-                        show = true,
+                        show = false,
                         showCompass = true,
                     })
                 else

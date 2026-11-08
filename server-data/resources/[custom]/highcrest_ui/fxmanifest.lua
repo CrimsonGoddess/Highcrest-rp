@@ -3,10 +3,15 @@ game 'gta5'
 lua54 'yes'
 
 name 'highcrest_ui'
-description 'Highcrest pause menu colors and on-screen icon'
-version '1.1.0'
+description 'Highcrest HUD: pause menu colors, badge, compass bar and street name'
+version '1.2.0'
 
-client_script 'client/main.lua'
+shared_script '@ox_lib/init.lua'
+
+client_scripts {
+    'client/main.lua',
+    'client/compass.lua',
+}
 
 ui_page 'html/index.html'
 
