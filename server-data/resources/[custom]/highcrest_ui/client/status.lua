@@ -55,3 +55,68 @@ CreateThread(function()
         end
     end
 end)
+
+-- /hudborder: line the map border up with the minimap on this screen. Arrow keys move it,
+-- Shift + arrows resize it, Enter saves, Backspace cancels. Values are in vh and saved per player.
+local BORDER_KVP = 'highcrest_map_border'
+local STEP = 0.1
+local border = { x = 0.0, y = 0.0, w = 0.0, h = 0.0 }
+do
+    local ok, saved = pcall(json.decode, GetResourceKvpString(BORDER_KVP) or '')
+    if ok and type(saved) == 'table' then
+        for key in pairs(border) do border[key] = tonumber(saved[key]) or 0.0 end
+    end
+end
+
+local function sendBorder(adjusting)
+    SendNUIMessage({ mapBorder = { x = border.x, y = border.y, w = border.w, h = border.h, adjusting = adjusting } })
+end
+CreateThread(function() Wait(1000) sendBorder(false) end)
+
+local adjusting = false
+local function adjustBorder()
+    if adjusting then return end
+    adjusting = true
+    local before = { x = border.x, y = border.y, w = border.w, h = border.h }
+    lib.showTextUI('Arrows: move border  \nShift + arrows: resize  \nEnter: save  \nBackspace: cancel')
+    sendBorder(true)
+    local KEYS = { up = 172, down = 173, left = 174, right = 175 }
+    while true do
+        for _, control in pairs(KEYS) do DisableControlAction(0, control, true) end
+        local resize = IsControlPressed(0, 21) -- Shift
+        local changed = false
+        local function press(control, dx, dy)
+            if IsDisabledControlJustPressed(0, control) or (IsDisabledControlPressed(0, control) and GetGameTimer() % 4 == 0) then
+                if resize then
+                    border.w += dx; border.h += dy
+                else
+                    border.x += dx; border.y += dy
+                end
+                changed = true
+            end
+        end
+        press(KEYS.left, -STEP, 0)
+        press(KEYS.right, STEP, 0)
+        press(KEYS.up, 0, STEP)
+        press(KEYS.down, 0, -STEP)
+        if changed then sendBorder(true) end
+
+        if IsControlJustPressed(0, 191) then -- Enter
+            SetResourceKvp(BORDER_KVP, json.encode(border))
+            lib.notify({ title = 'Map border saved', description = ('Move %.1f, %.1f | Size %.1f, %.1f (vh)'):format(border.x, border.y, border.w, border.h), type = 'success' })
+            print(('[highcrest_ui] map border offsets: x=%.1f y=%.1f w=%.1f h=%.1f'):format(border.x, border.y, border.w, border.h))
+            break
+        end
+        if IsControlJustPressed(0, 177) then -- Backspace
+            border = before
+            break
+        end
+        Wait(0)
+    end
+    lib.hideTextUI()
+    sendBorder(false)
+    adjusting = false
+end
+
+RegisterCommand('hudborder', adjustBorder, false)
+exports('AdjustMapBorder', adjustBorder)

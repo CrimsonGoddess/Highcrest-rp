@@ -137,6 +137,7 @@ local function openHudMenu()
             { title = ('Compass bar: %s'):format(state(settings.compass)), icon = 'compass', onSelect = function() toggle('compass') openHudMenu() end },
             { title = ('Markers on compass: %s'):format(state(settings.markers)), description = 'Waypoint, friends, 911 calls and more.', icon = 'location-dot', disabled = not settings.compass, onSelect = function() toggle('markers') openHudMenu() end },
             { title = ('Street and area: %s'):format(state(settings.street)), icon = 'road', onSelect = function() toggle('street') openHudMenu() end },
+            { title = 'Line up the map border', description = 'Arrow keys to move, Shift + arrows to resize.', icon = 'border-all', onSelect = function() CreateThread(function() exports[GetCurrentResourceName()]:AdjustMapBorder() end) end },
         },
     })
     lib.showContext('highcrest_hud_menu')
