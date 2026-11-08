@@ -273,3 +273,89 @@ body {
         animation: none;
     }
 }
+
+/* Music control. The cursor is shown on the loading screen so players can mute or adjust it. */
+.music {
+    position: fixed;
+    inset-block-end: 3vh;
+    inset-inline-start: 2.5vw;
+    display: flex;
+    align-items: center;
+    gap: 0.8vw;
+    padding: 0.8vh 1vw 0.8vh 0.6vw;
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 999px;
+    background: rgba(11, 11, 13, 0.72);
+    animation: fade-in 1.2s var(--ease) both;
+}
+
+.music-toggle {
+    display: grid;
+    place-items: center;
+    width: clamp(30px, 2.1vw, 44px);
+    height: clamp(30px, 2.1vw, 44px);
+    padding: 0;
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--gold);
+    cursor: pointer;
+}
+
+.music-toggle:hover,
+.music-toggle:focus-visible {
+    border-color: var(--gold);
+    background: rgba(212, 175, 55, 0.12);
+    outline: none;
+}
+
+.music-toggle svg {
+    width: 60%;
+    height: 60%;
+    fill: currentColor;
+}
+
+.music-toggle .wave {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+}
+
+.music-toggle .icon-off,
+.muted .music-toggle .icon-on {
+    display: none;
+}
+
+.muted .music-toggle .icon-off {
+    display: block;
+}
+
+.music-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.music-label {
+    color: var(--muted);
+    font-size: clamp(10px, 0.6vw, 13px);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.music-title {
+    color: var(--white);
+    font-size: clamp(12px, 0.8vw, 16px);
+    letter-spacing: 0.04em;
+}
+
+.music-volume {
+    width: clamp(70px, 6vw, 130px);
+    accent-color: var(--crimson);
+    cursor: pointer;
+}
+
+.muted .music-title {
+    color: var(--muted);
+}

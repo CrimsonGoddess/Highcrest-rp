@@ -16,3 +16,6 @@ loadscreen 'html/index.html'
 
 -- qbx_core closes the loading screen when character selection is ready.
 loadscreen_manual_shutdown 'yes'
+
+-- Shows the mouse so players can mute or adjust the music.
+loadscreen_cursor 'yes'

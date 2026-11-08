@@ -33,6 +33,20 @@
         </main>
     </div>
 
+    <div class="music" aria-label="Music">
+        <button id="musicToggle" class="music-toggle" type="button" aria-label="Mute music">
+            <svg class="icon-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path class="wave" d="M15.5 9a4.5 4.5 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"/></svg>
+            <svg class="icon-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path class="wave" d="M16 9.5l5 5M21 9.5l-5 5"/></svg>
+        </button>
+        <div class="music-info">
+            <span class="music-label">Now playing</span>
+            <span class="music-title">Born for the Night</span>
+        </div>
+        <input id="musicVolume" class="music-volume" type="range" min="0" max="100" step="1" aria-label="Music volume">
+    </div>
+
+    <audio id="music" src="assets/music.mp3" loop preload="auto"></audio>
+
     <script src="main.js"></script>
 </body>
 </html>

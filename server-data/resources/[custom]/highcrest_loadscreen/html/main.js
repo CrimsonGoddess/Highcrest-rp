@@ -106,3 +106,57 @@ if (demo !== null) {
         }, 150);
     }
 }
+
+// Music. Starts at a moderate volume and remembers the player's choice for next time.
+const DEFAULT_VOLUME = 30;
+const music = document.getElementById('music');
+const musicBox = document.querySelector('.music');
+const musicToggle = document.getElementById('musicToggle');
+const musicVolume = document.getElementById('musicVolume');
+
+function loadSetting(key, fallback) {
+    try {
+        const value = localStorage.getItem(key);
+        return value === null ? fallback : value;
+    } catch {
+        return fallback;
+    }
+}
+
+function saveSetting(key, value) {
+    try { localStorage.setItem(key, String(value)); } catch { /* storage unavailable */ }
+}
+
+let volume = Number(loadSetting('highcrest:musicVolume', DEFAULT_VOLUME));
+let muted = loadSetting('highcrest:musicMuted', 'false') === 'true';
+
+function applyMusic() {
+    music.volume = Math.min(Math.max(volume, 0), 100) / 100;
+    music.muted = muted || volume === 0;
+    musicVolume.value = muted ? 0 : volume;
+    musicBox.classList.toggle('muted', music.muted);
+    musicToggle.setAttribute('aria-label', music.muted ? 'Unmute music' : 'Mute music');
+}
+
+musicToggle.addEventListener('click', () => {
+    muted = !muted;
+    if (!muted && volume === 0) volume = DEFAULT_VOLUME;
+    saveSetting('highcrest:musicMuted', muted);
+    saveSetting('highcrest:musicVolume', volume);
+    applyMusic();
+    music.play().catch(() => {});
+});
+
+musicVolume.addEventListener('input', () => {
+    volume = Number(musicVolume.value);
+    muted = volume === 0;
+    saveSetting('highcrest:musicVolume', volume);
+    saveSetting('highcrest:musicMuted', muted);
+    applyMusic();
+});
+
+applyMusic();
+music.play().catch(() => {
+    // If the browser blocks autoplay, start on the first click instead.
+    document.addEventListener('click', () => music.play().catch(() => {}), { once: true });
+});
