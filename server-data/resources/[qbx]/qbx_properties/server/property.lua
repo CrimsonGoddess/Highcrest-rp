@@ -146,8 +146,22 @@ lib.callback.register('qbx_properties:callback:loadProperties', function()
     return properties
 end)
 
+-- Highcrest: match doors by distance. Comparing the saved JSON text failed whenever the
+-- coordinates came back rounded differently, so the door found no property at all.
+local DOOR_MATCH_DISTANCE = 1.5
+
 lib.callback.register('qbx_properties:callback:requestProperties', function(_, propertyCoords)
-    return MySQL.query.await('SELECT property_name, owner, id, price, rent_interval, keyholders FROM properties WHERE coords = ?', {json.encode(propertyCoords)})
+    if type(propertyCoords) ~= 'table' and type(propertyCoords) ~= 'vector3' then return {} end
+    local door = vec3(tonumber(propertyCoords.x) or 0, tonumber(propertyCoords.y) or 0, tonumber(propertyCoords.z) or 0)
+    local matches = {}
+    for _, row in ipairs(MySQL.query.await('SELECT property_name, owner, id, price, rent_interval, keyholders, coords FROM properties') or {}) do
+        local coords = json.decode(row.coords)
+        if coords and #(vec3(coords.x, coords.y, coords.z) - door) <= DOOR_MATCH_DISTANCE then
+            row.coords = nil
+            matches[#matches + 1] = row
+        end
+    end
+    return matches
 end)
 
 local function hasAccess(citizenId, propertyId)
