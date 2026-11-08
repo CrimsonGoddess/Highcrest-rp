@@ -121,3 +121,45 @@ end
 
 RegisterCommand('hudborder', adjustBorder, false)
 exports('AdjustMapBorder', adjustBorder)
+
+-- /hudedit: drag the status items anywhere. The layout is saved per player.
+local LAYOUT_KVP = 'highcrest_hud_layout'
+
+local function savedLayout()
+    local ok, layout = pcall(json.decode, GetResourceKvpString(LAYOUT_KVP) or '')
+    return ok and type(layout) == 'table' and layout or {}
+end
+
+CreateThread(function()
+    Wait(1000)
+    SendNUIMessage({ hudLayout = savedLayout() })
+end)
+
+local function editHud()
+    SetNuiFocus(true, true)
+    SendNUIMessage({ editHud = true })
+end
+
+RegisterNUICallback('saveLayout', function(layout, cb)
+    local clean = {}
+    if type(layout) == 'table' then
+        for key, spot in pairs(layout) do
+            local x, y = type(spot) == 'table' and tonumber(spot.x), type(spot) == 'table' and tonumber(spot.y)
+            if type(key) == 'string' and x and y and x >= 0 and x <= 1 and y >= 0 and y <= 1 then
+                clean[key] = { x = x, y = y }
+            end
+        end
+    end
+    SetResourceKvp(LAYOUT_KVP, json.encode(clean))
+    SetNuiFocus(false, false)
+    lib.notify({ description = 'HUD layout saved.', type = 'success' })
+    cb(1)
+end)
+
+RegisterNUICallback('cancelEdit', function(_, cb)
+    SetNuiFocus(false, false)
+    cb(1)
+end)
+
+RegisterCommand('hudedit', editHud, false)
+exports('EditHud', editHud)

@@ -137,6 +137,7 @@ local function openHudMenu()
             { title = ('Compass bar: %s'):format(state(settings.compass)), icon = 'compass', onSelect = function() toggle('compass') openHudMenu() end },
             { title = ('Markers on compass: %s'):format(state(settings.markers)), description = 'Waypoint, friends, 911 calls and more.', icon = 'location-dot', disabled = not settings.compass, onSelect = function() toggle('markers') openHudMenu() end },
             { title = ('Street and area: %s'):format(state(settings.street)), icon = 'road', onSelect = function() toggle('street') openHudMenu() end },
+            { title = 'Move HUD items', description = 'Drag food, water, armor and the rest anywhere.', icon = 'up-down-left-right', onSelect = function() exports[GetCurrentResourceName()]:EditHud() end },
             { title = 'Line up the map border', description = 'Arrow keys to move, Shift + arrows to resize.', icon = 'border-all', onSelect = function() CreateThread(function() exports[GetCurrentResourceName()]:AdjustMapBorder() end) end },
         },
     })
@@ -144,4 +145,6 @@ local function openHudMenu()
 end
 
 RegisterCommand('hud', openHudMenu, false)
-TriggerEvent('chat:addSuggestion', '/hud', 'Turn the minimap, compass and street name on or off')
+TriggerEvent('chat:addSuggestion', '/hud', 'HUD settings: minimap, compass, street name, layout')
+TriggerEvent('chat:addSuggestion', '/hudedit', 'Drag your HUD icons where you want them')
+TriggerEvent('chat:addSuggestion', '/hudborder', 'Line the map border up with the minimap')
