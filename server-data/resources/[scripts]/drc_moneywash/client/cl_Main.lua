@@ -1696,6 +1696,23 @@ function createZones(house)
                 }, {
                     options = {
                         {
+                            -- Highcrest: shows this player's washing level and rate.
+                            action = function()
+                                local info = lib.callback.await('highcrest_moneywash:getLevel', false)
+                                if not info then return end
+                                local progress = info.nextXp
+                                    and ('%d / %d XP to level %d'):format(info.xp, info.nextXp, info.level + 1)
+                                    or 'Max level reached'
+                                lib.alertDialog({
+                                    header = ('Washing level %d'):format(info.level),
+                                    content = ('You keep about %d%% of the dirty money you wash.  \n%s'):format(info.keep, progress),
+                                    centered = true,
+                                })
+                            end,
+                            icon = "fas fa-chart-line",
+                            label = "Washing level",
+                        },
+                        {
                             action = function()
                                 if (not doingAction) then
                                     if Config.Input == "qb-input" then

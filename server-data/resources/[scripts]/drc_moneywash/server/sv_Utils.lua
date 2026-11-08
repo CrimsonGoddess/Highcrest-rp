@@ -226,7 +226,7 @@ end
 
 function CheckDirtyMoney(source, amount, remove)
     local cutItems = Config.MoneyWash.CutItems
-    local percentageLost = cutItems.PercentageLost
+    local percentageLost = HighcrestWashRate(source)
     local src = source
     local cutAmount = math.max(math.floor(amount * percentageLost / 100), 1)
     if Config.Framework == "ESX" then

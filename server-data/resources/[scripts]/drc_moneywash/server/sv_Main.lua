@@ -455,7 +455,7 @@ lib.callback.register('drc_moneywash:checkwash', function(source, house, place, 
                 if currentTime > cooldownEndTime then
                     washprocess = json.decode(result[1].wash_process)
                     local washItems = Config.MoneyWash.WashItems
-                    local percentageLost = washItems.PercentageLost
+                    local percentageLost = HighcrestWashRate(src)
                     local dirtyMoneyAmount =  washprocess[place].money
                     local cutAmount = math.max(math.floor(dirtyMoneyAmount * percentageLost / 100), 1)
                     if result[1] and result[1].wash_process then
@@ -629,11 +629,12 @@ AddEventHandler("drc_moneywash:countmoney", function(place, house, amount)
 
     if GetItemCount(countItems.RequiredItems.item, src) >= amount then
 
-        local percentageLost = countItems.PercentageLost
+        local percentageLost = HighcrestWashRate(src)
         local cutAmount = math.max(math.floor(amount * percentageLost / 100), 1)
 
         RemoveItem(countItems.RequiredItems.item, amount, src)
         AddItem(countItems.AddItems.item, cutAmount, src)
+        HighcrestAddWashXp(src, amount) -- Highcrest: washing XP for a finished wash
         if CountOccupied[house] then
             CountOccupied[house] = false
         end
@@ -955,7 +956,7 @@ AddEventHandler("drc_moneywash:collectdrymoney", function(house)
 
             if currentTime >= cooldownEndTime then     
                 local requiredItem = Config.MoneyWash.DryItems.RequiredItems
-                local percentageLost = Config.MoneyWash.DryItems.PercentageLost
+                local percentageLost = HighcrestWashRate(src)
                 local collectedAmount = math.max(math.floor(dryingProcess.money * percentageLost / 100), 1)
                 MySQL.Async.execute('UPDATE owned_warehouse SET drying_process = @drying_process WHERE name = @name', {
                     ['@drying_process'] = nil,

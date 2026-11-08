@@ -11,6 +11,7 @@ local FILES = {
     '006_redutzu_ems_collation.sql',
     '007_drc_moneywash.sql',
     '008_drc_moneywash_collation.sql',
+    '009_moneywash_levels.sql',
 }
 
 local function statements(sql)
