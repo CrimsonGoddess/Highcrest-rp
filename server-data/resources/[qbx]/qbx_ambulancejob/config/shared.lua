@@ -4,15 +4,15 @@ return {
 
     locations = { -- Various interaction points
         duty = {
-            vec3(331.14, -578.93, 27.76), -- Highcrest: GN Pillbox
+            vec3(331.14, -578.93, 28.76), -- Highcrest: GN Pillbox (body height: zones are 2 m tall)
             vec3(-254.88, 6324.5, 32.58),
         },
         vehicle = {
-            vec4(331.5, -568.47, 27.76, 336.73), -- Highcrest: GN Pillbox garage
+            vec4(331.5, -568.47, 28.26, 336.73), -- Highcrest: GN Pillbox garage (spawn 0.5 m up so it doesn't drop through the floor)
             vec4(-234.28, 6329.16, 32.15, 222.5),
         },
         helicopter = {
-            vec4(351.84, -587.37, 73.16, 147.24),
+            vec4(351.84, -587.37, 73.66, 147.24),
             vec4(-475.43, 5988.353, 31.716, 31.34),
         },
         armory = {
@@ -29,15 +29,15 @@ return {
                     { name = 'weapon_fireextinguisher', price = 0 },
                 },
                 locations = {
-                    vec3(329.35, -580.14, 27.76)
+                    vec3(329.35, -580.14, 28.76)
                 }
             }
         },
         roof = {
-            vec3(338.54, -583.88, 73.17),
+            vec3(338.54, -583.88, 74.17),
         },
         main = {
-            vec3(305.44, -594.27, 42.27), -- Highcrest: lift up to the roof
+            vec3(305.44, -594.27, 43.27), -- Highcrest: lift up to the roof
         },
         stash = {
             {
@@ -47,7 +47,7 @@ return {
                 slots = 30,
                 groups = { ambulance = 0 },
                 owner = true, -- Set to false for group stash
-                location = vec3(332.78, -581.03, 27.76)
+                location = vec3(332.78, -581.03, 28.76)
             }
         },
 
