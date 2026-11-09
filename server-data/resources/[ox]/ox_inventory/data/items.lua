@@ -1252,4 +1252,11 @@ return {
     stack = true,
     description = ""
 },    
+
+    -- rcore_spray: graffiti
+    ['spray'] = { label = 'Spray Paint', weight = 500, stack = true, close = true, description = 'Paint graffiti on walls.', server = { export = 'rcore_spray.spray' } },
+    ['spray_remover'] = { label = 'Spray Remover', weight = 500, stack = true, close = true, description = 'Cleans graffiti off walls.', server = { export = 'rcore_spray.spray_remover' } },
+
+    -- pug-cokebusiness
+    ['cokelabnote'] = { label = 'Lab Note', weight = 100, stack = false, close = true, description = 'A note with some information on it...' },
 }

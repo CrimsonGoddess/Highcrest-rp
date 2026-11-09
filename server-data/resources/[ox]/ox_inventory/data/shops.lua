@@ -63,7 +63,10 @@ return {
 		blip = {
 			id = 402, colour = 69, scale = 0.8
 		}, inventory = {
-			{ name = 'lockpick', price = 10 }
+			{ name = 'lockpick', price = 10 },
+			{ name = 'spray', price = 150 }, -- Highcrest: rcore_spray
+			{ name = 'spray_remover', price = 100 },
+			{ name = 'toolbox', price = 250 }, -- Highcrest: peuren_chopshop
 		}, locations = {
 			vec3(2748.0, 3473.0, 55.67),
 			vec3(342.99, -1298.26, 32.51)
