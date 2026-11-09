@@ -1,0 +1,106 @@
+{
+    "interact_with_job_npc": "Talk with the job manager",
+
+    "job_menu_header": "Gruppe 6",
+
+    "choose_jobs_title": "Jobs",
+    "choose_jobs_description": "Select a job that suits your needs!",
+
+    "job_menu_start_delivery_job_title": "Delivery job",
+    "job_menu_start_delivery_job_description": "Get a job and start delivering money",
+
+    "job_menu_start_pickup_job_title": "Collecting job",
+    "job_menu_start_pickup_job_description": "Get a job and start collecting money",
+
+    "job_menu_active_groups_title": "Available groups",
+    "job_menu_active_groups_description": "Join available groups and work together!",
+
+    "menu_group_id": "Group ID: %s", 
+    "incorrect_group_pass": "Incorrect group password",
+
+    "job_menu_current_job_title": "Current job",
+    "job_menu_current_job_description": "Manage or view the job that you're currently doing",
+
+    "job_menu_rank_title": "View job rank",
+    "job_menu_rank_description": "View your job rank",
+
+    "rank_menu_rank_title": "Your job rank level is: %s",
+    "rank_menu_rank_description": "This is your job rank level",
+
+    "group_menu_group_tile": "Group job: %s",
+    "group_menu_group_description": "ID: %s \n Members: %s",
+
+    "no_available_groups": "There's currently no available groups",
+    "no_available_jobs": "There's currently no available jobs",
+
+    "left_group_job": "You successfully left the group",
+    "entered_group_job": "You have successfully joined the group",
+
+    "you_have_job": "You can't join or start a new job, because you have already a given job",
+    "max_players_rached_for_this_job": "You can't do this job right now, because there are to many players doing it!",
+    "successfully_started_job": "You have started a new job!",
+    "job_successfully_finished": "The job has been finished!",
+    "finished_go_next_place": "Finished! Go to the next point!",
+
+    "current_job_menu_leave_title": "Leave group",
+    "current_job_menu_leave_description": "Leave the current job group",
+
+    "current_job_menu_owner_leave_title": "End job",
+    "current_job_menu_owner_leave_description": "End the current job",
+
+    "current_job_menu_pass_title": "Your group password is: %s",
+    "current_job_menu_pass_description": "With this password, players can join your group",
+
+    "current_job_menu_start_job_title": "Start the job",
+    "current_job_menu_start_job_description": "When this button is pressed, the job will begin and players wont be able to join your group",
+
+    "current_job_menu_cancel_job_title": "Cancel the job",
+    "current_job_menu_cancel_job_description": "Cancel the selected job",
+
+    "current_job_menu_end_job_title": "End the job",
+    "current_job_menu_end_job_description": "When this button is pressed, the job will end and the group will be destroyed",
+
+    "enter_group_password": "Enter group password",
+
+    "interaction_take_bag": "Take money bag",
+    "interaction_place_bag": "Place money bag",
+
+    "interaction_take_money": "Take money",
+    "interaction_deliver_money": "Deliver money",
+    "interaction_open_container": "Open container",
+    "interaction_close_container": "Close container",
+
+    "textui_carry_place": "[X] - Place",
+    "interaction_pickup": "Pickup",
+
+    "interact_with_warehouse_npc_vehicle": "Return job vehicle",
+    "job_ended_return_vehicle": "Return the vehicle and the job will be finished, there you will also get paid!",
+    "successfully_finished_order": "You have successfully finished contract, you can start a new one or end the job using the tablet",
+
+    "ui_header_contracts": "Contracts",
+    "ui_header_your_group": "Your group",
+    "ui_take_contract": "TAKE",
+    "ui_job_progress": "GROUP JOB PROGRESS",
+    "ui_cancel_contract": "Cancel",
+    "ui_cancel_contract_confirm": "Are you sure you want to cancel this contract?",
+    "ui_cancel_contract_confirm_no": "No",
+    "ui_cancel_contract_confirm_yes": "Yes",
+    "ui_contract_progress_header": "YOUR TASK",
+    "ui_contract_progress_description": "You need to drive to the given location and collect the money. Afterwards, you need to transport and deliver the money to a given location in the map",
+    "ui_contract_progress_pickup": "Pickup",
+    "ui_contract_progress_transport": "Transport",
+    "ui_contract_progress_deliver": "Deliver",
+    "ui_group_owner_tag": "OWNER",
+    "ui_group_id": "Group ID: ",
+    "ui_group_password": "Password: ",
+    "ui_group_end_job": "End job",
+    "ui_group_end_job_confirm": "Are you sure you want to end the job and return to the HQ?",
+    "ui_group_end_job_confirm_no": "No",
+    "ui_group_end_job_confirm_yes": "Yes",
+    "ui_group_kick_player_confirm": "Are you sure you want to kick this member?",
+    "ui_group_kick_player_confirm_yes": "Yes",
+    "ui_group_kick_player_confirm_no": "No",
+    "ui_group_members": "GROUP MEMBERS",
+
+    "you_do_not_have_job": "You currently don't have access to this tablet!"
+}

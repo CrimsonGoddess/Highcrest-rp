@@ -916,4 +916,340 @@ return {
         weight = 95,
         stack = true
     },
+
+    -- peuren_chopshop: car parts and tools
+    ['bonnet'] = { label = 'Car Bonnet', weight = 8000, stack = true, close = true },
+    ['boot'] = { label = 'Car Trunk Lid', weight = 8000, stack = true, close = true },
+    ['door'] = { label = 'Car Door', weight = 10000, stack = true, close = true },
+    ['engine'] = { label = 'Car Engine', weight = 25000, stack = true, close = true },
+    ['wheel'] = { label = 'Car Wheel', weight = 6000, stack = true, close = true },
+    ['toolbox'] = { label = 'Toolbox', weight = 2000, stack = true, close = true, description = 'For taking cars apart.' },
+    ['weapon_digiscanner'] = { label = 'Signal Booster', weight = 500, stack = true, close = true, description = 'Boosts and hacks a car key signal.' },
+
+    -- peuren_gruppe6: Gruppe Sechs cash runs
+    ['money_bag'] = { label = 'Money Bag', weight = 250, stack = true, close = true, description = 'Gruppe Sechs money bag.' },
+
+    -- sd-beekeeping
+    ['bee-hive'] = { label = 'Bee Hive', weight = 1000, stack = true, close = true },
+    ['bee-house'] = { label = 'Bee House', weight = 1000, stack = true, close = true },
+    ['bee-queen'] = { label = 'Bee Queen', weight = 100, stack = true, close = true },
+    ['bee-worker'] = { label = 'Worker Bee', weight = 100, stack = true, close = true },
+    ['bee-smoker'] = { label = 'Bee Smoker', weight = 1000, stack = true, close = true },
+    ['thymol'] = { label = 'Thymol', weight = 500, stack = true, close = true },
+    ['bee-wax'] = { label = 'Bee Wax', weight = 500, stack = true, close = true },
+    ['bee-honey'] = { label = 'Bee Honey', weight = 1000, stack = true, close = true },
+    ['chiliad-honey'] = { label = 'Chiliad Honey', weight = 1000, stack = true, close = true },
+    ['green-hills-honey'] = { label = 'Green Hills Honey', weight = 1000, stack = true, close = true },
+    ['alamo-honey'] = { label = 'Alamo Honey', weight = 1000, stack = true, close = true },
+
+    -- lation_detecting: metal detecting
+    ['blue_metaldetector'] = {
+    label = 'Beginner\'s Beacon',
+    weight = 475
+    },
+
+    ['green_metaldetector'] = {
+    label = 'Lustrous Locator',
+    weight = 475
+    },
+
+    ['red_metaldetector'] = {
+    label = 'Treasure Trove Tracker',
+    weight = 475
+    },
+
+    ['orange_metaldetector'] = {
+    label = 'Goldseeker\'s Grail',
+    weight = 475
+    },
+
+    ['black_metaldetector'] = {
+    label = 'Archaeo Ace',
+    weight = 475
+    },
+
+    ['md_shovel'] = {
+    label = 'Shovel',
+    weight = 55
+    },
+
+    ['md_bottlecap'] = {
+    label = 'Bottle Cap',
+    weight = 25
+    },
+
+    ['md_brokenjunk'] = {
+    label = 'Broken Junk',
+    weight = 25
+    },
+
+    ['md_crushedcan'] = {
+    label = 'Crushed Can',
+    weight = 25
+    },
+
+    ['md_lighter'] = {
+    label = 'Lighter',
+    weight = 25
+    },
+
+    ['md_metalcan'] = {
+    label = 'Metal Can',
+    weight = 25
+    },
+
+    ['md_nails'] = {
+    label = 'Nails',
+    weight = 25
+    },
+
+    ['md_needle'] = {
+    label = 'Needle',
+    weight = 25
+    },
+
+    ['md_nickle'] = {
+    label = 'Nickle',
+    weight = 25
+    },
+
+    ['md_nut'] = {
+    label = 'Nut',
+    weight = 25
+    },
+
+    ['md_oldshotgunshell'] = {
+    label = 'Old Shotgun Shell',
+    weight = 25
+    },
+
+    ['md_paperclip'] = {
+    label = 'Paper Clip',
+    weight = 25
+    },
+
+    ['md_pulltab'] = {
+    label = 'Pull Tab',
+    weight = 25
+    },
+
+    ['md_quarter'] = {
+    label = 'Quarter',
+    weight = 25
+    },
+
+    ['md_rustyball'] = {
+    label = 'Rusty Ball',
+    weight = 25
+    },
+
+    ['md_rustyironball'] = {
+    label = 'Rusty Iron Ball',
+    weight = 25
+    },
+
+    ['md_rustyjunk'] = {
+    label = 'Rusty Junk',
+    weight = 25
+    },
+
+    ['md_rustynails'] = {
+    label = 'Rusty Nails',
+    weight = 25
+    },
+
+    ['md_rustypliers'] = {
+    label = 'Rusty Pliers',
+    weight = 25
+    },
+
+    ['md_rustyring'] = {
+    label = 'Rusty Ring',
+    weight = 25
+    },
+
+    ['md_rustyscissors'] = {
+    label = 'Rusty Scissors',
+    weight = 25
+    },
+
+    ['md_rustyscrewdriver'] = {
+    label = 'Rusty Screwdriver',
+    weight = 25
+    },
+
+    ['md_rustyspring'] = {
+    label = 'Rusty Spring',
+    weight = 25
+    },
+
+    ['md_screw'] = {
+    label = 'Screw',
+    weight = 25
+    },
+
+    ['md_wheatpenny'] = {
+    label = 'Wheat Penny',
+    weight = 25
+    },
+
+    ['md_ancientcoin'] = {
+    label = 'Ancient Coin',
+    weight = 25
+    },
+
+    ['md_blackwatch'] = {
+    label = 'Watch',
+    weight = 25
+    },
+
+    ['md_coppernugget'] = {
+    label = 'Copper Nugget',
+    weight = 25
+    },
+
+    ['md_diamondearings'] = {
+    label = 'Diamond Earings',
+    weight = 25
+    },
+
+    ['md_diamondnecklace'] = {
+    label = 'Diamond Necklace',
+    weight = 25
+    },
+
+    ['md_diamondring'] = {
+    label = 'Diamond Ring',
+    weight = 25
+    },
+
+    ['md_earpod'] = {
+    label = 'Ear Pod',
+    weight = 25
+    },
+
+    ['md_golddollar'] = {
+    label = 'Gold Dollar',
+    weight = 25
+    },
+
+    ['md_goldearings'] = {
+    label = 'Gold Earings',
+    weight = 25
+    },
+
+    ['md_goldnecklace'] = {
+    label = 'Gold Necklace',
+    weight = 25
+    },
+
+    ['md_goldnugget'] = {
+    label = 'Gold Nugget',
+    weight = 25
+    },
+
+    ['md_goldounce'] = {
+    label = '1oz Gold Bar',
+    weight = 25
+    },
+
+    ['md_goldring'] = {
+    label = 'Gold Ring',
+    weight = 25
+    },
+
+    ['md_halfdollar'] = {
+    label = 'Half Dollar',
+    weight = 25
+    },
+
+    ['md_ironnugget'] = {
+    label = 'Iron Nugget',
+    weight = 25
+    },
+
+    ['md_platinumnugget'] = {
+    label = 'Platinum Nugget',
+    weight = 25
+    },
+
+    ['md_presidentialwatch'] = {
+    label = 'Presidential Watch',
+    weight = 25
+    },
+
+    ['md_relicrevolver'] = {
+    label = 'Relic Revolver',
+    weight = 25
+    },
+
+    ['md_silverdime'] = {
+    label = 'Silver Dime',
+    weight = 25
+    },
+
+    ['md_silverearings'] = {
+    label = 'Silver Earings',
+    weight = 25
+    },
+
+    ['md_silverounce'] = {
+    label = '1oz Silver Bar',
+    weight = 25
+    },
+
+    ['md_silverring'] = {
+    label = 'Silver Ring',
+    weight = 25
+    },
+
+    -- pickle_hunting
+['hunting_horn'] = {
+    label = 'Hunting Horn',
+    weight = 1,
+    stack = true,
+    description = "Shows the nearest animals to you on the map."
+},    
+
+['animal_hide_1'] = {
+    label = 'Animal Hide G1',
+    weight = 100,
+    stack = true,
+    description = ""
+},    
+
+['animal_hide_2'] = {
+    label = 'Animal Hide G2',
+    weight = 100,
+    stack = true,
+    description = ""
+},    
+
+['animal_hide_3'] = {
+    label = 'Animal Hide G3',
+    weight = 100,
+    stack = true,
+    description = ""
+},    
+
+['animal_meat_1'] = {
+    label = 'Animal Meat G1',
+    weight = 1000,
+    stack = true,
+    description = ""
+},    
+
+['animal_meat_2'] = {
+    label = 'Animal Meat G2',
+    weight = 1000,
+    stack = true,
+    description = ""
+},    
+
+['animal_meat_3'] = {
+    label = 'Animal Meat G3',
+    weight = 1000,
+    stack = true,
+    description = ""
+},    
 }

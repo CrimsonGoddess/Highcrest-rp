@@ -12,6 +12,9 @@ local FILES = {
     '007_drc_moneywash.sql',
     '008_drc_moneywash_collation.sql',
     '009_moneywash_levels.sql',
+    '010_peuren_gruppe6.sql',
+    '011_peuren_chopshop.sql',
+    '012_lation_detecting.sql',
 }
 
 local function statements(sql)

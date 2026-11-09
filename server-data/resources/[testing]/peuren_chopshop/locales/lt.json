@@ -1,0 +1,89 @@
+{
+    "dealer_interaction": "Kalbėtis su baryga",
+
+    "dealer_menu_job_title": "Gauti darba",
+    "dealer_menu_job_desciption": "Prašyti namo!",
+
+    "dealer_menu_rep_title": "Reputacija",
+    "dealer_menu_rep_desciption": "Stebėti ir valdyti reputacija su baryga",
+
+    "dealer_menu_pawn_title": "Lombardas",
+    "dealer_menu_apwn_desciption": "Peržiūrėti prekiautojų pasiūlymus dėl vogtų prekių",
+
+    "dealer_menu_rep_level_title": "Reputacija",
+    "dealer_menu_rep_level_description": "Jūsų reputacijos lygis su baryga yra: %s",
+
+    "dealer_menu_rep_new_task_title": "Prašyti užduoties",
+    "dealer_menu_rep_new_task_description": "Atlikite užduotį, kad įgytumėte didesnę reputaciją su baryga",
+
+    "dealer_menu_rep_active_task_title": "Dabartinė užduotis",
+    "dealer_menu_rep_active_task_description": "Jūsų dabar atliekama užduotis",
+
+    "dealer_menu_shop_buy_title": "Pirkti",
+    "dealer_menu_shop_buy_description": "Pirkite prekiautojo parduodamus daiktus",
+
+    "dealer_menu_shop_sell_title": "Parduoti",
+    "dealer_menu_shop_sell_description": "Parduokite prekes prekiautojui",
+
+    "dealer_menu_shop_buy_price": "Kaina: $%s",
+
+    "dealer_menu_amount": "Kiekis",
+    "input_invalid_input": "Netinkama įvestis, bandykite dar kartą",
+
+    "task_menu_bring_item_count": "Atnešk %sx %s",
+
+    "task_menu_complete_task_title": "Atlikti užduotį",
+    "task_menu_complete_task_description": "Complete the given task",
+
+    "task_menu_cancel_task_title": "Atšaukti užduotį",
+    "task_menu_cancel_task_description": "Jei atšauksite užduotį, galite prarasti reputacijos lygio su baryga.",
+
+    "notify_received_task_title": "Gauta nauja užduotis",
+    "notify_received_task_description": "Iš prekiautojo gavote naują užduotį",
+
+    "notify_completed_task_title": "Įvykdyta užduotis",
+    "notify_completed_task_description": "Sėkmingai atlikote užduotį",
+
+    "notify_canceled_task_title": "Atšaukta užduotis",
+    "notify_canceled_task_description": "Atšaukėte dabartinę užduotį",
+
+    "notify_dont_have_item": "Neturite reikiamų elementų",
+    "notify_havent_completed_task": "Neįvykdėte užduoties",
+
+    "notify_personal_cooldown": "Baryga neturi jums darbo, grįžkite vėliau!",
+    "you_have_job": "Jau turite darbą pas kitą barygą!",
+    "you_have_house": "Jūs jau turite duotą namą, laukite iki kol galėsite gauti naują!",
+    "not_enough_police_to_start": "Nėra pakankamai policijos pareigūnų mieste!",
+    "notify_cant_interact_dealer": "Dar negalite bendrauti su šia baryga!",
+    "notify_job_not_found": "Darbas nerastas, nes nėra laisvų tr. priemonių, kurias būtų galima išardyti!",
+    "job_found_go_to_blip": "Jūs gavote darbą!",
+
+    "notify_not_enough_items": "Neturite pakankamai daiktų",
+    "notify_not_enough_money": "Neturite pakankamai pinigų",
+    "notify_sale_success_title": "Sėkmingai parduota",
+    "notify_sale_success_description": "Sėkmingai pardavėte daiktą už $%s",
+    "notify_buy_success_title": "Sėkmingai nupirkta",
+    "notify_buy_success_description": "Sėkmingai įsigijote daiktą už $%s",
+    "notify_loot_busy": "Kažkas čia jau plėšikauja.",
+
+    "police_called": "Dink iš ten! Policija jau pakeliui!",
+
+    "task_menu_complete_minigame": "Sėkmingai %s %s kartus",
+    "minigame_lockpicking": "lockpick",
+    "minigame_hacking": "hack",
+    "minigame_looting": "loot",
+    "task_menu_minigame_progress": "Progress: %s",
+    "radar_start": "[E] - Pradėti įsilaužimą",
+
+    "someones_chopping_part": "Kažkas jau ardo šia dalį!",
+    "part_chopped": "Ši dalis jau yra nuimta!",
+
+    "disassemble_part": "Nuimti dalį",
+    "disassemble_frame": "Išardyti rėmą",
+    "chopping": "Ardoma..",
+
+    "chop_zone_entered": "Jūs esate ardymo zonoje",
+    "chop_zone_left": "Jūs palikote ardymo zoną",
+
+    "ui_time_left": "Likęs laikas"
+}

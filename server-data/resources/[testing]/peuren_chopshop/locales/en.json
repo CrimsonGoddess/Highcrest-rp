@@ -1,0 +1,89 @@
+{
+    "dealer_interaction": "Talk to the dealer",
+
+    "dealer_menu_job_title": "Get a mission",
+    "dealer_menu_job_desciption": "Ask for a vehicle to chop!",
+
+    "dealer_menu_rep_title": "Reputation",
+    "dealer_menu_rep_desciption": "View and manage reputation with dealer",
+
+    "dealer_menu_pawn_title": "Pawn shop",
+    "dealer_menu_apwn_desciption": "View dealers offers for stolen goods",
+
+    "dealer_menu_rep_level_title": "Reputation",
+    "dealer_menu_rep_level_description": "Your reputation level with the dealer is: %s",
+
+    "dealer_menu_rep_new_task_title": "Ask for a Task",
+    "dealer_menu_rep_new_task_description": "Do a task, to gain more reputation with the dealer",
+
+    "dealer_menu_rep_active_task_title": "Current Task",
+    "dealer_menu_rep_active_task_description": "Your current task",
+
+    "dealer_menu_shop_buy_title": "Buy",
+    "dealer_menu_shop_buy_description": "Buy items sold by the dealer",
+
+    "dealer_menu_shop_sell_title": "Sell",
+    "dealer_menu_shop_sell_description": "Sell items to the dealer",
+
+    "dealer_menu_shop_buy_price": "Price: $%s",
+
+    "dealer_menu_amount": "Amount",
+    "input_invalid_input": "Invalid input, try again",
+
+    "task_menu_bring_item_count": "Bring %sx %s",
+
+    "task_menu_complete_task_title": "Complete the Task",
+    "task_menu_complete_task_description": "Complete the given task",
+
+    "task_menu_cancel_task_title": "Cancel the Task",
+    "task_menu_cancel_task_description": "You might lose reputation with this dealer if you cancel your task",
+
+    "notify_received_task_title": "Received a new task",
+    "notify_received_task_description": "You received a new task from the dealer",
+
+    "notify_completed_task_title": "Completed the task",
+    "notify_completed_task_description": "You succesfully completed the task",
+
+    "notify_canceled_task_title": "Cancelled the task",
+    "notify_canceled_task_description": "You cancelled your current task",
+
+    "notify_dont_have_item": "You don't have the required items",
+    "notify_havent_completed_task": "You haven't completed the task",
+
+    "notify_personal_cooldown": "You have a personal cooldown with the dealer, plase come back later!",
+    "you_have_job": "You already have a job with a diffrent dealer!",    
+    "no_required_job_items": "You don't have the required items to start this job",
+    "not_enough_police_to_start": "Not enough police online to start a job!",
+    "notify_cant_interact_dealer": "You can't interact with this dealer yet!",
+    "notify_job_not_found": "Job not found, because there is no available vehicles to chop!",
+    "job_found_go_to_blip": "You got a job!",
+
+    "notify_not_enough_items": "You don't have enough items",
+    "notify_not_enough_money": "You don't have enough cash",
+    "notify_sale_success_title": "Succesfully Sold",
+    "notify_sale_success_description": "You succesfully sold an item for $%s",
+    "notify_buy_success_title": "Succesfully Bought",
+    "notify_buy_success_description": "You succesfully bought an item for $%s",
+    "failed_time_expired": "Your job offer expired, you we're to slow!",
+
+    "police_called": "Get out off there! Police are on their way!",
+
+    "task_menu_complete_minigame": "Succesfully %s %s times",
+    "minigame_disassemble": "chop",
+    "minigame_hacking": "hack",
+    "minigame_looting": "loot",
+    "task_menu_minigame_progress": "Progress: %s",
+    "radar_start": "[E] - Start Hacking",
+
+    "someones_chopping_part": "Someone is already chopping this part!",
+    "part_chopped": "This part has been chopped!",
+
+    "disassemble_part": "Chop part",
+    "disassemble_frame": "Chop frame",
+    "chopping": "Chopping part..",
+
+    "chop_zone_entered": "You have entered the chop zone",
+    "chop_zone_left": "You have left the chop zone",
+
+    "ui_time_left": "Time left"
+}

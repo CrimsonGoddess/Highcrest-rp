@@ -1,0 +1,12 @@
+1. Add this to qb-core/shared/weapons.lua:
+
+	["weapon_digiscanner"] 		 = {["name"] = "weapon_digiscanner", 			  	["label"] = "Signal booster", 			["decay"] = nil,		["weight"] = 500, 		["type"] = "weapon", 	["image"] = "weapon_digiscanner.png", 	["unique"] = true,	 	["useable"] = true,		["created"] = nil,		["decay"] = nil, 	["shouldClose"] = false, ["combinable"] = nil,   ["description"] = ""},
+
+2. Add these to qb-core/shared/items.lua:
+
+	["toolbox"] 				 = {["name"] = "toolbox", 			  	  			["label"] = "Toolbox", 					["decay"] = nil,		["weight"] = 500, 		["type"] = "item", 		["image"] = "toolbox.png", 				["unique"] = true,	 	["useable"] = true,		["created"] = nil,		["decay"] = nil, 	["shouldClose"] = false, ["combinable"] = nil,   ["description"] = "Usefull for working on vehicles"},
+	["bonnet"] 				 	 = {["name"] = "bonnet", 			  	  			["label"] = "Bonnet", 					["decay"] = nil,		["weight"] = 500, 		["type"] = "item", 		["image"] = "bonnet.png", 				["unique"] = true,	 	["useable"] = true,		["created"] = nil,		["decay"] = nil, 	["shouldClose"] = false, ["combinable"] = nil,   ["description"] = "A bonnet from a vehicle"},
+	["boot"] 				 	 = {["name"] = "boot", 			  	  				["label"] = "Trunk", 					["decay"] = nil,		["weight"] = 500, 		["type"] = "item", 		["image"] = "boot.png", 				["unique"] = true,	 	["useable"] = true,		["created"] = nil,		["decay"] = nil, 	["shouldClose"] = false, ["combinable"] = nil,   ["description"] = "A trunk from a vehicle"},
+	["door"] 				 	 = {["name"] = "door", 			  	  				["label"] = "Door", 					["decay"] = nil,		["weight"] = 500, 		["type"] = "item", 		["image"] = "door.png", 				["unique"] = true,	 	["useable"] = true,		["created"] = nil,		["decay"] = nil, 	["shouldClose"] = false, ["combinable"] = nil,   ["description"] = "A door from a vehicle"},
+	["engine"] 				 	 = {["name"] = "engine", 			  	  			["label"] = "Engine", 					["decay"] = nil,		["weight"] = 500, 		["type"] = "item", 		["image"] = "engine.png", 				["unique"] = true,	 	["useable"] = true,		["created"] = nil,		["decay"] = nil, 	["shouldClose"] = false, ["combinable"] = nil,   ["description"] = "A engine from a vehicle"},
+	["wheel"] 				 	 = {["name"] = "wheel", 			  	  			["label"] = "Wheel", 					["decay"] = nil,		["weight"] = 500, 		["type"] = "item", 		["image"] = "wheel.png", 				["unique"] = true,	 	["useable"] = true,		["created"] = nil,		["decay"] = nil, 	["shouldClose"] = false, ["combinable"] = nil,   ["description"] = "A wheel from a vehicle"},
