@@ -187,11 +187,24 @@ lib.callback.register('qbx_ambulancejob:server:spawnVehicle', function(source, v
 	local player = exports.qbx_core:GetPlayer(source)
 	if not player or player.PlayerData.job.type ~= 'ems' or not player.PlayerData.job.onduty then return end
 
-	local existingVehicle = spawnedVehicles[source]
-	if vehiclesSpawning[source] or existingVehicle and DoesEntityExist(existingVehicle) then return end
+	if vehiclesSpawning[source] then return end
 
 	local vehicleCoords = getAuthorizedVehicleSpawn(player, vehicleName)
 	if not vehicleCoords then return end
+
+	-- Highcrest: one EMS vehicle per player. An empty old one is put away so a new one can be
+	-- taken out (e.g. the helicopter after an ambulance); if someone is in it, say so.
+	local existingVehicle = spawnedVehicles[source]
+	if existingVehicle and DoesEntityExist(existingVehicle) then
+		for seat = -1, 6 do
+			if GetPedInVehicleSeat(existingVehicle, seat) ~= 0 then
+				exports.qbx_core:Notify(source, 'Your other EMS vehicle is still in use. Store it first.', 'error')
+				return
+			end
+		end
+		DeleteEntity(existingVehicle)
+		spawnedVehicles[source] = nil
+	end
 
 	vehiclesSpawning[source] = true
 	local success, netId, veh = pcall(qbx.spawnVehicle, { spawnSource = vehicleCoords, model = vehicleName, warp = GetPlayerPed(source)})
