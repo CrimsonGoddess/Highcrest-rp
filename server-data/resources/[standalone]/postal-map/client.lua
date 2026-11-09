@@ -1,5 +1,12 @@
 -- Pause map zoom levels from the Postal Code Map release, so postal numbers stay readable.
--- Highcrest: the original also forced the minimap zoom every frame; that's left out so the HUD keeps control.
+-- The map's minimap tiles only draw at this zoom (without it the minimap is see-through), so it's kept every frame like the original.
+CreateThread(function()
+    while true do
+        SetRadarZoom(1100)
+        Wait(0)
+    end
+end)
+
 CreateThread(function()
     SetMapZoomDataLevel(0, 0.96, 0.9, 0.08, 0.0, 0.0)
     SetMapZoomDataLevel(1, 1.6, 0.9, 0.08, 0.0, 0.0)

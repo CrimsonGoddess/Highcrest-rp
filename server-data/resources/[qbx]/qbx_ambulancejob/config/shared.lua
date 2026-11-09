@@ -4,15 +4,15 @@ return {
 
     locations = { -- Various interaction points
         duty = {
-            vec3(311.18, -599.25, 43.29),
+            vec3(331.14, -578.93, 27.76), -- Highcrest: GN Pillbox
             vec3(-254.88, 6324.5, 32.58),
         },
         vehicle = {
-            vec4(294.578, -574.761, 43.179, 35.79),
+            vec4(331.5, -568.47, 27.76, 336.73), -- Highcrest: GN Pillbox garage
             vec4(-234.28, 6329.16, 32.15, 222.5),
         },
         helicopter = {
-            vec4(351.58, -587.45, 74.16, 160.5),
+            vec4(351.84, -587.37, 73.16, 147.24),
             vec4(-475.43, 5988.353, 31.716, 31.34),
         },
         armory = {
@@ -29,15 +29,15 @@ return {
                     { name = 'weapon_fireextinguisher', price = 0 },
                 },
                 locations = {
-                    vec3(309.93, -602.94, 43.29)
+                    vec3(329.35, -580.14, 27.76)
                 }
             }
         },
         roof = {
-            vec3(338.54, -583.88, 74.17),
+            vec3(338.54, -583.88, 73.17),
         },
         main = {
-            vec3(298.62, -599.66, 43.29),
+            vec3(305.44, -594.27, 42.27), -- Highcrest: lift up to the roof
         },
         stash = {
             {
@@ -47,7 +47,7 @@ return {
                 slots = 30,
                 groups = { ambulance = 0 },
                 owner = true, -- Set to false for group stash
-                location = vec3(309.78, -596.6, 43.29)
+                location = vec3(332.78, -581.03, 27.76)
             }
         },
 
@@ -59,16 +59,12 @@ return {
         hospitals = {
             pillbox = {
                 coords = vec3(350, -580, 43),
-                checkIn = vec3(308.19, -595.35, 43.29),
+                checkIn = vec3(308.49, -581.55, 42.27),
                 beds = {
-                    {coords = vec4(353.1, -584.6, 43.11, 152.08), model = 1631638868},
-                    {coords = vec4(356.79, -585.86, 43.11, 152.08), model = 1631638868},
-                    {coords = vec4(354.12, -593.12, 43.1, 336.32), model = 2117668672},
-                    {coords = vec4(350.79, -591.8, 43.1, 336.32), model = 2117668672},
-                    {coords = vec4(346.99, -590.48, 43.1, 336.32), model = 2117668672},
-                    {coords = vec4(360.32, -587.19, 43.02, 152.08), model = -1091386327},
-                    {coords = vec4(349.82, -583.33, 43.02, 152.08), model = -1091386327},
-                    {coords = vec4(326.98, -576.17, 43.02, 152.08), model = -1091386327},
+                    -- Highcrest: GN Pillbox beds, picked in game 2026-11-08
+                    {coords = vec4(320.34, -581.46, 43.26, 260.34), model = 2117668672},
+                    {coords = vec4(324.99, -588.61, 43.26, 74.45), model = 2117668672},
+                    {coords = vec4(329.56, -584.77, 43.27, 248.28), model = 2117668672},
                 },
             },
             paleto = {
@@ -92,7 +88,8 @@ return {
         },
 
         stations = {
-            {label = 'Pillbox Hospital', coords = vec4(304.27, -600.33, 43.28, 272.249)},
+            {label = 'Pillbox Hospital', coords = vec4(308.49, -581.55, 42.27, 247.35)},
+            {label = 'Central Los Santos Medical', coords = vec4(340.0, -1396.0, 32.5, 50.0)}, -- Highcrest: GN Central LS
         }
     },
 }
