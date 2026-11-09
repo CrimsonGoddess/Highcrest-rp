@@ -5,19 +5,22 @@
     tools\deploy-nodecraft.ps1 -Preview                  show what would change
     tools\deploy-nodecraft.ps1                           upload
     tools\deploy-nodecraft.ps1 -Resources a,b            choose resources in [custom]
+    tools\deploy-nodecraft.ps1 -Folders "resources\[x]"   sync whole folders, relative to server-data
     tools\deploy-nodecraft.ps1 -Files x,y                upload single files, relative to server-data
                                                          (with -Preview, downloads them to deploy\remote-check to compare)
 #>
 param(
     [switch]$Preview,
     [string[]]$Resources = @('highcrest_phone', 'highcrest_ui', 'highcrest_empire'),
-    [string[]]$Files = @()
+    [string[]]$Files = @(),
+    [string[]]$Folders = @()
 )
 $ErrorActionPreference = 'Stop'
 # A list arrives as one comma-separated value when this script is run with -File.
 $Files = @($Files | ForEach-Object { $_ -split ',' } | Where-Object { $_ })
 # Asking for single files means only those files, unless resources are named too.
-if ($Files.Count -gt 0 -and -not $PSBoundParameters.ContainsKey('Resources')) { $Resources = @() }
+$Folders = @($Folders | ForEach-Object { $_ -split ',' } | Where-Object { $_ })
+if (($Files.Count -gt 0 -or $Folders.Count -gt 0) -and -not $PSBoundParameters.ContainsKey('Resources')) { $Resources = @() }
 $root = Split-Path -Parent $PSScriptRoot
 $loginFile = Join-Path $root 'deploy\sftp.txt'
 $keyFile = Join-Path $root 'deploy\sftp-hostkey.txt'
@@ -67,6 +70,18 @@ foreach ($resource in $Resources) {
         [void]$lines.Add('option batch abort')
     }
     [void]$lines.Add(('synchronize remote {0} -criteria=either "{1}" "{2}/{3}"' -f $mode, $local, $remoteBase, $resource))
+}
+foreach ($folder in $Folders) {
+    $local = Join-Path (Join-Path $root 'server-data') $folder
+    if (-not (Test-Path -LiteralPath $local)) { throw "No such folder: $folder" }
+    $remote = '/servers/highcrest/' + $folder.Replace('\', '/').TrimEnd('/')
+    $mode = if ($Preview) { '-preview' } else { '' }
+    if (-not $Preview) {
+        [void]$lines.Add('option batch continue')
+        [void]$lines.Add(('mkdir "{0}"' -f $remote))
+        [void]$lines.Add('option batch abort')
+    }
+    [void]$lines.Add(('synchronize remote {0} -criteria=either "{1}" "{2}"' -f $mode, $local, $remote))
 }
 foreach ($file in $Files) {
     if ($file -match '(^|[\\/])secrets\.cfg$') { throw 'secrets.cfg is never deployed by this script.' }
