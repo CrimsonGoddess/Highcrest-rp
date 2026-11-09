@@ -95,6 +95,7 @@ CreateThread(function()
                     main = GetStreetNameFromHashKey(mainHash),
                     cross = crossHash ~= 0 and GetStreetNameFromHashKey(crossHash) or nil,
                     area = zoneLabel ~= 'NULL' and zoneLabel or nil,
+                    postal = GetResourceState('nearest-postal') == 'started' and exports['nearest-postal']:getPostal() or nil,
                 }
             end
 

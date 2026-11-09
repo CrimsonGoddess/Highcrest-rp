@@ -533,7 +533,7 @@
             <div id="markers"></div>
             <div id="pointer"></div>
         </div>
-        <div id="street" hidden><span id="streetMain"></span><small id="streetArea"></small></div>
+        <div id="street" hidden><span id="streetMain"></span><small id="streetArea"></small><small id="streetPostal"></small></div>
     </div>
     <div id="mapFrame"></div>
     <div id="status"></div>
@@ -609,6 +609,7 @@
             if (street && street.main) {
                 element('streetMain').textContent = street.cross ? `${street.main} & ${street.cross}` : street.main;
                 element('streetArea').textContent = street.area || '';
+                element('streetPostal').textContent = street.postal ? `Postal ${street.postal}` : '';
             }
         }
 
@@ -798,7 +799,7 @@
                     { offset: 0.12, colour: '#d4af37', label: 'Waypoint', distance: 840 },
                     { offset: -0.3, colour: '#4aa3ff', label: 'Friend', distance: 2300 },
                 ],
-                street: { main: 'Grove Street', cross: 'Forum Drive', area: 'Davis' },
+                street: { main: 'Grove Street', cross: 'Forum Drive', area: 'Davis', postal: '8031' },
             });
             showStatus({
                 visible: true, minimapShown: true,
