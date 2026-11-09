@@ -63,7 +63,9 @@ lib.callback.register('qbx_newsjob:server:spawnVehicle', function(source, model)
     end
     if not netId or netId == 0 then return end
     if not veh or veh == 0 then return end
-    if exports.qbx_core:GetPlayer(source) ~= player then
+    -- Highcrest: compare the character, not the table (exports return a fresh copy each call, so ~= was always true and deleted the vehicle)
+	local current = exports.qbx_core:GetPlayer(source)
+	if not current or current.PlayerData.citizenid ~= player.PlayerData.citizenid then
         DeleteEntity(veh)
         return
     end
