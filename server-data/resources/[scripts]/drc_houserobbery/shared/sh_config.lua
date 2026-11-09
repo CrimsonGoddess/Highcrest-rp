@@ -60,13 +60,14 @@ Config.Tier = {
                     { Item = "romantic_book", Chance = 30.9, MinCount = 1, MaxCount = 2 },
                     { Item = "notepad", Chance = 90.5, MinCount = 1, MaxCount = 2 },
                     { Item = "pencil", Chance = 90.5, MinCount = 1, MaxCount = 2 },
-                    { Item = "weapon_knife", Chance = 70.5, MinCount = 1, MaxCount = 2 },
+                    { Item = "WEAPON_KNIFE", Chance = 70.5, MinCount = 1, MaxCount = 1 },
                     { Item = "bong", Chance = 80.5, MinCount = 1, MaxCount = 2 },
                 }
             },
         },
         CreateProps = { -- Spawned props by script --
-            ["pogo"] = { model = `vw_prop_vw_pogo_gold_01a`, Label = "Art piece", Item = "pogo", Coords = vec4(262.03, -1000.62, -99.21, 3.4+180.0), propPlacement = { pos = vec3( 0.17, 0.0, 0.05), rot = vec3(16.0, 0.0, 0.0), bone = 18905 }, CarryAnim = { dict = "anim@heists@box_carry@", anim = "idle" }, NeedTrunk = true, }
+            -- Highcrest: no gold Pogo statue in low-tier apartments (balance).
+            -- ["pogo"] = { model = `vw_prop_vw_pogo_gold_01a`, Label = "Art piece", Item = "pogo", Coords = vec4(262.03, -1000.62, -99.21, 3.4+180.0), propPlacement = { pos = vec3( 0.17, 0.0, 0.05), rot = vec3(16.0, 0.0, 0.0), bone = 18905 }, CarryAnim = { dict = "anim@heists@box_carry@", anim = "idle" }, NeedTrunk = true, }
         },
         Safes = {
             ["safe"] = { model = `prop_ld_int_safe_01`, Label = "Safe", NeedItem = true, Item = "lockpick", Coords = vec4(259.54, -1003.65, -99.01, 120.98), 
@@ -112,7 +113,7 @@ Config.Tier = {
                 Items = {
                     { Item = "notepad", Chance = 30.9, MinCount = 1, MaxCount = 2 },
                     { Item = "pencil", Chance = 30.9, MinCount = 1, MaxCount = 2 },
-                    { Item = "weapon_knife", Chance = 30.9, MinCount = 1, MaxCount = 2 },
+                    { Item = "WEAPON_KNIFE", Chance = 30.9, MinCount = 1, MaxCount = 1 },
                     { Item = "watch", Chance = 30.9, MinCount = 1, MaxCount = 2 },
                     { Item = "necklace", Chance = 30.9, MinCount = 1, MaxCount = 2 },
                     { Item = "bong", Chance = 30.9, MinCount = 1, MaxCount = 2 },
@@ -186,9 +187,9 @@ Config.Tier = {
                 coords = vector3(-788.957886, 320.741302, 187.313248),        
                 Items = {
                     { Item = "bong", Chance = 20.5, MinCount = 1, MaxCount = 2 },
-                    { Item = "weapon_knuckle", Chance = 30.9, MinCount = 1, MaxCount = 2 },
-                    { Item = "weapon_bottle", Chance = 30.9, MinCount = 1, MaxCount = 2 },
-                    { Item = "weapon_bat", Chance = 30.9, MinCount = 1, MaxCount = 2 },
+                    { Item = "WEAPON_KNUCKLE", Chance = 30.9, MinCount = 1, MaxCount = 1 },
+                    { Item = "WEAPON_BOTTLE", Chance = 30.9, MinCount = 1, MaxCount = 1 },
+                    { Item = "WEAPON_BAT", Chance = 30.9, MinCount = 1, MaxCount = 1 },
                     { Item = "earings", Chance = 30.9, MinCount = 1, MaxCount = 2 },
                 }
             },
@@ -196,8 +197,8 @@ Config.Tier = {
                 ChanceToFindNothing = 35,
                 coords = vector3(-783.327454, 325.411712, 187.313248),        
                 Items = {
-                    { Item = "weapon_knuckle", Chance = 30.9, MinCount = 1, MaxCount = 2 },
-                    { Item = "weapon_bottle", Chance = 30.9, MinCount = 1, MaxCount = 2 },
+                    { Item = "WEAPON_KNUCKLE", Chance = 30.9, MinCount = 1, MaxCount = 1 },
+                    { Item = "WEAPON_BOTTLE", Chance = 30.9, MinCount = 1, MaxCount = 1 },
                     { Item = "earings", Chance = 30.9, MinCount = 1, MaxCount = 2 },
                     { Item = "watch", Chance = 30.9, MinCount = 1, MaxCount = 2 },
                 },
@@ -206,26 +207,25 @@ Config.Tier = {
                 ChanceToFindNothing = 35,
                 coords = vector3(-782.004090, 330.077392, 187.313248),        
                 Items = {
-                    { Item = "weapon_knife", Chance = 30.9, MinCount = 1, MaxCount = 2 },
-                    { Item = "weapon_bottle", Chance = 30.9, MinCount = 1, MaxCount = 2 },
+                    { Item = "WEAPON_KNIFE", Chance = 30.9, MinCount = 1, MaxCount = 1 },
+                    { Item = "WEAPON_BOTTLE", Chance = 30.9, MinCount = 1, MaxCount = 1 },
                 }
             },
             ["Heist storage"] = {
                 ChanceToFindNothing = 35,
                 coords = vector3(-794.997680, 326.787872, 187.313340),        
                 Items = {
-                    { Item = "weapon_carbinerifle", Chance = 30.9, MinCount = 1, MaxCount = 2 },
-                    { Item = "weapon_pistol", Chance = 30.9, MinCount = 1, MaxCount = 2 },
-                    { Item = "weapon_bat", Chance = 30.9, MinCount = 1, MaxCount = 2 },
+                    { Item = "WEAPON_PISTOL", Chance = 30.9, MinCount = 1, MaxCount = 1 },
+                    { Item = "WEAPON_BAT", Chance = 30.9, MinCount = 1, MaxCount = 1 },
                 }
             },
             ["Stair saffron"] = {
                 ChanceToFindNothing = 35,
                 coords = vector3(-793.373352, 341.711944, 187.113678),        
                 Items = {
-                    { Item = "weapon_knuckle", Chance = 30.9, MinCount = 1, MaxCount = 2 },
-                    { Item = "weapon_pistol", Chance = 30.9, MinCount = 1, MaxCount = 2 },
-                    { Item = "weapon_bat", Chance = 30.9, MinCount = 1, MaxCount = 2 },
+                    { Item = "WEAPON_KNUCKLE", Chance = 30.9, MinCount = 1, MaxCount = 1 },
+                    { Item = "WEAPON_PISTOL", Chance = 30.9, MinCount = 1, MaxCount = 1 },
+                    { Item = "WEAPON_BAT", Chance = 30.9, MinCount = 1, MaxCount = 1 },
                     { Item = "gold_bracelet", Chance = 30.9, MinCount = 1, MaxCount = 2 },
                 },
             },
@@ -235,16 +235,16 @@ Config.Tier = {
                 Items = {
                     { Item = "bong", Chance = 20.5, MinCount = 1, MaxCount = 2 },
                     { Item = "romantic_book", Chance = 30.9, MinCount = 1, MaxCount = 2 },
-                    { Item = "watches", Chance = 30.9, MinCount = 1, MaxCount = 2 },
+                    { Item = "watch", Chance = 30.9, MinCount = 1, MaxCount = 2 },
                 },
             },
             ["Locker #2"] = {
                 ChanceToFindNothing = 10,
                 coords = vector3(-796.366760, 328.144348, 190.716004),        
                 Items = {
-                    { Item = "weapon_knuckle", Chance = 30.9, MinCount = 1, MaxCount = 2 },
-                    { Item = "weapon_bottle", Chance = 30.9, MinCount = 1, MaxCount = 2 },
-                    { Item = "weapon_bat", Chance = 30.9, MinCount = 1, MaxCount = 2 },
+                    { Item = "WEAPON_KNUCKLE", Chance = 30.9, MinCount = 1, MaxCount = 1 },
+                    { Item = "WEAPON_BOTTLE", Chance = 30.9, MinCount = 1, MaxCount = 1 },
+                    { Item = "WEAPON_BAT", Chance = 30.9, MinCount = 1, MaxCount = 1 },
                 },
             },
             ["Bathroom"] = {
@@ -449,30 +449,33 @@ Config.SellShop = {
         { label = 'Boombox', item = 'boombox', description = "Sell boombox for: $", price = 150, MinAmount = 1, MaxAmount = 20 },
         { label = 'Bong', item = 'bong', description = "Sell bong for: $", price = 50, MinAmount = 1, MaxAmount = 20 },
         { label = 'Pogo Statue', item = 'pogo', description = "Sell Art Piece for: $", price = 1500, MinAmount = 1, MaxAmount = 20 },
-        { label = 'Flat Television', item = 'flat_television', description = "Sell Flat Television for: $", price = 500, MinAmount = 1, MaxAmount = 20 },
-        { label = 'Coffe', item = 'coffemachine', description = "Sell Coffe for: $", price = 90, MinAmount = 1, MaxAmount = 20 },
-        { label = 'Hairdryer', item = 'hairdryer', description = "Sell hairdryer for: $", price = 20, MinAmount = 1, MaxAmount = 20 },
-        { label = 'Phone', item = 'j_phone', description = "Sell Phone for: $", price = 40, MinAmount = 1, MaxAmount = 20 },
-        { label = 'Sculpture', item = 'sculpture', description = "Sell sculpture for: $", price = 300, MinAmount = 1, MaxAmount = 20 },
+        { label = 'Flat Television', item = 'flat_television', description = "Sell Flat Television for: $", price = 1400, MinAmount = 1, MaxAmount = 20 },
+        { label = 'Coffe', item = 'coffemachine', description = "Sell Coffe for: $", price = 150, MinAmount = 1, MaxAmount = 20 },
+        { label = 'Hairdryer', item = 'hairdryer', description = "Sell hairdryer for: $", price = 40, MinAmount = 1, MaxAmount = 20 },
+        { label = 'Phone', item = 'j_phone', description = "Sell Phone for: $", price = 80, MinAmount = 1, MaxAmount = 20 },
+        { label = 'Sculpture', item = 'sculpture', description = "Sell sculpture for: $", price = 600, MinAmount = 1, MaxAmount = 20 },
         { label = 'Toiletry', item = 'toiletry', description = "Sell toiletry for: $", price = 10, MinAmount = 1, MaxAmount = 20 },
         { label = 'Laptop', item = 'laptop', description = "Sell Laptop for: $", price = 80, MinAmount = 1, MaxAmount = 20 },
-        { label = 'Monitor', item = 'monitor', description = "Sell monitor for: $", price = 80, MinAmount = 1, MaxAmount = 20 },
-        { label = 'Printer', item = 'printer', description = "Sell Printer for: $", price = 60, MinAmount = 1, MaxAmount = 20 },
+        { label = 'Monitor', item = 'monitor', description = "Sell monitor for: $", price = 200, MinAmount = 1, MaxAmount = 20 },
+        { label = 'Printer', item = 'printer', description = "Sell Printer for: $", price = 150, MinAmount = 1, MaxAmount = 20 },
         { label = 'Watch', item = 'watch', description = "Sell Watch for: $", price = 90, MinAmount = 1, MaxAmount = 20 },
         { label = 'Toothpaste', item = 'toothpaste', description = "Sell toothpaste for: $", price = 4, MinAmount = 1, MaxAmount = 20 },
         { label = 'Soap', item = 'soap', description = "Sell soap for: $", price = 2, MinAmount = 1, MaxAmount = 20 },
         { label = 'Shampoo', item = 'shampoo', description = "Sell shampoo for: $", price = 16, MinAmount = 1, MaxAmount = 20 },
         { label = 'Romantic book', item = 'romantic_book', description = "Sell romantic book for: $", price = 20, MinAmount = 1, MaxAmount = 20 },
-        { label = 'Necklace', item = 'necklace', description = "Sell necklace for: $", price = 150, MinAmount = 1, MaxAmount = 20 },
+        { label = 'Necklace', item = 'necklace', description = "Sell necklace for: $", price = 250, MinAmount = 1, MaxAmount = 20 },
         { label = 'Gold watch', item = 'gold_watch', description = "Sell gold watch for: $", price = 300, MinAmount = 1, MaxAmount = 20 },
         { label = 'Gold bracelet', item = 'gold_bracelet', description = "Sell gold bracelet for: $", price = 200, MinAmount = 1, MaxAmount = 20 },
         { label = 'Bracelet', item = 'bracelet', description = "Sell bracelet for: $", price = 50, MinAmount = 1, MaxAmount = 20 },
         { label = 'Earings', item = 'earings', description = "Sell earings for: $", price = 110, MinAmount = 1, MaxAmount = 20 },
         { label = 'Book', item = 'book', description = "Sell book for: $", price = 10, MinAmount = 1, MaxAmount = 20 },
-        { label = 'Skull Art', item = 'skull', description = "Sell skull for: $", price = 1000, MinAmount = 1, MaxAmount = 20 },
+        { label = 'Skull Art', item = 'skull', description = "Sell skull for: $", price = 3000, MinAmount = 1, MaxAmount = 20 },
         { label = 'Pencil', item = 'pencil', description = "Sell pencil for: $", price = 10, MinAmount = 1, MaxAmount = 20 },
         { label = 'Notepad', item = 'notepad', description = "Sell notepad for: $", price = 20, MinAmount = 1, MaxAmount = 20 },
-        { label = 'Tape layer', item = 'tapeplayer', description = "Sell tape player for: $", price = 100, MinAmount = 1, MaxAmount = 20 },
+        { label = 'Tape layer', item = 'tapeplayer', description = "Sell tape player for: $", price = 160, MinAmount = 1, MaxAmount = 20 },
+        { label = 'Fan', item = 'fan', description = "Sell fan for: $", price = 60, MinAmount = 1, MaxAmount = 20 }, -- Highcrest: was missing
+        { label = 'Radio alarm', item = 'radio_alarm', description = "Sell radio alarm for: $", price = 80, MinAmount = 1, MaxAmount = 20 }, -- Highcrest: was missing
+        { label = 'Old phone', item = 'npc_phone', description = "Sell phone for: $", price = 60, MinAmount = 1, MaxAmount = 20 }, -- Highcrest: was missing
     },
     Ped = {
         model = `a_m_m_eastsa_01`, 
