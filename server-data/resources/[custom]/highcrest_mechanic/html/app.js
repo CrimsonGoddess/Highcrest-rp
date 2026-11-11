@@ -88,25 +88,15 @@ function customPicker(item) {
     input.value = toHex(current);
     const hex = el('span', 'hex', input.value.toUpperCase());
     row.append(input, hex);
-    const finishes = el('div', 'finishes');
-    let finish = current[3];
+    // Custom colours use a normal gloss finish; matte and chrome looks are in the groups below.
     const pick = () => {
         const rgb = fromHex(input.value);
         hex.textContent = input.value.toUpperCase();
-        choose(item, [rgb[0], rgb[1], rgb[2], finish], true);
+        choose(item, [rgb[0], rgb[1], rgb[2], 0], true);
     };
-    FINISH_NAMES.forEach((label, i) => {
-        const chip = el('button', `finish${i === finish ? ' active' : ''}`, label);
-        chip.addEventListener('click', () => {
-            finish = i;
-            finishes.querySelectorAll('.finish').forEach((c, j) => c.classList.toggle('active', j === i));
-            pick();
-        });
-        finishes.appendChild(chip);
-    });
     let timer = null;
     input.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(pick, 90); });
-    box.append(row, finishes);
+    box.appendChild(row);
     return box;
 }
 
