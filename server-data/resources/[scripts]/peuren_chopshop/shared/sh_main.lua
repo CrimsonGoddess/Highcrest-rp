@@ -95,7 +95,7 @@ Config.Blips = {
 
 Config.Dealers = {
     ['basic'] = {
-        GlobalCooldown = { min = 20, sec = 5 },--Dealers cooldown, if don't need this, make it to false, GlobalCooldown = false
+        GlobalCooldown = false, -- Highcrest: the dealer stays so parts can be sold; was { min = 20, sec = 5 }. --Dealers cooldown, if don't need this, make it to false, GlobalCooldown = false
         PersonalCooldown = { min = 25, sec = 10 },--Your personal cooldown with the dealer, if don't need this, make it to false, GlobalCooldown = false
 
         Dealer = {
