@@ -138,7 +138,7 @@ Utils = {
         SetBlipDisplay(Blip, 4)
         SetBlipColour(Blip, blip.color)
         SetBlipScale(Blip, blip.scale + 0.0)
-        SetBlipAsShortRange(Blip, true)
+        SetBlipAsShortRange(Blip, false) -- Highcrest: active job blips show on the whole map
         BeginTextCommandSetBlipName("STRING")
         AddTextComponentString(blip.label)
         EndTextCommandSetBlipName(Blip)

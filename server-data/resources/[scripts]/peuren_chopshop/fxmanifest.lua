@@ -8,7 +8,8 @@ version '0.0.1'
 lua54 'yes'
 
 client_scripts { 'client/**/**' }
-shared_scripts { 'shared/sh_main.lua', 'shared/sh_locations.lua'  }
+shared_scripts { 'shared/sh_main.lua', 'shared/sh_locations.lua', 'shared/sh_carrying.lua', 'shared/sh_rewards.lua', 'shared/sh_tasks.lua' } -- Highcrest: the original missed the last three
+server_script 'shared/sh_apikeys.lua' -- Highcrest: webhook settings stay on the server
 server_scripts { 'server/**/**' }
 
 files { 'locales/*.json', "web/build/**/*" }

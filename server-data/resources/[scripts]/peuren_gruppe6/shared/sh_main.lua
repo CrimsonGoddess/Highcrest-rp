@@ -66,7 +66,7 @@ Config.Center = {
     peds = {
         job_manager = {
             model = 'cs_casey',--Dealers ped model, model names can be found @ https://docs.fivem.net/docs/game-references/ped-models/
-            pos = vector3(-197.18, -831.43, 28.75), -- Highcrest: job start location--Dealers positions
+            pos = vector3(-197.18, -831.43, 30.75), -- Highcrest: job start location (the script lowers peds by 1 m itself)--Dealers positions
             heading = 294.21,--Dealers heading
             animation = {--This controls dealer animation, if you don't want this, make it to: animation = false
                 --Supported anim data format:
