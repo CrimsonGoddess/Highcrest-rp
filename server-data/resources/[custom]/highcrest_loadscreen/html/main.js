@@ -73,21 +73,109 @@ window.addEventListener('message', ({ data }) => {
     if (handler) handler(data);
 });
 
-// Rotating welcome messages. The first one greets the player by name.
+// Gameplay tips, shown between the welcome messages with a red "Tip" label.
+const TIPS = [
+    'Type /hud to choose what your HUD shows, and /hudborder to line up the map frame.',
+    'Type /postal and a number to set a GPS route to any postal code.',
+    'Your phone can send a valet to bring a stored car to you.',
+    'Browse, buy and rent homes in the Housing app on your phone.',
+    'Gruppe Sechs is hiring. Visit their HQ in Pillbox Hill.',
+    'Press Esc for the Highcrest menu: map, settings, your character and server info.',
+];
+
+// Messages and tips alternate: message, tip, message, tip...
+const ROTATION = [];
+for (let i = 0; i < Math.max(MESSAGES.length, TIPS.length); i++) {
+    if (MESSAGES[i]) ROTATION.push({ text: MESSAGES[i] });
+    if (TIPS[i]) ROTATION.push({ text: TIPS[i], tip: true });
+}
+
+function showMessage({ text, tip }) {
+    messageEl.textContent = '';
+    if (tip) {
+        const label = document.createElement('span');
+        label.className = 'tip-label';
+        label.textContent = 'Tip';
+        messageEl.appendChild(label);
+    }
+    messageEl.appendChild(document.createTextNode(text));
+}
+
+// The first message greets the player by name.
 const playerName = window.nuiHandoverData && window.nuiHandoverData.playerName;
-messageEl.textContent = playerName
-    ? `Welcome to Highcrest, ${playerName}. ${MESSAGES[0]}`
-    : `Welcome to Highcrest. ${MESSAGES[0]}`;
+showMessage({
+    text: playerName
+        ? `Welcome to Highcrest, ${playerName}. ${MESSAGES[0]}`
+        : `Welcome to Highcrest. ${MESSAGES[0]}`,
+});
 
 let messageIndex = 0;
 setInterval(() => {
-    messageIndex = (messageIndex + 1) % MESSAGES.length;
+    messageIndex = (messageIndex + 1) % ROTATION.length;
     messageEl.classList.add('hidden');
     setTimeout(() => {
-        messageEl.textContent = MESSAGES[messageIndex];
+        showMessage(ROTATION[messageIndex]);
         messageEl.classList.remove('hidden');
     }, 600);
 }, MESSAGE_INTERVAL_MS);
+
+// Embers: small crimson and gold sparks drifting up the screen.
+(function embers() {
+    const canvas = document.getElementById('embers');
+    if (!canvas || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const ctx = canvas.getContext('2d');
+    const COUNT = 70;
+    const COLORS = ['200, 16, 46', '255, 60, 80', '212, 175, 55', '255, 214, 120'];
+    let width = 0;
+    let height = 0;
+    const sparks = [];
+
+    function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    }
+
+    function spawn(spark, anywhere) {
+        spark.x = Math.random() * width;
+        spark.y = anywhere ? Math.random() * height : height + 10;
+        spark.r = 0.6 + Math.random() * 2.2;
+        spark.vy = 0.25 + Math.random() * 0.9;
+        spark.sway = 0.4 + Math.random() * 1.2;
+        spark.phase = Math.random() * Math.PI * 2;
+        spark.life = 0.35 + Math.random() * 0.65;
+        spark.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+        return spark;
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+    for (let i = 0; i < COUNT; i++) sparks.push(spawn({}, true));
+
+    let last = performance.now();
+    function frame(now) {
+        const dt = Math.min((now - last) / 16.7, 3);
+        last = now;
+        ctx.clearRect(0, 0, width, height);
+        ctx.globalCompositeOperation = 'lighter';
+        for (const s of sparks) {
+            s.y -= s.vy * dt;
+            s.phase += 0.012 * dt;
+            const x = s.x + Math.sin(s.phase) * s.sway * 12;
+            // Sparks fade out as they rise towards the top of the screen.
+            const alpha = Math.max(0, Math.min(1, s.y / height)) * s.life * (0.75 + Math.sin(s.phase * 3) * 0.25);
+            if (s.y < -10 || alpha <= 0.01) { spawn(s, false); continue; }
+            const glow = ctx.createRadialGradient(x, s.y, 0, x, s.y, s.r * 4);
+            glow.addColorStop(0, `rgba(${s.color}, ${alpha})`);
+            glow.addColorStop(1, `rgba(${s.color}, 0)`);
+            ctx.fillStyle = glow;
+            ctx.beginPath();
+            ctx.arc(x, s.y, s.r * 4, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+})();
 
 // Browser preview only, for checking the design outside the game:
 //   index.html?demo       plays a simulated load

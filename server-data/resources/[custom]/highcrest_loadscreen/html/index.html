@@ -8,10 +8,23 @@
 <body>
     <div class="backdrop"></div>
 
+    <!-- Animated scene: slow light beams, rising embers, a vignette and a faint grain. -->
+    <div class="beams" aria-hidden="true">
+        <span class="beam beam-1"></span>
+        <span class="beam beam-2"></span>
+        <span class="beam beam-3"></span>
+    </div>
+    <canvas id="embers" class="embers" aria-hidden="true"></canvas>
+    <div class="vignette" aria-hidden="true"></div>
+
     <div class="stage">
         <header class="hero">
-            <img class="banner" src="assets/background.png" alt="Highcrest RP">
+            <div class="banner-wrap">
+                <img class="banner" src="assets/background.png" alt="Highcrest RP">
+                <span class="banner-shine" aria-hidden="true"></span>
+            </div>
             <p class="tagline">Everybody wants the top. Not everybody makes it.</p>
+            <span class="tagline-rule" aria-hidden="true"></span>
         </header>
 
         <main class="panel">
