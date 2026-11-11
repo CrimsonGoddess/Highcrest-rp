@@ -178,11 +178,19 @@ local function endDesign()
     SendNUIMessage({ action = 'closeDesign' })
 end
 
-local function startBay(shopId)
-    local vehicle = cache.vehicle
-    if not vehicle or GetPedInVehicleSeat(vehicle, -1) ~= cache.ped then return end
+-- Open the bay for a car: from the driver's seat (E), or on foot by targeting the car.
+local function startBay(shopId, target)
+    if design then return end
+    local vehicle = target or cache.vehicle
+    if not vehicle or not DoesEntityExist(vehicle) then return end
+    if not target and GetPedInVehicleSeat(vehicle, -1) ~= cache.ped then return end
     local plate = trimPlate(GetVehicleNumberPlateText(vehicle))
-    local ok, reason, prices, order = lib.callback.await('highcrest_mechanic:canDesign', false, shopId, plate)
+    if target and not NetworkHasControlOfEntity(vehicle) then
+        NetworkRequestControlOfEntity(vehicle)
+        local timeout = GetGameTimer() + 1500
+        while not NetworkHasControlOfEntity(vehicle) and GetGameTimer() < timeout do Wait(50) end
+    end
+    local ok, reason, prices, order = lib.callback.await('highcrest_mechanic:canDesign', false, shopId, plate, NetworkGetNetworkIdFromEntity(vehicle))
     if not ok then return lib.notify({ title = 'Mechanic', description = reason, type = 'error', duration = 8000 }) end
 
     local props = lib.getVehicleProperties(vehicle)
@@ -320,7 +328,16 @@ RegisterNUICallback('finishWork', function(_, cb)
     SetTimeout(1800, function() if design == d then endDesign() end end)
 end)
 
--- Design bay zones, with a shop blip and a ground marker so customers can find the bay.
+-- Stalls: a shop blip, a red ground marker on each stall, [E] from the driver's seat,
+-- and "Open in the bay" when targeting a car parked in a stall.
+local function stallAt(coords)
+    for shopId, shop in pairs(Config.shops) do
+        for _, bay in ipairs(shop.bays or { shop.bay }) do
+            if #(coords - bay.xyz) <= shop.bayRadius then return shopId end
+        end
+    end
+end
+
 for shopId, shop in pairs(Config.shops) do
     local blip = AddBlipForCoord(shop.bay.x, shop.bay.y, shop.bay.z)
     SetBlipSprite(blip, 446)
@@ -331,33 +348,51 @@ for shopId, shop in pairs(Config.shops) do
     AddTextComponentSubstringPlayerName(shop.label)
     EndTextCommandSetBlipName(blip)
 
-    lib.points.new({
-        coords = shop.bay.xyz,
-        distance = 40.0,
-        nearby = function()
-            if design then return end
-            DrawMarker(1, shop.bay.x, shop.bay.y, shop.bay.z - 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                shop.bayRadius * 1.6, shop.bayRadius * 1.6, 0.6, 225, 60, 60, 90, false, false, 2, false, nil, nil, false)
-        end,
-    })
+    for _, bay in ipairs(shop.bays or { shop.bay }) do
+        lib.points.new({
+            coords = bay.xyz,
+            distance = 40.0,
+            nearby = function()
+                if design then return end
+                DrawMarker(1, bay.x, bay.y, bay.z - 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    shop.bayRadius * 1.6, shop.bayRadius * 1.6, 0.6, 225, 60, 60, 90, false, false, 2, false, nil, nil, false)
+            end,
+        })
 
-    lib.zones.sphere({
-        coords = shop.bay.xyz,
-        radius = shop.bayRadius,
-        inside = function()
-            if design or not cache.vehicle or GetPedInVehicleSeat(cache.vehicle, -1) ~= cache.ped then
-                if lib.isTextUIOpen() then lib.hideTextUI() end
-                return
-            end
-            if not lib.isTextUIOpen() then lib.showTextUI(('[E] Open the bay · %s'):format(shop.label), { icon = 'wrench' }) end
-            if IsControlJustReleased(0, 38) then
-                lib.hideTextUI()
-                startBay(shopId)
-            end
-        end,
-        onExit = function() lib.hideTextUI() end,
-    })
+        lib.zones.sphere({
+            coords = bay.xyz,
+            radius = shop.bayRadius,
+            inside = function()
+                if design or not cache.vehicle or GetPedInVehicleSeat(cache.vehicle, -1) ~= cache.ped then
+                    if lib.isTextUIOpen() then lib.hideTextUI() end
+                    return
+                end
+                if not lib.isTextUIOpen() then lib.showTextUI(('[E] Open the bay · %s'):format(shop.label), { icon = 'wrench' }) end
+                if IsControlJustReleased(0, 38) then
+                    lib.hideTextUI()
+                    startBay(shopId)
+                end
+            end,
+            onExit = function() lib.hideTextUI() end,
+        })
+    end
 end
+
+exports.ox_target:addGlobalVehicle({
+    {
+        name = 'highcrest_mechanic_bay',
+        icon = 'fa-solid fa-screwdriver-wrench',
+        label = 'Open in the bay',
+        distance = 3.0,
+        canInteract = function(entity)
+            return not design and not cache.vehicle and stallAt(GetEntityCoords(entity)) ~= nil
+        end,
+        onSelect = function(data)
+            local shopId = stallAt(GetEntityCoords(data.entity))
+            if shopId then startBay(shopId, data.entity) end
+        end,
+    },
+})
 
 -- Customer: a mechanic sent a quote.
 RegisterNetEvent('highcrest_mechanic:client:quote', function(quote)

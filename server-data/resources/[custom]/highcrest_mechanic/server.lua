@@ -265,14 +265,21 @@ local function vehicleNear(source, netId, plate, range)
 end
 
 -- Customer: may this car be designed here?
-lib.callback.register('highcrest_mechanic:canDesign', function(source, shopId, plate)
+lib.callback.register('highcrest_mechanic:canDesign', function(source, shopId, plate, netId)
     local player = getPlayer(source)
     plate = trimPlate(plate)
     local shop = Config.shops[shopId]
     if not player or not shop or not plate then return false, 'Something went wrong.' end
 
     local ped = GetPlayerPed(source)
-    if #(GetEntityCoords(ped) - shop.bay.xyz) > shop.bayRadius + 3.0 then return false, 'Park in the design bay first.' end
+    -- The car (or the player, if the car can't be found) must be in one of the shop's stalls.
+    local entity = NetworkGetEntityFromNetworkId(tonumber(netId) or 0)
+    local pos = (entity ~= 0 and DoesEntityExist(entity)) and GetEntityCoords(entity) or GetEntityCoords(ped)
+    local inStall = false
+    for _, bay in ipairs(shop.bays or { shop.bay }) do
+        if #(pos - bay.xyz) <= shop.bayRadius + 3.0 then inStall = true end
+    end
+    if not inStall then return false, 'Park the car in one of the stalls first.' end
 
     -- An on-duty mechanic bringing in a car with an order gets the work view.
     if isMechanic(player) then

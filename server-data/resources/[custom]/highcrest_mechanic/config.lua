@@ -8,9 +8,14 @@ Config.job = 'mechanic'
 Config.shops = {
     vinewood = {
         label = 'Highcrest Motorworks',
-        -- LS Customs Vinewood, middle of the floor. Keep clear of qbx_mechanicjob's lifts
-        -- (-340.95 -128.24 and -327.91 -144.34) and exit box, or its prompt hides ours.
-        bay = vec4(-333.0, -136.0, 38.9, 160.0),
+        -- LS Customs Vinewood. Stalls: the middle of the floor plus the two old
+        -- qbx_mechanicjob lift spots (those lifts are turned off in its config).
+        bay = vec4(-333.0, -136.0, 38.9, 160.0), -- map blip
+        bays = {
+            vec4(-333.0, -136.0, 38.9, 160.0),
+            vec4(-340.95, -128.24, 39.0, 160.0),
+            vec4(-327.91, -144.34, 38.86, 70.34),
+        },
         bayRadius = 4.0,
         business = nil,
     },

@@ -46,7 +46,10 @@ return {
             costs = 5,
         },
     },
-    plates = {
+    -- Highcrest: the lifts are off. Both spots are highcrest_mechanic stalls instead
+    -- (customers design builds there, mechanics fit them). Old lifts kept below for reference.
+    plates = {},
+    oldPlates = {
         {
             coords = vec4(-340.95, -128.24, 39, 160.0),
             boxData = {
