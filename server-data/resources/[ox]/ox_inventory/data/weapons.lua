@@ -250,6 +250,12 @@ return {
 			ammoname = 'ammo-flare'
 		},
 
+		['WEAPON_DIGISCANNER'] = { -- Highcrest: peuren_chopshop signal booster (must be held, so it's a weapon)
+			label = 'Signal Booster',
+			weight = 600,
+			throwable = false,
+		},
+
 		['WEAPON_FLASHLIGHT'] = {
 			label = 'Flashlight',
 			weight = 125,

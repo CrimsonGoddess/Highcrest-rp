@@ -924,7 +924,6 @@ return {
     ['engine'] = { label = 'Car Engine', weight = 25000, stack = true, close = true },
     ['wheel'] = { label = 'Car Wheel', weight = 6000, stack = true, close = true },
     ['toolbox'] = { label = 'Toolbox', weight = 2000, stack = true, close = true, description = 'For taking cars apart.' },
-    ['weapon_digiscanner'] = { label = 'Signal Booster', weight = 500, stack = true, close = true, description = 'Boosts and hacks a car key signal.' },
 
     -- peuren_gruppe6: Gruppe Sechs cash runs
     ['money_bag'] = { label = 'Money Bag', weight = 250, stack = true, close = true, description = 'Gruppe Sechs money bag.' },
