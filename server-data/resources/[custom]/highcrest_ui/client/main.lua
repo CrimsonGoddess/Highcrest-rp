@@ -97,3 +97,14 @@ RegisterCommand('discord', function() shareLink('discord', 'Highcrest Discord') 
 RegisterCommand('store', function() shareLink('store', 'Highcrest store') end, false)
 TriggerEvent('chat:addSuggestion', '/discord', 'Get the Highcrest Discord link')
 TriggerEvent('chat:addSuggestion', '/store', 'Get the Highcrest store link')
+
+-- GTA's own street and area name popup (HUD components 9 and 7) duplicates the compass bar's
+-- street line. Shrinking it in qbx_hudcomponents doesn't hide it on this game build, so it's
+-- hidden every frame here instead.
+CreateThread(function()
+    while true do
+        HideHudComponentThisFrame(7) -- area name
+        HideHudComponentThisFrame(9) -- street name
+        Wait(0)
+    end
+end)
