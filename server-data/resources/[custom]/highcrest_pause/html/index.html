@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Highcrest Pause Menu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="menu" class="menu" hidden>
+        <aside class="side">
+            <div class="brand">
+                <img src="assets/icon.png" alt="">
+                <div>
+                    <p class="brand-name">Highcrest</p>
+                    <p class="brand-sub">Semi-serious roleplay</p>
+                </div>
+            </div>
+
+            <nav class="nav" aria-label="Pause menu">
+                <button class="nav-btn primary" data-action="close">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    Resume
+                </button>
+                <button class="nav-btn" data-action="map">
+                    <svg viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2Zm0 2.2 6 2v11.6l-6-2V6.2Z"/></svg>
+                    Map
+                </button>
+                <button class="nav-btn" data-action="settings">
+                    <svg viewBox="0 0 24 24"><path d="M19.4 13a7.6 7.6 0 0 0 0-2l2-1.6-2-3.4-2.4 1a7.4 7.4 0 0 0-1.7-1L15 3.5h-4l-.4 2.5a7.4 7.4 0 0 0-1.7 1l-2.4-1-2 3.4L6.6 11a7.6 7.6 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a7.4 7.4 0 0 0 1.7 1l.4 2.5h4l.4-2.5a7.4 7.4 0 0 0 1.7-1l2.4 1 2-3.4-2-1.6ZM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z" transform="translate(-1 0)"/></svg>
+                    Settings
+                </button>
+
+                <span class="nav-rule"></span>
+
+                <button class="nav-btn" data-action="link" data-link="discord">
+                    <svg viewBox="0 0 24 24"><path d="M19.5 5.5A16 16 0 0 0 15.6 4.3l-.5 1a14.8 14.8 0 0 0-6.2 0l-.5-1A16 16 0 0 0 4.5 5.5 16.5 16.5 0 0 0 1.7 16.6a16 16 0 0 0 4.9 2.5l1-1.6a10 10 0 0 1-1.6-.8l.4-.3a11.4 11.4 0 0 0 11.2 0l.4.3a10 10 0 0 1-1.6.8l1 1.6a16 16 0 0 0 4.9-2.5 16.5 16.5 0 0 0-2.8-11.1ZM8.7 14.4c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm6.6 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z"/></svg>
+                    Discord
+                </button>
+                <button class="nav-btn" data-action="link" data-link="store">
+                    <svg viewBox="0 0 24 24"><path d="M4 7h16l-1.5 12h-13zM8 7V5.5a4 4 0 0 1 8 0V7" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+                    Store
+                    <span class="soon" hidden>Coming soon</span>
+                </button>
+
+                <span class="nav-rule"></span>
+
+                <button class="nav-btn danger" data-action="confirm" data-confirm="disconnect">
+                    <svg viewBox="0 0 24 24"><path d="M10 4H5v16h5M15 8l4 4-4 4M19 12H9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Disconnect
+                </button>
+                <button class="nav-btn danger" data-action="confirm" data-confirm="quit">
+                    <svg viewBox="0 0 24 24"><path d="M12 3v9M6.3 6.8a8 8 0 1 0 11.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                    Quit game
+                </button>
+            </nav>
+
+            <p class="hint"><kbd>Esc</kbd> to resume</p>
+        </aside>
+
+        <main class="content">
+            <section class="card character">
+                <header class="card-head">
+                    <h2>Your character</h2>
+                    <span id="duty" class="badge" hidden>On duty</span>
+                </header>
+                <p id="charName" class="char-name">&nbsp;</p>
+                <p id="charJob" class="char-job">&nbsp;</p>
+                <dl class="stats">
+                    <div><dt>Cash</dt><dd id="cash">-</dd></div>
+                    <div><dt>Bank</dt><dd id="bank">-</dd></div>
+                    <div><dt>Phone</dt><dd id="phone">-</dd></div>
+                    <div><dt>Citizen ID</dt><dd id="citizenid">-</dd></div>
+                </dl>
+            </section>
+
+            <section class="card server">
+                <header class="card-head">
+                    <h2>City</h2>
+                </header>
+                <div class="online">
+                    <span class="pulse"></span>
+                    <p><strong id="online">-</strong> <span id="maxPlayers"></span> players in the city</p>
+                </div>
+                <h3>Rules</h3>
+                <ol id="rules" class="rules"></ol>
+            </section>
+        </main>
+
+        <div id="confirm" class="confirm" hidden>
+            <div class="confirm-box" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+                <h2 id="confirmTitle"></h2>
+                <p id="confirmText"></p>
+                <div class="confirm-actions">
+                    <button class="btn" data-action="cancel">Stay</button>
+                    <button id="confirmGo" class="btn danger"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
