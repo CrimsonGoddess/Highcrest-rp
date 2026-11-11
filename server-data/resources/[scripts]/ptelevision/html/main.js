@@ -60,6 +60,8 @@ function SetVideo(video_data) {
                 videoId: data.id,
                 playerVars: {
                     'playsinline': 1,
+                    // Highcrest: tell YouTube which page embeds it; without this it shows error 153.
+                    'origin': window.location.origin,
                 },
                 events: {
                     'onReady': function(event) {
