@@ -1,31 +1,31 @@
 return {
 	-- Highcrest: mechanic workbench at Highcrest Motorworks (LS Customs Vinewood counter).
-	-- Only the mechanic job can use it. Materials come from the recycling job and the scrapyard.
+	-- Only the mechanic job can use it. Kits are made from metal scrap (recycling job, scrapyard).
 	{
 		name = 'mechanic_bench',
 		groups = { mechanic = 0 },
 		items = {
 			{
 				name = 'repairkit',
-				ingredients = { steel = 3, metalscrap = 4, plastic = 2 },
+				ingredients = { metalscrap = 3 },
 				duration = 6000,
 				count = 1,
 			},
 			{
 				name = 'advancedrepairkit',
-				ingredients = { steel = 6, aluminum = 4, copper = 3, plastic = 3, rubber = 2 },
+				ingredients = { metalscrap = 6 },
 				duration = 10000,
 				count = 1,
 			},
 			{
 				name = 'tirekit',
-				ingredients = { rubber = 4, metalscrap = 1 },
+				ingredients = { metalscrap = 2 },
 				duration = 4000,
 				count = 1,
 			},
 			{
 				name = 'cleaningkit',
-				ingredients = { plastic = 1 },
+				ingredients = { metalscrap = 1 },
 				duration = 2000,
 				count = 2,
 			},

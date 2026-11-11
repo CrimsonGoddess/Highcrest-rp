@@ -3,6 +3,15 @@ lib.locale()
 
 lib.versionCheck("QuantumMalice/vehiclehandler")
 
+-- Highcrest: only mechanics can use repair and tyre kits (cleaning kits are for anyone).
+local function isMechanic(source)
+    local player = exports.qbx_core:GetPlayer(source)
+    local job = player and player.PlayerData.job
+    if job and job.name == 'mechanic' then return true end
+    TriggerClientEvent('ox_lib:notify', source, { description = 'Only mechanics know how to use this.', type = 'error' })
+    return false
+end
+
 if GetResourceState('ox_inventory') == 'started' then
     exports('cleaningkit', function(event, item, inventory)
         if event == 'usingItem' then
@@ -13,6 +22,7 @@ if GetResourceState('ox_inventory') == 'started' then
 
     exports('tirekit', function(event, item, inventory)
         if event == 'usingItem' then
+            if not isMechanic(inventory.id) then return false end
             local success = lib.callback.await('vehiclehandler:basicfix', inventory.id, 'tirekit')
             if success then return else return false end
         end
@@ -20,6 +30,7 @@ if GetResourceState('ox_inventory') == 'started' then
 
     exports('repairkit', function(event, item, inventory)
         if event == 'usingItem' then
+            if not isMechanic(inventory.id) then return false end
             local success = lib.callback.await('vehiclehandler:basicfix', inventory.id, 'smallkit')
             if success then return else return false end
         end
@@ -27,6 +38,7 @@ if GetResourceState('ox_inventory') == 'started' then
 
     exports('advancedrepairkit', function(event, item, inventory)
         if event == 'usingItem' then
+            if not isMechanic(inventory.id) then return false end
             local success = lib.callback.await('vehiclehandler:basicfix', inventory.id, 'bigkit')
             if success then return else return false end
         end
