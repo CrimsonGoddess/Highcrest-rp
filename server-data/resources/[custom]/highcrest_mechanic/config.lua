@@ -31,6 +31,8 @@ Config.priceLimits = { min = 0.5, max = 3.0 }
 Config.prices = {
     cosmetic = 500,
     color = 1000,
+    customPaint = 2500,  -- custom colour wheel and Wild paints
+    illegalTint = 5000,  -- Pure Black window tint (not street legal)
     turbo = 10000,
     -- Upgrade levels: the first price is stock, then level 1, 2...
     levels = {
@@ -87,17 +89,19 @@ Config.catalogue = {
     {
         id = 'paint', label = 'Paint',
         items = {
-            { key = 'color1', label = 'Primary colour', kind = 'color' },
-            { key = 'color2', label = 'Secondary colour', kind = 'color' },
-            { key = 'pearlescentColor', label = 'Pearlescent', kind = 'color' },
+            { key = 'color1', label = 'Primary colour', kind = 'paint' },
+            { key = 'color2', label = 'Secondary colour', kind = 'paint' },
+            { key = 'pearlescentColor', label = 'Pearlescent shine', kind = 'color' },
         },
     },
     {
-        id = 'wheels', label = 'Wheels',
+        id = 'wheels', label = 'Wheels & Tyres',
         items = {
-            { key = 'wheels', label = 'Wheel type', kind = 'list', list = 'wheelTypes' },
+            { key = 'wheels', label = 'Rim category', kind = 'list', list = 'wheelTypes' },
             { key = 'modFrontWheels', label = 'Rims', kind = 'mod' },
             { key = 'wheelColor', label = 'Rim colour', kind = 'color' },
+            { key = 'tyres', label = 'Tyres', kind = 'list', list = 'tyreTypes' },
+            { key = 'tyreSmoke', label = 'Tyre smoke', kind = 'list', list = 'smokeColors' },
         },
     },
     {
@@ -119,27 +123,83 @@ Config.catalogue = {
     },
 }
 
--- Paint colours (GTA colour index -> name).
-Config.colors = {
-    { 0, 'Black' }, { 1, 'Graphite' }, { 3, 'Dark Silver' }, { 4, 'Silver' }, { 7, 'Shadow Silver' },
-    { 11, 'Anthracite' }, { 12, 'Matte Black' }, { 13, 'Matte Grey' }, { 27, 'Red' }, { 28, 'Torino Red' },
-    { 29, 'Formula Red' }, { 30, 'Blaze Red' }, { 34, 'Cabernet' }, { 35, 'Candy Red' }, { 39, 'Matte Red' },
-    { 36, 'Sunrise Orange' }, { 38, 'Orange' }, { 41, 'Matte Orange' }, { 37, 'Classic Gold' }, { 42, 'Matte Yellow' },
-    { 88, 'Taxi Yellow' }, { 89, 'Race Yellow' }, { 92, 'Lime' }, { 49, 'Dark Green' }, { 50, 'Racing Green' },
-    { 51, 'Sea Green' }, { 53, 'Green' }, { 55, 'Matte Lime' }, { 61, 'Midnight Blue' }, { 62, 'Dark Blue' },
-    { 64, 'Blue' }, { 70, 'Bright Blue' }, { 73, 'Ultra Blue' }, { 83, 'Matte Blue' }, { 145, 'Purple' },
-    { 148, 'Matte Purple' }, { 135, 'Hot Pink' }, { 137, 'Salmon Pink' }, { 111, 'White' }, { 112, 'Frost White' },
-    { 117, 'Brushed Steel' }, { 118, 'Brushed Black Steel' }, { 119, 'Brushed Aluminium' }, { 120, 'Chrome' },
-    { 158, 'Pure Gold' }, { 159, 'Brushed Gold' },
+-- Paint, grouped for the menu. { GTA colour index, name, swatch hex for the menu }.
+Config.paintGroups = {
+    {
+        label = 'Classic',
+        colors = {
+            { 0, 'Black', '#0d1116' }, { 1, 'Graphite', '#1c1d21' }, { 2, 'Black Steel', '#32383d' },
+            { 11, 'Anthracite', '#1d2129' }, { 3, 'Dark Silver', '#454b4f' }, { 4, 'Silver', '#999da0' },
+            { 5, 'Blue Silver', '#c2c4c6' }, { 7, 'Shadow Silver', '#637380' }, { 10, 'Gun Metal', '#444e54' },
+            { 111, 'Ice White', '#fffff6' }, { 112, 'Frost White', '#eaeaea' }, { 107, 'Cream', '#f1e3c3' },
+            { 27, 'Red', '#c00e1a' }, { 28, 'Torino Red', '#da1918' }, { 29, 'Formula Red', '#b6111b' },
+            { 35, 'Candy Red', '#b60f25' }, { 150, 'Lava Red', '#bc1917' }, { 34, 'Cabernet', '#49111d' },
+            { 143, 'Black Red', '#26030b' }, { 36, 'Sunrise Orange', '#d44a17' }, { 38, 'Orange', '#f78616' },
+            { 37, 'Classic Gold', '#c2944f' }, { 88, 'Taxi Yellow', '#ffcf20' }, { 89, 'Race Yellow', '#fbe212' },
+            { 92, 'Lime', '#98d223' }, { 53, 'Green', '#155c2d' }, { 50, 'Racing Green', '#122e2b' },
+            { 54, 'Gasoline Green', '#1b6770' }, { 49, 'Dark Green', '#132428' }, { 70, 'Bright Blue', '#0b9cf1' },
+            { 68, 'Surf Blue', '#76afbe' }, { 73, 'Ultra Blue', '#2354a1' }, { 64, 'Blue', '#47578f' },
+            { 62, 'Dark Blue', '#233155' }, { 61, 'Midnight Blue', '#222e46' }, { 141, 'Black Blue', '#0a0c17' },
+            { 145, 'Purple', '#621276' }, { 71, 'Purple Blue', '#2f2d52' }, { 135, 'Hot Pink', '#f21f99' },
+            { 137, 'Vermillion Pink', '#df5891' }, { 136, 'Salmon Pink', '#f69799' }, { 90, 'Bronze', '#946025' },
+            { 96, 'Choco Brown', '#221b19' }, { 104, 'Choco Orange', '#a95d27' }, { 105, 'Beach Sand', '#e2bd8f' },
+        },
+    },
+    {
+        label = 'Matte',
+        colors = {
+            { 12, 'Matte Black', '#13181f' }, { 13, 'Matte Grey', '#26282a' }, { 14, 'Matte Light Grey', '#515554' },
+            { 131, 'Matte Ice White', '#fcf9f1' }, { 39, 'Matte Red', '#cf1f21' }, { 40, 'Matte Dark Red', '#732021' },
+            { 41, 'Matte Orange', '#f27d20' }, { 42, 'Matte Yellow', '#ffc91f' }, { 55, 'Matte Lime', '#66b81f' },
+            { 128, 'Matte Green', '#4e6443' }, { 151, 'Matte Forest Green', '#2d362a' }, { 155, 'Matte Foliage Green', '#5a6352' },
+            { 152, 'Matte Olive Drab', '#696748' }, { 153, 'Matte Desert Brown', '#7a6c55' }, { 154, 'Matte Desert Tan', '#c3b492' },
+            { 83, 'Matte Blue', '#253aa7' }, { 82, 'Matte Dark Blue', '#1f2852' }, { 84, 'Matte Midnight Blue', '#1c3551' },
+            { 148, 'Matte Purple', '#6b1f7b' }, { 149, 'Matte Dark Purple', '#1e1d22' },
+        },
+    },
+    {
+        label = 'Metals & Chrome',
+        colors = {
+            { 120, 'Chrome', '#c9d1d9' }, { 117, 'Brushed Steel', '#6a747c' }, { 118, 'Brushed Black Steel', '#354158' },
+            { 119, 'Brushed Aluminium', '#9ba0a8' }, { 158, 'Pure Gold', '#c9a33a' }, { 159, 'Brushed Gold', '#ae8e4c' },
+        },
+    },
 }
 
+-- Paint finishes for custom colours (GTA paint types).
+Config.finishes = { { 0, 'Gloss' }, { 1, 'Metallic' }, { 2, 'Pearl' }, { 3, 'Matte' }, { 4, 'Metal' }, { 5, 'Chrome' } }
+
+-- Wild paints: custom colours with a finish. { { r, g, b, finish }, name }.
+Config.wildPaints = {
+    { { 255, 0, 170, 2 }, 'Hyper Magenta' }, { { 110, 0, 255, 2 }, 'Ultraviolet' }, { { 0, 240, 255, 2 }, 'Electric Cyan' },
+    { { 57, 255, 20, 2 }, 'Toxic Green' }, { { 255, 80, 0, 2 }, 'Lava Orange' }, { { 220, 255, 0, 3 }, 'Acid Yellow' },
+    { { 255, 100, 0, 3 }, 'Matte Neon Orange' }, { { 60, 0, 90, 3 }, 'Matte Midnight Grape' }, { { 4, 4, 6, 3 }, 'Vanta Black' },
+    { { 180, 0, 20, 5 }, 'Blood Chrome' }, { { 255, 190, 40, 5 }, 'Gold Chrome' }, { { 150, 220, 255, 5 }, 'Ice Chrome' },
+    { { 255, 120, 170, 5 }, 'Rose Chrome' }, { { 90, 0, 160, 5 }, 'Purple Chrome' }, { { 0, 160, 80, 5 }, 'Emerald Chrome' },
+}
+
+-- Index colours for pearlescent and rim colour (every paint above that isn't custom).
+Config.colors = {}
+for _, group in ipairs(Config.paintGroups) do
+    for _, c in ipairs(group.colors) do Config.colors[#Config.colors + 1] = { c[1], c[2], c[3] } end
+end
+
 Config.lists = {
+    -- Rim categories (GTA wheel types).
     wheelTypes = {
-        { 0, 'Sport' }, { 1, 'Muscle' }, { 2, 'Lowrider' }, { 3, 'SUV' }, { 4, 'Offroad' }, { 5, 'Tuner' },
-        { 7, 'High End' }, { 8, "Benny's Original" }, { 9, "Benny's Bespoke" }, { 11, 'Street' }, { 12, 'Track' },
+        { 11, 'Street' }, { 12, 'Track' }, { 0, 'Sport' }, { 5, 'Tuner' }, { 1, 'Muscle' }, { 7, 'High End' },
+        { 2, 'Lowrider' }, { 3, 'SUV' }, { 4, 'Off-road' }, { 8, "Benny's Original" }, { 9, "Benny's Bespoke" },
+        { 10, 'Open Wheel' },
     },
+    tyreTypes = { { 0, 'Stock tyres' }, { 1, 'Custom sidewall tyres' }, { 2, 'Drift tyres' } },
+    smokeColors = {
+        { 0, 'Off' }, { 1, 'White' }, { 2, 'Black' }, { 3, 'Crimson' }, { 4, 'Orange' }, { 5, 'Yellow' },
+        { 6, 'Lime' }, { 7, 'Blue' }, { 8, 'Purple' }, { 9, 'Pink' },
+    },
+    -- A third value of true marks an option that isn't street legal (charged at the illegalTint price).
     windowTints = {
-        { 0, 'None' }, { 3, 'Light Smoke' }, { 2, 'Dark Smoke' }, { 1, 'Pure Black' }, { 5, 'Limo' }, { 6, 'Green' },
+        { 0, 'None' }, { 3, 'Light Smoke' }, { 2, 'Dark Smoke' }, { 5, 'Limo' }, { 6, 'Green' },
+        { 1, 'Pure Black (not street legal)', true },
     },
     xenonColors = {
         { -1, 'Stock' }, { 0, 'White' }, { 1, 'Blue' }, { 2, 'Electric Blue' }, { 3, 'Mint' }, { 4, 'Lime' },
@@ -152,9 +212,69 @@ Config.lists = {
     },
 }
 
+-- Tyre smoke colours by smokeColors value.
+Config.smokeRgb = {
+    [1] = { 254, 254, 254 }, [2] = { 1, 1, 1 }, [3] = { 200, 16, 46 }, [4] = { 255, 120, 0 }, [5] = { 255, 220, 0 },
+    [6] = { 94, 255, 1 }, [7] = { 0, 80, 255 }, [8] = { 120, 0, 255 }, [9] = { 255, 60, 160 },
+}
+
 Config.neonColors = {
     { { 255, 255, 255 }, 'White' }, { { 200, 16, 46 }, 'Crimson' }, { { 255, 1, 1 }, 'Red' },
     { { 255, 150, 0 }, 'Gold' }, { { 255, 255, 0 }, 'Yellow' }, { { 94, 255, 1 }, 'Lime' },
     { { 0, 255, 140 }, 'Mint' }, { { 3, 83, 255 }, 'Electric Blue' }, { { 2, 21, 255 }, 'Blue' },
     { { 35, 1, 255 }, 'Purple' }, { { 255, 50, 100 }, 'Pink' },
+}
+
+-- Some catalogue keys are menu shortcuts for one or more vehicle properties.
+-- toProps: menu value -> ox_lib vehicle properties. fromProps: properties -> menu value.
+local PAINT_TYPE = { color1 = 'paintType1', color2 = 'paintType2' }
+
+function Config.toProps(key, value)
+    if PAINT_TYPE[key] then
+        if type(value) == 'table' then
+            return { [key] = { value[1], value[2], value[3] }, [PAINT_TYPE[key]] = value[4] or 0 }
+        end
+        return { [key] = value }
+    end
+    if key == 'tyres' then
+        return { modCustomTiresF = value == 1, modCustomTiresR = value == 1, driftTyres = value == 2 }
+    end
+    if key == 'tyreSmoke' then
+        if value == 0 then return { modSmokeEnabled = false } end
+        return { modSmokeEnabled = true, tyreSmokeColor = Config.smokeRgb[value] }
+    end
+    return { [key] = value }
+end
+
+function Config.fromProps(key, props)
+    props = props or {}
+    if PAINT_TYPE[key] then
+        local v = props[key]
+        if type(v) == 'table' then return { v[1], v[2], v[3], props[PAINT_TYPE[key]] or 0 } end
+        return v
+    end
+    if key == 'tyres' then
+        if props.driftTyres then return 2 end
+        return props.modCustomTiresF and 1 or 0
+    end
+    if key == 'tyreSmoke' then
+        if not props.modSmokeEnabled then return 0 end
+        local c = props.tyreSmokeColor
+        if type(c) ~= 'table' then return nil end
+        for i, rgb in pairs(Config.smokeRgb) do
+            if rgb[1] == c[1] and rgb[2] == c[2] and rgb[3] == c[3] then return i end
+        end
+        return nil
+    end
+    return props[key]
+end
+
+-- Which camera view and how long each part takes, by catalogue tab.
+Config.workViews = {
+    performance = { angle = 90.0, dist = 5.0, height = 1.3, hood = true },  -- front, bonnet up
+    body = { angle = 135.0, dist = 6.0, height = 1.4 },
+    paint = { angle = 150.0, dist = 6.5, height = 1.8 },
+    wheels = { angle = 20.0, dist = 3.8, height = 0.6 },                    -- low, side on
+    lights = { angle = 75.0, dist = 5.0, height = 1.0 },
+    extras = { angle = -90.0, dist = 5.0, height = 1.1 },                   -- rear
 }

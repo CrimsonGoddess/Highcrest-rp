@@ -30,11 +30,12 @@
                     <span>Parts</span>
                     <strong id="partsTotal">$0</strong>
                 </div>
-                <p class="note">A mechanic adds their labour fee. You approve the full price before any work starts.</p>
+                <p class="note" id="designNote">A mechanic adds their labour fee. You approve the full price before any work starts.</p>
                 <p id="designMessage" class="message" hidden></p>
                 <div class="actions">
-                    <button class="btn ghost" data-action="cancelDesign">Cancel</button>
+                    <button class="btn ghost" id="cancelBtn" data-action="cancelDesign">Cancel</button>
                     <button class="btn primary" id="submitBtn" data-action="submitDesign" disabled>Send to mechanics</button>
+                    <button class="btn primary" id="finishBtn" data-action="finishWork" hidden disabled>Finish &amp; charge</button>
                 </div>
             </footer>
         </aside>

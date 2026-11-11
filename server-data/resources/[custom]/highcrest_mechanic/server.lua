@@ -5,15 +5,26 @@
 
 local catalogue = {}
 for _, tab in ipairs(Config.catalogue) do
-    for _, item in ipairs(tab.items) do catalogue[item.key] = item end
+    for _, item in ipairs(tab.items) do
+        item.tab = tab.id
+        catalogue[item.key] = item
+    end
 end
 
-local colorSet, listSets, neonSet = {}, {}, {}
+local colorSet, listSets, neonSet, illegalSets, wildSet, finishSet = {}, {}, {}, {}, {}, {}
 for _, c in ipairs(Config.colors) do colorSet[c[1]] = c[2] end
 for name, list in pairs(Config.lists) do
-    listSets[name] = {}
-    for _, entry in ipairs(list) do listSets[name][entry[1]] = entry[2] end
+    listSets[name], illegalSets[name] = {}, {}
+    for _, entry in ipairs(list) do
+        listSets[name][entry[1]] = entry[2]
+        if entry[3] then illegalSets[name][entry[1]] = true end
+    end
 end
+for _, w in ipairs(Config.wildPaints) do wildSet[table.concat(w[1], ',')] = w[2] end
+for _, f in ipairs(Config.finishes) do finishSet[f[1]] = f[2] end
+
+-- Progress of jobs being fitted in the bay: orderId -> { mechanic, fitted = { key = true }, readyAt }.
+local work = {}
 for _, n in ipairs(Config.neonColors) do neonSet[table.concat(n[1], ',')] = n[2] end
 
 local busy = {}
@@ -96,6 +107,12 @@ local function validValue(item, value)
     end
     if kind == 'toggle' then return type(value) == 'boolean' end
     if kind == 'color' then return isInteger(value, 0, 255) and colorSet[value] ~= nil end
+    if kind == 'paint' then
+        if type(value) == 'number' then return isInteger(value, 0, 255) and colorSet[value] ~= nil end
+        if type(value) ~= 'table' or #value ~= 4 then return false end
+        for i = 1, 3 do if not isInteger(value[i], 0, 255) then return false end end
+        return isInteger(value[4], 0, 5) and finishSet[value[4]] ~= nil
+    end
     if kind == 'list' then return isInteger(value, -1, 255) and listSets[item.list][value] ~= nil end
     if kind == 'neon' then
         if type(value) ~= 'table' or #value ~= 4 then return false end
@@ -112,7 +129,7 @@ end
 
 -- Shop price lists. The boss sets them on the tablet; anything missing uses the config.
 local shopPrices = {}
-local SCALAR_PRICES = { 'cosmetic', 'color', 'turbo' }
+local SCALAR_PRICES = { 'cosmetic', 'color', 'customPaint', 'illegalTint', 'turbo' }
 
 local function defaultPrices()
     local p = { labourPerPart = Config.labourPerPart, levels = {} }
@@ -142,9 +159,10 @@ local function cleanPrices(input)
         if value < min or value > max then return nil, ('%s must be between $%d and $%d.'):format(label, min, max) end
         return value
     end
-    local labels = { cosmetic = 'Body part', color = 'Paint colour', turbo = 'Turbo' }
+    local labels = { cosmetic = 'Body part', color = 'Paint colour', customPaint = 'Custom paint', illegalTint = 'Pure Black tint', turbo = 'Turbo' }
     for _, key in ipairs(SCALAR_PRICES) do
-        local v, err = bounded(input[key], Config.prices[key], labels[key])
+        -- Price lists saved before a price existed just get the standard one.
+        local v, err = bounded(input[key] == nil and Config.prices[key] or input[key], Config.prices[key], labels[key])
         if not v then return nil, err end
         out[key] = v
     end
@@ -184,7 +202,9 @@ local function partPrice(item, value, prices)
     end
     if item.key == 'modTurbo' then return value and prices.turbo or 0 end
     if item.kind == 'toggle' and value == false then return 0 end
+    if item.kind == 'paint' then return type(value) == 'table' and (prices.customPaint or Config.prices.customPaint) or prices.color end
     if item.kind == 'color' then return prices.color end
+    if item.kind == 'list' and illegalSets[item.list][value] then return prices.illegalTint or Config.prices.illegalTint end
     return prices.cosmetic
 end
 
@@ -200,6 +220,11 @@ local function describe(item, value)
     if item.kind == 'level' then return value < 0 and 'Stock' or ('Level %d'):format(value + 1) end
     if item.kind == 'toggle' then return value and 'Fitted' or 'Removed' end
     if item.kind == 'color' then return colorSet[value] end
+    if item.kind == 'paint' then
+        if type(value) == 'number' then return colorSet[value] end
+        return wildSet[table.concat(value, ',')]
+            or ('Custom #%02X%02X%02X, %s'):format(value[1], value[2], value[3], finishSet[value[4]] or 'Gloss')
+    end
     if item.kind == 'list' then return listSets[item.list][value] end
     if item.kind == 'neoncolor' then return neonSet[table.concat(value, ',')] end
     if item.kind == 'neon' then
@@ -249,6 +274,41 @@ lib.callback.register('highcrest_mechanic:canDesign', function(source, shopId, p
     local ped = GetPlayerPed(source)
     if #(GetEntityCoords(ped) - shop.bay.xyz) > shop.bayRadius + 3.0 then return false, 'Park in the design bay first.' end
 
+    -- An on-duty mechanic bringing in a car with an order gets the work view.
+    if isMechanic(player) then
+        local open = openOrderFor(plate)
+        if open then
+            local order = loadOrder(open.id)
+            if order.status == 'new' or order.status == 'quoted' or order.status == 'declined' then
+                return false, ('Order #%d needs a quote the customer has approved first (tablet).'):format(order.id)
+            end
+            local progress = work[order.id]
+            if progress and progress.mechanic ~= player.PlayerData.citizenid and order.status == 'in_progress' then
+                return false, ('%s is already working on order #%d.'):format(order.mechanic_name or 'Another mechanic', order.id)
+            end
+            MySQL.update.await("UPDATE highcrest_mechanic_orders SET status = 'in_progress', mechanic = ?, mechanic_name = ? WHERE id = ?",
+                { player.PlayerData.citizenid, fullName(player), order.id })
+            work[order.id] = {
+                mechanic = player.PlayerData.citizenid,
+                fitted = progress and progress.mechanic == player.PlayerData.citizenid and progress.fitted or {},
+                readyAt = 0,
+            }
+            local lines = {}
+            for _, line in ipairs(order.changes.lines or {}) do
+                local item = catalogue[line.key]
+                lines[#lines + 1] = {
+                    key = line.key, label = line.label, value = line.value, price = line.price,
+                    tab = item and item.tab, seconds = (item and item.tab == 'performance') and Config.installSeconds.performance or Config.installSeconds.default,
+                    raw = (order.changes.values or {})[line.key], fitted = work[order.id].fitted[line.key] == true,
+                }
+            end
+            return true, nil, nil, {
+                id = order.id, customer = order.customer, plate = order.plate, parts = order.parts, labour = order.labour,
+                customerOnline = sourceByCitizen(order.citizenid) ~= nil, lines = lines,
+            }
+        end
+    end
+
     local stored = storedVehicle(plate)
     if not stored or stored.citizenid ~= player.PlayerData.citizenid then
         return false, 'You can only order work on a car you own.'
@@ -285,7 +345,7 @@ lib.callback.register('highcrest_mechanic:submit', function(source, shopId, plat
     for key, value in pairs(changes) do
         value = normalise(value)
         local item = catalogue[key]
-        if item and validValue(item, value) and not sameValue(current[key], value) then
+        if item and validValue(item, value) and not sameValue(Config.fromProps(key, current), value) then
             clean[key] = value
             local price = partPrice(item, value, prices)
             parts = parts + price
@@ -437,19 +497,30 @@ RegisterNetEvent('highcrest_mechanic:server:respond', function(id, accept)
     if mechanic then notify(mechanic, ('Order #%d approved. Start work at the car.'):format(order.id), 'success') end
 end)
 
--- Mechanic: start fitting the parts (must be at the car).
-lib.callback.register('highcrest_mechanic:startWork', function(source, id, netId)
+-- Mechanic: fit one part in the bay. Each part takes its install time; the server keeps
+-- count so a part can't be skipped by a modified client.
+lib.callback.register('highcrest_mechanic:fitPart', function(source, id, key, netId, phase)
     local player = getPlayer(source)
     if not isMechanic(player) then return false, 'You must be an on-duty mechanic.' end
     local order = loadOrder(tonumber(id) or 0)
-    if not order or not (order.status == 'approved' or order.status == 'in_progress' or order.status == 'unpaid') then
-        return false, 'This order is not approved yet.'
+    local progress = order and work[order.id]
+    if not order or order.status ~= 'in_progress' or not progress or progress.mechanic ~= player.PlayerData.citizenid then
+        return false, 'Drive the car into the bay and press E to work on it.'
     end
-    if not vehicleNear(source, netId, order.plate, 8.0) then return false, ('Stand next to the car (%s).'):format(order.plate) end
+    local values = order.changes.values or {}
+    if values[key] == nil then return false, 'That part is not on this order.' end
+    if not vehicleNear(source, netId, order.plate, 8.0) then return false, 'The car has to be in the bay.' end
+    local item = catalogue[key]
+    local seconds = (item and item.tab == 'performance') and Config.installSeconds.performance or Config.installSeconds.default
 
-    MySQL.update.await("UPDATE highcrest_mechanic_orders SET status = 'in_progress', mechanic = ?, mechanic_name = ? WHERE id = ?",
-        { player.PlayerData.citizenid, fullName(player), order.id })
-    return true, order.changes.lines or {}
+    if phase == 'start' then
+        progress.current, progress.readyAt = key, GetGameTimer() + seconds * 1000 - 750
+        return true, seconds
+    end
+    if progress.current ~= key or GetGameTimer() < progress.readyAt then return false, 'Too quick: finish fitting the part.' end
+    progress.current = nil
+    progress.fitted[key] = true
+    return true, Config.toProps(key, values[key])
 end)
 
 -- Mechanic: all parts fitted. Charge the customer, pay out, save the mods.
@@ -457,11 +528,17 @@ lib.callback.register('highcrest_mechanic:complete', function(source, id, netId)
     local player = getPlayer(source)
     if not isMechanic(player) then return false, 'You must be an on-duty mechanic.' end
     local order = loadOrder(tonumber(id) or 0)
-    if not order or order.status ~= 'in_progress' or order.mechanic ~= player.PlayerData.citizenid then
+    if not order or not (order.status == 'in_progress' or order.status == 'unpaid') or order.mechanic ~= player.PlayerData.citizenid then
         return false, 'This job is not yours to finish.'
     end
     if busy[order.id] then return false, 'Already finishing.' end
-    if not vehicleNear(source, netId, order.plate, 8.0) then return false, 'Stand next to the car.' end
+    if not vehicleNear(source, netId, order.plate, 8.0) then return false, 'The car has to be in the bay.' end
+    local progress = work[order.id]
+    for key in pairs(order.changes.values or {}) do
+        if not (progress and progress.mechanic == player.PlayerData.citizenid and progress.fitted[key]) then
+            return false, 'Fit every part on the order first.'
+        end
+    end
 
     local customerSrc = sourceByCitizen(order.citizenid)
     local customer = customerSrc and getPlayer(customerSrc)
@@ -485,8 +562,15 @@ lib.callback.register('highcrest_mechanic:complete', function(source, id, netId)
     -- Save the new mods onto the car's stored properties.
     local stored = storedVehicle(order.plate)
     local props = stored and json.decode(stored.mods or '{}') or {}
-    for key, value in pairs(order.changes.values or {}) do props[key] = value end
+    local applied = {}
+    for key, value in pairs(order.changes.values or {}) do
+        for prop, v in pairs(Config.toProps(key, value)) do
+            props[prop] = v
+            applied[prop] = v
+        end
+    end
     MySQL.update.await('UPDATE player_vehicles SET mods = ? WHERE plate = ?', { json.encode(props), order.plate })
+    work[order.id] = nil
 
     -- Pay out: parts and the shop's labour share to the business, the rest to the mechanic.
     local shop = Config.shops[order.shop]
@@ -505,7 +589,7 @@ lib.callback.register('highcrest_mechanic:complete', function(source, id, netId)
     setStatus(order.id, 'done')
     busy[order.id] = nil
     notify(customerSrc, ('Order #%d is finished. You paid $%d. Enjoy the ride!'):format(order.id, total), 'success')
-    return true, order.changes.values or {}, cut
+    return true, applied, cut, total
 end)
 
 -- Mechanic or customer: cancel an order that hasn't been finished.
@@ -515,6 +599,7 @@ lib.callback.register('highcrest_mechanic:cancel', function(source, id)
     if not player or not order or order.status == 'done' or order.status == 'cancelled' then return false end
     if not isMechanic(player) and order.citizenid ~= player.PlayerData.citizenid then return false end
     setStatus(order.id, 'cancelled')
+    work[order.id] = nil
     local customer = sourceByCitizen(order.citizenid)
     if customer and customer ~= source then notify(customer, ('Order #%d was cancelled by the shop.'):format(order.id)) end
     return true

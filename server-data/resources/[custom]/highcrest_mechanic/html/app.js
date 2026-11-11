@@ -21,21 +21,39 @@ function el(tag, className, text) {
 }
 
 /* ---------------- Design bay ---------------- */
-const design = { tabs: [], items: {}, draft: {}, activeTab: null, openItem: null };
+const design = { mode: 'design', tabs: [], items: {}, draft: {}, activeTab: null, openItem: null, finishes: [], work: null };
+const FINISH_NAMES = ['Gloss', 'Metallic', 'Pearl', 'Matte', 'Metal', 'Chrome'];
+
+const isCustom = (value) => Array.isArray(value) && value.length === 4;
+const toHex = (rgb) => `#${rgb.slice(0, 3).map((n) => Number(n).toString(16).padStart(2, '0')).join('')}`;
+const fromHex = (hex) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
 
 function optionFor(item, value) {
     return item.options.find((o) => same(o.value, value));
 }
 
-function currentLabel(item) {
-    const value = item.key in design.draft ? design.draft[item.key] : item.current;
+function valueOf(item) {
+    return item.key in design.draft ? design.draft[item.key] : item.current;
+}
+
+function labelFor(item, value) {
     const option = optionFor(item, value);
-    return option ? option.label : 'Stock';
+    if (option) return option.label;
+    if (isCustom(value)) return `Custom ${toHex(value).toUpperCase()}, ${FINISH_NAMES[value[3]] || 'Gloss'}`;
+    return 'Stock';
+}
+
+function priceOf(item, value) {
+    const option = optionFor(item, value);
+    if (option) return option.price;
+    return isCustom(value) ? (item.customPrice || 0) : 0;
 }
 
 function renderTabs() {
     const nav = $('tabs');
     nav.textContent = '';
+    nav.hidden = design.mode === 'work';
+    if (design.mode === 'work') return;
     design.tabs.forEach((tab) => {
         const btn = el('button', tab.id === design.activeTab ? 'active' : '', tab.label);
         btn.addEventListener('click', () => { design.activeTab = tab.id; design.openItem = null; renderTabs(); renderItems(); });
@@ -43,17 +61,70 @@ function renderTabs() {
     });
 }
 
+function optionButton(item, option, selectedValue) {
+    const btn = el('button', `option${same(option.value, selectedValue) ? ' selected' : ''}${option.illegal ? ' illegal' : ''}`);
+    const name = el('span');
+    if (option.swatch) {
+        const dot = el('span', `swatch${option.finish === 5 || option.value === 120 ? ' chrome' : ''}`);
+        dot.style.background = `rgb(${option.swatch.join(',')})`;
+        name.appendChild(dot);
+    }
+    name.appendChild(document.createTextNode(option.label));
+    const original = same(option.value, item.current);
+    btn.append(name, el('span', 'price', original ? 'Current' : money(option.price)));
+    btn.addEventListener('click', () => choose(item, option.value));
+    return btn;
+}
+
+// Custom colour wheel: pick any colour and a finish; the car updates as you drag.
+function customPicker(item) {
+    const value = valueOf(item);
+    const current = isCustom(value) ? value : [200, 16, 46, 0];
+    const box = el('div', 'custom-paint');
+    box.appendChild(el('p', 'group-label', `Custom colour · ${money(item.customPrice)}`));
+    const row = el('div', 'custom-row');
+    const input = el('input');
+    input.type = 'color';
+    input.value = toHex(current);
+    const hex = el('span', 'hex', input.value.toUpperCase());
+    row.append(input, hex);
+    const finishes = el('div', 'finishes');
+    let finish = current[3];
+    const pick = () => {
+        const rgb = fromHex(input.value);
+        hex.textContent = input.value.toUpperCase();
+        choose(item, [rgb[0], rgb[1], rgb[2], finish], true);
+    };
+    FINISH_NAMES.forEach((label, i) => {
+        const chip = el('button', `finish${i === finish ? ' active' : ''}`, label);
+        chip.addEventListener('click', () => {
+            finish = i;
+            finishes.querySelectorAll('.finish').forEach((c, j) => c.classList.toggle('active', j === i));
+            pick();
+        });
+        finishes.appendChild(chip);
+    });
+    let timer = null;
+    input.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(pick, 90); });
+    box.append(row, finishes);
+    return box;
+}
+
 function renderItems() {
     const box = $('items');
     box.textContent = '';
+    if (design.mode === 'work') { renderWork(); return; }
     const tab = design.tabs.find((t) => t.id === design.activeTab);
     if (!tab) return;
 
     tab.items.forEach((ref) => {
         const item = design.items[ref.key];
+        const value = valueOf(item);
+        const option = optionFor(item, value);
         const wrap = el('div', `item${item.key in design.draft ? ' changed' : ''}`);
         const head = el('button', 'item-head');
-        head.append(el('span', 'label', item.label), el('span', 'value', currentLabel(item)));
+        const valueText = el('span', `value${option && option.illegal ? ' illegal-text' : ''}`, labelFor(item, value));
+        head.append(el('span', 'label', item.label), valueText);
         head.addEventListener('click', () => {
             design.openItem = design.openItem === item.key ? null : item.key;
             renderItems();
@@ -61,42 +132,48 @@ function renderItems() {
         wrap.appendChild(head);
 
         if (design.openItem === item.key) {
-            const grid = el('div', 'options');
-            const selectedValue = item.key in design.draft ? design.draft[item.key] : item.current;
-            item.options.forEach((option) => {
-                const btn = el('button', `option${same(option.value, selectedValue) ? ' selected' : ''}`);
-                const name = el('span');
-                if (option.swatch) {
-                    const dot = el('span', 'swatch');
-                    dot.style.background = `rgb(${option.swatch.join(',')})`;
-                    name.appendChild(dot);
-                }
-                name.appendChild(document.createTextNode(option.label));
-                const original = same(option.value, item.current);
-                btn.append(name, el('span', 'price', original ? 'Current' : money(option.price)));
-                btn.addEventListener('click', () => choose(item, option));
-                grid.appendChild(btn);
+            const groups = [];
+            item.options.forEach((o) => {
+                const name = o.group || '';
+                let group = groups.find((g) => g.name === name);
+                if (!group) { group = { name, options: [] }; groups.push(group); }
+                group.options.push(o);
             });
-            wrap.appendChild(grid);
+            if (item.kind === 'paint') wrap.appendChild(customPicker(item));
+            groups.forEach((group) => {
+                if (group.name) wrap.appendChild(el('p', 'group-label', group.name));
+                const grid = el('div', 'options');
+                group.options.forEach((o) => grid.appendChild(optionButton(item, o, value)));
+                wrap.appendChild(grid);
+            });
+            if (item.options.some((o) => o.illegal)) {
+                wrap.appendChild(el('p', 'illegal-note', 'Not street legal: police can pull you over for it.'));
+            }
         }
         box.appendChild(wrap);
     });
 }
 
-function choose(item, option) {
-    if (same(option.value, item.current)) {
+function choose(item, value, keepOpen) {
+    if (same(value, item.current)) {
         delete design.draft[item.key];
         post('reset', { key: item.key });
     } else {
-        design.draft[item.key] = option.value;
-        post('preview', { key: item.key, value: option.value });
+        design.draft[item.key] = value;
+        post('preview', { key: item.key, value });
     }
     if (item.key === 'wheels') delete design.draft.modFrontWheels;
-    renderItems();
+    if (!keepOpen) renderItems();
+    else {
+        // Only refresh the header text so the colour picker keeps focus.
+        const head = [...document.querySelectorAll('.item-head')].find((h) => h.firstChild.textContent === item.label);
+        if (head) head.lastChild.textContent = labelFor(item, valueOf(item));
+    }
     renderSummary();
 }
 
 function renderSummary() {
+    if (design.mode === 'work') { renderWorkSummary(); return; }
     const list = $('changes');
     list.textContent = '';
     let total = 0;
@@ -104,11 +181,10 @@ function renderSummary() {
     keys.forEach((key) => {
         const item = design.items[key];
         if (!item) return;
-        const option = optionFor(item, design.draft[key]);
-        const price = option ? option.price : 0;
+        const price = priceOf(item, design.draft[key]);
         total += price;
         const li = el('li');
-        li.append(el('span', '', `${item.label}: ${option ? option.label : ''}`), el('span', '', money(price)));
+        li.append(el('span', '', `${item.label}: ${labelFor(item, design.draft[key])}`), el('span', '', money(price)));
         list.appendChild(li);
     });
     $('partsTotal').textContent = money(total);
@@ -116,7 +192,22 @@ function renderSummary() {
     $('submitBtn').disabled = keys.length === 0;
 }
 
+function setMode(mode) {
+    design.mode = mode;
+    const work = mode === 'work';
+    $('submitBtn').hidden = work;
+    $('finishBtn').hidden = !work;
+    $('finishBtn').textContent = 'Finish & charge';
+    $('cancelBtn').textContent = work ? 'Leave bay' : 'Cancel';
+    document.querySelector('.summary-head span').textContent = work ? 'Work order' : 'Your build';
+    document.querySelector('.total span').textContent = work ? 'Total' : 'Parts';
+    $('designNote').textContent = work
+        ? 'Click a part to fit it. When everything is fitted, finish to charge the customer. Leaving undoes unpaid work.'
+        : 'A mechanic adds their labour fee. You approve the full price before any work starts.';
+}
+
 function openDesign(data) {
+    setMode('design');
     design.tabs = data.tabs || [];
     design.items = {};
     design.tabs.forEach((tab) => tab.items.forEach((item) => { design.items[item.key] = item; }));
@@ -149,6 +240,95 @@ async function submitDesign() {
         $('designMessage').hidden = false;
         btn.disabled = false;
     }
+}
+
+/* ---------------- Work mode (mechanic) ---------------- */
+function openWork(data) {
+    setMode('work');
+    design.work = { order: data.order, fitting: null, message: '' };
+    $('shopName').textContent = `${data.shop || ''} · Order #${data.order.id}`;
+    $('carName').textContent = data.vehicle || 'Car';
+    $('carPlate').textContent = `${data.plate || ''} · ${data.order.customer}`;
+    $('designMessage').hidden = true;
+    renderTabs();
+    renderItems();
+    renderSummary();
+    $('design').hidden = false;
+}
+
+function renderWork() {
+    const box = $('items');
+    const { order, fitting } = design.work;
+    order.lines.forEach((line) => {
+        const card = el('button', `work-item${line.fitted ? ' fitted' : ''}${fitting === line.key ? ' fitting' : ''}`);
+        const text = el('div', 'work-text');
+        text.append(el('span', 'label', line.label), el('span', 'value', line.value || ''));
+        const state = el('span', 'work-state', line.fitted ? 'Fitted' : (fitting === line.key ? 'Fitting…' : `${line.seconds}s · Fit`));
+        card.append(text, state);
+        if (fitting === line.key) {
+            const bar = el('div', 'work-bar');
+            const fill = el('div', 'work-fill');
+            fill.style.animationDuration = `${design.work.seconds}s`;
+            bar.appendChild(fill);
+            card.appendChild(bar);
+        }
+        card.disabled = line.fitted || !!fitting;
+        card.addEventListener('click', () => fitPart(line));
+        box.appendChild(card);
+    });
+    if (design.work.message) box.appendChild(el('p', 'message', design.work.message));
+}
+
+function renderWorkSummary() {
+    const { order } = design.work;
+    const list = $('changes');
+    list.textContent = '';
+    const row = (label, value) => { const li = el('li'); li.append(el('span', '', label), el('span', '', value)); list.appendChild(li); };
+    const fitted = order.lines.filter((l) => l.fitted).length;
+    row('Parts', money(order.parts));
+    row('Labour', money(order.labour));
+    row('Customer', order.customerOnline ? 'In the city' : 'Not in the city');
+    $('partsTotal').textContent = money(order.parts + order.labour);
+    $('changeCount').textContent = `${fitted} of ${order.lines.length} fitted`;
+    $('finishBtn').disabled = fitted < order.lines.length || !!design.work.fitting;
+}
+
+async function fitPart(line) {
+    if (line.fitted || design.work.fitting) return;
+    design.work.message = '';
+    const result = await post('fitPart', { key: line.key });
+    if (!result || !result.ok) {
+        design.work.message = (result && result.message) || 'Could not start on that part.';
+        renderItems();
+        return;
+    }
+    design.work.fitting = line.key;
+    design.work.seconds = result.seconds;
+    renderItems();
+    renderSummary();
+}
+
+function partDone(data) {
+    if (!design.work) return;
+    const line = design.work.order.lines.find((l) => l.key === data.key);
+    if (line && data.ok) line.fitted = true;
+    design.work.fitting = null;
+    design.work.message = data.ok ? '' : (data.message || 'That part did not go on.');
+    renderItems();
+    renderSummary();
+}
+
+async function finishWork() {
+    const btn = $('finishBtn');
+    btn.disabled = true;
+    const result = await post('finishWork');
+    if (result && result.ok) {
+        btn.textContent = 'Done!';
+        return;
+    }
+    $('designMessage').textContent = (result && result.message) || 'Something went wrong.';
+    $('designMessage').hidden = false;
+    btn.disabled = false;
 }
 
 // Drag to orbit the camera, scroll to zoom.
@@ -275,13 +455,13 @@ function renderDetail() {
         row('Labour', money(order.labour));
         row('Total', money(order.parts + order.labour), true);
         const actions = el('div', 'detail-actions');
-        if (canWork) {
-            const start = el('button', 'btn primary', order.status === 'unpaid' ? 'Try again at the car' : 'Start work at the car');
-            start.addEventListener('click', () => post('startWork', { order }));
-            actions.appendChild(start);
-        }
         if (open) actions.appendChild(cancelButton(order));
         if (actions.children.length) box.appendChild(actions);
+        if (canWork) {
+            box.appendChild(el('p', 'feedback ready', order.status === 'unpaid'
+                ? 'The customer could not pay last time. Drive the car back into the bay and press E to try again.'
+                : `Ready to work: drive ${order.plate} into the bay and press E.`));
+        }
     }
 
     if (order.status === 'quoted') box.appendChild(el('p', 'feedback', 'Waiting for the customer to approve.'));
@@ -337,7 +517,9 @@ function renderPrices() {
 
     box.appendChild(el('h3', '', 'Parts'));
     const partGrid = el('div', 'price-grid');
-    [['cosmetic', 'Body part, wheels, lights, extras'], ['color', 'Paint colour'], ['turbo', 'Turbo']].forEach(([key, label]) => {
+    [['cosmetic', 'Body part, wheels, lights, extras'], ['color', 'Paint colour'], ['customPaint', 'Custom and Wild paint'],
+        ['illegalTint', 'Pure Black tint (not street legal)'], ['turbo', 'Turbo']].forEach(([key, label]) => {
+        if (draft[key] === undefined) draft[key] = std[key];
         partGrid.appendChild(field(label, draft[key], std[key], (v) => { draft[key] = v; }));
     });
     box.appendChild(partGrid);
@@ -467,6 +649,7 @@ document.addEventListener('click', async (e) => {
     else if (action === 'cancelDesign') post('cancelDesign');
     else if (action === 'closeTablet') post('closeTablet');
     else if (action === 'toggleDuty') toggleDuty();
+    else if (action === 'finishWork') finishWork();
     else if (action === 'refresh') {
         const data = await post('refresh');
         if (data) { tablet.data = data; renderTablet(); }
@@ -484,6 +667,8 @@ window.addEventListener('message', ({ data }) => {
     if (data.action === 'openDesign') openDesign(data);
     else if (data.action === 'closeDesign') $('design').hidden = true;
     else if (data.action === 'updateItem') updateItem(data.item);
+    else if (data.action === 'openWork') openWork(data);
+    else if (data.action === 'partDone') partDone(data);
     else if (data.action === 'openTablet') openTablet(data.data);
     else if (data.action === 'closeTablet') $('tablet').hidden = true;
 });
@@ -502,19 +687,44 @@ if (params.has('design')) {
                     { value: false, label: 'None', price: 0 }, { value: true, label: 'Fitted', price: 10000 }] },
             ] },
             { id: 'paint', label: 'Paint', items: [
-                { key: 'color1', label: 'Primary colour', kind: 'color', current: 0, options: [
-                    { value: 0, label: 'Black', price: 1000 }, { value: 27, label: 'Red', price: 1000 },
-                    { value: 28, label: 'Torino Red', price: 1000 }, { value: 120, label: 'Chrome', price: 1000 }] },
+                { key: 'color1', label: 'Primary colour', kind: 'paint', current: 0, customPrice: 2500, options: [
+                    { value: 0, label: 'Black', price: 1000, group: 'Classic', swatch: [13, 17, 22] },
+                    { value: 28, label: 'Torino Red', price: 1000, group: 'Classic', swatch: [218, 25, 24] },
+                    { value: 70, label: 'Bright Blue', price: 1000, group: 'Classic', swatch: [11, 156, 241] },
+                    { value: 12, label: 'Matte Black', price: 1000, group: 'Matte', swatch: [19, 24, 31] },
+                    { value: 148, label: 'Matte Purple', price: 1000, group: 'Matte', swatch: [107, 31, 123] },
+                    { value: 120, label: 'Chrome', price: 1000, group: 'Metals & Chrome', swatch: [201, 209, 217] },
+                    { value: [255, 0, 170, 2], label: 'Hyper Magenta', price: 2500, group: 'Wild', swatch: [255, 0, 170] },
+                    { value: [180, 0, 20, 5], label: 'Blood Chrome', price: 2500, group: 'Wild', swatch: [180, 0, 20], finish: 5 }] },
             ] },
             { id: 'lights', label: 'Lights & Glass', items: [
+                { key: 'windowTint', label: 'Window tint', kind: 'list', current: 0, options: [
+                    { value: 0, label: 'None', price: 500 }, { value: 2, label: 'Dark Smoke', price: 500 },
+                    { value: 1, label: 'Pure Black (not street legal)', price: 5000, illegal: true }] },
                 { key: 'neonColor', label: 'Underglow colour', kind: 'neoncolor', current: [255, 255, 255], options: [
                     { value: [255, 255, 255], label: 'White', price: 500, swatch: [255, 255, 255] },
                     { value: [200, 16, 46], label: 'Crimson', price: 500, swatch: [200, 16, 46] }] },
             ] },
         ],
     });
-    design.draft = { modEngine: 2, color1: 28 };
-    design.openItem = 'modEngine';
+    design.draft = { modEngine: 2, color1: [255, 0, 170, 2], windowTint: 1 };
+    design.activeTab = params.get('design') || 'paint';
+    design.openItem = design.activeTab === 'lights' ? 'windowTint' : 'color1';
+    renderTabs();
+    renderItems();
+    renderSummary();
+}
+if (params.has('work')) {
+    openWork({
+        shop: 'Highcrest Motorworks', vehicle: 'Sultan RS', plate: 'HC 1234',
+        order: { id: 12, customer: 'Alex Mercer', parts: 33500, labour: 2000, customerOnline: true, lines: [
+            { key: 'modEngine', label: 'Engine', value: 'Level 3', seconds: 8, fitted: true },
+            { key: 'color1', label: 'Primary colour', value: 'Hyper Magenta', seconds: 5 },
+            { key: 'windowTint', label: 'Window tint', value: 'Pure Black (not street legal)', seconds: 5 },
+        ] },
+    });
+    design.work.fitting = 'color1';
+    design.work.seconds = 5;
     renderItems();
     renderSummary();
 }

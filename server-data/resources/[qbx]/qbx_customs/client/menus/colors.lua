@@ -124,9 +124,11 @@ end
 local function windowTint()
     originalWindowTint = GetVehicleWindowTint(vehicle)
 
-    local windowTintLabels = {}
+    -- Highcrest: the list is matched by tint id (Pure Black was removed; only mechanics fit it).
+    local windowTintLabels, defaultIndex = {}, 1
     for i, v in ipairs(config.windowTints) do
         windowTintLabels[i] = v.label
+        if v.id == originalWindowTint then defaultIndex = i end
     end
 
     local option = {
@@ -136,13 +138,14 @@ local function windowTint()
         close = true,
         values = windowTintLabels,
         set = function(index)
-            SetVehicleWindowTint(vehicle, index - 1)
-            return originalWindowTint == index - 1, locale('menus.options.windowTint.installed', windowTintLabels[index])
+            local tint = config.windowTints[index].id
+            SetVehicleWindowTint(vehicle, tint)
+            return originalWindowTint == tint, locale('menus.options.windowTint.installed', windowTintLabels[index])
         end,
         restore = function()
             SetVehicleWindowTint(vehicle, originalWindowTint)
         end,
-        defaultIndex = originalWindowTint + 1,
+        defaultIndex = defaultIndex,
     }
 
     return option

@@ -389,7 +389,6 @@ return {
     },
     windowTints = {
         {id = 0, label = 'None'},
-        {id = 1, label = 'Pure black'},
         {id = 2, label = 'Dark Smoke'},
         {id = 3, label = 'Light Smoke'},
         {id = 4, label = 'Stock'},
