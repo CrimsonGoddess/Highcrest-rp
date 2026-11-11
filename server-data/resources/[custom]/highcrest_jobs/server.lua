@@ -286,6 +286,51 @@ lib.callback.register('highcrest_jobs:deletePoint', function(source, id)
     return true
 end)
 
+---------------------------------------------------------------------------
+-- Boss menu: Ranks and pay. A boss can rename and set the pay of ranks below their own
+-- (up to Config.maxPayment). Boss powers stay with admins (/jobs).
+---------------------------------------------------------------------------
+
+local function bossJob(source)
+    local player = getPlayer(source)
+    local job = player and player.PlayerData.job
+    if not job or not job.isboss or not exports.qbx_core:GetJob(job.name) then return nil end
+    return job, player
+end
+
+lib.callback.register('highcrest_jobs:bossRanks', function(source)
+    local job = bossJob(source)
+    if not job then return false end
+    local stored = toStored(exports.qbx_core:GetJob(job.name))
+    return { label = stored.label, grades = stored.grades, myLevel = job.grade.level, maxPayment = Config.maxPayment }
+end)
+
+lib.callback.register('highcrest_jobs:bossSetRank', function(source, grade, name, payment)
+    local job = bossJob(source)
+    if not job then return false, 'Only bosses can change ranks.' end
+    grade = tonumber(grade)
+    if not grade or grade >= job.grade.level then return false, 'You can only change ranks below your own.' end
+    local stored = toStored(exports.qbx_core:GetJob(job.name))
+    local found
+    for _, g in ipairs(stored.grades) do
+        if g.grade == grade then
+            g.name = type(name) == 'string' and name or g.name
+            g.payment = tonumber(payment)
+            found = true
+        end
+    end
+    if not found then return false, 'That rank no longer exists.' end
+    stored.type = stored.type or ''
+    local clean, err = cleanJob(stored)
+    if not clean then return false, err end
+    MySQL.query.await([[
+        INSERT INTO highcrest_jobs (name, data, updated_by) VALUES (?, ?, ?)
+        ON DUPLICATE KEY UPDATE data = VALUES(data), updated_by = VALUES(updated_by)
+    ]], { job.name, json.encode(clean), staffName(source) })
+    if not applyJob(job.name, clean) then return false, 'Could not save the rank.' end
+    return true, 'Rank saved. The new pay starts from the next paycheck.'
+end)
+
 -- Bosses can rename ranks and change pay in the boss menu (qbx_management). qbx_core only keeps
 -- that in memory, so save every job change here and it survives a restart.
 AddEventHandler('qbx_core:server:onJobUpdate', function(name, job)

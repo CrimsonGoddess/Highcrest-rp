@@ -308,3 +308,44 @@ openEditor = function()
 end
 
 RegisterNetEvent('highcrest_jobs:client:openEditor', function() openEditor() end)
+
+---------------------------------------------------------------------------
+-- Boss menu: Ranks and pay
+---------------------------------------------------------------------------
+
+local function openBossRanks()
+    local data = lib.callback.await('highcrest_jobs:bossRanks', false)
+    if not data then return notify('Only bosses can change ranks.', 'error') end
+    local options = {}
+    for _, g in ipairs(data.grades) do
+        local mine = g.grade >= data.myLevel
+        options[#options + 1] = {
+            title = ('%s · $%d'):format(g.name, g.payment or 0),
+            description = mine and 'Your rank or above: only admins can change it' or 'Change name and pay',
+            icon = g.isboss and 'crown' or 'user', disabled = mine,
+            onSelect = function()
+                local input = lib.inputDialog(('Rank: %s'):format(g.name), {
+                    { type = 'input', label = 'Rank name', default = g.name, required = true, max = 40 },
+                    { type = 'number', label = 'Pay per paycheck ($)', default = g.payment, min = 0, max = data.maxPayment, required = true },
+                })
+                if input then
+                    local ok, message = lib.callback.await('highcrest_jobs:bossSetRank', false, g.grade, input[1], input[2])
+                    notify(message or 'Could not save.', ok and 'success' or 'error')
+                end
+                openBossRanks()
+            end,
+        }
+    end
+    lib.registerContext({ id = 'hcjobs_boss_ranks', title = ('%s: ranks and pay'):format(data.label), menu = 'openBossMenu', options = options })
+    lib.showContext('hcjobs_boss_ranks')
+end
+
+AddEventHandler('highcrest_jobs:client:bossRanks', openBossRanks)
+
+CreateThread(function()
+    while GetResourceState('qbx_management') ~= 'started' do Wait(500) end
+    exports.qbx_management:AddBossMenuItem({
+        title = 'Ranks and pay', description = 'Rename ranks and set their pay',
+        icon = 'money-bill-wave', event = 'highcrest_jobs:client:bossRanks', args = { type = 'job' },
+    })
+end)
