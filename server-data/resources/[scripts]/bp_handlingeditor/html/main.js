@@ -191,7 +191,19 @@ function exportHandling() {
     exportArea.value = finalXml;
     exportArea.style.display = 'block';
     exportArea.select();
-    document.execCommand('copy');
+    const copied = document.execCommand('copy');
+    // Highcrest: the box sits under the long value list, so jump to it and say what happened.
+    exportArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    let note = document.getElementById('hcExportNote');
+    if (!note) {
+        note = document.createElement('p');
+        note.id = 'hcExportNote';
+        note.style.cssText = 'margin:8px 0 0;font-weight:700;color:#2ecc71;';
+        exportArea.insertAdjacentElement('afterend', note);
+    }
+    note.textContent = copied
+        ? `Copied ${vehicleName} handling. Paste it with Ctrl+V.`
+        : 'Click in the box, press Ctrl+A then Ctrl+C to copy it.';
 }
 
 const flagDefinitions = {
