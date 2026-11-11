@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!-- YouTube embeds need a referrer, or they refuse to play (error 153). -->
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>Highcrest TV</title>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            background: #000;
+        }
+
+        #youtube, #video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        #video {
+            object-fit: contain;
+            background: #000;
+        }
+
+        /* Shown while a video loads, or if it can't play. */
+        #status {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 8%;
+            color: #d4af37;
+            font: 700 48px 'Segoe UI', Arial, sans-serif;
+            letter-spacing: 0.08em;
+            text-align: center;
+            text-transform: uppercase;
+            background: radial-gradient(ellipse at center, #3a0610, #000 70%);
+        }
+
+        [hidden] { display: none !important; }
+    </style>
+</head>
+<body>
+    <div id="youtube" hidden></div>
+    <video id="video" playsinline hidden></video>
+    <div id="status">Highcrest TV</div>
+
+    <script>
+        'use strict';
+
+        const statusEl = document.getElementById('status');
+        const videoEl = document.getElementById('video');
+        let ytPlayer = null;
+        let ytReady = false;
+        let pending = null;
+        let volume = 0;
+
+        function showStatus(text) {
+            statusEl.textContent = text;
+            statusEl.hidden = !text;
+        }
+
+        function clearPlayers() {
+            if (ytPlayer) { ytPlayer.destroy(); ytPlayer = null; }
+            const holder = document.getElementById('youtube');
+            holder.hidden = true;
+            videoEl.pause();
+            videoEl.removeAttribute('src');
+            videoEl.load();
+            videoEl.hidden = true;
+        }
+
+        function playYouTube(id, start) {
+            if (!ytReady) { pending = { kind: 'youtube', id, start }; return; }
+            const holder = document.createElement('div');
+            holder.id = 'youtube';
+            document.getElementById('youtube').replaceWith(holder);
+            ytPlayer = new YT.Player('youtube', {
+                width: '100%',
+                height: '100%',
+                videoId: id,
+                playerVars: {
+                    autoplay: 1,
+                    controls: 0,
+                    disablekb: 1,
+                    rel: 0,
+                    playsinline: 1,
+                    start: Math.floor(start),
+                    origin: window.location.origin,
+                },
+                events: {
+                    onReady: (e) => {
+                        e.target.setVolume(volume);
+                        e.target.playVideo();
+                        showStatus('');
+                    },
+                    onError: (e) => showStatus(`This video can't play on TV (YouTube error ${e.data})`),
+                },
+            });
+        }
+
+        function playVideo(url, start) {
+            videoEl.hidden = false;
+            videoEl.src = url;
+            videoEl.volume = volume / 100;
+            videoEl.addEventListener('loadedmetadata', () => {
+                if (start && videoEl.duration && start < videoEl.duration) videoEl.currentTime = start;
+                videoEl.play().catch(() => {});
+            }, { once: true });
+            videoEl.onplaying = () => showStatus('');
+            videoEl.onerror = () => showStatus("This video can't play on TV");
+        }
+
+        function play(media, start) {
+            clearPlayers();
+            showStatus('Loading…');
+            if (media.kind === 'youtube') playYouTube(media.id, start);
+            else if (media.kind === 'video') playVideo(media.url, start);
+        }
+
+        function setVolume(v) {
+            volume = Math.max(0, Math.min(100, Number(v) || 0));
+            if (ytPlayer && ytPlayer.setVolume) ytPlayer.setVolume(volume);
+            videoEl.volume = volume / 100;
+        }
+
+        window.onYouTubeIframeAPIReady = () => {
+            ytReady = true;
+            if (pending) { const p = pending; pending = null; playYouTube(p.id, p.start); }
+        };
+
+        window.addEventListener('message', (event) => {
+            let data = event.data;
+            if (typeof data === 'string') {
+                try { data = JSON.parse(data); } catch { return; }
+            }
+            if (!data || typeof data !== 'object') return;
+            if (data.action === 'play' && data.media) {
+                volume = Number(data.volume) || 0;
+                play(data.media, Number(data.start) || 0);
+            } else if (data.action === 'volume') {
+                setVolume(data.volume);
+            }
+        });
+    </script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+</body>
+</html>
