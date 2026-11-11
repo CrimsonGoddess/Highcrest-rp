@@ -73,6 +73,13 @@ function showStaff(staff) {
         const avatar = document.createElement('span');
         avatar.className = 'staff-avatar';
         avatar.textContent = (member.name || '?').charAt(0).toUpperCase();
+        // Discord profile picture, falling back to the initial if it can't load.
+        if (typeof member.avatar === 'string' && member.avatar.startsWith('https://cdn.discordapp.com/')) {
+            const img = document.createElement('img');
+            img.alt = '';
+            img.src = member.avatar;
+            img.addEventListener('load', () => { avatar.textContent = ''; avatar.appendChild(img); });
+        }
 
         const text = document.createElement('div');
         text.className = 'staff-text';
@@ -189,10 +196,9 @@ if (new URLSearchParams(location.search).has('demo')) {
         online: 12,
         maxPlayers: 48,
         staff: [
-            { name: 'CleverGoose6564', role: 'Owner', online: true },
-            { name: 'ChillyMoth4656', role: 'Owner', online: false },
-            { name: 'SlowAnt8494', role: 'Owner', online: false },
-            { name: 'Example Mod', role: 'Moderator' },
+            { name: 'Crimson', role: 'Owner', online: true, avatar: 'https://cdn.discordapp.com/embed/avatars/0.png' },
+            { name: 'Slug', role: 'Management', online: false, avatar: 'https://cdn.discordapp.com/embed/avatars/3.png' },
+            { name: 'Gina', role: 'Management' },
         ],
         character: { name: 'Alex Mercer', job: 'Gruppe Sechs', grade: 'Guard', onDuty: true, cash: 1250, bank: 48210, phone: '555-0142', citizenid: 'SJX39KSL' },
     });

@@ -1,4 +1,51 @@
--- Staff list with a live "in the city" flag for anyone whose identifier is set.
+-- Discord profile pictures, looked up with the bot token and refreshed every hour.
+-- The token is a server-only convar from secrets.cfg and never reaches players.
+local avatars = {}
+local AVATAR_REFRESH_MS = 60 * 60 * 1000
+
+local function validDiscordId(id)
+    return type(id) == 'string' and id:match('^%d+$') ~= nil and #id >= 15
+end
+
+local function defaultAvatar(id)
+    local snowflake = math.tointeger(tonumber(id))
+    local index = snowflake and ((snowflake >> 22) % 6) or 0
+    return ('https://cdn.discordapp.com/embed/avatars/%d.png'):format(index)
+end
+
+local function fetchAvatar(id, token)
+    PerformHttpRequest(('https://discord.com/api/v10/users/%s'):format(id), function(status, body)
+        if status ~= 200 or not body then
+            print(('[highcrest_pause] Could not load the Discord profile for %s (HTTP %s)'):format(id, tostring(status)))
+            return
+        end
+        local user = json.decode(body)
+        if not user then return end
+        if user.avatar then
+            local ext = user.avatar:sub(1, 2) == 'a_' and 'gif' or 'png'
+            avatars[id] = ('https://cdn.discordapp.com/avatars/%s/%s.%s?size=128'):format(id, user.avatar, ext)
+        else
+            avatars[id] = defaultAvatar(id)
+        end
+    end, 'GET', '', { Authorization = 'Bot ' .. token })
+end
+
+CreateThread(function()
+    while true do
+        local token = GetConvar('highcrest_discord_token', '')
+        if token ~= '' then
+            for _, member in ipairs(Config.staff or {}) do
+                if validDiscordId(member.discord) then
+                    fetchAvatar(member.discord, token)
+                    Wait(1000) -- stay well inside Discord's rate limit
+                end
+            end
+        end
+        Wait(AVATAR_REFRESH_MS)
+    end
+end)
+
+-- Staff list with a live "in the city" flag for anyone with a Discord ID or identifier.
 local function getStaff()
     local onlineIds = {}
     for _, playerId in ipairs(GetPlayers()) do
@@ -9,11 +56,19 @@ local function getStaff()
 
     local staff = {}
     for _, member in ipairs(Config.staff or {}) do
+        local discordId = validDiscordId(member.discord) and member.discord or nil
+        local online
+        if discordId or member.identifier then
+            online = (discordId and onlineIds['discord:' .. discordId] == true)
+                or (member.identifier and onlineIds[member.identifier] == true)
+                or false
+        end
         staff[#staff + 1] = {
             name = member.name,
             role = member.role,
-            -- Without an identifier there's no way to tell, so no dot is shown.
-            online = member.identifier and onlineIds[member.identifier] == true or nil,
+            avatar = discordId and avatars[discordId] or nil,
+            -- Without a Discord ID or identifier there's no way to tell, so no dot is shown.
+            online = online,
         }
     end
     return staff

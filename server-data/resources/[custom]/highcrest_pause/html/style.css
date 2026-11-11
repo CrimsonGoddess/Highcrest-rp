@@ -406,6 +406,23 @@ dd {
     font-weight: 700;
 }
 
+.staff-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.staff-member {
+    padding-block: 0.9em;
+}
+
+.staff-member .staff-avatar {
+    width: 3em;
+    height: 3em;
+    overflow: hidden;
+}
+
 .staff-text {
     min-width: 0;
 }

@@ -20,14 +20,22 @@ Config.rules = {
 }
 
 -- Staff shown on the pause menu, in this order.
---   name:       what players see
---   role:       e.g. Owner, Admin, Moderator, Support
---   identifier: optional. With it, a green dot shows when that person is in the city.
---               Use their FiveM ID (fivem:1234567), license:... or discord:... identifier.
+--   name:    what players see
+--   role:    e.g. Owner, Management, Admin, Moderator, Support
+--   discord: their Discord user ID (Discord → Settings → Advanced → Developer Mode on,
+--            then right-click them → Copy User ID). It gives:
+--              - their Discord profile picture (needs the bot token, see below)
+--              - a green dot when they're in the city (FiveM must be linked to their Discord)
+--   identifier: optional, another way to get the green dot (fivem:1234567 or license:...).
+--
+-- Profile pictures need a Discord bot token. Put this line in secrets.cfg (never in this file):
+--   set highcrest_discord_token "YOUR_BOT_TOKEN"
+-- Create the bot at discord.com/developers/applications → New Application → Bot → Reset Token.
+-- The bot doesn't need to join the Discord server or have any permissions.
 Config.staff = {
-    { name = 'CleverGoose6564', role = 'Owner' },
-    { name = 'ChillyMoth4656', role = 'Owner', identifier = 'fivem:8089178' },
-    { name = 'SlowAnt8494', role = 'Owner', identifier = 'fivem:1670014' },
+    { name = 'Crimson', role = 'Owner', discord = '' },
+    { name = 'Slug', role = 'Management', discord = '' },
+    { name = 'Gina', role = 'Management', discord = '' },
 }
 
 -- The message shown to a player who leaves with the Disconnect button.
