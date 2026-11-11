@@ -929,8 +929,8 @@ return {
     ['money_bag'] = { label = 'Money Bag', weight = 250, stack = true, close = true, description = 'Gruppe Sechs money bag.' },
 
     -- sd-beekeeping
-    ['bee-hive'] = { label = 'Bee Hive', weight = 1000, stack = true, close = true },
-    ['bee-house'] = { label = 'Bee House', weight = 1000, stack = true, close = true },
+    ['bee-hive'] = { label = 'Bee Hive', weight = 1000, stack = true, close = true, server = { export = 'sd-beekeeping.useBee-hive' } }, -- Highcrest: placed by sd-beekeeping
+    ['bee-house'] = { label = 'Bee House', weight = 1000, stack = true, close = true, server = { export = 'sd-beekeeping.useBee-house' } }, -- Highcrest: placed by sd-beekeeping
     ['bee-queen'] = { label = 'Bee Queen', weight = 100, stack = true, close = true },
     ['bee-worker'] = { label = 'Worker Bee', weight = 100, stack = true, close = true },
     ['bee-smoker'] = { label = 'Bee Smoker', weight = 1000, stack = true, close = true },
