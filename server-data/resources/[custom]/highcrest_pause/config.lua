@@ -19,5 +19,16 @@ Config.rules = {
     'Bugs and exploits get reported in Discord, never abused.',
 }
 
+-- Staff shown on the pause menu, in this order.
+--   name:       what players see
+--   role:       e.g. Owner, Admin, Moderator, Support
+--   identifier: optional. With it, a green dot shows when that person is in the city.
+--               Use their FiveM ID (fivem:1234567), license:... or discord:... identifier.
+Config.staff = {
+    { name = 'CleverGoose6564', role = 'Owner' },
+    { name = 'ChillyMoth4656', role = 'Owner', identifier = 'fivem:8089178' },
+    { name = 'SlowAnt8494', role = 'Owner', identifier = 'fivem:1670014' },
+}
+
 -- The message shown to a player who leaves with the Disconnect button.
 Config.leaveMessage = 'You left Highcrest RP. See you soon.'

@@ -60,9 +60,50 @@ function open(data) {
     document.querySelector('.nav-btn.primary').focus();
 }
 
+function showStaff(staff) {
+    const list = document.getElementById('staff');
+    list.textContent = '';
+    let online = 0;
+    let tracked = 0;
+
+    staff.forEach((member) => {
+        const li = document.createElement('li');
+        li.className = 'staff-member';
+
+        const avatar = document.createElement('span');
+        avatar.className = 'staff-avatar';
+        avatar.textContent = (member.name || '?').charAt(0).toUpperCase();
+
+        const text = document.createElement('div');
+        text.className = 'staff-text';
+        const name = document.createElement('p');
+        name.className = 'staff-name';
+        name.textContent = member.name;
+        const role = document.createElement('p');
+        role.className = 'staff-role';
+        role.textContent = member.role || 'Staff';
+        text.append(name, role);
+        li.append(avatar, text);
+
+        // Only staff with an identifier in the config get a status dot.
+        if (typeof member.online === 'boolean') {
+            tracked += 1;
+            if (member.online) online += 1;
+            const dot = document.createElement('span');
+            dot.className = `staff-status${member.online ? ' online' : ''}`;
+            dot.title = member.online ? 'In the city' : 'Away';
+            li.appendChild(dot);
+        }
+        list.appendChild(li);
+    });
+
+    setText('staffOnline', tracked ? `${online} in the city` : '');
+}
+
 function showInfo(info) {
     setText('online', info.online ?? '-');
     setText('maxPlayers', info.maxPlayers ? `/ ${info.maxPlayers}` : '');
+    showStaff(info.staff || []);
 
     const c = info.character;
     if (!c) return;
@@ -147,6 +188,12 @@ if (new URLSearchParams(location.search).has('demo')) {
     showInfo({
         online: 12,
         maxPlayers: 48,
+        staff: [
+            { name: 'CleverGoose6564', role: 'Owner', online: true },
+            { name: 'ChillyMoth4656', role: 'Owner', online: false },
+            { name: 'SlowAnt8494', role: 'Owner', online: false },
+            { name: 'Example Mod', role: 'Moderator' },
+        ],
         character: { name: 'Alex Mercer', job: 'Gruppe Sechs', grade: 'Guard', onDuty: true, cash: 1250, bank: 48210, phone: '555-0142', citizenid: 'SJX39KSL' },
     });
 }

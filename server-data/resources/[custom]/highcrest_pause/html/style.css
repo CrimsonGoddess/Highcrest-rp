@@ -363,6 +363,88 @@ dd {
     font-weight: 700;
 }
 
+/* Staff card: full width under the other two. */
+.card.staff {
+    grid-column: 1 / -1;
+    animation-delay: 0.12s;
+}
+
+.staff-count {
+    color: var(--muted);
+    font-size: 0.85em;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.staff-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14em, 1fr));
+    gap: 0.8em;
+    list-style: none;
+}
+
+.staff-member {
+    display: flex;
+    align-items: center;
+    gap: 0.9em;
+    padding: 0.8em 1em;
+    border: 1px solid var(--line);
+    border-radius: 0.4em;
+    background: var(--black);
+}
+
+.staff-avatar {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 2.4em;
+    height: 2.4em;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--crimson-deep), var(--crimson));
+    color: var(--white);
+    font-weight: 700;
+}
+
+.staff-text {
+    min-width: 0;
+}
+
+.staff-name {
+    overflow: hidden;
+    font-size: 1.1em;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.staff-role {
+    color: var(--gold);
+    font-size: 0.75em;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.staff-status {
+    flex: none;
+    width: 0.6em;
+    height: 0.6em;
+    margin-left: auto;
+    border-radius: 50%;
+    background: #4a4a55;
+}
+
+.staff-status.online {
+    background: #2ecc71;
+    box-shadow: 0 0 0.6em rgba(46, 204, 113, 0.7);
+}
+
+.staff-note {
+    margin-top: 1.2em;
+    color: var(--muted);
+    font-size: 0.9em;
+}
+
 /* Disconnect / quit confirmation. */
 .confirm {
     position: fixed;
