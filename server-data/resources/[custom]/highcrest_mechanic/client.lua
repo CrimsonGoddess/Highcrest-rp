@@ -16,15 +16,17 @@ local function modLabel(vehicle, slot, index, fallback)
     return label
 end
 
+-- Prices come from the shop's price list (set by its boss), falling back to the config.
 local function priceFor(item, value)
+    local prices = design and design.prices or Config.prices
     if item.kind == 'level' then
-        local levels = Config.prices.levels[item.key]
+        local levels = prices.levels and prices.levels[item.key] or Config.prices.levels[item.key]
         return levels[value + 2] or levels[#levels]
     end
-    if item.key == 'modTurbo' then return value and Config.prices.turbo or 0 end
+    if item.key == 'modTurbo' then return value and prices.turbo or 0 end
     if item.kind == 'toggle' and value == false then return 0 end
-    if item.kind == 'color' then return Config.prices.color end
-    return Config.prices.cosmetic
+    if item.kind == 'color' then return prices.color end
+    return prices.cosmetic
 end
 
 local NEON_PRESETS = {
@@ -107,7 +109,7 @@ local function startDesign(shopId)
     local vehicle = cache.vehicle
     if not vehicle or GetPedInVehicleSeat(vehicle, -1) ~= cache.ped then return end
     local plate = trimPlate(GetVehicleNumberPlateText(vehicle))
-    local ok, reason = lib.callback.await('highcrest_mechanic:canDesign', false, shopId, plate)
+    local ok, reason, prices = lib.callback.await('highcrest_mechanic:canDesign', false, shopId, plate)
     if not ok then return lib.notify({ title = 'Mechanic', description = reason, type = 'error' }) end
 
     local props = lib.getVehicleProperties(vehicle)
@@ -116,7 +118,7 @@ local function startDesign(shopId)
     SetVehicleEngineOn(vehicle, false, true, true)
 
     design = {
-        shop = shopId, vehicle = vehicle, plate = plate, original = props, draft = {},
+        shop = shopId, vehicle = vehicle, plate = plate, original = props, draft = {}, prices = prices,
         cam = CreateCam('DEFAULT_SCRIPTED_CAMERA', true), camAngle = GetEntityHeading(vehicle) + 135.0,
         camDist = 6.0, camHeight = 1.4,
     }
@@ -245,7 +247,7 @@ end)
 local function openTablet()
     if tabletOpen or working then return end
     local data = lib.callback.await('highcrest_mechanic:orders', false)
-    if not data then return lib.notify({ title = 'Mechanic', description = 'Only on-duty mechanics can use the tablet.', type = 'error' }) end
+    if not data then return lib.notify({ title = 'Mechanic', description = 'Only mechanics can use this tablet.', type = 'error' }) end
     tabletOpen = true
     SetNuiFocus(true, true)
     SendNUIMessage({ action = 'openTablet', data = data })
@@ -268,6 +270,21 @@ end)
 RegisterNUICallback('quote', function(data, cb)
     local ok, message = lib.callback.await('highcrest_mechanic:quote', false, data.id, data.labour)
     cb({ ok = ok, message = message, data = ok and lib.callback.await('highcrest_mechanic:orders', false) or nil })
+end)
+
+RegisterNUICallback('setDuty', function(data, cb)
+    lib.callback.await('highcrest_mechanic:setDuty', false, data and data.onDuty == true)
+    Wait(250) -- let the job update reach the server's player data
+    cb(lib.callback.await('highcrest_mechanic:orders', false) or false)
+end)
+
+RegisterNUICallback('getPrices', function(data, cb)
+    cb(lib.callback.await('highcrest_mechanic:prices', false, data and data.shop) or false)
+end)
+
+RegisterNUICallback('savePrices', function(data, cb)
+    local ok, message, sheet = lib.callback.await('highcrest_mechanic:setPrices', false, data.shop, data.prices)
+    cb({ ok = ok, message = message, sheet = sheet })
 end)
 
 RegisterNUICallback('cancelOrder', function(data, cb)

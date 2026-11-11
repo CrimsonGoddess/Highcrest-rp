@@ -36,6 +36,24 @@ local function isMechanic(player)
     return job and job.name == Config.job and job.onduty == true
 end
 
+-- The shop boss (top grade of the mechanic job) sets the price list. Duty isn't needed.
+local function isBoss(player)
+    local job = player and player.PlayerData.job
+    return job and job.name == Config.job and job.isboss == true
+end
+
+local function hasJob(player)
+    local job = player and player.PlayerData.job
+    return job and job.name == Config.job
+end
+
+local function firstShop()
+    local ids = {}
+    for id in pairs(Config.shops) do ids[#ids + 1] = id end
+    table.sort(ids)
+    return ids[1]
+end
+
 local function notify(source, text, kind)
     TriggerClientEvent('ox_lib:notify', source, { title = 'Mechanic', description = text, type = kind or 'inform', duration = 7000 })
 end
@@ -92,15 +110,82 @@ local function validValue(item, value)
     return false
 end
 
-local function partPrice(item, value)
+-- Shop price lists. The boss sets them on the tablet; anything missing uses the config.
+local shopPrices = {}
+local SCALAR_PRICES = { 'cosmetic', 'color', 'turbo' }
+
+local function defaultPrices()
+    local p = { labourPerPart = Config.labourPerPart, levels = {} }
+    for _, key in ipairs(SCALAR_PRICES) do p[key] = Config.prices[key] end
+    for key, levels in pairs(Config.prices.levels) do
+        p.levels[key] = {}
+        for i, v in ipairs(levels) do p.levels[key][i] = v end
+    end
+    return p
+end
+
+local function pricesFor(shopId)
+    return shopPrices[shopId] or defaultPrices()
+end
+
+-- Check a price list from the tablet (or the database). Out-of-range or missing values
+-- are refused so a typo can't make a $1 engine.
+local function cleanPrices(input)
+    if type(input) ~= 'table' then return nil, 'Bad price list.' end
+    local out = defaultPrices()
+    local lo, hi = Config.priceLimits.min, Config.priceLimits.max
+    local function bounded(value, standard, label)
+        value = tonumber(value)
+        if not value then return nil, ('%s needs a price.'):format(label) end
+        value = math.floor(value + 0.5)
+        local min, max = math.floor(standard * lo), math.floor(standard * hi)
+        if value < min or value > max then return nil, ('%s must be between $%d and $%d.'):format(label, min, max) end
+        return value
+    end
+    local labels = { cosmetic = 'Body part', color = 'Paint colour', turbo = 'Turbo' }
+    for _, key in ipairs(SCALAR_PRICES) do
+        local v, err = bounded(input[key], Config.prices[key], labels[key])
+        if not v then return nil, err end
+        out[key] = v
+    end
+    local labour = tonumber(input.labourPerPart)
+    if not labour or labour < 0 or labour > Config.maxLabour then
+        return nil, ('Labour per part must be between $0 and $%d.'):format(Config.maxLabour)
+    end
+    out.labourPerPart = math.floor(labour + 0.5)
+    local levelsIn = type(input.levels) == 'table' and input.levels or {}
+    for key, standard in pairs(Config.prices.levels) do
+        local given = type(levelsIn[key]) == 'table' and levelsIn[key] or {}
+        local label = catalogue[key] and catalogue[key].label or key
+        out.levels[key][1] = 0 -- stock is always free
+        for i = 2, #standard do
+            local v, err = bounded(given[i], standard[i], ('%s level %d'):format(label, i - 1))
+            if not v then return nil, err end
+            out.levels[key][i] = v
+        end
+    end
+    return out
+end
+
+MySQL.ready(function()
+    local ok, rows = pcall(MySQL.query.await, 'SELECT shop, prices FROM highcrest_mechanic_prices')
+    if not ok then return end
+    for _, row in ipairs(rows or {}) do
+        local clean = Config.shops[row.shop] and cleanPrices(json.decode(row.prices or '') or {})
+        if clean then shopPrices[row.shop] = clean end
+    end
+end)
+
+local function partPrice(item, value, prices)
+    prices = prices or defaultPrices()
     if item.kind == 'level' then
-        local levels = Config.prices.levels[item.key]
+        local levels = prices.levels[item.key]
         return levels[value + 2] or levels[#levels]
     end
-    if item.key == 'modTurbo' then return value and Config.prices.turbo or 0 end
+    if item.key == 'modTurbo' then return value and prices.turbo or 0 end
     if item.kind == 'toggle' and value == false then return 0 end
-    if item.kind == 'color' then return Config.prices.color end
-    return Config.prices.cosmetic
+    if item.kind == 'color' then return prices.color end
+    return prices.cosmetic
 end
 
 local function sameValue(a, b)
@@ -172,7 +257,7 @@ lib.callback.register('highcrest_mechanic:canDesign', function(source, shopId, p
     if open then
         return false, ('This car already has order #%d (%s). A mechanic will be with you.'):format(open.id, open.status)
     end
-    return true
+    return true, nil, pricesFor(shopId)
 end)
 
 -- Customer: submit a build.
@@ -195,13 +280,14 @@ lib.callback.register('highcrest_mechanic:submit', function(source, shopId, plat
     end
 
     local current = json.decode(stored.mods or '{}') or {}
+    local prices = pricesFor(shopId)
     local lines, clean, parts = {}, {}, 0
     for key, value in pairs(changes) do
         value = normalise(value)
         local item = catalogue[key]
         if item and validValue(item, value) and not sameValue(current[key], value) then
             clean[key] = value
-            local price = partPrice(item, value)
+            local price = partPrice(item, value, prices)
             parts = parts + price
             lines[#lines + 1] = { key = key, label = item.label, value = describe(item, value), price = price }
         end
@@ -223,9 +309,13 @@ lib.callback.register('highcrest_mechanic:submit', function(source, shopId, plat
     return true, id, parts
 end)
 
--- Mechanic: order list for the tablet.
+-- Mechanic: order list for the tablet. Off-duty mechanics see only the clock-in screen.
 lib.callback.register('highcrest_mechanic:orders', function(source)
-    if not isMechanic(getPlayer(source)) then return false end
+    local player = getPlayer(source)
+    if not hasJob(player) then return false end
+    if not isMechanic(player) then
+        return { offDuty = true, open = {}, recent = {}, maxLabour = Config.maxLabour, cut = Config.mechanicCut, isBoss = isBoss(player) }
+    end
     local open = MySQL.query.await(
         "SELECT * FROM highcrest_mechanic_orders WHERE status NOT IN ('done', 'cancelled') ORDER BY id DESC LIMIT 50") or {}
     local recent = MySQL.query.await(
@@ -237,9 +327,64 @@ lib.callback.register('highcrest_mechanic:orders', function(source)
             order.lines = data.lines or {}
             order.shopLabel = Config.shops[order.shop] and Config.shops[order.shop].label or order.shop
             order.customerOnline = sourceByCitizen(order.citizenid) ~= nil
+            order.suggestedLabour = math.min(Config.maxLabour, #order.lines * pricesFor(order.shop).labourPerPart)
         end
     end
-    return { open = open, recent = recent, maxLabour = Config.maxLabour, cut = Config.mechanicCut }
+    return { open = open, recent = recent, maxLabour = Config.maxLabour, cut = Config.mechanicCut, isBoss = isBoss(player) }
+end)
+
+-- Mechanic: clock in or out from the tablet.
+lib.callback.register('highcrest_mechanic:setDuty', function(source, onDuty)
+    local player = getPlayer(source)
+    if not hasJob(player) then return false end
+    player.Functions.SetJobDuty(onDuty == true)
+    notify(source, onDuty and 'You clocked in. Orders will show on your tablet.' or 'You clocked out.', 'success')
+    return true
+end)
+
+-- Boss: the shop's price list for the tablet's Prices tab.
+local function priceSheet(shopId)
+    local labels, order = {}, {}
+    for _, tab in ipairs(Config.catalogue) do
+        for _, item in ipairs(tab.items) do
+            if Config.prices.levels[item.key] then
+                order[#order + 1] = item.key
+                labels[item.key] = item.label
+            end
+        end
+    end
+    return {
+        shop = shopId, shopLabel = Config.shops[shopId].label,
+        prices = pricesFor(shopId), defaults = defaultPrices(),
+        levelLabels = labels, levelOrder = order,
+        limits = Config.priceLimits, maxLabour = Config.maxLabour,
+    }
+end
+
+lib.callback.register('highcrest_mechanic:prices', function(source, shopId)
+    if not isBoss(getPlayer(source)) then return false end
+    shopId = Config.shops[shopId] and shopId or firstShop()
+    return priceSheet(shopId)
+end)
+
+-- Boss: save the price list (nil resets to the standard prices).
+lib.callback.register('highcrest_mechanic:setPrices', function(source, shopId, input)
+    local player = getPlayer(source)
+    if not isBoss(player) then return false, 'Only the shop boss can change prices.' end
+    if not Config.shops[shopId] then return false, 'Unknown shop.' end
+    if input == nil then
+        shopPrices[shopId] = nil
+        MySQL.query.await('DELETE FROM highcrest_mechanic_prices WHERE shop = ?', { shopId })
+        return true, 'Prices reset to standard.', priceSheet(shopId)
+    end
+    local clean, err = cleanPrices(input)
+    if not clean then return false, err end
+    shopPrices[shopId] = clean
+    MySQL.query.await([[
+        INSERT INTO highcrest_mechanic_prices (shop, prices, updated_by) VALUES (?, ?, ?)
+        ON DUPLICATE KEY UPDATE prices = VALUES(prices), updated_by = VALUES(updated_by)
+    ]], { shopId, json.encode(clean), fullName(player) })
+    return true, 'Prices saved. New designs use them right away.', priceSheet(shopId)
 end)
 
 -- Mechanic: send the customer a quote (parts + labour).

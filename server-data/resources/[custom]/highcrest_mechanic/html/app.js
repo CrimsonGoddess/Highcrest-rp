@@ -249,11 +249,11 @@ function renderDetail() {
         input.max = String(tablet.data.maxLabour);
         input.step = '50';
         input.placeholder = 'Labour fee';
-        input.value = order.labour ? String(order.labour) : '';
+        input.value = order.labour ? String(order.labour) : (order.suggestedLabour ? String(order.suggestedLabour) : '');
         const cutNote = el('span', 'muted', `Your cut: ${Math.round(tablet.data.cut * 100)}%`);
         labour.append(el('span', '', 'Labour $'), input, cutNote);
         box.appendChild(labour);
-        row('Total', money(order.parts + (order.labour || 0)), true);
+        row('Total', money(order.parts + (Number(input.value) || 0)), true);
         input.addEventListener('input', () => {
             const total = box.querySelector('.money-row.big strong');
             if (total) total.textContent = money(order.parts + (Number(input.value) || 0));
@@ -301,14 +301,139 @@ function cancelButton(order) {
     return btn;
 }
 
+/* Boss: price list editor */
+function renderPrices() {
+    const box = $('pricePanel');
+    box.textContent = '';
+    const sheet = tablet.prices;
+    if (!sheet) { box.appendChild(el('p', 'empty', 'Loading prices…')); return; }
+    const draft = tablet.priceDraft;
+    const std = sheet.defaults;
+    const lo = sheet.limits.min, hi = sheet.limits.max;
+
+    box.append(el('p', 'eyebrow', sheet.shopLabel), el('h2', '', 'Shop prices'));
+    box.appendChild(el('p', 'muted', `Prices can go from ${Math.round(lo * 100)}% to ${Math.round(hi * 100)}% of standard. Self-service LS Customs charges 150% of standard, so stay under that to win customers.`));
+
+    const field = (label, value, standard, onInput, note) => {
+        const wrap = el('label', `price-field${value !== standard ? ' changed' : ''}`);
+        const input = el('input', 'price-input');
+        input.type = 'number';
+        input.min = '0';
+        input.step = '50';
+        input.value = String(value);
+        input.addEventListener('input', () => {
+            onInput(Number(input.value));
+            wrap.classList.toggle('changed', Number(input.value) !== standard);
+        });
+        wrap.append(el('span', '', label), input, el('small', '', note || `Standard ${money(standard)}`));
+        return wrap;
+    };
+
+    box.appendChild(el('h3', '', 'Labour'));
+    const labourGrid = el('div', 'price-grid');
+    labourGrid.appendChild(field('Suggested labour per part', draft.labourPerPart, std.labourPerPart,
+        (v) => { draft.labourPerPart = v; }, `Fills in the quote box. Max ${money(sheet.maxLabour)}`));
+    box.appendChild(labourGrid);
+
+    box.appendChild(el('h3', '', 'Parts'));
+    const partGrid = el('div', 'price-grid');
+    [['cosmetic', 'Body part, wheels, lights, extras'], ['color', 'Paint colour'], ['turbo', 'Turbo']].forEach(([key, label]) => {
+        partGrid.appendChild(field(label, draft[key], std[key], (v) => { draft[key] = v; }));
+    });
+    box.appendChild(partGrid);
+
+    box.appendChild(el('h3', '', 'Upgrades'));
+    const table = el('table', 'price-table');
+    const most = Math.max(...sheet.levelOrder.map((k) => std.levels[k].length - 1));
+    const head = el('tr');
+    head.appendChild(el('th', '', 'Part'));
+    for (let i = 1; i <= most; i++) head.appendChild(el('th', '', `Level ${i}`));
+    table.appendChild(head);
+    sheet.levelOrder.forEach((key) => {
+        const tr = el('tr');
+        tr.appendChild(el('td', '', sheet.levelLabels[key] || key));
+        for (let i = 1; i <= most; i++) {
+            const td = el('td');
+            if (i < std.levels[key].length) {
+                const input = el('input');
+                input.type = 'number';
+                input.min = '0';
+                input.step = '50';
+                input.value = String(draft.levels[key][i]);
+                input.title = `Standard ${money(std.levels[key][i])}`;
+                input.classList.toggle('changed', draft.levels[key][i] !== std.levels[key][i]);
+                input.addEventListener('input', () => {
+                    draft.levels[key][i] = Number(input.value);
+                    input.classList.toggle('changed', Number(input.value) !== std.levels[key][i]);
+                });
+                td.appendChild(input);
+            }
+            tr.appendChild(td);
+        }
+        table.appendChild(tr);
+    });
+    box.appendChild(table);
+
+    const actions = el('div', 'detail-actions');
+    const save = el('button', 'btn primary', 'Save prices');
+    save.addEventListener('click', () => savePrices(draft));
+    const reset = el('button', 'btn ghost', tablet.confirmReset ? 'Click again to reset' : 'Reset to standard');
+    reset.addEventListener('click', () => {
+        if (!tablet.confirmReset) { tablet.confirmReset = true; renderPrices(); return; }
+        tablet.confirmReset = false;
+        savePrices(null);
+    });
+    actions.append(save, reset);
+    box.appendChild(actions);
+    if (tablet.feedback) box.appendChild(el('p', 'feedback', tablet.feedback));
+}
+
+function setPriceSheet(sheet) {
+    tablet.prices = sheet;
+    tablet.priceDraft = sheet ? JSON.parse(JSON.stringify(sheet.prices)) : null;
+}
+
+async function savePrices(prices) {
+    const result = await post('savePrices', { shop: tablet.prices.shop, prices });
+    tablet.feedback = result ? result.message || '' : '';
+    if (result && result.ok && result.sheet) setPriceSheet(result.sheet);
+    renderPrices();
+}
+
 function renderTablet() {
+    const data = tablet.data || {};
+    if (!data.isBoss && tablet.view === 'prices') tablet.view = 'open';
+    $('pricesTab').hidden = !data.isBoss;
+    const duty = $('dutyBtn');
+    duty.textContent = data.offDuty ? 'Clock in' : 'Clock out';
+    duty.classList.toggle('off', !!data.offDuty);
     document.querySelectorAll('.tab-btn').forEach((b) => b.classList.toggle('active', b.dataset.view === tablet.view));
-    renderOrderList();
-    renderDetail();
+
+    const prices = tablet.view === 'prices';
+    const offDuty = !prices && data.offDuty;
+    $('pricePanel').hidden = !prices;
+    $('offDuty').hidden = !offDuty;
+    $('orderList').hidden = prices || offDuty;
+    $('orderDetail').hidden = prices || offDuty;
+    if (prices) renderPrices();
+    else if (!offDuty) { renderOrderList(); renderDetail(); }
+}
+
+async function toggleDuty() {
+    const data = await post('setDuty', { onDuty: !!(tablet.data && tablet.data.offDuty) });
+    if (data) {
+        tablet.data = data;
+        if (tablet.view !== 'prices') {
+            const list = orders();
+            tablet.selected = list[0] ? list[0].id : null;
+        }
+        renderTablet();
+    }
 }
 
 function openTablet(data) {
     tablet.data = data;
+    tablet.prices = null;
     tablet.view = 'open';
     tablet.selected = data.open && data.open[0] ? data.open[0].id : null;
     tablet.feedback = '';
@@ -316,8 +441,17 @@ function openTablet(data) {
     renderTablet();
 }
 
-document.querySelectorAll('.tab-btn').forEach((btn) => btn.addEventListener('click', () => {
+document.querySelectorAll('.tab-btn').forEach((btn) => btn.addEventListener('click', async () => {
     tablet.view = btn.dataset.view;
+    tablet.feedback = '';
+    tablet.confirmReset = false;
+    if (tablet.view === 'prices') {
+        renderTablet();
+        const sheet = await post('getPrices', {});
+        if (sheet) setPriceSheet(sheet);
+        renderTablet();
+        return;
+    }
     const list = orders();
     tablet.selected = list[0] ? list[0].id : null;
     tablet.feedback = '';
@@ -332,6 +466,7 @@ document.addEventListener('click', async (e) => {
     if (action === 'submitDesign') submitDesign();
     else if (action === 'cancelDesign') post('cancelDesign');
     else if (action === 'closeTablet') post('closeTablet');
+    else if (action === 'toggleDuty') toggleDuty();
     else if (action === 'refresh') {
         const data = await post('refresh');
         if (data) { tablet.data = data; renderTablet(); }
@@ -394,3 +529,18 @@ if (params.has('tablet')) {
         recent: [],
     });
 }
+if (params.has('prices')) {
+    const lv = (a) => a.slice();
+    const defaults = { cosmetic: 500, color: 1000, turbo: 10000, labourPerPart: 500, levels: {
+        modEngine: [0, 10000, 20000, 30000, 40000], modBrakes: [0, 2500, 5000, 7500], modTransmission: [0, 5000, 10000, 15000, 20000],
+        modSuspension: [0, 3000, 6000, 9000, 12000, 15000], modArmor: [0, 2500, 5000, 7500, 10000, 12500] } };
+    const prices = JSON.parse(JSON.stringify(defaults));
+    prices.levels.modEngine = lv([0, 9000, 18000, 30000, 40000]);
+    openTablet({ isBoss: true, open: [], recent: [], maxLabour: 25000, cut: 0.4 });
+    tablet.view = 'prices';
+    setPriceSheet({ shop: 'vinewood', shopLabel: 'Highcrest Motorworks', prices, defaults, limits: { min: 0.5, max: 3 }, maxLabour: 25000,
+        levelOrder: ['modEngine', 'modBrakes', 'modTransmission', 'modSuspension', 'modArmor'],
+        levelLabels: { modEngine: 'Engine', modBrakes: 'Brakes', modTransmission: 'Transmission', modSuspension: 'Suspension', modArmor: 'Armour' } });
+    renderTablet();
+}
+if (params.has('offduty')) openTablet({ offDuty: true, isBoss: true, open: [], recent: [], maxLabour: 25000, cut: 0.4 });

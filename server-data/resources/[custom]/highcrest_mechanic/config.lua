@@ -20,7 +20,14 @@ Config.shops = {
 Config.mechanicCut = 0.40   -- the mechanic's share of the labour fee
 Config.maxLabour = 25000    -- highest labour fee a mechanic can charge on one order
 
--- Base part prices (self-service LS Customs charges 50% more).
+-- Suggested labour per part; it fills in the quote box and the mechanic can change it.
+Config.labourPerPart = 500
+
+-- How far a shop boss can move each price on the tablet, as multiples of the standard price.
+Config.priceLimits = { min = 0.5, max = 3.0 }
+
+-- Standard part prices. Each shop's boss can change them on the tablet (Prices tab).
+-- Self-service LS Customs charges 50% more than these (qbx_customs config).
 Config.prices = {
     cosmetic = 500,
     color = 1000,

@@ -56,7 +56,9 @@
                 <div class="tablet-tabs">
                     <button class="tab-btn active" data-view="open">Open</button>
                     <button class="tab-btn" data-view="recent">Recent</button>
+                    <button class="tab-btn" data-view="prices" id="pricesTab" hidden>Prices</button>
                 </div>
+                <button class="duty-btn" id="dutyBtn" data-action="toggleDuty">Clock out</button>
                 <button class="icon-btn" data-action="refresh" title="Refresh">↻</button>
                 <button class="icon-btn" data-action="closeTablet" title="Close">✕</button>
             </header>
@@ -65,6 +67,12 @@
                 <ul id="orderList" class="order-list"></ul>
                 <section id="orderDetail" class="order-detail">
                     <p class="empty">Select an order.</p>
+                </section>
+                <section id="pricePanel" class="price-panel" hidden></section>
+                <section id="offDuty" class="off-duty" hidden>
+                    <h2>You're clocked out</h2>
+                    <p class="muted">Clock in to see work orders and get paid for jobs.</p>
+                    <button class="btn primary" data-action="toggleDuty">Clock in</button>
                 </section>
             </div>
         </div>
