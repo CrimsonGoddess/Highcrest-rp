@@ -1,5 +1,6 @@
 # Highcrest RP changelog
 
+Posted to Discord. Newest first.
 ## 2026-11-11
 
 - Added Peuren Gruppe Sechs, a legal security job: run ATM, bank and vault cash routes and rank up (start at the Gruppe 6 HQ in Pillbox Hill)
@@ -8,7 +9,6 @@
 - Added Custom pause menu (Esc) with your character info, players online, server rules, staff list and quick Map, Settings and Discord buttons
 - Changed loading screen to a Custom animated design with light beams, embers and gameplay tips
 
-Posted to Discord. Newest first.
 
 ## 2026-11-08 (third update)
 
