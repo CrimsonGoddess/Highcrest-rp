@@ -690,7 +690,11 @@ CreateThread(function()
                 showSeatbelt = false
             end
             if cache.vehicle and not IsThisModelABicycle(cache.vehicle) then
-                if not wasInVehicle then
+                -- Highcrest: nobody is inside a house shell while in a car, so clear a stuck flag,
+                -- and keep the minimap on every tick (it used to switch on only once, on entry).
+                if LocalPlayer.state.hcHideMap then LocalPlayer.state:set('hcHideMap', false, false) end
+                if not sharedConfig.menu.isCineamticModeChecked and not sharedConfig.menu.isHideMapChecked
+                    and (IsRadarHidden() or not IsRadarEnabled()) then
                     showRadar(true)
                 end
                 wasInVehicle = true

@@ -185,8 +185,27 @@ RegisterNUICallback('cancelDesign', function(_, cb)
     endDesign()
 end)
 
--- Design bay zones.
+-- Design bay zones, with a shop blip and a ground marker so customers can find the bay.
 for shopId, shop in pairs(Config.shops) do
+    local blip = AddBlipForCoord(shop.bay.x, shop.bay.y, shop.bay.z)
+    SetBlipSprite(blip, 446)
+    SetBlipColour(blip, 47)
+    SetBlipScale(blip, 0.8)
+    SetBlipAsShortRange(blip, true)
+    BeginTextCommandSetBlipName('STRING')
+    AddTextComponentSubstringPlayerName(shop.label)
+    EndTextCommandSetBlipName(blip)
+
+    lib.points.new({
+        coords = shop.bay.xyz,
+        distance = 40.0,
+        nearby = function()
+            if design then return end
+            DrawMarker(1, shop.bay.x, shop.bay.y, shop.bay.z - 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                shop.bayRadius * 1.6, shop.bayRadius * 1.6, 0.6, 225, 60, 60, 90, false, false, 2, false, nil, nil, false)
+        end,
+    })
+
     lib.zones.sphere({
         coords = shop.bay.xyz,
         radius = shop.bayRadius,

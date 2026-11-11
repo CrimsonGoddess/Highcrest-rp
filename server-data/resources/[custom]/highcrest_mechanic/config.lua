@@ -9,7 +9,7 @@ Config.shops = {
     vinewood = {
         label = 'Highcrest Motorworks',
         bay = vec4(-340.95, -128.24, 39.0, 160.0), -- LS Customs Vinewood, first bay
-        bayRadius = 3.5,
+        bayRadius = 5.0,
         business = nil,
     },
 }
