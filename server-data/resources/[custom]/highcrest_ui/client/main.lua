@@ -108,3 +108,14 @@ CreateThread(function()
         Wait(0)
     end
 end)
+
+-- Shooting from vehicles: make sure drive-bys are allowed whenever the player gets in a car
+-- (some locked scripts can turn it off). GTA itself only lets the driver use one-handed guns.
+local function allowDriveBy()
+    SetPlayerCanDoDriveBy(cache.playerId, true)
+end
+
+lib.onCache('vehicle', function(vehicle)
+    if vehicle then SetTimeout(500, allowDriveBy) end
+end)
+allowDriveBy()
