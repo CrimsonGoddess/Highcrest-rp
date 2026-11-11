@@ -8,8 +8,10 @@ Config.job = 'mechanic'
 Config.shops = {
     vinewood = {
         label = 'Highcrest Motorworks',
-        bay = vec4(-340.95, -128.24, 39.0, 160.0), -- LS Customs Vinewood, first bay
-        bayRadius = 5.0,
+        -- LS Customs Vinewood, middle of the floor. Keep clear of qbx_mechanicjob's lifts
+        -- (-340.95 -128.24 and -327.91 -144.34) and exit box, or its prompt hides ours.
+        bay = vec4(-333.0, -136.0, 38.9, 160.0),
+        bayRadius = 4.0,
         business = nil,
     },
 }
