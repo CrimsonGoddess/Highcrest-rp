@@ -144,7 +144,12 @@ Config.Events = { -- Events for approving broadcasts / interactions (due to popu
         end
         cb()
     end,    
-    Broadcast = function(source, data, cb)  -- cb() to approve. 
-        cb()
+    Broadcast = function(source, data, cb)  -- cb() to approve.
+        -- Highcrest: a broadcast plays on every TV in the city, so only the news job and admins
+        -- can start one. Anyone may stop their own (data is nil then).
+        if data == nil or IsPlayerAceAllowed(source, 'admin') then return cb() end
+        local player = exports.qbx_core:GetPlayer(source)
+        if player and player.PlayerData.job.name == 'reporter' then return cb() end
+        TriggerClientEvent('ox_lib:notify', source, { description = 'Only Weazel News can broadcast to TVs.', type = 'error' })
     end,
 }
