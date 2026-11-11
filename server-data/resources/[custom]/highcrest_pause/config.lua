@@ -36,6 +36,8 @@ Config.staff = {
     { name = 'Crimson', role = 'Owner', discord = '203335774895079425' },
     { name = 'Slug', role = 'Management', discord = '527137345619755018' },
     { name = 'Gina', role = 'Management', discord = '246682979244441601' },
+    { name = 'Gracie', role = 'Admin', discord = '429060029342154772' },
+    { name = 'Ash', role = 'Admin', discord = '733120302489534474' },
 }
 
 -- The message shown to a player who leaves with the Disconnect button.
