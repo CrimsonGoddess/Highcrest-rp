@@ -35,19 +35,21 @@ PawnShop = {
         PawnShop.data = json.decode(file)
 
         if not PawnShop.data then PawnShop.data = {} end
+
+        -- Highcrest: keep only the dealers and items in Config.PawnShop. The shipped pawnshop.json
+        -- held the author's test items (stolentv, gold_chain...), which showed as NO_LABEL.
+        local saved = PawnShop.data
+        PawnShop.data = {}
         for k, v in pairs(Config.PawnShop) do
-            if not PawnShop.data[k] then
-                PawnShop.data[k] = {}
-            end
+            PawnShop.data[k] = {}
 
             for _, iData in pairs(v.Sell) do
-                if not PawnShop.data[k][iData.name] then
-                    PawnShop.data[k][iData.name] = {
-                        sales = {},
-                        item = iData.name,
-                        price = math.floor((iData.min + iData.max) / 2)
-                    }
-                end
+                local old = saved[k] and saved[k][iData.name]
+                PawnShop.data[k][iData.name] = old or {
+                    sales = {},
+                    item = iData.name,
+                    price = math.floor((iData.min + iData.max) / 2)
+                }
             end
         end
 
