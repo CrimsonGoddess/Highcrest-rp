@@ -33,9 +33,9 @@ Config.rules = {
 -- Create the bot at discord.com/developers/applications → New Application → Bot → Reset Token.
 -- The bot doesn't need to join the Discord server or have any permissions.
 Config.staff = {
-    { name = 'Crimson', role = 'Owner', discord = '' },
-    { name = 'Slug', role = 'Management', discord = '' },
-    { name = 'Gina', role = 'Management', discord = '' },
+    { name = 'Crimson', role = 'Owner', discord = '203335774895079425' },
+    { name = 'Slug', role = 'Management', discord = '527137345619755018' },
+    { name = 'Gina', role = 'Management', discord = '246682979244441601' },
 }
 
 -- The message shown to a player who leaves with the Disconnect button.
