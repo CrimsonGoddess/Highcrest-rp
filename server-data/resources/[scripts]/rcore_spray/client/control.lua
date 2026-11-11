@@ -122,6 +122,10 @@ function PersistSpray()
         local canPos = vector3(0.072, 0.041, -0.06)
         local canRot = vector3(33.0, 38.0, 0.0)
     
+        -- Highcrest: load the model first, or CreateObject returns 0 and attaching it errors.
+        RequestModel(`ng_proc_spraycan01b`)
+        local modelTimeout = GetGameTimer() + 3000
+        while not HasModelLoaded(`ng_proc_spraycan01b`) and GetGameTimer() < modelTimeout do Wait(0) end
         local canObj = CreateObject(
             `ng_proc_spraycan01b`,
             0.0, 0.0, 0.0,

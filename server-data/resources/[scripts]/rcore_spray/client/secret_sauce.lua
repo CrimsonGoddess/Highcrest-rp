@@ -37,7 +37,21 @@ function GetRotationThruCamera(sprayLocation, sprayRotation, sprayScale)
     
     -- For advanced rendering: Create a temporary object to calculate precise positioning
     -- Using prop_weed_02 as a placeholder object (hash: 974883178)
-    local tempObject = CreateObject(974883178, sprayLocation.x, sprayLocation.y, sprayLocation.z, false, false, false)
+    -- Highcrest: the model must be loaded first, or CreateObject returns 0 and every call
+    -- below fails with "invalid handle", so no spray ever gets a position.
+    local helperModel = `prop_weed_02` -- any small vanilla prop works; it's invisible and deleted right away
+    RequestModel(helperModel)
+    local timeout = GetGameTimer() + 3000
+    while not HasModelLoaded(helperModel) and GetGameTimer() < timeout do
+        Citizen.Wait(0)
+    end
+    local tempObject = CreateObject(helperModel, sprayLocation.x, sprayLocation.y, sprayLocation.z, false, false, false)
+    SetModelAsNoLongerNeeded(helperModel)
+    if tempObject == 0 then
+        return sprayLocation, cameraRotation
+    end
+    SetEntityVisible(tempObject, false, false)
+    SetEntityCollision(tempObject, false, false)
     
     -- Position and rotate the object at the spray location
     SetEntityCoords(tempObject, sprayLocation.x, sprayLocation.y, sprayLocation.z, false, false, false, true)

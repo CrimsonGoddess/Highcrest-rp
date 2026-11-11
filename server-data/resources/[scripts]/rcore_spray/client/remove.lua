@@ -69,6 +69,10 @@ end)
 ]]
 function CreateSprayRemoveProp(ped)
     -- Create the rag prop object
+    -- Highcrest: load the model first, or CreateObject returns 0 and attaching it errors.
+    RequestModel(`p_loose_rag_01_s`)
+    local modelTimeout = GetGameTimer() + 3000
+    while not HasModelLoaded(`p_loose_rag_01_s`) and GetGameTimer() < modelTimeout do Citizen.Wait(0) end
     local ragProp = CreateObject(
         `p_loose_rag_01_s`,
         0.0, 0.0, 0.0,
