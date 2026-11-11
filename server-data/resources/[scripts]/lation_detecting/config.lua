@@ -516,7 +516,7 @@ Config.Shovel = {
     -- Do you want to offer this shovel for sale in one of the shops?
     -- If so, set addToShop to: 'sellShop' or 'detectors'
     -- If you don't want it to be sold, set addToShop to nil or false
-    addToShop = 'sellShop',
+    addToShop = 'detectors', -- Highcrest: sold with the detectors at the beach (was 'sellShop')
     -- How much the shovel costs if purchasable from a shop above
     price = 250,
     -- Do you want to require a shovel to dig when metal detecting?
