@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Highcrest handling for base-game (GTA) cars.
+
+  How to add a car:
+  1. Tune it in game with /handlingeditor and export.
+  2. Paste the exported <Item type="CHandlingData"> ... </Item> block below, between
+     <HandlingData> and </HandlingData>. One block per car.
+  3. The <handlingName> must match the car's handling name (usually its model name in
+     capitals, e.g. SULTAN, ELEGY2, KURUMA).
+  4. Upload, restart the server, and players fully reopen FiveM.
+
+  Add-on cars (their own resource folder) keep their handling in their own handling.meta:
+  replace that car's <Item> there instead of adding it here.
+-->
+<CHandlingDataMgr>
+  <HandlingData>
+
+  </HandlingData>
+</CHandlingDataMgr>
