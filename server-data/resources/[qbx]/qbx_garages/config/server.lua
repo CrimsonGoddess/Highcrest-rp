@@ -96,6 +96,23 @@ return {
                 }
             },
         },
+        -- Highcrest: outside Highcrest Motorworks (LS Customs Vinewood), so customers can pull
+        -- their car for the design bay. Kept clear of qbx_mechanicjob's work-vehicle spot (-370.51 -107.88).
+        motorworks = {
+            label = 'Motorworks Parking',
+            vehicleType = VehicleType.CAR,
+            accessPoints = {
+                {
+                    blip = {
+                        name = 'Public Parking',
+                        sprite = 357,
+                        color = 3,
+                    },
+                    coords = vec4(-358.0, -112.0, 38.7, 250.0),
+                    spawn = vec4(-363.5, -116.0, 38.4, 72.0),
+                }
+            },
+        },
         caears24 = {
             label = 'Caears 24 Parking',
             vehicleType = VehicleType.CAR,
