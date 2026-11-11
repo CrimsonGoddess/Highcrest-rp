@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Highcrest Mechanic</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Customer: design a build with a live preview on the car. -->
+    <div id="design" class="design" hidden>
+        <div id="dragArea" class="drag-area" title="Drag to look around, scroll to zoom"></div>
+
+        <aside class="panel">
+            <header class="panel-head">
+                <p class="eyebrow" id="shopName">Highcrest Motorworks</p>
+                <h1 id="carName">Vehicle</h1>
+                <p class="plate" id="carPlate">PLATE</p>
+            </header>
+
+            <nav id="tabs" class="tabs"></nav>
+            <div id="items" class="items"></div>
+
+            <footer class="summary">
+                <div class="summary-head">
+                    <span>Your build</span>
+                    <span id="changeCount" class="muted">No changes yet</span>
+                </div>
+                <ul id="changes" class="changes"></ul>
+                <div class="total">
+                    <span>Parts</span>
+                    <strong id="partsTotal">$0</strong>
+                </div>
+                <p class="note">A mechanic adds their labour fee. You approve the full price before any work starts.</p>
+                <p id="designMessage" class="message" hidden></p>
+                <div class="actions">
+                    <button class="btn ghost" data-action="cancelDesign">Cancel</button>
+                    <button class="btn primary" id="submitBtn" data-action="submitDesign" disabled>Send to mechanics</button>
+                </div>
+            </footer>
+        </aside>
+
+        <p class="hint"><kbd>Drag</kbd> look around · <kbd>Scroll</kbd> zoom · <kbd>Esc</kbd> cancel</p>
+    </div>
+
+    <!-- Mechanic: order tablet. -->
+    <div id="tablet" class="tablet-wrap" hidden>
+        <div class="tablet">
+            <header class="tablet-head">
+                <div class="brand">
+                    <span class="brand-mark">HC</span>
+                    <div>
+                        <p class="eyebrow">Mechanic tablet</p>
+                        <h1>Work orders</h1>
+                    </div>
+                </div>
+                <div class="tablet-tabs">
+                    <button class="tab-btn active" data-view="open">Open</button>
+                    <button class="tab-btn" data-view="recent">Recent</button>
+                </div>
+                <button class="icon-btn" data-action="refresh" title="Refresh">↻</button>
+                <button class="icon-btn" data-action="closeTablet" title="Close">✕</button>
+            </header>
+
+            <div class="tablet-body">
+                <ul id="orderList" class="order-list"></ul>
+                <section id="orderDetail" class="order-detail">
+                    <p class="empty">Select an order.</p>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

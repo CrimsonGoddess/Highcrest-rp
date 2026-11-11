@@ -16,6 +16,7 @@ local FILES = {
     '011_peuren_chopshop.sql',
     '012_lation_detecting.sql',
     '013_pug_cokebusiness.sql',
+    '014_highcrest_mechanic.sql',
 }
 
 local function statements(sql)

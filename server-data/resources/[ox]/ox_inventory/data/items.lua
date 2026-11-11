@@ -924,6 +924,7 @@ return {
     ['engine'] = { label = 'Car Engine', weight = 25000, stack = true, close = true },
     ['wheel'] = { label = 'Car Wheel', weight = 6000, stack = true, close = true },
     ['toolbox'] = { label = 'Toolbox', weight = 2000, stack = true, close = true, description = 'For taking cars apart.' },
+    ['mechanic_tablet'] = { label = 'Mechanic Tablet', weight = 500, stack = false, close = true, description = 'Work orders for Highcrest Motorworks.', client = { image = 'tablet.png', export = 'highcrest_mechanic.openTablet' } }, -- Highcrest
 
     -- peuren_gruppe6: Gruppe Sechs cash runs
     ['money_bag'] = { label = 'Money Bag', weight = 250, stack = true, close = true, description = 'Gruppe Sechs money bag.' },

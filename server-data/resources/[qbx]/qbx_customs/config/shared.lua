@@ -22,21 +22,8 @@ return {
         --         }
         --     },
         -- Default GTA 5 Customs and Benny's Locations
-        {
-            hideBlip = false,
-            blip = {
-                sprite = 72,
-                color = 3,
-                scale = 0.8,
-                label = 'Los Santos Customs - Vinewood',
-            },
-            points = {
-                vec3(-344.36, -121.92, 38.60),
-                vec3(-319.43, -130.65, 38.60),
-                vec3(-324.77, -147.93, 38.60),
-                vec3(-348.59, -139.1, 38.60),
-            }
-        },
+        -- Highcrest: LS Customs Vinewood is the mechanic shop (Highcrest Motorworks, highcrest_mechanic),
+        -- so it has no self-service menu.
         {
             hideBlip = false,
             blip = {
@@ -119,12 +106,13 @@ return {
     },
 
     prices = {
-        ['cosmetic'] = 500,
-        ['colors'] = 1000,
-        [11] = { 0, 10000, 20000, 30000, 40000 },     -- Engine
-        [12] = { 0, 2500, 5000, 7500 },               -- Brakes
-        [13] = { 0, 5000, 10000, 15000, 20000 },      -- Transmission
-        [15] = { 0, 3000, 6000, 9000, 12000, 15000 }, -- Suspension
-        [18] = 10000                                  -- Turbo
+        -- Highcrest: self-service costs 50% more than a mechanic's parts price (highcrest_mechanic).
+        ['cosmetic'] = 750,
+        ['colors'] = 1500,
+        [11] = { 0, 15000, 30000, 45000, 60000 },     -- Engine
+        [12] = { 0, 3750, 7500, 11250 },              -- Brakes
+        [13] = { 0, 7500, 15000, 22500, 30000 },      -- Transmission
+        [15] = { 0, 4500, 9000, 13500, 18000, 22500 }, -- Suspension
+        [18] = 15000                                  -- Turbo
     }
 }
