@@ -9,7 +9,6 @@ Posted to Discord. Newest first.
 - Added Custom pause menu (Esc) with your character info, players online, server rules, staff list and quick Map, Settings and Discord buttons
 - Changed loading screen to a Custom animated design with light beams, embers and gameplay tips
 
-
 ## 2026-11-08 (third update)
 
 - Added GN Medical Center map with a new Pillbox Hospital, Central Los Santos Medical and ambulance garages
