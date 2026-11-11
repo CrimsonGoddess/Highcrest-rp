@@ -12,6 +12,8 @@ return {
     doorsLocked = true, -- If true, the doors will be locked upon taking the vehicle out.
     distanceCheck = 5.0, -- The distance that needs to bee clear to let the vehicle spawn, this prevents vehicles stacking on top of each other
     calculateImpoundFee = require 'server.default-calculate-impound-fee',
+    transferFee = 2000,  -- Highcrest: bring a car parked at another garage to this one
+    recoverFee = 10000,  -- Highcrest: bring back a car that's out in the city
     logging = {
         webhook = {
             error = nil,

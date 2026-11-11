@@ -198,10 +198,111 @@ local function displayVehicleInfo(vehicle, garageName, garageInfo, accessPoint)
     lib.showContext('vehicleList')
 end
 
+-- Highcrest: every (non-impound) garage lists all your cars and where they are.
+local WHERE_TEXT = {
+    here = 'Parked here',
+    garage = 'At %s',
+    out = 'Out in the city',
+    impound = 'Impounded by police',
+}
+
+local function vehicleName(modelName)
+    local info = VEHICLES[modelName]
+    return info and ('%s %s'):format(info.brand, info.name) or modelName
+end
+
+local openAllVehiclesMenu
+
+local function bringAndTakeOut(vehicle, garageName, accessPoint)
+    if vehicle.fee and vehicle.fee > 0 then
+        local action = vehicle.where == 'out' and 'Recover' or 'Bring here'
+        local answer = lib.alertDialog({
+            header = ('%s %s?'):format(action, vehicleName(vehicle.modelName)),
+            content = vehicle.where == 'out'
+                and ('It\'s out in the city. Recovering it costs **$%s** and brings it here.'):format(lib.math.groupdigits(vehicle.fee))
+                or ('It\'s parked at %s. Bringing it here costs **$%s**.'):format(vehicle.garageLabel, lib.math.groupdigits(vehicle.fee)),
+            centered = true, cancel = true,
+            labels = { confirm = ('Pay $%s'):format(lib.math.groupdigits(vehicle.fee)) },
+        })
+        if answer ~= 'confirm' then return end
+    end
+    local ok, message = lib.callback.await('qbx_garages:server:hcBringHere', false, vehicle.id, garageName, accessPoint)
+    if not ok then
+        exports.qbx_core:Notify(message or 'Could not get that car.', 'error', 6000)
+        return
+    end
+    takeOutOfGarage(vehicle.id, garageName, accessPoint)
+end
+
+local function showVehicle(vehicle, garageName, garageInfo, accessPoint)
+    local props = vehicle.props or {}
+    local engine = qbx.math.round((props.engineHealth or 1000) / 10)
+    local body = qbx.math.round((props.bodyHealth or 1000) / 10)
+    local fuel = props.fuelLevel or 100
+    local where = WHERE_TEXT[vehicle.where]:format(vehicle.garageLabel or '')
+    local options = {
+        { title = where, description = ('Plate %s'):format(vehicle.plate), icon = 'location-dot', readOnly = true },
+        { title = locale('menu.body'), icon = 'car-side', readOnly = true, progress = body, colorScheme = getProgressColor(body) },
+        { title = locale('menu.engine'), icon = 'oil-can', readOnly = true, progress = engine, colorScheme = getProgressColor(engine) },
+        { title = locale('menu.fuel'), icon = 'gas-pump', readOnly = true, progress = fuel, colorScheme = getProgressColor(fuel) },
+    }
+    if vehicle.where == 'here' then
+        options[#options + 1] = { title = locale('menu.take_out'), icon = 'car-rear', arrow = true,
+            onSelect = function() bringAndTakeOut(vehicle, garageName, accessPoint) end }
+    elseif vehicle.where == 'garage' then
+        options[#options + 1] = { title = ('Bring it here · $%s'):format(lib.math.groupdigits(vehicle.fee)), icon = 'truck-arrow-right', arrow = true,
+            description = 'Moves it from the other garage and takes it out here.',
+            onSelect = function() bringAndTakeOut(vehicle, garageName, accessPoint) end }
+    elseif vehicle.where == 'out' then
+        if vehicle.occupied then
+            options[#options + 1] = { title = 'Someone is in this car right now', icon = 'user', readOnly = true }
+        else
+            options[#options + 1] = { title = ('Recover it · $%s'):format(lib.math.groupdigits(vehicle.fee)), icon = 'truck-pickup', arrow = true,
+                description = vehicle.inWorld and 'Brings it back from wherever it was left.' or 'Brings it back here.',
+                onSelect = function() bringAndTakeOut(vehicle, garageName, accessPoint) end }
+        end
+    else
+        options[#options + 1] = { title = 'Collect it at the impound lot', icon = 'building-shield', readOnly = true }
+    end
+    lib.registerContext({ id = 'hcVehicle', title = vehicleName(vehicle.modelName), menu = 'garageMenu', options = options })
+    lib.showContext('hcVehicle')
+end
+
+openAllVehiclesMenu = function(garageName, garageInfo, accessPoint)
+    local vehicles = lib.callback.await('qbx_garages:server:hcVehicles', false, garageName)
+    if not vehicles or not vehicles[1] then
+        exports.qbx_core:Notify(locale('error.no_vehicles'), 'error')
+        return
+    end
+    local order = { here = 1, garage = 2, out = 3, impound = 4 }
+    table.sort(vehicles, function(a, b)
+        if order[a.where] ~= order[b.where] then return order[a.where] < order[b.where] end
+        return vehicleName(a.modelName) < vehicleName(b.modelName)
+    end)
+    local options = {}
+    for _, vehicle in ipairs(vehicles) do
+        local where = WHERE_TEXT[vehicle.where]:format(vehicle.garageLabel or '')
+        local cost = (vehicle.fee and vehicle.fee > 0) and (' · $%s'):format(lib.math.groupdigits(vehicle.fee)) or ''
+        options[#options + 1] = {
+            title = vehicleName(vehicle.modelName),
+            description = ('%s · %s%s'):format(vehicle.plate, where, cost),
+            icon = vehicle.where == 'here' and 'square-parking' or (vehicle.where == 'out' and 'road' or (vehicle.where == 'impound' and 'building-shield' or 'warehouse')),
+            iconColor = vehicle.where == 'here' and '#2ecc71' or nil,
+            arrow = true,
+            onSelect = function() showVehicle(vehicle, garageName, garageInfo, accessPoint) end,
+        }
+    end
+    lib.registerContext({ id = 'garageMenu', title = garageInfo.label, options = options })
+    lib.showContext('garageMenu')
+end
+
 ---@param garageName string
 ---@param garageInfo GarageConfig
 ---@param accessPoint integer
 local function openGarageMenu(garageName, garageInfo, accessPoint)
+    if garageInfo.type ~= GarageType.DEPOT then
+        return openAllVehiclesMenu(garageName, garageInfo, accessPoint)
+    end
     ---@type PlayerVehicle[]?
     local vehicleEntities = lib.callback.await('qbx_garages:server:getGarageVehicles', false, garageName)
 
