@@ -250,22 +250,33 @@ function renderWork() {
     const box = $('items');
     const { order, fitting } = design.work;
     order.lines.forEach((line) => {
-        const card = el('button', `work-item${line.fitted ? ' fitted' : ''}${fitting === line.key ? ' fitting' : ''}`);
+        const mats = line.mats || [];
+        const short = !line.fitted && mats.some((m) => m.have < m.count);
+        const card = el('button', `work-item${line.fitted ? ' fitted' : ''}${fitting === line.key ? ' fitting' : ''}${short ? ' short' : ''}`);
         const text = el('div', 'work-text');
         text.append(el('span', 'label', line.label), el('span', 'value', line.value || ''));
-        const state = el('span', 'work-state', line.fitted ? 'Fitted' : (fitting === line.key ? 'Fitting…' : `${line.seconds}s · Fit`));
-        card.append(text, state);
-        if (fitting === line.key) {
+        if (!line.fitted && mats.length) {
+            const matsRow = el('span', 'mats');
+            mats.forEach((m) => matsRow.appendChild(el('span', m.have < m.count ? 'mat missing' : 'mat', `${m.label} ${m.count} (${m.have})`)));
+            text.appendChild(matsRow);
+        }
+        let stateText = `${line.seconds}s · Fit`;
+        if (line.fitted) stateText = 'Fitted';
+        else if (fitting === line.key) stateText = design.work.started ? 'Fitting…' : 'Getting to it…';
+        else if (short) stateText = 'Missing materials';
+        card.append(text, el('span', 'work-state', stateText));
+        if (fitting === line.key && design.work.started) {
             const bar = el('div', 'work-bar');
             const fill = el('div', 'work-fill');
             fill.style.animationDuration = `${design.work.seconds}s`;
             bar.appendChild(fill);
             card.appendChild(bar);
         }
-        card.disabled = line.fitted || !!fitting;
+        card.disabled = line.fitted || !!fitting || short;
         card.addEventListener('click', () => fitPart(line));
         box.appendChild(card);
     });
+    box.appendChild(el('p', 'note', 'Materials come from the shop stash. Numbers in brackets are what the stash has.'));
     if (design.work.message) box.appendChild(el('p', 'message', design.work.message));
 }
 
@@ -286,23 +297,35 @@ function renderWorkSummary() {
 async function fitPart(line) {
     if (line.fitted || design.work.fitting) return;
     design.work.message = '';
+    design.work.fitting = line.key;
+    design.work.started = false;
+    renderItems();
     const result = await post('fitPart', { key: line.key });
     if (!result || !result.ok) {
+        design.work.fitting = null;
         design.work.message = (result && result.message) || 'Could not start on that part.';
         renderItems();
         return;
     }
-    design.work.fitting = line.key;
-    design.work.seconds = result.seconds;
-    renderItems();
     renderSummary();
+}
+
+function partStarted(data) {
+    if (!design.work || design.work.fitting !== data.key) return;
+    design.work.started = true;
+    design.work.seconds = data.seconds;
+    renderItems();
 }
 
 function partDone(data) {
     if (!design.work) return;
     const line = design.work.order.lines.find((l) => l.key === data.key);
     if (line && data.ok) line.fitted = true;
+    if (data.stock) {
+        design.work.order.lines.forEach((l) => { if (data.stock[l.key]) l.mats = data.stock[l.key]; });
+    }
     design.work.fitting = null;
+    design.work.started = false;
     design.work.message = data.ok ? '' : (data.message || 'That part did not go on.');
     renderItems();
     renderSummary();
@@ -659,6 +682,7 @@ window.addEventListener('message', ({ data }) => {
     else if (data.action === 'updateItem') updateItem(data.item);
     else if (data.action === 'openWork') openWork(data);
     else if (data.action === 'partDone') partDone(data);
+    else if (data.action === 'partStarted') partStarted(data);
     else if (data.action === 'openTablet') openTablet(data.data);
     else if (data.action === 'closeTablet') $('tablet').hidden = true;
 });
@@ -709,12 +733,14 @@ if (params.has('work')) {
         shop: 'Highcrest Motorworks', vehicle: 'Sultan RS', plate: 'HC 1234',
         order: { id: 12, customer: 'Alex Mercer', parts: 33500, labour: 2000, customerOnline: true, lines: [
             { key: 'modEngine', label: 'Engine', value: 'Level 3', seconds: 8, fitted: true },
-            { key: 'color1', label: 'Primary colour', value: 'Hyper Magenta', seconds: 5 },
-            { key: 'windowTint', label: 'Window tint', value: 'Pure Black (not street legal)', seconds: 5 },
+            { key: 'color1', label: 'Primary colour', value: 'Hyper Magenta', seconds: 5, mats: [{ label: 'Automotive Paint', count: 3, have: 8 }] },
+            { key: 'windowTint', label: 'Window tint', value: 'Pure Black (not street legal)', seconds: 5, mats: [{ label: 'Glass', count: 3, have: 1 }, { label: 'Plastic', count: 1, have: 6 }] },
+            { key: 'modFrontWheels', label: 'Rims', value: 'Deep Five', seconds: 5, mats: [{ label: 'Aluminium', count: 4, have: 9 }, { label: 'Rubber', count: 4, have: 12 }] },
         ] },
     });
     design.work.fitting = 'color1';
     design.work.seconds = 5;
+    design.work.started = true;
     renderItems();
     renderSummary();
 }

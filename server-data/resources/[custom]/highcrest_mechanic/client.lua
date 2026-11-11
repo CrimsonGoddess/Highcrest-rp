@@ -162,6 +162,15 @@ local function applyPreview()
     lib.setVehicleProperties(design.vehicle, props)
 end
 
+local workProp
+
+local function stopWorking()
+    ClearPedTasks(cache.ped)
+    if workProp and DoesEntityExist(workProp) then DeleteEntity(workProp) end
+    workProp = nil
+end
+
+
 local function endDesign()
     if not design then return end
     local d = design
@@ -172,6 +181,7 @@ local function endDesign()
         SetVehicleDoorShut(d.vehicle, 4, false)
         FreezeEntityPosition(d.vehicle, false)
     end
+    stopWorking()
     RenderScriptCams(false, true, 700, true, false)
     DestroyCam(d.cam, false)
     SetNuiFocus(false, false)
@@ -283,6 +293,63 @@ for _, tab in ipairs(Config.catalogue) do
     for _, item in ipairs(tab.items) do tabOf[item.key] = tab.id end
 end
 
+-- Where the mechanic stands and what they do for each kind of part.
+local WORK_ANIMS = {
+    performance = { spot = 'front', dict = 'mini@repair', clip = 'fixing_a_player' },
+    lights = { spot = 'front', dict = 'mini@repair', clip = 'fixing_a_ped' },
+    wheels = { spot = 'wheel', dict = 'anim@amb@clubhouse@tutorial@bkr_tut_ig3@', clip = 'machinic_loop_mechandplayer' },
+    body = { spot = 'side', scenario = 'WORLD_HUMAN_WELDING' },
+    paint = { spot = 'side', dict = 'switch@franklin@lamar_tagging_wall', clip = 'lamar_tagging_wall_loop_lamar', prop = 'prop_cs_spray_can' },
+    extras = { spot = 'rear', dict = 'mini@repair', clip = 'fixing_a_ped' },
+}
+
+-- Get out, walk to the part and start working on it.
+local function goToWork(vehicle, tab)
+    local anim = WORK_ANIMS[tab] or WORK_ANIMS.body
+    local ped = cache.ped
+    if IsPedInVehicle(ped, vehicle, false) then
+        TaskLeaveVehicle(ped, vehicle, 0)
+        local timeout = GetGameTimer() + 3500
+        while IsPedInVehicle(ped, vehicle, false) and GetGameTimer() < timeout do Wait(100) end
+        Wait(400)
+    end
+
+    local min, max = GetModelDimensions(GetEntityModel(vehicle))
+    local stand, look
+    if anim.spot == 'front' then
+        stand, look = vec3(0.0, max.y + 0.55, 0.0), vec3(0.0, max.y - 0.4, 0.0)
+    elseif anim.spot == 'rear' then
+        stand, look = vec3(0.0, min.y - 0.55, 0.0), vec3(0.0, min.y + 0.4, 0.0)
+    elseif anim.spot == 'wheel' then
+        stand, look = vec3(min.x - 0.45, max.y * 0.62, 0.0), vec3(min.x + 0.2, max.y * 0.62, 0.0)
+    else
+        stand, look = vec3(min.x - 0.75, 0.0, 0.0), vec3(0.0, 0.0, 0.0)
+    end
+    local standAt = GetOffsetFromEntityInWorldCoords(vehicle, stand.x, stand.y, stand.z)
+    local lookAt = GetOffsetFromEntityInWorldCoords(vehicle, look.x, look.y, look.z)
+    local heading = GetHeadingFromVector_2d(lookAt.x - standAt.x, lookAt.y - standAt.y)
+
+    TaskGoStraightToCoord(ped, standAt.x, standAt.y, standAt.z, 1.0, 6000, heading, 0.2)
+    local timeout = GetGameTimer() + 6000
+    while #(GetEntityCoords(ped).xy - standAt.xy) > 0.45 and GetGameTimer() < timeout do Wait(100) end
+    SetEntityHeading(ped, heading)
+
+    if anim.scenario then
+        TaskStartScenarioInPlace(ped, anim.scenario, 0, true)
+    else
+        lib.requestAnimDict(anim.dict)
+        TaskPlayAnim(ped, anim.dict, anim.clip, 3.0, 3.0, -1, 1, 0, false, false, false)
+        RemoveAnimDict(anim.dict)
+        if anim.prop then
+            lib.requestModel(anim.prop)
+            local pos = GetEntityCoords(ped)
+            workProp = CreateObject(joaat(anim.prop), pos.x, pos.y, pos.z, true, true, false)
+            AttachEntityToEntity(workProp, ped, GetPedBoneIndex(ped, 57005), 0.11, 0.05, -0.06, 28.0, 30.0, 0.0, true, true, false, true, 1, true)
+            SetModelAsNoLongerNeeded(joaat(anim.prop))
+        end
+    end
+end
+
 RegisterNUICallback('fitPart', function(data, cb)
     if not design or design.mode ~= 'work' or design.busy or type(data) ~= 'table' then return cb({ ok = false }) end
     local d = design
@@ -291,15 +358,20 @@ RegisterNUICallback('fitPart', function(data, cb)
     if not ok then return cb({ ok = false, message = seconds }) end
 
     d.busy = true
-    cb({ ok = true, seconds = seconds })
-    local view = Config.workViews[tabOf[data.key] or 'body'] or Config.workViews.body
+    cb({ ok = true })
+    local tab = tabOf[data.key] or 'body'
+    local view = Config.workViews[tab] or Config.workViews.body
     glideCamera(view.angle, view.dist, view.height, 1000)
     if view.hood then SetVehicleDoorOpen(d.vehicle, 4, false, false) end
 
     CreateThread(function()
+        goToWork(d.vehicle, tab)
+        if design ~= d then return stopWorking() end
+        SendNUIMessage({ action = 'partStarted', key = data.key, seconds = seconds })
         Wait(seconds * 1000)
+        stopWorking()
         if design ~= d then return end
-        local done, props = lib.callback.await('highcrest_mechanic:fitPart', false, d.order.id, data.key, netId, 'finish')
+        local done, props, stock = lib.callback.await('highcrest_mechanic:fitPart', false, d.order.id, data.key, netId, 'finish')
         if view.hood then SetVehicleDoorShut(d.vehicle, 4, false) end
         d.busy = false
         if done then
@@ -309,7 +381,7 @@ RegisterNUICallback('fitPart', function(data, cb)
             applyPreview()
             PlaySoundFrontend(-1, 'PICK_UP', 'HUD_FRONTEND_DEFAULT_SOUNDSET', true)
         end
-        SendNUIMessage({ action = 'partDone', key = data.key, ok = done == true, message = not done and props or nil })
+        SendNUIMessage({ action = 'partDone', key = data.key, ok = done == true, message = not done and props or nil, stock = done and stock or nil })
     end)
 end)
 

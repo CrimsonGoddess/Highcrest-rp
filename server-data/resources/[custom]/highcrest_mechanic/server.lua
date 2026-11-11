@@ -264,6 +264,23 @@ local function vehicleNear(source, netId, plate, range)
     return entity
 end
 
+-- Materials for a part as a list for the menu, with how many the stash has.
+local function itemLabel(name)
+    local data = exports.ox_inventory:Items(name)
+    return data and data.label or name
+end
+
+local function materialList(stash, item, value)
+    local list, short = {}, false
+    for name, count in pairs(item and Config.materialsFor(item, value) or {}) do
+        local have = stash and exports.ox_inventory:GetItemCount(stash, name) or 0
+        if have < count then short = true end
+        list[#list + 1] = { name = name, label = itemLabel(name), count = count, have = have }
+    end
+    table.sort(list, function(a, b) return a.label < b.label end)
+    return list, short
+end
+
 -- Customer: may this car be designed here?
 lib.callback.register('highcrest_mechanic:canDesign', function(source, shopId, plate, netId)
     local player = getPlayer(source)
@@ -301,12 +318,15 @@ lib.callback.register('highcrest_mechanic:canDesign', function(source, shopId, p
                 readyAt = 0,
             }
             local lines = {}
+            local stash = shop.stash
             for _, line in ipairs(order.changes.lines or {}) do
                 local item = catalogue[line.key]
+                local raw = (order.changes.values or {})[line.key]
                 lines[#lines + 1] = {
                     key = line.key, label = line.label, value = line.value, price = line.price,
                     tab = item and item.tab, seconds = (item and item.tab == 'performance') and Config.installSeconds.performance or Config.installSeconds.default,
-                    raw = (order.changes.values or {})[line.key], fitted = work[order.id].fitted[line.key] == true,
+                    raw = raw, fitted = work[order.id].fitted[line.key] == true,
+                    mats = stash and materialList(stash, item, raw) or {},
                 }
             end
             return true, nil, nil, {
@@ -520,14 +540,37 @@ lib.callback.register('highcrest_mechanic:fitPart', function(source, id, key, ne
     local item = catalogue[key]
     local seconds = (item and item.tab == 'performance') and Config.installSeconds.performance or Config.installSeconds.default
 
+    local stash = (Config.shops[order.shop] or {}).stash
+    local mats, short = materialList(stash, item, values[key])
     if phase == 'start' then
+        if progress.fitted[key] then return false, 'That part is already fitted.' end
+        if stash and short then
+            local missing = {}
+            for _, m in ipairs(mats) do
+                if m.have < m.count then missing[#missing + 1] = ('%dx %s'):format(m.count - m.have, m.label) end
+            end
+            return false, ('Not enough materials in the shop stash. Missing: %s.'):format(table.concat(missing, ', '))
+        end
         progress.current, progress.readyAt = key, GetGameTimer() + seconds * 1000 - 750
         return true, seconds
     end
     if progress.current ~= key or GetGameTimer() < progress.readyAt then return false, 'Too quick: finish fitting the part.' end
+    -- Take the materials now that the part is on.
+    if stash then
+        if short then
+            progress.current = nil
+            return false, 'The materials were taken out of the stash before the part went on.'
+        end
+        for _, m in ipairs(mats) do exports.ox_inventory:RemoveItem(stash, m.name, m.count) end
+    end
     progress.current = nil
     progress.fitted[key] = true
-    return true, Config.toProps(key, values[key])
+    -- Fresh stash counts for the other parts on the order.
+    local stock = {}
+    for k, v in pairs(values) do
+        if not progress.fitted[k] then stock[k] = materialList(stash, catalogue[k], v) end
+    end
+    return true, Config.toProps(key, values[key]), stock
 end)
 
 -- Mechanic: all parts fitted. Charge the customer, pay out, save the mods.

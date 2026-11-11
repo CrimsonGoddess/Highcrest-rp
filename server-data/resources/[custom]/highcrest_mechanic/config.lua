@@ -17,6 +17,7 @@ Config.shops = {
             vec4(-327.91, -144.34, 38.86, 70.34),
         },
         bayRadius = 4.0,
+        stash = 'mechanicstash', -- parts come out of this stash (qbx_mechanicjob's shop stash)
         business = nil,
     },
 }
@@ -46,6 +47,42 @@ Config.prices = {
         modTransmission = { 0, 5000, 10000, 15000, 20000 },
         modSuspension = { 0, 3000, 6000, 9000, 12000, 15000 },
         modArmor = { 0, 2500, 5000, 7500, 10000, 12500 },
+    },
+}
+
+-- Materials each part uses, taken from the shop stash when it's fitted. Without them the
+-- mechanic can't fit the part. Taking a part off (back to stock) is free.
+Config.materials = {
+    -- Upgrades: per level (level 3 engine = 3x these).
+    levels = {
+        modEngine = { steel = 4, aluminum = 3, copper = 2 },
+        modBrakes = { steel = 3, rubber = 2 },
+        modTransmission = { steel = 3, aluminum = 2, copper = 1 },
+        modSuspension = { steel = 3, rubber = 2 },
+        modArmor = { steel = 5, iron = 4 },
+    },
+    -- Single parts.
+    keys = {
+        modTurbo = { steel = 6, aluminum = 4, copper = 3 },
+        modFrontWheels = { aluminum = 4, rubber = 4 },
+        wheels = {},
+        tyres = { rubber = 8 },
+        tyreSmoke = { rubber = 2, plastic = 1 },
+        windowTint = { glass = 3, plastic = 1 },
+        modXenon = { glass = 2, copper = 2 },
+        xenonColor = { glass = 1 },
+        neonEnabled = { glass = 3, copper = 3, plastic = 2 },
+        neonColor = { glass = 1, copper = 1 },
+        plateIndex = { aluminum = 1 },
+        modHorns = { copper = 2, plastic = 1 },
+        modLivery = { car_paint = 2, plastic = 1 },
+    },
+    -- Everything else, by kind.
+    kinds = {
+        mod = { plastic = 4, metalscrap = 3 },   -- body parts
+        paint = { car_paint = 2 },
+        customPaint = { car_paint = 3 },        -- colour wheel and Wild paints
+        color = { car_paint = 1 },               -- pearlescent, rim colour
     },
 }
 
@@ -283,3 +320,23 @@ Config.workViews = {
     lights = { angle = 75.0, dist = 5.0, height = 1.0 },
     extras = { angle = -90.0, dist = 5.0, height = 1.1 },                   -- rear
 }
+
+-- Materials for one part: { item = count }. Taking a part off (stock / off / none) is free.
+function Config.materialsFor(item, value)
+    local m = Config.materials
+    if value == -1 or value == false then return {} end
+    if item.kind == 'neon' and type(value) == 'table' and not (value[1] or value[2] or value[3] or value[4]) then return {} end
+    if item.kind == 'level' then
+        local per = m.levels[item.key] or {}
+        local out = {}
+        for name, count in pairs(per) do out[name] = count * (value + 1) end
+        return out
+    end
+    if m.keys[item.key] then
+        if item.key == 'tyres' and value == 0 then return {} end
+        if item.key == 'tyreSmoke' and value == 0 then return {} end
+        return m.keys[item.key]
+    end
+    if item.kind == 'paint' and type(value) == 'table' then return m.kinds.customPaint end
+    return m.kinds[item.kind] or {}
+end

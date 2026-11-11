@@ -249,19 +249,52 @@ return {
         weight = 500,
     },
 
+    -- Vehicle kits: used next to a car, handled by vehiclehandler. Mechanics craft them at the workbench.
     ['cleaningkit'] = {
         label = 'Cleaning Kit',
         weight = 500,
+        stack = true,
+        close = true,
+        description = 'Soap and a cloth. Makes a dirty car shine again.',
+        server = { export = 'vehiclehandler.cleaningkit' },
+    },
+
+    ['tirekit'] = {
+        label = 'Tyre Kit',
+        weight = 1000,
+        stack = true,
+        close = true,
+        description = 'Patches and a pump to fix a burst tyre.',
+        client = { image = 'tirerepairkit.png' },
+        server = { export = 'vehiclehandler.tirekit' },
     },
 
     ['repairkit'] = {
         label = 'Repair Kit',
         weight = 2500,
+        stack = true,
+        close = true,
+        description = 'Basic tools to get a damaged engine running again.',
+        server = { export = 'vehiclehandler.repairkit' },
     },
 
     ['advancedrepairkit'] = {
         label = 'Advanced Repair Kit',
         weight = 4000,
+        stack = true,
+        close = true,
+        description = 'A full toolbox. Fixes the engine and the bodywork.',
+        client = { image = 'advancedkit.png' },
+        server = { export = 'vehiclehandler.advancedrepairkit' },
+    },
+
+    ['car_paint'] = {
+        label = 'Automotive Paint',
+        weight = 800,
+        stack = true,
+        close = true,
+        description = 'Car paint for the mechanic shop. Paint jobs use it.',
+        client = { image = 'spray.png' },
     },
 
     ['diamond'] = {
