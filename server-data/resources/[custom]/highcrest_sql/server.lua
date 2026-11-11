@@ -18,6 +18,7 @@ local FILES = {
     '013_pug_cokebusiness.sql',
     '014_highcrest_mechanic.sql',
     '015_highcrest_mechanic_prices.sql',
+    '016_highcrest_jobs.sql',
 }
 
 local function statements(sql)
