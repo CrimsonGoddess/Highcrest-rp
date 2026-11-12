@@ -1116,7 +1116,8 @@
                 vmButton('Hazards', '', s.signals === 3, () => vehAction({ action: 'hazards' }), driverOnly),
                 vmButton('Right ⇨', '', s.signals === 2, () => vehAction({ action: 'right' }), driverOnly),
             );
-            if (s.neon) controls.appendChild(vmButton(s.neonOn ? 'Neon on' : 'Neon off', '', s.neonOn, () => vehAction({ action: 'neon' }), driverOnly));
+            controls.appendChild(vmButton(!s.neon ? 'No underglow' : (s.neonOn ? 'Underglow on' : 'Underglow off'), '', s.neonOn,
+                () => vehAction({ action: 'neon' }), { disabled: !s.driver || !s.neon }));
         }
 
         function showVehMenu(d) {
