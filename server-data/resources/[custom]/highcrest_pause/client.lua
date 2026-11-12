@@ -1,5 +1,5 @@
--- Esc (and P) open the Highcrest pause menu instead of the GTA one.
--- The GTA map and settings are still one click away from it.
+-- Esc (and P) open the GTA map first. Closing the map (Esc) opens the Highcrest city menu
+-- (character, staff, rules, links); Esc again closes it. Map and settings are also in the city menu.
 
 local isOpen = false
 local blockedUntil = 0
@@ -32,9 +32,15 @@ local function open()
     end
 end
 
--- Opens a GTA frontend menu (map or settings) after closing ours.
+-- Esc order: GTA map first; closing the map (Esc) opens the city menu; Esc again closes that.
+local returnToCity = false  -- open the city menu when the GTA menu we opened closes
+local wasPaused = false
+
+-- Opens a GTA frontend menu (map or settings), closing ours first.
 local function openFrontend(menu)
     close()
+    returnToCity = true
+    blockedUntil = GetGameTimer() + 400
     CreateThread(function()
         Wait(150)
         ActivateFrontendMenu(joaat(menu), false, -1)
@@ -52,11 +58,19 @@ CreateThread(function()
 
             if IsPauseMenuActive() then
                 -- While the GTA map or settings are open, Esc belongs to them.
+                wasPaused = true
                 blockedUntil = GetGameTimer() + 400
+            elseif wasPaused then
+                -- The GTA menu just closed: go on to the city menu if we opened it.
+                wasPaused = false
+                if returnToCity then
+                    returnToCity = false
+                    open()
+                end
             elseif GetGameTimer() > blockedUntil and not IsNuiFocused() then
                 for _, control in ipairs(PAUSE_CONTROLS) do
                     if IsDisabledControlJustReleased(0, control) then
-                        open()
+                        openFrontend('FE_MENU_VERSION_MP_PAUSE')
                         break
                     end
                 end
