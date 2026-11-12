@@ -14,9 +14,9 @@ Realism.base = {
     fInitialDriveForce = 0.92,         -- a bit less punch off the line
     fAntiRollBarForce = 0.80,          -- more body roll
     fSteeringLock = 0.92,              -- slightly less steering angle
-    fCollisionDamageMult = 1.30,       -- crashes hurt
-    fDeformationDamageMult = 1.20,
-    fEngineDamageMult = 1.25,
+    fCollisionDamageMult = 0.80,       -- cars take more of a beating before breaking down
+    fDeformationDamageMult = 1.00,     -- dents look the same as normal GTA
+    fEngineDamageMult = 0.75,          -- engines last longer
 }
 
 -- Extra multipliers on top of the base, by GTA vehicle class. Classes not listed are untouched.

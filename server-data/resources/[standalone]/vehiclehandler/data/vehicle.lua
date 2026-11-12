@@ -2,11 +2,11 @@ return {
     units = 'mph' ,             -- (mph, kmh)
     breaktire = true,           -- Enable/Disable breaking off vehicle wheel on impact
     threshold = {
-        health = 50.0,          -- Health difference needed to break off wheel (LastHealth - CurrentHealth)
-        speed  = 50.0,          -- Speed difference needed to break off wheel (LastSpeed - CurrentSpeed)
-        heavy  = 90.0,          -- Speed difference needed to disable vehicle instantly (LastSpeed - CurrentSpeed)
+        health = 90.0,          -- Health difference needed to break off wheel (LastHealth - CurrentHealth). Highcrest: was 50
+        speed  = 60.0,          -- Speed difference needed to break off wheel (LastSpeed - CurrentSpeed). Highcrest: was 50
+        heavy  = 110.0,         -- Speed difference needed to disable vehicle instantly (LastSpeed - CurrentSpeed). Highcrest: was 90
     },
-    globalmultiplier = 10.0,    -- Base damage multiplier for all vehicles (lower value = less damage)
+    globalmultiplier = 3.5,     -- Base damage multiplier for all vehicles (lower value = less damage). Highcrest: was 10 (cars died too fast)
     classmultiplier = {         -- Add-on damage multiplier for vehicle classes
         [0] =   1.0,            -- 0: Compacts
                 1.0,            -- 1: Sedans
