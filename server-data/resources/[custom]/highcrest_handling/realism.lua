@@ -41,3 +41,28 @@ Realism.classes = {
     [19] = {},
     [20] = { fBrakeForce = 0.90, fAntiRollBarForce = 0.85 },
 }
+
+-- Top speed classes (mph), FULLY UPGRADED. Each car type gets a class; within it, cars that were faster in GTA
+-- land nearer the top of the range. Nothing goes past its class's max (hard cap).
+--   from = the rough original GTA top-speed spread for those cars, used to place each car.
+Realism.speedClasses = {
+    S = { min = 140, max = 150, from = { 115, 140 } },
+    A = { min = 130, max = 140, from = { 105, 130 } },
+    B = { min = 115, max = 125, from = { 95, 125 } },
+    C = { min = 100, max = 110, from = { 85, 115 } },
+    D = { min = 85, max = 100, from = { 75, 105 } },
+}
+
+-- GTA vehicle class -> speed class. Classes not listed keep their own top speed.
+Realism.speedClassOf = {
+    [7] = 'S',                          -- Super
+    [6] = 'A', [18] = 'A',              -- Sports, Emergency (police/EMS keep up)
+    [4] = 'B', [5] = 'B', [3] = 'B',    -- Muscle, Sports Classics, Coupes
+    [1] = 'C', [2] = 'C', [9] = 'C', [19] = 'C', -- Sedans, SUVs, Off-road, Military
+    [0] = 'D', [12] = 'D', [10] = 'D', [11] = 'D', [17] = 'D', [20] = 'D', -- Compacts, Vans, work and service trucks
+}
+
+-- The class speeds above are for a FULLY upgraded car. A stock car reaches this share of it,
+-- and engine, transmission and turbo upgrades (mechanic) close the gap.
+Realism.stockShare = 0.88
+Realism.upgradeWeights = { engine = 0.6, transmission = 0.2, turbo = 0.2 }
