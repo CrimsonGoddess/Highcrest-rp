@@ -209,5 +209,4 @@ return {
     ['rrgwide'] = { name = 'Rrgwide', brand = 'Bbc', model = 'rrgwide', price = 450000, category = 'import_x', type = 'automobile', hash = `rrgwide` },
     ['rritaliagtox'] = { name = 'Rritaliagtox', brand = 'Bbc', model = 'rritaliagtox', price = 450000, category = 'import_x', type = 'automobile', hash = `rritaliagtox` },
     ['rrxm1'] = { name = 'Rrxm1', brand = 'Yamaha', model = 'rrxm1', price = 450000, category = 'import_x', type = 'bike', hash = `rrxm1` },
-    ['jgaunt4'] = { name = 'Jgaunt4', brand = 'Bravado', model = 'jgaunt4', price = 160000, category = 'import_custom', type = 'automobile', hash = `jgaunt4` },
 }

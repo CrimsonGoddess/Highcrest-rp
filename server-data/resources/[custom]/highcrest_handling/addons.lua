@@ -116,7 +116,6 @@ Realism.skipModels = {
     'jarl',
     'jdvigeror',
     'jdvigerord',
-    'jgaunt4',
     'kawaii',
     'kriegerty2',
     'legionroxanne',
