@@ -270,10 +270,44 @@ local function itemLabel(name)
     return data and data.label or name
 end
 
+-- Every shared stash the shop's materials can come from: the shop stash plus any mechanic
+-- stash placed with /jobs (highcrest_jobs publishes them in GlobalState.hcJobPoints).
+local function shopStashes(stash)
+    local list, seen = {}, {}
+    if stash then list[1], seen[stash] = stash, true end
+    for _, point in ipairs(GlobalState.hcJobPoints or {}) do
+        if point.kind == 'stash' and point.job == Config.job and point.stash and not seen[point.stash] then
+            list[#list + 1], seen[point.stash] = point.stash, true
+        end
+    end
+    return list
+end
+
+local function stashCount(stash, name)
+    local total = 0
+    for _, id in ipairs(shopStashes(stash)) do
+        total = total + (exports.ox_inventory:GetItemCount(id, name) or 0)
+    end
+    return total
+end
+
+-- Take materials from the shop's stashes, first come first served.
+local function takeMaterials(stash, mats)
+    for _, m in ipairs(mats) do
+        local left = m.count
+        for _, id in ipairs(shopStashes(stash)) do
+            if left <= 0 then break end
+            local here = exports.ox_inventory:GetItemCount(id, m.name) or 0
+            local take = math.min(here, left)
+            if take > 0 and exports.ox_inventory:RemoveItem(id, m.name, take) then left = left - take end
+        end
+    end
+end
+
 local function materialList(stash, item, value)
     local list, short = {}, false
     for name, count in pairs(item and Config.materialsFor(item, value) or {}) do
-        local have = stash and exports.ox_inventory:GetItemCount(stash, name) or 0
+        local have = stashCount(stash, name)
         if have < count then short = true end
         list[#list + 1] = { name = name, label = itemLabel(name), count = count, have = have }
     end
@@ -561,7 +595,7 @@ lib.callback.register('highcrest_mechanic:fitPart', function(source, id, key, ne
             progress.current = nil
             return false, 'The materials were taken out of the stash before the part went on.'
         end
-        for _, m in ipairs(mats) do exports.ox_inventory:RemoveItem(stash, m.name, m.count) end
+        takeMaterials(stash, mats)
     end
     progress.current = nil
     progress.fitted[key] = true
