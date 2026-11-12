@@ -23,7 +23,7 @@ Config.store = {
         },
         {
             tier = 'vip', name = 'VIP', price = '9.99', period = 'month', colour = '#d4af37', featured = true,
-            perks = { 'Everything in Supporter', 'Early access to new imports', 'Buy VIP Collection cars', '1 custom licence plate (/vipplate)', 'Free "Bring to me" valet' },
+            perks = { 'Everything in Supporter', 'VIP role in Discord', '1 custom licence plate (/vipplate)', 'Free "Bring to me" valet' },
             url = '',
         },
         {

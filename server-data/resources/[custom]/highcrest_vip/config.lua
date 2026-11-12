@@ -11,16 +11,16 @@ Config = {}
 --   freeTransfers moving a car between garages is free (recovering a car left out still costs)
 Config.tiers = {
     supporter = { label = 'Supporter', rank = 1, colour = '#c0c0c0', plates = 0, perks = {} },
-    vip = { label = 'VIP', rank = 2, colour = '#d4af37', plates = 1, perks = { earlyAccess = true, collection = true, freeValet = true } },
-    elite = { label = 'Elite', rank = 3, colour = '#c8102e', plates = 3, perks = { earlyAccess = true, collection = true, freeValet = true, freeTransfers = true } },
+    vip = { label = 'VIP', rank = 2, colour = '#d4af37', plates = 1, perks = { freeValet = true } },
+    elite = { label = 'Elite', rank = 3, colour = '#c8102e', plates = 3, perks = { freeValet = true, freeTransfers = true } },
 }
 
--- VIP Collection: imports only VIP and Elite can buy (still for in-game money). Model names.
+-- VIP Collection (off for now): imports only tiers with the 'collection' perk can buy. Model names.
 -- Keep this small so everyone else still has the full dealership. Example:
 --   Config.collection = { 'rrbuffalosx', 'schlagenstr' }
 Config.collection = {}
 
--- Early access: new imports VIP and Elite can buy first. Everyone else can buy them from the
+-- Early access (off for now): new imports tiers with the 'earlyAccess' perk can buy first. Everyone else from the
 -- date given (year-month-day). Example:
 --   Config.earlyAccess = { ['elegyrh7'] = '2026-11-25' }
 Config.earlyAccess = {}
