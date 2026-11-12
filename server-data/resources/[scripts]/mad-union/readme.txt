@@ -1,0 +1,1 @@
+just drap union.lua inside qb-doorlock/configs
