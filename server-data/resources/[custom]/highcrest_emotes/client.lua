@@ -32,16 +32,38 @@ local CATEGORIES = {
 local catalogue      -- sent to the menu: { categories, emotes = { { i, c, l, k, x } } }
 local fullData = {}  -- i -> scully's entry, used for the preview
 
+-- Only list emotes this game can actually play: every animation dictionary must exist
+-- (some use animations from newer GTA updates or files that aren't loaded on this build).
+local function animsExist(e)
+    local dicts = type(e.Dictionary) == 'table' and e.Dictionary or { e.Dictionary }
+    for _, dict in ipairs(dicts) do
+        if type(dict) ~= 'string' or not DoesAnimDictExist(dict) then return false end
+    end
+    local secondary = e.Options and e.Options.SecondaryEmote
+    if secondary and not DoesAnimDictExist(secondary.Dictionary or '') then return false end
+    return true
+end
+
+local function playable(e)
+    if e.Options and e.Options.Shared then return false end -- two-person emotes stay in /e
+    if e.PedTypes then return not IsPedHuman(cache.ped) end  -- animal emotes need an animal ped
+    if e.Dictionary then return animsExist(e) end
+    return true
+end
+
+local builtForHuman
 local function buildCatalogue()
-    if catalogue then return catalogue end
+    -- Rebuilt if the player switches between a human and an animal ped.
+    if catalogue and builtForHuman == IsPedHuman(cache.ped) then return catalogue end
+    builtForHuman = IsPedHuman(cache.ped)
+    fullData = {}
     local emotes, cats = {}, {}
     for _, cat in ipairs(CATEGORIES) do
         local data = loadData(cat.file)
         local list = data and (data.options or data) or {}
         local count = 0
         for _, e in ipairs(list) do
-            -- Shared (two-person) emotes need someone else, so they stay in /e.
-            if type(e) == 'table' and e.Command and e.Label and not (e.Options and e.Options.Shared) then
+            if type(e) == 'table' and e.Command and e.Label and playable(e) then
                 local index = #emotes + 1
                 emotes[index] = { i = index, c = e.Command, l = e.Label, k = cat.kind, x = cat.id }
                 fullData[index] = e
