@@ -60,6 +60,18 @@ CreateThread(function()
                 -- While the GTA map or settings are open, Esc belongs to them.
                 wasPaused = true
                 blockedUntil = GetGameTimer() + 400
+                if returnToCity then
+                    -- Hint over the map: closing it goes on to Server info.
+                    SetScriptGfxDrawBehindPausemenu(true)
+                    SetTextFont(4)
+                    SetTextScale(0.0, 0.42)
+                    SetTextColour(255, 255, 255, 230)
+                    SetTextOutline()
+                    SetTextCentre(true)
+                    BeginTextCommandDisplayText('STRING')
+                    AddTextComponentSubstringPlayerName('~r~ESC~s~  Server info')
+                    EndTextCommandDisplayText(0.5, 0.955)
+                end
             elseif wasPaused then
                 -- The GTA menu just closed: go on to the city menu if we opened it.
                 wasPaused = false
