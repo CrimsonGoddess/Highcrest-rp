@@ -467,11 +467,11 @@ end
 --- Creates a shop
 ---@param shopShape vector3[]
 ---@param name string
-local function createShop(shopShape, name)
+local function createShop(shopShape, name, thickness)
     lib.zones.poly({
         name = name,
         points = shopShape,
-        thickness = 5,
+        thickness = thickness or 5, -- Highcrest: per-shop zone.thickness for two-floor showrooms
         debug = config.debugPoly,
         onEnter = function(self)
             insideShop = self.name
@@ -705,7 +705,7 @@ CreateThread(function()
     end
 
     for shopName, shop in pairs(sharedConfig.shops) do
-        createShop(shop.zone.shape, shopName)
+        createShop(shop.zone.shape, shopName, shop.zone.thickness)
         showroomPoints[shopName] = {}
 
         local showroomVehicles = sharedConfig.shops[shopName].showroomVehicles

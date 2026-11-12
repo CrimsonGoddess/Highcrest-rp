@@ -296,18 +296,20 @@ return {
         imports = {
             type = 'free-use',
             zone = {
+                -- RFC Luxury Autos: ground floor and the upper X-class floor (35 m to 44 m high)
                 shape = {
-                    vec3(-82.5, 67.5, 71.9),
-                    vec3(-67.5, 67.5, 71.9),
-                    vec3(-67.5, 82.5, 71.9),
-                    vec3(-82.5, 82.5, 71.9),
+                    vec3(-810.0, -246.0, 39.5),
+                    vec3(-766.0, -246.0, 39.5),
+                    vec3(-766.0, -197.0, 39.5),
+                    vec3(-810.0, -197.0, 39.5),
                 },
+                thickness = 9,
                 size = vec3(3, 3, 4),
                 targetDistance = 1,
             },
             blip = {
-                label = 'Imports & Customs (Luxury Cars)',
-                coords = vec3(-75.47, 74.8, 71.91),
+                label = 'Imports & Customs (Luxury Autos)',
+                coords = vec3(-794.7, -220.0, 37.2),
                 show = true,
                 sprite = 326,
                 color = 5,
@@ -325,12 +327,25 @@ return {
                 limit = 5.0,
                 endBehavior = 'return'
             },
-            returnLocation = vec3(-83.12, 80.8, 71.52),
+            -- Test drives end with the player back inside the showroom.
+            returnLocation = vec3(-799.39, -221.1, 37.04),
+            -- Test-drive start and where bought cars are delivered (+0.5 m over /vec4 feet height).
             vehicleSpawns = {
-                vec4(-83.12, 80.8, 70.95, 149.85),
+                vec4(-782.66, -193.76, 36.78, 29.21),
             },
+            -- One import from each class; players can swap display cars from the menu.
             showroomVehicles = {
-                { coords = vec4(-75.47, 74.8, 70.91, 232.0), vehicle = 'schlagenstr' },
+                { coords = vec4(-792.35, -218.23, 36.16, 272.02), vehicle = 'rrgwide' },       -- X
+                { coords = vec4(-802.21, -214.43, 36.16, 46.49), vehicle = 'hycrh7' },         -- S
+                { coords = vec4(-805.48, -201.9, 36.16, 23.25), vehicle = 'arbiterx' },        -- A
+                { coords = vec4(-794.7, -227.9, 36.16, 210.66), vehicle = 'elegyw' },          -- B
+                { coords = vec4(-790.89, -235.27, 36.16, 207.97), vehicle = 's14khr' },        -- Drift
+                { coords = vec4(-786.83, -242.23, 36.16, 210.53), vehicle = 'gstnightclaw1' }, -- Custom
+                -- Upper floor: top-of-the-line X class
+                { coords = vec4(-783.06, -211.38, 40.99, 213.18), vehicle = 'cycloneex0' },
+                { coords = vec4(-778.85, -218.69, 40.99, 210.05), vehicle = 'rrgt35' },
+                { coords = vec4(-774.87, -225.92, 40.99, 208.52), vehicle = 'nerossmk2' },
+                { coords = vec4(-770.39, -233.87, 40.99, 193.47), vehicle = 'rritaliagtox' },
             },
         },
 

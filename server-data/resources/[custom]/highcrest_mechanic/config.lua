@@ -8,14 +8,19 @@ Config.job = 'mechanic'
 Config.shops = {
     vinewood = {
         label = 'Highcrest Motorworks',
-        -- LS Customs Vinewood. Stalls: the middle of the floor plus the two old
-        -- qbx_mechanicjob lift spots (those lifts are turned off in its config).
-        bay = vec4(-333.0, -136.0, 38.9, 160.0), -- map blip
+        -- LS Customs Vinewood (RFC Los Santos Customs interior). Six stalls placed by the
+        -- user with /vec4 (feet height) + 0.6 m so each zone sits at the driver's height.
+        bay = vec4(-333.55, -132.96, 38.94, 341.88), -- map blip
         bays = {
-            vec4(-333.0, -136.0, 38.9, 160.0),
-            vec4(-340.95, -128.24, 39.0, 160.0),
-            vec4(-327.91, -144.34, 38.86, 70.34),
+            vec4(-333.55, -132.96, 38.94, 341.88),
+            vec4(-312.62, -134.5, 38.94, 243.71),
+            vec4(-317.11, -145.25, 38.61, 245.66),
+            vec4(-320.58, -156.42, 38.61, 247.62),
+            vec4(-339.98, -160.82, 38.61, 157.97),
+            vec4(-347.6, -157.17, 38.61, 158.78),
         },
+        -- Personal locker: each mechanic gets their own private stash here.
+        locker = vec4(-350.06, -122.72, 39.05, 74.79),
         bayRadius = 4.0,
         stash = 'mechanicstash', -- parts come out of this stash (qbx_mechanicjob's shop stash)
         business = nil,

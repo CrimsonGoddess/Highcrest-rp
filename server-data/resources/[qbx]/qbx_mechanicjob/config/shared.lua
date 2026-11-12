@@ -73,8 +73,8 @@ return {
     },
     locations = {
         exit = vec3(-339.04, -135.53, 39.00),
-        duty = vec3(-323.30, -128.79, 39.02),
-        stash = vec3(-319.19, -131.90, 37.98),
+        duty = vec3(-346.71, -130.3, 39.0),   -- RFC LSC desk, same spot as the boss menu
+        stash = vec3(-328.75, -113.08, 39.0), -- RFC LSC shared parts stash
         vehicle = vec4(-370.51, -107.88, 38.35, 72.56),
     }
 }

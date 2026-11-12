@@ -427,8 +427,28 @@ RegisterNUICallback('finishWork', function(_, cb)
     SetTimeout(1800, function() if design == d then endDesign() end end)
 end)
 
--- Stalls: a shop blip, a red ground marker on each stall, [E] from the driver's seat,
--- and "Open in the bay" when targeting a car parked in a stall.
+-- Personal lockers (registered per player on the server, mechanic job only).
+for shopId, shop in pairs(Config.shops) do
+    if shop.locker then
+        exports.ox_target:addSphereZone({
+            coords = shop.locker.xyz,
+            radius = 1.0,
+            options = {{
+                name = 'mechlocker_' .. shopId,
+                label = 'Open my locker',
+                icon = 'fa-solid fa-lock',
+                distance = 2.0,
+                groups = { [Config.job] = 0 },
+                onSelect = function()
+                    exports.ox_inventory:openInventory('stash', 'mechlocker_' .. shopId)
+                end,
+            }},
+        })
+    end
+end
+
+-- Stalls: a shop blip, [E] from the driver's seat (no ground markers; the RFC interior
+-- shows the stalls), and "Open in the bay" when targeting a car parked in a stall.
 local function stallAt(coords)
     for shopId, shop in pairs(Config.shops) do
         for _, bay in ipairs(shop.bays or { shop.bay }) do
@@ -448,15 +468,6 @@ for shopId, shop in pairs(Config.shops) do
     EndTextCommandSetBlipName(blip)
 
     for _, bay in ipairs(shop.bays or { shop.bay }) do
-        lib.points.new({
-            coords = bay.xyz,
-            distance = 40.0,
-            nearby = function()
-                if design then return end
-                DrawMarker(1, bay.x, bay.y, bay.z - 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                    shop.bayRadius * 1.6, shop.bayRadius * 1.6, 0.6, 225, 60, 60, 90, false, false, 2, false, nil, nil, false)
-            end,
-        })
 
         lib.zones.sphere({
             coords = bay.xyz,

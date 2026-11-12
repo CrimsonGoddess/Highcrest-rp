@@ -9,6 +9,13 @@ return {
     ---@alias GroupName string
     ---@type table<GroupName, ZoneInfo|ZoneInfo[]>
     menus = {
+        -- Highcrest Motorworks (RFC LS Customs), same desk as clock-in
+        mechanic = {
+            coords = vec3(-346.71, -130.3, 39.0),
+            size = vec3(1.5, 1.5, 1.5),
+            rotation = 256.34,
+            type = 'job',
+        },
         lostmc = {
             {
                 coords = vec3(983.69, -90.92, 74.85),

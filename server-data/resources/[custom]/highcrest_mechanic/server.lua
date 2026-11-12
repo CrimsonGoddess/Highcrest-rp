@@ -3,6 +3,14 @@
 -- Everything a client sends is checked here: changes against the catalogue, prices from the
 -- config, ownership, job, duty and distance.
 
+-- Personal lockers: owner = true gives every mechanic their own private copy of the stash.
+for shopId, shop in pairs(Config.shops) do
+    if shop.locker then
+        exports.ox_inventory:RegisterStash('mechlocker_' .. shopId, shop.label .. ' Locker', 30, 60000, true,
+            { [Config.job] = 0 }, shop.locker.xyz)
+    end
+end
+
 local catalogue = {}
 for _, tab in ipairs(Config.catalogue) do
     for _, item in ipairs(tab.items) do

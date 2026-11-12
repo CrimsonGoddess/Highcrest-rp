@@ -37,14 +37,15 @@ return {
 			},
 		},
 		points = {
-			vec3(-345.374969, -130.687088, 39.009613),
+			vec3(-319.89, -119.89, 39.8),
 		},
 		zones = {
 			{
-				coords = vec3(-346.1, -130.45, 39.0),
-				size = vec3(3.8, 1.05, 0.15),
+				-- RFC LSC workbench (user's /vec4 feet height + bench top)
+				coords = vec3(-319.89, -119.89, 39.8),
+				size = vec3(2.0, 1.2, 1.2),
 				distance = 1.5,
-				rotation = 70.0,
+				rotation = 348.0,
 				groups = { mechanic = 0 },
 			},
 		},
