@@ -25,6 +25,10 @@ local CATEGORIES = {
     { id = 'food', label = 'Food & drink', file = 'shared/data/emotes/consumable_emotes.lua', kind = 'emote' },
     { id = 'animals', label = 'Animals', file = 'shared/data/emotes/animal_emotes.lua', kind = 'emote' },
     { id = 'scenarios', label = 'Scenarios', file = 'shared/data/scenarios.lua', kind = 'emote' },
+    -- Two-person emotes: playing one asks the nearest player to join (scully sends the request).
+    { id = 'couples', label = 'Couples', file = 'shared/data/emotes/synchronized_emotes.lua', kind = 'emote', shared = true },
+    -- scully builds its partner dances from the dance list ('s' + dance command); same here.
+    { id = 'partnerdance', label = 'Partner dances', file = 'shared/data/emotes/dance_emotes.lua', kind = 'emote', shared = true, prefix = 's' },
     { id = 'walks', label = 'Walks', file = 'shared/data/walks.lua', kind = 'walk' },
     { id = 'expressions', label = 'Expressions', file = 'shared/data/expressions.lua', kind = 'expression' },
 }
@@ -44,8 +48,18 @@ local function animsExist(e)
     return true
 end
 
-local function playable(e)
-    if e.Options and e.Options.Shared then return false end -- two-person emotes stay in /e
+-- Explicit two-person emotes stay out of this menu (still in /e; meant for a separate F5 menu).
+local function explicit(e)
+    local label = e.Label:lower()
+    return label:find('blowjob', 1, true) or label:find('sex', 1, true)
+end
+
+local function playable(e, cat)
+    if cat.shared then
+        if explicit(e) then return false end
+    elseif e.Options and e.Options.Shared then
+        return false
+    end
     if e.PedTypes then return not IsPedHuman(cache.ped) end  -- animal emotes need an animal ped
     if e.Dictionary then return animsExist(e) end
     return true
@@ -63,9 +77,9 @@ local function buildCatalogue()
         local list = data and (data.options or data) or {}
         local count = 0
         for _, e in ipairs(list) do
-            if type(e) == 'table' and e.Command and e.Label and playable(e) then
+            if type(e) == 'table' and e.Command and e.Label and playable(e, cat) then
                 local index = #emotes + 1
-                emotes[index] = { i = index, c = e.Command, l = e.Label, k = cat.kind, x = cat.id }
+                emotes[index] = { i = index, c = (cat.prefix or '') .. e.Command, l = e.Label, k = cat.kind, x = cat.id }
                 fullData[index] = e
                 count = count + 1
             end
