@@ -489,6 +489,13 @@ local function createShowroomVehicle(model, coords)
     lib.requestModel(model, 10000)
     local veh = CreateVehicle(model, coords.x, coords.y, coords.z, coords.w, false, true)
     SetModelAsNoLongerNeeded(model)
+    -- Highcrest: wait for the (MLO) floor to load, or the car stays sunk in it.
+    RequestCollisionAtCoord(coords.x, coords.y, coords.z)
+    local timeout = GetGameTimer() + 5000
+    while not HasCollisionLoadedAroundEntity(veh) and GetGameTimer() < timeout do
+        RequestCollisionAtCoord(coords.x, coords.y, coords.z)
+        Wait(50)
+    end
     SetVehicleOnGroundProperly(veh)
     SetEntityInvincible(veh, true)
     SetVehicleDirtLevel(veh, 0.0)

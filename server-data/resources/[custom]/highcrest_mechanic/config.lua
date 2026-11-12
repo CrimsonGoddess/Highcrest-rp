@@ -11,6 +11,8 @@ Config.shops = {
         -- LS Customs Vinewood (RFC Los Santos Customs interior). Six stalls placed by the
         -- user with /vec4 (feet height) + 0.6 m so each zone sits at the driver's height.
         bay = vec4(-333.55, -132.96, 38.94, 341.88), -- map blip
+        blipLabel = 'LSC', -- the shop's only blip (qbx_mechanicjob's is turned off)
+        blipSprite = 72,   -- LS Customs icon
         bays = {
             vec4(-333.55, -132.96, 38.94, 341.88),
             vec4(-312.62, -134.5, 38.94, 243.71),

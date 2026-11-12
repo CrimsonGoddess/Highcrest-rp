@@ -461,6 +461,8 @@ local function spawnListVehicle(model)
 end
 
 local function createBlip()
+    -- Highcrest: the shop's only blip ("LSC") comes from highcrest_mechanic.
+    do return end
     if not sharedConfig.locations.exit then return end
 
     local blip = AddBlipForCoord(sharedConfig.locations.exit.x, sharedConfig.locations.exit.y, sharedConfig.locations.exit.z)

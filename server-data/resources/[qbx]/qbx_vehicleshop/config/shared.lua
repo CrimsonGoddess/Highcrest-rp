@@ -335,17 +335,17 @@ return {
             },
             -- One import from each class; players can swap display cars from the menu.
             showroomVehicles = {
-                { coords = vec4(-792.35, -218.23, 36.16, 272.02), vehicle = 'rrgwide' },       -- X
-                { coords = vec4(-802.21, -214.43, 36.16, 46.49), vehicle = 'hycrh7' },         -- S
-                { coords = vec4(-805.48, -201.9, 36.16, 23.25), vehicle = 'arbiterx' },        -- A
-                { coords = vec4(-794.7, -227.9, 36.16, 210.66), vehicle = 'elegyw' },          -- B
-                { coords = vec4(-790.89, -235.27, 36.16, 207.97), vehicle = 's14khr' },        -- Drift
-                { coords = vec4(-786.83, -242.23, 36.16, 210.53), vehicle = 'gstnightclaw1' }, -- Custom
+                { coords = vec4(-792.35, -218.23, 36.66, 272.02), vehicle = 'rrgwide' },       -- X
+                { coords = vec4(-802.21, -214.43, 36.66, 46.49), vehicle = 'hycrh7' },         -- S
+                { coords = vec4(-805.48, -201.9, 36.66, 23.25), vehicle = 'arbiterx' },        -- A
+                { coords = vec4(-794.7, -227.9, 36.66, 210.66), vehicle = 'elegyw' },          -- B
+                { coords = vec4(-790.89, -235.27, 36.66, 207.97), vehicle = 's14khr' },        -- Drift
+                { coords = vec4(-786.83, -242.23, 36.66, 210.53), vehicle = 'gstnightclaw1' }, -- Custom
                 -- Upper floor: top-of-the-line X class
-                { coords = vec4(-783.06, -211.38, 40.99, 213.18), vehicle = 'cycloneex0' },
-                { coords = vec4(-778.85, -218.69, 40.99, 210.05), vehicle = 'rrgt35' },
-                { coords = vec4(-774.87, -225.92, 40.99, 208.52), vehicle = 'nerossmk2' },
-                { coords = vec4(-770.39, -233.87, 40.99, 193.47), vehicle = 'rritaliagtox' },
+                { coords = vec4(-783.06, -211.38, 41.49, 213.18), vehicle = 'cycloneex0' },
+                { coords = vec4(-778.85, -218.69, 41.49, 210.05), vehicle = 'rrgt35' },
+                { coords = vec4(-774.87, -225.92, 41.49, 208.52), vehicle = 'nerossmk2' },
+                { coords = vec4(-770.39, -233.87, 41.49, 193.47), vehicle = 'rritaliagtox' },
             },
         },
 

@@ -459,12 +459,12 @@ end
 
 for shopId, shop in pairs(Config.shops) do
     local blip = AddBlipForCoord(shop.bay.x, shop.bay.y, shop.bay.z)
-    SetBlipSprite(blip, 446)
+    SetBlipSprite(blip, shop.blipSprite or 446)
     SetBlipColour(blip, 47)
     SetBlipScale(blip, 0.8)
     SetBlipAsShortRange(blip, true)
     BeginTextCommandSetBlipName('STRING')
-    AddTextComponentSubstringPlayerName(shop.label)
+    AddTextComponentSubstringPlayerName(shop.blipLabel or shop.label)
     EndTextCommandSetBlipName(blip)
 
     for _, bay in ipairs(shop.bays or { shop.bay }) do
