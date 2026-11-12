@@ -1,6 +1,7 @@
 -- Highcrest: add-on cars from the Eternium car pack ([cars]/eterniumcars), sold at Imports & Customs.
 -- Generated from the pack's vehicles.meta files. Price by pack class:
 --   X $450k, S $300k, A $200k, B $150k, C $110k, Drift $175k, unassigned (Custom) $160k.
+-- Not listed (the pack has no model files for them): gstghell4, gstwar1c, hycrh72, rryosemite1500nb.
 ---@type table<string, Vehicle>
 return {
     ['arbiterx'] = { name = 'Arbiterx', brand = 'Imponte', model = 'arbiterx', price = 200000, category = 'import_a', type = 'automobile', hash = `arbiterx` },
@@ -49,7 +50,6 @@ return {
     ['elegyrh7'] = { name = 'Elegyrh7', brand = 'Annis', model = 'elegyrh7', price = 300000, category = 'import_s', type = 'automobile', hash = `elegyrh7` },
     ['elegyrh72'] = { name = 'Elegyrh72', brand = 'Annis', model = 'elegyrh72', price = 300000, category = 'import_s', type = 'automobile', hash = `elegyrh72` },
     ['hycrh7'] = { name = 'Hycrh7', brand = 'Annis', model = 'hycrh7', price = 300000, category = 'import_s', type = 'automobile', hash = `hycrh7` },
-    ['hycrh72'] = { name = 'Hycrh72', brand = 'Annis', model = 'hycrh72', price = 300000, category = 'import_s', type = 'automobile', hash = `hycrh72` },
     ['sc_infernusx'] = { name = 'Sc_infernusx', brand = 'Pegassi', model = 'sc_infernusx', price = 300000, category = 'import_s', type = 'automobile', hash = `sc_infernusx` },
     ['rrbuffalosx'] = { name = 'Custom Buffalo SX', brand = 'Bbc', model = 'rrbuffalosx', price = 300000, category = 'import_s', type = 'automobile', hash = `rrbuffalosx` },
     ['savanna'] = { name = 'Savanna', brand = 'Coil', model = 'savanna', price = 300000, category = 'import_s', type = 'automobile', hash = `savanna` },
@@ -78,7 +78,6 @@ return {
     ['gstdomgt241'] = { name = 'Dominator GT DCL', brand = 'Vapid', model = 'gstdomgt241', price = 160000, category = 'import_custom', type = 'automobile', hash = `gstdomgt241` },
     ['gstduk1'] = { name = 'Dukes CTX', brand = 'Imponte', model = 'gstduk1', price = 160000, category = 'import_custom', type = 'automobile', hash = `gstduk1` },
     ['gstevmr1'] = { name = 'Evermore', brand = 'Overflod', model = 'gstevmr1', price = 160000, category = 'import_custom', type = 'automobile', hash = `gstevmr1` },
-    ['gstghell4'] = { name = 'Gauntlet Hellfire Drop', brand = 'Bravado', model = 'gstghell4', price = 160000, category = 'import_custom', type = 'automobile', hash = `gstghell4` },
     ['gstghell4b'] = { name = 'Gauntlet Hellfire Drop CTX', brand = 'Bravado', model = 'gstghell4b', price = 160000, category = 'import_custom', type = 'automobile', hash = `gstghell4b` },
     ['gstjcr1'] = { name = 'Jester RR Hycade', brand = 'Dinka', model = 'gstjcr1', price = 160000, category = 'import_custom', type = 'automobile', hash = `gstjcr1` },
     ['gstjrz1'] = { name = 'Gstjrz1', brand = 'Dinka', model = 'gstjrz1', price = 160000, category = 'import_custom', type = 'automobile', hash = `gstjrz1` },
@@ -102,7 +101,6 @@ return {
     ['gstvigzx2'] = { name = 'Vigero ZX Hycade', brand = 'Declasse', model = 'gstvigzx2', price = 160000, category = 'import_custom', type = 'automobile', hash = `gstvigzx2` },
     ['gstwar1'] = { name = 'Warrior', brand = 'Canis', model = 'gstwar1', price = 160000, category = 'import_custom', type = 'automobile', hash = `gstwar1` },
     ['gstwar1b'] = { name = 'Warrior Hellfire', brand = 'Canis', model = 'gstwar1b', price = 160000, category = 'import_custom', type = 'automobile', hash = `gstwar1b` },
-    ['gstwar1c'] = { name = 'Warrior Hellfire 6x6', brand = 'Canis', model = 'gstwar1c', price = 160000, category = 'import_custom', type = 'automobile', hash = `gstwar1c` },
     ['gstx321'] = { name = 'Euros X32 CTX', brand = 'Annis', model = 'gstx321', price = 160000, category = 'import_custom', type = 'automobile', hash = `gstx321` },
     ['gstxp41'] = { name = ' Turismo XP4', brand = 'Pegassi', model = 'gstxp41', price = 160000, category = 'import_custom', type = 'automobile', hash = `gstxp41` },
     ['gstxp41b'] = { name = ' Turismo XP4 CTX EVO', brand = 'Pegassi', model = 'gstxp41b', price = 160000, category = 'import_custom', type = 'automobile', hash = `gstxp41b` },
@@ -167,7 +165,6 @@ return {
     ['rrbisonx'] = { name = 'Custom Bison X', brand = 'Bbc', model = 'rrbisonx', price = 160000, category = 'import_custom', type = 'automobile', hash = `rrbisonx` },
     ['rrn15'] = { name = 'Rrn15', brand = 'Bbc', model = 'rrn15', price = 160000, category = 'import_custom', type = 'automobile', hash = `rrn15` },
     ['rryosemite1500n'] = { name = 'Rryosemite1500n', brand = 'Declasse', model = 'rryosemite1500n', price = 160000, category = 'import_custom', type = 'automobile', hash = `rryosemite1500n` },
-    ['rryosemite1500nb'] = { name = 'Rryosemite1500nb', brand = 'Declasse', model = 'rryosemite1500nb', price = 160000, category = 'import_custom', type = 'automobile', hash = `rryosemite1500nb` },
     ['sultanrsv8'] = { name = 'Sultanrsv8', brand = 'Karin', model = 'sultanrsv8', price = 160000, category = 'import_custom', type = 'automobile', hash = `sultanrsv8` },
     ['sentinelsg4'] = { name = 'Sentinelsg4', brand = 'Ubermach', model = 'sentinelsg4', price = 160000, category = 'import_custom', type = 'automobile', hash = `sentinelsg4` },
     ['shinobid'] = { name = 'Shinobid', brand = 'Nagasaki', model = 'shinobid', price = 160000, category = 'import_custom', type = 'bike', hash = `shinobid` },
