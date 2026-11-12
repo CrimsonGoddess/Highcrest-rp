@@ -2,6 +2,29 @@
 
 Posted to Discord. Newest first.
 
+## 2026-11-11 (third update)
+
+- Added Pug Coke Business: buy a hidden coke lab, fly low-altitude drug plane drops and let your workers turn the bricks into product
+- Added Moreo Illegal MC biker clubhouse map
+- Added Custom TVs: look at any TV and play a YouTube or video link, synced for everyone in the room
+- Added Imports & Customs luxury dealership in the Breze Benefactor showroom, with over 200 new cars in X, S, A, B, C and Drift classes
+- Added Custom mechanic system: design your build at Highcrest Motorworks with a live preview, then a mechanic quotes it, fits every part and gets paid
+- Added Custom mechanic tablet with work orders, clock in/out and shop prices set by the boss
+- Added Custom paint options: matte, metals and chrome, wild paints and a custom colour wheel
+- Added Custom wheel options: rim categories, custom and drift tyres, tyre smoke
+- Added mechanic-only repair, tyre and cleaning kits for Vehiclehandler, crafted at the mechanic workbench
+- Added Custom garage menu: see where every car is, bring one from another garage ($2,000) or recover one left out in the city ($10,000)
+- Added Motorworks Parking garage
+- Added Custom job system: jobs get clock-in, stash and boss menu spots, and bosses can set rank pay
+- Added Custom realistic car handling with top speed classes (S to D) that upgrades unlock
+- Added Custom tsunami warning before server restarts
+- Added Map tab to the Custom pause menu
+- Changed Pure Black window tint: mechanics only, and not street legal
+- Changed LS Customs self-service to cost 50% more than the mechanics
+- Changed cars to take more damage before breaking down
+- Fixed shooting from cars
+- Fixed the minimap not showing in cars
+
 ## 2026-11-11 (second update)
 
 - Added SD Beekeeping: buy bee houses and hives from the Beekeeper in Paleto, look after your bees and sell the honey and wax
