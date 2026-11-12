@@ -42,3 +42,30 @@
         return await response.json();
     }
 })();
+
+// Highcrest: fade each chat message out after FADE_AFTER ms; show them all while the chat input is open.
+(() => {
+    const FADE_AFTER = 8000;
+
+    const fadeLater = (node) => {
+        if (!(node instanceof HTMLElement) || !node.classList.contains('msg')) return;
+        setTimeout(() => node.classList.add('hc-faded'), FADE_AFTER);
+    };
+
+    const start = () => {
+        const list = document.querySelector('.chat-messages');
+        if (!list) return setTimeout(start, 500);
+        list.querySelectorAll('.msg').forEach(fadeLater);
+        new MutationObserver((changes) => {
+            changes.forEach((change) => change.addedNodes.forEach(fadeLater));
+        }).observe(list, { childList: true, subtree: true });
+    };
+    start();
+
+    // The chat input only exists / shows while the player is typing.
+    setInterval(() => {
+        const input = document.querySelector('.chat-input');
+        const typing = !!input && input.offsetParent !== null && getComputedStyle(input).display !== 'none';
+        document.body.classList.toggle('hc-typing', typing);
+    }, 250);
+})();

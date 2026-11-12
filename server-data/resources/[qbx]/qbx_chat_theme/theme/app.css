@@ -195,3 +195,16 @@ textarea {
 .chat-hide-state {
     position: absolute;
 }
+
+/* Highcrest: messages fade out a few seconds after they arrive; typing in chat shows them again. */
+.msg {
+    transition: opacity 0.6s ease;
+}
+
+.msg.hc-faded {
+    opacity: 0;
+}
+
+body.hc-typing .msg.hc-faded {
+    opacity: 1;
+}
