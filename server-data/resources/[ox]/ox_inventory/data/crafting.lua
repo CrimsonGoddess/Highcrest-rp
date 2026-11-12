@@ -24,6 +24,12 @@ return {
 				count = 1,
 			},
 			{
+				name = 'car_paint',
+				ingredients = { plastic = 1, metalscrap = 1 },
+				duration = 3000,
+				count = 2,
+			},
+			{
 				name = 'cleaningkit',
 				ingredients = { metalscrap = 1 },
 				duration = 2000,
