@@ -58,9 +58,17 @@ local function writeMeta(entries)
     SaveResourceFile(resource, 'handling.meta', table.concat(parts, '\n') .. '\n', -1)
 end
 
+-- Tell clients which cars staff have tuned, so the realism layer leaves them exactly as posted.
+local function publishTuned(entries)
+    local tuned = {}
+    for name in pairs(entries) do tuned[name] = true end
+    GlobalState.hcTunedHandling = tuned
+end
+
 local function saveEntries(entries)
     SaveResourceFile(resource, ENTRIES_FILE, json.encode(entries, { indent = true }), -1)
     writeMeta(entries)
+    publishTuned(entries)
 end
 
 ---------------------------------------------------------------------------
@@ -214,7 +222,9 @@ local function checkChannel()
 end
 
 CreateThread(function()
-    if not LoadResourceFile(resource, 'handling.meta') then writeMeta(loadEntries()) end
+    local entries = loadEntries()
+    if not LoadResourceFile(resource, 'handling.meta') then writeMeta(entries) end
+    publishTuned(entries)
     Wait(15000)
     while true do
         checkChannel()

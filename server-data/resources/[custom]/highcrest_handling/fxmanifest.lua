@@ -8,6 +8,11 @@ version '1.1.0'
 
 shared_script '@ox_lib/init.lua'
 
+client_scripts {
+    'realism.lua',
+    'client.lua',
+}
+
 server_scripts {
     'config.lua',
     'server.lua',
