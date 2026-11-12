@@ -78,7 +78,7 @@ end
 -- ╚═╝░░░░░░╚═════╝░╚══════╝╚══════╝  ╚═════╝░░░░╚═╝░░░╚═════╝░░░░╚═╝░░░╚══════╝╚═╝░░░░░╚═╝
 
 -- Config.UseLegacyFuel  = GetResourceState("LegacyFuel") ~= "missing" -- true enabled -- false disabled
-Config.FuelSystem = "ox_fuel"  -- LegacyFuel / x-fuel / ox_fuel
+Config.FuelSystem = "LegacyFuel"  -- LegacyFuel / x-fuel / ox_fuel
 
 Config.SetVehicleFuel = function(vehicle, fuel_level) -- you can change LegacyFuel export if you use another fuel system
     if Config.FuelSystem == 'LegacyFuel' then
