@@ -512,6 +512,135 @@
             border-color: #c8102e;
             background: #c8102e;
         }
+
+        /* ---------- Speedometer (bottom right) ---------- */
+        #speedo {
+            --crimson: #c8102e;
+            --gold: #d4af37;
+            position: fixed;
+            right: 2.6vh;
+            bottom: 2.6vh;
+            width: 24vh;
+            height: 24vh;
+            font-family: 'Rajdhani', 'Segoe UI', sans-serif;
+            color: #f5f5f5;
+            opacity: 0;
+            transform: translateY(1vh);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        #speedo.visible { opacity: 1; transform: none; }
+        #speedo > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+        #speedo .dial { fill: rgba(11, 11, 13, 0.62); stroke: rgba(212, 175, 55, 0.28); stroke-width: 0.6; }
+        #speedo .track { fill: none; stroke: rgba(255, 255, 255, 0.1); stroke-width: 5; stroke-linecap: round; }
+        #speedo .redline { fill: none; stroke: rgba(200, 16, 46, 0.55); stroke-width: 5; stroke-linecap: butt; }
+        #speedo .rpm { fill: none; stroke: url(#rpmGrad); stroke-width: 5; stroke-linecap: round; transition: stroke-dashoffset 0.08s linear; }
+        #speedo .tick { stroke: rgba(255, 255, 255, 0.35); stroke-width: 0.6; }
+        #speedo .centre {
+            position: absolute; inset: 0;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding-bottom: 2vh;
+        }
+        #speedo .speed { font-size: 6.4vh; font-weight: 700; line-height: 0.9; letter-spacing: 0.02em; text-shadow: 0 0 1.4vh rgba(0, 0, 0, 0.6); }
+        #speedo .unit { font-size: 1.3vh; font-weight: 700; letter-spacing: 0.3em; color: var(--gold); margin-top: 0.3vh; }
+        #speedo .gear {
+            margin-top: 0.8vh; min-width: 3vh; padding: 0.15vh 0.8vh;
+            border: 1px solid rgba(212, 175, 55, 0.5); border-radius: 0.5vh;
+            font-size: 1.8vh; font-weight: 700; text-align: center;
+        }
+        #speedo .gear.r { color: #ff6b80; border-color: rgba(200, 16, 46, 0.7); }
+        #speedo .signals { position: absolute; top: 5.2vh; left: 0; right: 0; display: flex; justify-content: space-between; padding: 0 5.4vh; }
+        #speedo .sig { width: 2.2vh; height: 2.2vh; opacity: 0.18; color: #2ecc71; }
+        #speedo .sig.on { animation: blink 0.75s steps(1) infinite; opacity: 1; }
+        @keyframes blink { 50% { opacity: 0.18; } }
+        #speedo .bottom {
+            position: absolute; left: 0; right: 0; bottom: 2.2vh;
+            display: flex; justify-content: center; align-items: center; gap: 0.8vh;
+        }
+        #speedo .meter { display: flex; align-items: center; gap: 0.5vh; font-size: 1.25vh; font-weight: 700; }
+        #speedo .meter svg { position: static; width: 1.6vh; height: 1.6vh; color: var(--gold); }
+        #speedo .bar { width: 3.2vh; height: 0.55vh; border-radius: 1vh; background: rgba(255, 255, 255, 0.12); overflow: hidden; }
+        #speedo .bar i { display: block; height: 100%; width: 50%; border-radius: inherit; background: linear-gradient(90deg, var(--gold), #f3d36b); transition: width 0.4s ease; }
+        #speedo .bar i.low { background: linear-gradient(90deg, var(--crimson), #ff4d66); }
+        #speedo .icon { width: 1.8vh; height: 1.8vh; color: rgba(255, 255, 255, 0.25); }
+        #speedo .icon.on { color: #5aa9ff; }
+        #speedo .icon.high { color: #9fd0ff; }
+        #speedo .icon.belt-off { color: #ff4d66; animation: blink 1s steps(1) infinite; }
+        #speedo .icon.belt-on { color: #2ecc71; }
+        #speedo .alt { position: absolute; top: 2.6vh; left: 0; right: 0; text-align: center; font-size: 1.2vh; font-weight: 700; letter-spacing: 0.15em; color: var(--gold); }
+
+        /* ---------- F2 vehicle menu ---------- */
+        #vehmenu {
+            --crimson: #c8102e;
+            --gold: #d4af37;
+            position: fixed;
+            right: 30vh;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 54vh;
+            padding: 2.2vh;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 1.2vh;
+            background: linear-gradient(180deg, rgba(11, 11, 13, 0.94), rgba(28, 28, 34, 0.92));
+            box-shadow: 0 2vh 5vh rgba(0, 0, 0, 0.55);
+            color: #f5f5f5;
+            font-family: 'Rajdhani', 'Segoe UI', sans-serif;
+            pointer-events: auto;
+            animation: vm-in 0.25s ease-out both;
+        }
+        #vehmenu[hidden] { display: none; }
+        @keyframes vm-in { from { opacity: 0; transform: translateY(-48%); } }
+        #vehmenu header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.6vh; }
+        #vehmenu .vm-eyebrow { color: var(--gold); font-size: 1.1vh; letter-spacing: 0.26em; text-transform: uppercase; }
+        #vehmenu h2 { margin: 0.2vh 0 0; font-family: 'Cinzel', Georgia, serif; font-weight: 600; font-size: 2.2vh; }
+        #vehmenu .vm-close {
+            width: 3.4vh; height: 3.4vh; border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 0.6vh;
+            background: none; color: #f5f5f5; font-size: 1.6vh; cursor: pointer;
+        }
+        #vehmenu .vm-close:hover { border-color: var(--gold); color: var(--gold); }
+        #vehmenu h3 { margin: 1.6vh 0 0.8vh; color: var(--gold); font-size: 1.05vh; letter-spacing: 0.24em; text-transform: uppercase; }
+
+        /* Car diagram: doors and seats around a top-down car */
+        #vehmenu .car {
+            display: grid;
+            grid-template-columns: 1fr 21vh 1fr;
+            grid-template-rows: auto 1fr 1fr auto;
+            gap: 0.8vh;
+            align-items: center;
+        }
+        #vehmenu .body {
+            grid-column: 2; grid-row: 2 / 4;
+            height: 20vh; border-radius: 5vh 5vh 3.5vh 3.5vh;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            background: linear-gradient(180deg, rgba(212, 175, 55, 0.08), rgba(200, 16, 46, 0.06));
+            display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 0.8vh; padding: 3.2vh 1.2vh 2.4vh;
+        }
+        #vehmenu .vm-btn {
+            display: flex; align-items: center; justify-content: center; gap: 0.6vh;
+            min-height: 3.8vh; padding: 0.6vh 1vh;
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 0.6vh;
+            background: rgba(255, 255, 255, 0.04); color: #f5f5f5;
+            font: inherit; font-size: 1.3vh; font-weight: 700; letter-spacing: 0.04em; cursor: pointer;
+            transition: border-color 0.15s, background 0.15s, color 0.15s;
+        }
+        #vehmenu .vm-btn:hover:not(:disabled) { border-color: var(--gold); }
+        #vehmenu .vm-btn.on { border-color: rgba(212, 175, 55, 0.7); background: linear-gradient(90deg, rgba(92, 7, 20, 0.85), rgba(200, 16, 46, 0.45)); }
+        #vehmenu .vm-btn.mine { border-color: #2ecc71; color: #2ecc71; }
+        #vehmenu .vm-btn:disabled { opacity: 0.35; cursor: default; }
+        #vehmenu .vm-btn svg { width: 1.7vh; height: 1.7vh; flex: none; }
+        #vehmenu .seat { font-size: 1.1vh; min-height: 5vh; padding: 0.4vh; min-width: 0; }
+        #vehmenu .body .seat svg { display: none; }
+        #vehmenu .vm-btn span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        #vehmenu .hood { grid-column: 2; grid-row: 1; }
+        #vehmenu .trunk { grid-column: 2; grid-row: 4; }
+        #vehmenu .d0 { grid-column: 1; grid-row: 2; }
+        #vehmenu .d1 { grid-column: 3; grid-row: 2; }
+        #vehmenu .d2 { grid-column: 1; grid-row: 3; }
+        #vehmenu .d3 { grid-column: 3; grid-row: 3; }
+        #vehmenu .row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8vh; }
+        #vehmenu .row.three { grid-template-columns: repeat(3, 1fr); }
+        #vehmenu .extra-seats { display: flex; flex-wrap: wrap; gap: 0.6vh; margin-top: 0.8vh; }
+        #vehmenu .vm-message { min-height: 1.6vh; margin-top: 1.2vh; color: #ff8a9a; font-size: 1.25vh; }
+        #vehmenu .vm-hint { margin-top: 0.4vh; color: rgba(255, 255, 255, 0.4); font-size: 1.1vh; letter-spacing: 0.08em; }
     </style>
 </head>
 <body>
@@ -545,6 +674,70 @@
             <button id="hudEditCancel" type="button">Cancel</button>
             <button id="hudEditSave" class="primary" type="button">Save</button>
         </div>
+    </div>
+
+    <!-- Speedometer -->
+    <div id="speedo">
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+            <defs>
+                <linearGradient id="rpmGrad" x1="0" y1="1" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#d4af37"/>
+                    <stop offset="70%" stop-color="#f3d36b"/>
+                    <stop offset="100%" stop-color="#c8102e"/>
+                </linearGradient>
+            </defs>
+            <circle class="dial" cx="50" cy="50" r="47"/>
+            <path class="track" d="M 22.4 77.6 A 39 39 0 1 1 77.6 77.6"/>
+            <path class="redline" d="M 88.9 53.1 A 39 39 0 0 1 77.6 77.6"/>
+            <path id="rpmArc" class="rpm" d="M 22.4 77.6 A 39 39 0 1 1 77.6 77.6"/>
+            <g id="ticks"></g>
+        </svg>
+        <div class="alt" id="spAlt" hidden></div>
+        <div class="signals">
+            <svg class="sig" id="sigL" viewBox="0 0 24 24"><path fill="currentColor" d="M10 5 3 12l7 7v-4h11V9H10z"/></svg>
+            <svg class="sig" id="sigR" viewBox="0 0 24 24"><path fill="currentColor" d="m14 5 7 7-7 7v-4H3V9h11z"/></svg>
+        </div>
+        <div class="centre">
+            <div class="speed" id="spSpeed">0</div>
+            <div class="unit">MPH</div>
+            <div class="gear" id="spGear">N</div>
+        </div>
+        <div class="bottom">
+            <div class="meter" id="spFuelWrap" title="Fuel">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 3h9v8h1a2 2 0 0 1 2 2v4a1 1 0 0 0 2 0V9l-2-2 1.4-1.4L20 8.2V17a3 3 0 0 1-6 0v-4h-1v8H4zm2 2v5h5V5z"/></svg>
+                <div class="bar"><i id="spFuel"></i></div>
+            </div>
+            <svg class="icon" id="spLights" viewBox="0 0 24 24"><path fill="currentColor" d="M13 5c4 0 7 3.1 7 7s-3 7-7 7c-1.5 0-2-1.2-2-2.5v-9C11 6.2 11.5 5 13 5zM2 7h7v2H2zm0 4h7v2H2zm0 4h7v2H2z"/></svg>
+            <svg class="icon" id="spBelt" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM8 8h8l1 7h-2v7h-6v-7H7zm1.2 1.6 5.6 9.6 1.4-.8-5.6-9.6z"/></svg>
+            <div class="meter" id="spEngineWrap" title="Engine">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 4h6v2h-2v2h4l2 2h2v2h2v-2h1v7h-1v-2h-2v2h-2l-2 2H8l-2-2H4v-2H2v4H1V9h1v4h2v-3l2-2h3V6H7z"/></svg>
+                <div class="bar"><i id="spEngine"></i></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- F2 vehicle menu -->
+    <div id="vehmenu" hidden>
+        <header>
+            <div>
+                <div class="vm-eyebrow" id="vmPlate">Vehicle</div>
+                <h2 id="vmName">Vehicle</h2>
+            </div>
+            <button class="vm-close" data-veh="close" title="Close (F2 / Esc)">✕</button>
+        </header>
+
+        <h3>Doors &amp; seats</h3>
+        <div class="car" id="vmCar"></div>
+        <div class="extra-seats" id="vmExtraSeats"></div>
+
+        <h3>Windows</h3>
+        <div class="row" id="vmWindows"></div>
+
+        <h3>Controls</h3>
+        <div class="row three" id="vmControls"></div>
+
+        <p class="vm-message" id="vmMessage"></p>
+        <p class="vm-hint">Click a seat to move into it · click a door to open or close it</p>
     </div>
     <script>
         /* Compass: a tape of ticks from -180 to 540 degrees, slid so the heading sits under the pointer. */
@@ -770,6 +963,8 @@
             if (data.stats) showStats(data.stats);
             if (data.compass) showCompass(data.compass);
             if (data.status) showStatus(data.status);
+            if (data.speedo) showSpeedo(data.speedo);
+            if (data.vehmenu) showVehMenu(data.vehmenu);
             if (data.hudLayout) {
                 hudLayout = Array.isArray(data.hudLayout) ? {} : data.hudLayout;
                 applyLayout();
@@ -786,6 +981,156 @@
                 root.setProperty('--mb-h', data.mapBorder.h);
                 mapFrame.classList.toggle('adjusting', Boolean(data.mapBorder.adjusting));
             }
+        });
+
+
+        /* ---------- Speedometer ---------- */
+        const speedoEl = element('speedo');
+        const rpmArc = element('rpmArc');
+        const RPM_LEN = 2 * Math.PI * 39 * 0.75;
+        rpmArc.style.strokeDasharray = `${RPM_LEN}`;
+        rpmArc.style.strokeDashoffset = `${RPM_LEN}`;
+        (() => {
+            // 11 ticks around the 270° dial (starts bottom-left, ends bottom-right).
+            const g = element('ticks');
+            for (let i = 0; i <= 10; i++) {
+                const angle = (135 + i * 27) * Math.PI / 180;
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('class', 'tick');
+                line.setAttribute('x1', 50 + Math.cos(angle) * 33.5);
+                line.setAttribute('y1', 50 + Math.sin(angle) * 33.5);
+                line.setAttribute('x2', 50 + Math.cos(angle) * (i % 5 === 0 ? 30 : 31.5));
+                line.setAttribute('y2', 50 + Math.sin(angle) * (i % 5 === 0 ? 30 : 31.5));
+                g.appendChild(line);
+            }
+        })();
+
+        function showSpeedo(d) {
+            speedoEl.classList.toggle('visible', !!d.visible);
+            if (!d.visible) return;
+            element('spSpeed').textContent = d.speed ?? 0;
+            const rpm = Math.max(0, Math.min(1, ((d.rpm || 0) - 0.2) / 0.8));
+            rpmArc.style.strokeDashoffset = `${RPM_LEN * (1 - (d.engineOn === false ? 0 : rpm))}`;
+            const gear = element('spGear');
+            gear.textContent = d.gear || '';
+            gear.hidden = !d.gear;
+            gear.classList.toggle('r', d.gear === 'R');
+
+            element('spFuelWrap').hidden = d.fuel == null;
+            if (d.fuel != null) {
+                const fuel = element('spFuel');
+                fuel.style.width = `${Math.max(2, Math.min(100, d.fuel))}%`;
+                fuel.classList.toggle('low', d.fuel <= 20);
+            }
+            element('spEngineWrap').hidden = d.engine == null;
+            if (d.engine != null) {
+                const engine = element('spEngine');
+                engine.style.width = `${Math.max(2, Math.min(100, d.engine))}%`;
+                engine.classList.toggle('low', d.engine <= 35);
+            }
+
+            const lights = element('spLights');
+            lights.classList.toggle('on', d.lights === 1);
+            lights.classList.toggle('high', d.lights === 2);
+            const belt = element('spBelt');
+            belt.style.display = d.beltNeeded ? '' : 'none';
+            belt.classList.toggle('belt-on', d.belt === true);
+            belt.classList.toggle('belt-off', d.beltNeeded && d.belt !== true && (d.speed || 0) > 10);
+            element('sigL').classList.toggle('on', !!d.left);
+            element('sigR').classList.toggle('on', !!d.right);
+            const alt = element('spAlt');
+            alt.hidden = d.altitude == null;
+            if (d.altitude != null) alt.textContent = `ALT ${d.altitude} FT`;
+        }
+
+        /* ---------- F2 vehicle menu ---------- */
+        const vehMenu = element('vehmenu');
+        const DOOR_NAMES = { 0: 'Front left', 1: 'Front right', 2: 'Rear left', 3: 'Rear right', 4: 'Hood', 5: 'Trunk' };
+        const ICON_DOOR = '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M5 3h11l4 5v13H5zm2 2v5h11.2L15 5zm7 9v2h3v-2z"/></svg>';
+        const ICON_SEAT = '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 3h5l1 9h5a2 2 0 0 1 2 2v6h-2v-4H8a2 2 0 0 1-2-2z"/></svg>';
+        let vehState = null;
+
+        const vmButton = (label, cls, on, onClick, opts = {}) => {
+            const b = document.createElement('button');
+            b.className = `vm-btn ${cls || ''}${on ? ' on' : ''}${opts.mine ? ' mine' : ''}`;
+            b.innerHTML = (opts.icon || '') + `<span>${label}</span>`;
+            b.disabled = !!opts.disabled;
+            b.addEventListener('click', onClick);
+            return b;
+        };
+
+        async function vehAction(body) {
+            const res = await fetch(`https://${GetParentResourceName()}/vehAction`, { method: 'POST', body: JSON.stringify(body) })
+                .then((r) => r.json()).catch(() => null);
+            element('vmMessage').textContent = (res && res.message) || '';
+            if (res && res.state) renderVehMenu(res.state);
+        }
+
+        function renderVehMenu(s) {
+            vehState = s;
+            element('vmName').textContent = s.name || 'Vehicle';
+            element('vmPlate').textContent = s.plate ? `Plate ${s.plate.trim()}` : 'Vehicle';
+
+            // Car diagram: doors around the body, the four main seats inside it.
+            const car = element('vmCar');
+            car.textContent = '';
+            const doorOf = Object.fromEntries((s.doors || []).map((d) => [d.door, d]));
+            const doorBtn = (door, cls) => {
+                const d = doorOf[door];
+                return vmButton(DOOR_NAMES[door], cls, d && d.open, () => vehAction({ action: 'door', door }),
+                    { icon: ICON_DOOR, disabled: !d });
+            };
+            car.append(doorBtn(4, 'hood'), doorBtn(0, 'd0'), doorBtn(1, 'd1'), doorBtn(2, 'd2'), doorBtn(3, 'd3'), doorBtn(5, 'trunk'));
+            const body = document.createElement('div');
+            body.className = 'body';
+            const seatOf = Object.fromEntries((s.seats || []).map((x) => [x.seat, x]));
+            [-1, 0, 1, 2].forEach((seat) => {
+                const x = seatOf[seat];
+                body.appendChild(vmButton(x ? x.name : '—', 'seat', false, () => vehAction({ action: 'seat', seat }),
+                    { icon: ICON_SEAT, mine: x && x.mine, disabled: !x || x.taken || x.mine || !s.inside }));
+            });
+            car.appendChild(body);
+
+            const extra = element('vmExtraSeats');
+            extra.textContent = '';
+            (s.seats || []).filter((x) => x.seat > 2).forEach((x) => {
+                extra.appendChild(vmButton(x.name, 'seat', false, () => vehAction({ action: 'seat', seat: x.seat }),
+                    { icon: ICON_SEAT, mine: x.mine, disabled: x.taken || x.mine || !s.inside }));
+            });
+
+            const windows = element('vmWindows');
+            windows.textContent = '';
+            ['Front left', 'Front right', 'Rear left', 'Rear right'].forEach((label, i) => {
+                const w = (s.windows || [])[i];
+                windows.appendChild(vmButton(label, '', w && w.down, () => vehAction({ action: 'window', window: i })));
+            });
+
+            const controls = element('vmControls');
+            controls.textContent = '';
+            const driverOnly = { disabled: !s.driver };
+            controls.append(
+                vmButton(s.engine ? 'Engine on' : 'Engine off', '', s.engine, () => vehAction({ action: 'engine' }), driverOnly),
+                vmButton(s.lights ? 'Lights on' : 'Lights off', '', s.lights, () => vehAction({ action: 'lights' }), driverOnly),
+                vmButton('Interior light', '', s.interior, () => vehAction({ action: 'interior' }), { disabled: !s.inside }),
+                vmButton('⇦ Left', '', s.signals === 1, () => vehAction({ action: 'left' }), driverOnly),
+                vmButton('Hazards', '', s.signals === 3, () => vehAction({ action: 'hazards' }), driverOnly),
+                vmButton('Right ⇨', '', s.signals === 2, () => vehAction({ action: 'right' }), driverOnly),
+            );
+            if (s.neon) controls.appendChild(vmButton(s.neonOn ? 'Neon on' : 'Neon off', '', s.neonOn, () => vehAction({ action: 'neon' }), driverOnly));
+        }
+
+        function showVehMenu(d) {
+            vehMenu.hidden = !d.open;
+            element('vmMessage').textContent = '';
+            if (d.open && d.state) renderVehMenu(d.state);
+        }
+
+        vehMenu.addEventListener('click', (e) => {
+            if (e.target.closest('[data-veh="close"]')) nui('vehClose');
+        });
+        document.addEventListener('keydown', (e) => {
+            if (vehMenu.hidden) return;
+            if (e.key === 'Escape' || e.key === 'F2') { e.preventDefault(); nui('vehClose'); }
         });
 
         // Browser preview only: index.html?preview
@@ -806,6 +1151,16 @@
                 health: 82, armor: 45, hunger: 15, thirst: 64, stress: 22, stamina: 58, air: 40,
                 talking: true, voiceRange: 2,
             });
+            if (location.search.includes('vehicle')) {
+                showSpeedo({ visible: true, speed: 87, rpm: 0.78, gear: '4', fuel: 62, engine: 91, belt: false, beltNeeded: true, lights: 1, left: true, right: false, engineOn: true });
+                showVehMenu({ open: true, state: {
+                    name: 'Schlagen GT', plate: 'HC 1234 ', inside: true, driver: true,
+                    seats: [{ seat: -1, name: 'Driver', mine: true }, { seat: 0, name: 'Passenger' }, { seat: 1, name: 'Rear left', taken: true }, { seat: 2, name: 'Rear right' }],
+                    doors: [{ door: 0, open: true }, { door: 1 }, { door: 2 }, { door: 3 }, { door: 4 }, { door: 5, open: false }],
+                    windows: [{ down: true }, {}, {}, {}],
+                    engine: true, lights: true, signals: 1, interior: false, neon: true, neonOn: true,
+                } });
+            }
             if (location.search.includes('edit')) {
                 hudLayout = { thirst: { x: 0.3, y: 0.85 } };
                 applyLayout();

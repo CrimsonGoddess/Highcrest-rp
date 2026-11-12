@@ -12,6 +12,7 @@ client_scripts {
     'client/main.lua',
     'client/compass.lua',
     'client/status.lua',
+    'client/vehicle.lua',
 }
 
 ui_page 'html/index.html'
