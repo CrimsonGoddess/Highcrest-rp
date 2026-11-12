@@ -546,3 +546,19 @@ dd {
     70% { box-shadow: 0 0 0 0.6em rgba(46, 204, 113, 0); }
     100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
 }
+
+/* Map tab: GTA's pause map shows through everything except the left panel. */
+.menu.map-mode {
+    background: none;
+    pointer-events: none;
+}
+.menu.map-mode .side {
+    pointer-events: auto;
+    background: linear-gradient(180deg, rgba(11, 11, 13, 0.96), rgba(28, 28, 34, 0.94));
+}
+.menu.map-mode .content { visibility: hidden; }
+.menu.map-mode .confirm { pointer-events: auto; }
+.nav-btn.active {
+    border-color: rgba(212, 175, 55, 0.5);
+    background: linear-gradient(90deg, var(--crimson-deep), rgba(200, 16, 46, 0.55));
+}

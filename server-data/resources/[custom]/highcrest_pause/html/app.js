@@ -57,8 +57,23 @@ function open(data) {
     pendingConfirm = null;
     menu.classList.remove('closing');
     menu.hidden = false;
-    document.querySelector('.nav-btn.primary').focus();
+    // Tell the game how wide the left panel is, so it knows when the cursor is over it.
+    const side = document.querySelector('.side');
+    post('layout', { panel: side.getBoundingClientRect().right / window.innerWidth });
 }
+
+// 'map': GTA's map shows on the right; 'info': the character / city / staff cards.
+function setMode(mode) {
+    menu.classList.toggle('map-mode', mode === 'map');
+    document.querySelectorAll('.nav-btn[data-action="map"], .nav-btn[data-action="info"]').forEach((btn) => {
+        btn.classList.toggle('active', btn.dataset.action === mode);
+    });
+}
+
+// While the map shows, leaving the panel hands the mouse back to the map.
+document.querySelector('.side').addEventListener('mouseleave', () => {
+    if (menu.classList.contains('map-mode') && confirmEl.hidden) post('releaseFocus');
+});
 
 function showStaff(staff) {
     const list = document.getElementById('staff');
@@ -153,6 +168,7 @@ window.addEventListener('message', ({ data }) => {
     if (data.action === 'open') open(data);
     else if (data.action === 'info') showInfo(data.info || {});
     else if (data.action === 'close') close();
+    else if (data.action === 'mode') setMode(data.mode);
 });
 
 document.addEventListener('click', (event) => {
@@ -203,3 +219,6 @@ if (new URLSearchParams(location.search).has('demo')) {
         character: { name: 'Alex Mercer', job: 'Gruppe Sechs', grade: 'Guard', onDuty: true, cash: 1250, bank: 48210, phone: '555-0142', citizenid: 'SJX39KSL' },
     });
 }
+// Browser preview: index.html?demo&map shows the Map tab layout.
+if (new URLSearchParams(location.search).has('map')) setMode('map');
+else if (new URLSearchParams(location.search).has('demo')) setMode('info');
