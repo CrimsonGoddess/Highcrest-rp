@@ -1,5 +1,5 @@
 return {
-	General = {
+	--[[General = {
 		name = 'Shop',
 		blip = {
 			id = 59, colour = 69, scale = 0.8
@@ -29,10 +29,10 @@ return {
 			{ loc = vec3(2678.29, 3279.94, 55.24), length = 0.6, width = 0.5, heading = 330.0, minZ = 55.24, maxZ = 55.64, distance = 1.5 },
 			{ loc = vec3(2557.19, 381.4, 108.62), length = 0.6, width = 0.5, heading = 0.0, minZ = 108.62, maxZ = 109.02, distance = 1.5 },
 			{ loc = vec3(373.13, 326.29, 103.57), length = 0.6, width = 0.5, heading = 345.0, minZ = 103.57, maxZ = 103.97, distance = 1.5 },
-		}
-	},
+		}--
+	},--]]
 
-	Liquor = {
+	--[[Liquor = {
 		name = 'Liquor Store',
 		blip = {
 			id = 93, colour = 69, scale = 0.8
@@ -56,9 +56,9 @@ return {
 			{ loc = vec3(1165.95, 2710.20, 38.26), length = 0.6, width = 0.5, heading = 178.84, minZ = 38.1, maxZ = 38.5, distance = 1.5 },
 			{ loc = vec3(1393.0, 3605.95, 35.11), length = 0.6, width = 0.6, heading = 200.0, minZ = 35.0, maxZ = 35.4, distance = 1.5 }
 		}
-	},
+	},--]]
 
-	YouTool = {
+	--[[YouTool = {
 		name = 'YouTool',
 		blip = {
 			id = 402, colour = 69, scale = 0.8
@@ -73,9 +73,9 @@ return {
 		}, targets = {
 			{ loc = vec3(2746.8, 3473.13, 55.67), length = 0.6, width = 3.0, heading = 65.0, minZ = 55.0, maxZ = 56.8, distance = 3.0 }
 		}
-	},
+	},--]]
 
-	Ammunation = {
+	--[[Ammunation = {
 		name = 'Ammunation',
 		blip = {
 			id = 110, colour = 69, scale = 0.8
@@ -108,7 +108,7 @@ return {
 			{ loc = vec3(-1117.61, 2700.26, 18.67), length = 0.6, width = 0.5, heading = 221.82, minZ = 18.5, maxZ = 18.9, distance = 2.0 },
 			{ loc = vec3(841.05, -1034.76, 28.31), length = 0.6, width = 0.5, heading = 360.0, minZ = 28.2, maxZ = 28.6, distance = 2.0 }
 		}
-	},
+	},--]]
 
 	PoliceArmoury = {
 		name = 'Police Armoury',
@@ -165,8 +165,11 @@ return {
 	VendingMachineDrinks = {
 		name = 'Vending Machine',
 		inventory = {
-			{ name = 'water', price = 10 },
-			{ name = 'cola', price = 10 },
+			{ name = 'water', price = 4 },
+			{ name = 'ecola', price = 3 },
+			{ name = 'sprunk', price = 3 },
+			{ name = 'orangotang', price = 3 },
+			{ name = 'ejunk', price = 5 },
 		},
 		model = {
 			`prop_vend_soda_02`, `prop_vend_fridge01`, `prop_vend_water_01`, `prop_vend_soda_01`
