@@ -20,6 +20,14 @@ return {
         categories = {
             boats = 'boats',
             air = 'air',
+            -- Highcrest: add-on cars (qbx_core shared/vehicles_imports.lua) sell at Imports & Customs only.
+            import_x = 'imports',
+            import_s = 'imports',
+            import_a = 'imports',
+            import_b = 'imports',
+            import_c = 'imports',
+            import_drift = 'imports',
+            import_custom = 'imports',
             -- super = { 'pdm', 'luxury' },
         },
 
@@ -281,6 +289,48 @@ return {
                 { coords = vec4(-43.31, -1099.02, 25.44, 52.5), vehicle = 'bati' },
                 { coords = vec4(-50.66, -1093.05, 25.44, 222.5), vehicle = 'bati' },
                 { coords = vec4(-44.28, -1102.47, 25.44, 298.5), vehicle = 'bati' },
+            },
+        },
+
+        -- Highcrest: Imports & Customs in the Benefactor showroom (breze_benefactor map), add-on cars only.
+        imports = {
+            type = 'free-use',
+            zone = {
+                shape = {
+                    vec3(-82.5, 67.5, 71.9),
+                    vec3(-67.5, 67.5, 71.9),
+                    vec3(-67.5, 82.5, 71.9),
+                    vec3(-82.5, 82.5, 71.9),
+                },
+                size = vec3(3, 3, 4),
+                targetDistance = 1,
+            },
+            blip = {
+                label = 'Imports & Customs (Luxury Cars)',
+                coords = vec3(-75.47, 74.8, 71.91),
+                show = true,
+                sprite = 326,
+                color = 5,
+            },
+            categories = {
+                import_x = 'X Class',
+                import_s = 'S Class',
+                import_a = 'A Class',
+                import_b = 'B Class',
+                import_c = 'C Class',
+                import_drift = 'Drift',
+                import_custom = 'Custom',
+            },
+            testDrive = {
+                limit = 5.0,
+                endBehavior = 'return'
+            },
+            returnLocation = vec3(-83.12, 80.8, 71.52),
+            vehicleSpawns = {
+                vec4(-83.12, 80.8, 70.95, 149.85),
+            },
+            showroomVehicles = {
+                { coords = vec4(-75.47, 74.8, 70.91, 232.0), vehicle = 'schlagenstr' },
             },
         },
 
