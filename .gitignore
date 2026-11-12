@@ -21,3 +21,9 @@ Scripts/
 
 # RFC Mapping maps (large, uploaded directly, not in git)
 server-data/resources/[[]assets]/rfc_*/
+
+# RTX Shell Creator: bought resource + server-written shells; only our config is tracked
+server-data/resources/[[]rtx]/*
+!server-data/resources/[[]rtx]/rtx_shellcreator/
+server-data/resources/[[]rtx]/rtx_shellcreator/*
+!server-data/resources/[[]rtx]/rtx_shellcreator/config.lua
