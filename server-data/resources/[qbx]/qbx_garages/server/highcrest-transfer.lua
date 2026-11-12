@@ -6,7 +6,7 @@
 
 local function vehicleTypeOf(modelName)
     local vehicle = VEHICLES[modelName]
-    if not vehicle then return end
+    if not vehicle then return VehicleType.CAR end -- addon cars missing from the vehicle list count as cars
     if vehicle.category == 'helicopters' or vehicle.category == 'planes' then return VehicleType.AIR end
     if vehicle.category == 'boats' then return VehicleType.SEA end
     return VehicleType.CAR

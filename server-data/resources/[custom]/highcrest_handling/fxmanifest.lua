@@ -10,6 +10,7 @@ shared_script '@ox_lib/init.lua'
 
 client_scripts {
     'realism.lua',
+    'addons.lua',
     'client.lua',
 }
 

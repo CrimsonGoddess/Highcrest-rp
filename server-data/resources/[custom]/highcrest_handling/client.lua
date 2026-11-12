@@ -13,7 +13,12 @@ local function originals()
     return LocalPlayer.state.hcHandlingOrig or {}
 end
 
+-- Add-on cars that ship already tuned (addons.lua), by model hash.
+local preTuned = {}
+for _, name in ipairs(Realism.skipModels or {}) do preTuned[joaat(name)] = true end
+
 local function tunedByStaff(vehicle)
+    if preTuned[GetEntityModel(vehicle)] then return true end
     local tuned = GlobalState.hcTunedHandling or {}
     local name = GetDisplayNameFromVehicleModel(GetEntityModel(vehicle)):upper()
     return tuned[name] == true
