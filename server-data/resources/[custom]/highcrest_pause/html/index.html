@@ -40,10 +40,10 @@
                     <svg viewBox="0 0 24 24"><path d="M19.5 5.5A16 16 0 0 0 15.6 4.3l-.5 1a14.8 14.8 0 0 0-6.2 0l-.5-1A16 16 0 0 0 4.5 5.5 16.5 16.5 0 0 0 1.7 16.6a16 16 0 0 0 4.9 2.5l1-1.6a10 10 0 0 1-1.6-.8l.4-.3a11.4 11.4 0 0 0 11.2 0l.4.3a10 10 0 0 1-1.6.8l1 1.6a16 16 0 0 0 4.9-2.5 16.5 16.5 0 0 0-2.8-11.1ZM8.7 14.4c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm6.6 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z"/></svg>
                     Discord
                 </button>
-                <button class="nav-btn" data-action="link" data-link="store">
+                <button class="nav-btn" data-action="store">
                     <svg viewBox="0 0 24 24"><path d="M4 7h16l-1.5 12h-13zM8 7V5.5a4 4 0 0 1 8 0V7" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
                     Store
-                    <span class="soon" hidden>Coming soon</span>
+                    <span class="soon" id="vipNav" hidden></span>
                 </button>
 
                 <span class="nav-rule"></span>
@@ -66,6 +66,7 @@
                 <header class="card-head">
                     <h2>Your character</h2>
                     <span id="duty" class="badge" hidden>On duty</span>
+                    <span id="vipBadge" class="badge vip" hidden></span>
                 </header>
                 <p id="charName" class="char-name">&nbsp;</p>
                 <p id="charJob" class="char-job">&nbsp;</p>
@@ -97,6 +98,7 @@
                 <ul id="staff" class="staff-list"></ul>
                 <p class="staff-note">Need help? Ask in Discord or use /report in game.</p>
             </section>
+<section class="store" id="store" hidden>                <header class="store-head">                    <div>                        <p class="store-eyebrow">Support Highcrest</p>                        <h2>Store</h2>                    </div>                    <p class="store-status" id="storeStatus"></p>                </header>                <div class="tiers" id="tiers"></div>                <p class="store-note" id="storeNote"></p>                <p class="store-how">Press <strong>Get</strong> to copy the checkout link, paste it into your browser, and your perks arrive in game automatically.</p>            </section>
         </main>
 
         <div id="confirm" class="confirm" hidden>

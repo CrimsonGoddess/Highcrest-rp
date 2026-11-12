@@ -38,9 +38,15 @@ local function isOccupied(vehicle)
     return false
 end
 
-local function feeFor(vehicle, garageName)
+-- Highcrest VIP: the freeTransfers perk makes moving a car between garages free.
+local function vipPerk(source, perk)
+    return source and GetResourceState('highcrest_vip') == 'started' and exports.highcrest_vip:HasPerk(source, perk) == true
+end
+
+local function feeFor(vehicle, garageName, source)
     if vehicle.state == VehicleState.GARAGED then
-        return vehicle.garage == garageName and 0 or Config.transferFee
+        if vehicle.garage == garageName then return 0 end
+        return vipPerk(source, 'freeTransfers') and 0 or Config.transferFee
     elseif vehicle.state == VehicleState.OUT then
         return Config.recoverFee
     end
@@ -65,7 +71,7 @@ lib.callback.register('qbx_garages:server:hcVehicles', function(source, garageNa
             list[#list + 1] = {
                 id = vehicle.id, modelName = vehicle.modelName, plate = vehicle.props.plate, props = vehicle.props,
                 where = where, garageLabel = Garages[vehicle.garage] and Garages[vehicle.garage].label or vehicle.garage,
-                fee = feeFor(vehicle, garageName), inWorld = entity ~= nil, occupied = entity ~= nil and isOccupied(entity),
+                fee = feeFor(vehicle, garageName, source), inWorld = entity ~= nil, occupied = entity ~= nil and isOccupied(entity),
             }
         end
     end
@@ -85,7 +91,7 @@ lib.callback.register('qbx_garages:server:hcBringHere', function(source, vehicle
     local vehicle = exports.qbx_vehicles:GetPlayerVehicle(tonumber(vehicleId) or 0)
     if not vehicle or vehicle.citizenid ~= player.PlayerData.citizenid then return false, 'That isn\'t your car.' end
     if vehicleTypeOf(vehicle.modelName) ~= garage.vehicleType then return false, 'That vehicle can\'t be parked here.' end
-    local fee = feeFor(vehicle, garageName)
+    local fee = feeFor(vehicle, garageName, source)
     if not fee then return false, 'This car was impounded by the police. Collect it at the impound lot.' end
     if fee == 0 then return true end
 

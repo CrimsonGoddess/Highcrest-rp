@@ -34,7 +34,9 @@ lib.callback.register('highcrest_phone:server:garageGet', function(source)
             depotPrice = tonumber(row.depotprice) or 0,
         }
     end
-    return { vehicles = vehicles, valetFee = Config.valet.fee }
+    -- Highcrest VIP: the freeValet perk shows the valet as free.
+    local free = GetResourceState('highcrest_vip') == 'started' and exports.highcrest_vip:HasPerk(source, 'freeValet') == true
+    return { vehicles = vehicles, valetFee = free and 0 or Config.valet.fee }
 end)
 
 local function findSpawnedPlate(plate)
@@ -66,8 +68,14 @@ end)
 local valetBusy = {}
 local valetLast = {}
 
+-- Highcrest VIP: the freeValet perk.
+local function valetIsFree(source)
+    return GetResourceState('highcrest_vip') == 'started' and exports.highcrest_vip:HasPerk(source, 'freeValet') == true
+end
+
 local function chargeValet(player)
     local fee = Config.valet.fee
+    if valetIsFree(player.PlayerData.source) then return 'free' end
     if fee <= 0 then return 'free' end
     for _, account in ipairs({ 'cash', 'bank' }) do
         if player.PlayerData.money[account] >= fee and player.Functions.RemoveMoney(account, fee, 'phone-valet') then

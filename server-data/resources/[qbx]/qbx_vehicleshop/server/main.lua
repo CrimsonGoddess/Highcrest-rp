@@ -173,6 +173,12 @@ RegisterNetEvent('qbx_vehicleshop:server:buyShowroomVehicle', function(vehicle)
         return exports.qbx_core:Notify(src, locale('error.notallowed'), 'error')
     end
 
+    -- Highcrest VIP: VIP Collection and early-access cars.
+    if GetResourceState('highcrest_vip') == 'started' then
+        local allowed, reason = exports.highcrest_vip:CanBuyVehicle(src, vehicle)
+        if not allowed then return exports.qbx_core:Notify(src, reason, 'error') end
+    end
+
     local coords = GetClearSpawnArea(shop.vehicleSpawns)
     if not coords then
         return exports.qbx_core:Notify(src, locale('error.no_clear_spawn'), 'error')
@@ -241,6 +247,12 @@ RegisterNetEvent('qbx_vehicleshop:server:sellShowroomVehicle', function(vehicle,
 
     if not CheckVehicleList(vehicle, shopId) then
         return exports.qbx_core:Notify(src, locale('error.notallowed'), 'error')
+    end
+
+    -- Highcrest VIP: VIP Collection and early-access cars (checked for the buyer).
+    if GetResourceState('highcrest_vip') == 'started' then
+        local allowed, reason = exports.highcrest_vip:CanBuyVehicle(target.PlayerData.source, vehicle)
+        if not allowed then return exports.qbx_core:Notify(src, reason, 'error') end
     end
 
     local coords = GetClearSpawnArea(shop.vehicleSpawns)

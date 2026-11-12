@@ -7,7 +7,34 @@ Config.links = {
     store = '',
 }
 
--- Server rules shown on the pause menu. Edit freely; each line is one rule.
+-- Store page in the pause menu. Players browse here and press Buy, which copies the package's
+-- Tebex checkout link (FiveM can't open a browser). Until Tebex is set up, Buy copies
+-- Config.links.store, or says the store isn't open yet if that's empty too.
+--   url:   the package's Tebex link (from your Tebex dashboard: Packages → the package → copy link)
+-- FiveM/Rockstar rules: never sell in-game money or anything that turns into it.
+Config.store = {
+    currency = '$',
+    -- Tiers match highcrest_vip/config.lua (that's where the perks actually live).
+    tiers = {
+        {
+            tier = 'supporter', name = 'Supporter', price = '4.99', period = 'month', colour = '#c0c0c0',
+            perks = { 'Supporter role in Discord', 'Supporter badge on your pause menu', 'Keeps Highcrest running' },
+            url = '',
+        },
+        {
+            tier = 'vip', name = 'VIP', price = '9.99', period = 'month', colour = '#d4af37', featured = true,
+            perks = { 'Everything in Supporter', 'Early access to new imports', 'Buy VIP Collection cars', '1 custom licence plate (/vipplate)', 'Free "Bring to me" valet' },
+            url = '',
+        },
+        {
+            tier = 'elite', name = 'Elite', price = '19.99', period = 'month', colour = '#c8102e',
+            perks = { 'Everything in VIP', '3 custom licence plates', 'Free garage transfers', 'Elite role in Discord' },
+            url = '',
+        },
+    },
+    note = 'All imports stay available to everyone for in-game money. VIP never includes in-game money.',
+}
+
 Config.rules = {
     'Stay in character. Out-of-character talk goes in /ooc or Discord.',
     'No random deathmatch. Violence needs a roleplay reason.',

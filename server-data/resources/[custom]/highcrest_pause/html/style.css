@@ -572,3 +572,38 @@ dd {
 .menu.map-mode .brand-sub { font-size: 0.62em; letter-spacing: 0.14em; }
 .menu.map-mode .nav-btn { padding: 0.7em 0.8em; gap: 0.7em; font-size: 0.92em; }
 .menu.map-mode .soon { display: none; }
+
+/* Store view */
+.menu.store-mode .content > .card { display: none; }
+.store { grid-column: 1 / -1; }
+.store-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 2vw; margin-bottom: 3vh; }
+.store-eyebrow { color: var(--gold); font-size: 0.8em; letter-spacing: 0.28em; text-transform: uppercase; }
+.store-head h2 { font-family: 'Cinzel', Georgia, serif; font-size: 2.4em; font-weight: 600; margin-top: 0.15em; }
+.store-status { color: var(--muted); max-width: 30em; text-align: right; }
+.tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(15em, 1fr)); gap: 1.6vw; align-items: stretch; }
+.tier {
+    --tier: #d4af37;
+    position: relative; display: flex; flex-direction: column; gap: 1.2vh;
+    padding: 3vh 1.6vw 2.4vh;
+    border: 1px solid rgba(255, 255, 255, 0.08); border-top: 3px solid var(--tier); border-radius: 0.6em;
+    background: linear-gradient(180deg, rgba(11, 11, 13, 0.85), rgba(28, 28, 34, 0.8));
+    box-shadow: 0 1.5vh 4vh rgba(0, 0, 0, 0.35);
+}
+.tier.featured { border-color: rgba(212, 175, 55, 0.5); border-top-color: var(--tier); transform: translateY(-1vh); }
+.tier.current { box-shadow: 0 0 0 1px var(--tier), 0 1.5vh 4vh rgba(0, 0, 0, 0.35); }
+.tier .ribbon {
+    position: absolute; top: -1.2em; left: 50%; transform: translateX(-50%);
+    padding: 0.25em 0.9em; border-radius: 2em; background: var(--tier); color: #0b0b0d;
+    font-size: 0.75em; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap;
+}
+.tier h3 { color: var(--tier); font-family: 'Cinzel', Georgia, serif; font-size: 1.6em; font-weight: 600; }
+.tier .price strong { font-size: 2em; }
+.tier .price span { color: var(--muted); margin-left: 0.3em; }
+.tier ul { list-style: none; display: grid; gap: 0.6em; flex: 1; }
+.tier li { position: relative; padding-left: 1.4em; color: #e2e2e6; }
+.tier li::before { content: '✓'; position: absolute; left: 0; color: var(--tier); font-weight: 700; }
+.tier-buy { border-color: var(--tier) !important; color: var(--white); }
+.tier.featured .tier-buy { background: linear-gradient(90deg, var(--crimson-deep), var(--crimson)); }
+.store-note { margin-top: 3vh; color: var(--gold); }
+.store-how { margin-top: 0.8vh; color: var(--muted); font-size: 0.9em; }
+.badge.vip { --tier: #d4af37; color: #0b0b0d; background: var(--tier); }

@@ -64,7 +64,7 @@ end
 local function open()
     if isOpen then return end
     isOpen = true
-    SendNUIMessage({ action = 'open', links = Config.links, rules = Config.rules })
+    SendNUIMessage({ action = 'open', links = Config.links, rules = Config.rules, store = Config.store, vip = LocalPlayer.state.vip })
     setMode('map')
     local info = lib.callback.await('highcrest_pause:getInfo', false)
     if isOpen and info then
@@ -140,6 +140,23 @@ RegisterNUICallback('map', function(_, cb)
     if isOpen and mode ~= 'map' then setMode('map') end
     if isOpen then SetNuiFocus(false, false) end
     cb(1)
+end)
+
+RegisterNUICallback('store', function(_, cb)
+    if isOpen and mode ~= 'store' then setMode('store') end
+    cb(1)
+end)
+
+-- Buy: copy the package's Tebex link (FiveM can't open a browser).
+RegisterNUICallback('buy', function(data, cb)
+    cb(1)
+    local url = type(data) == 'table' and type(data.url) == 'string' and data.url ~= '' and data.url or Config.links.store
+    if not url or url == '' then
+        return lib.notify({ title = 'Store', description = "The store isn't open yet. Check Discord for news.", type = 'inform' })
+    end
+    lib.setClipboard(url)
+    TriggerEvent('chat:addMessage', { args = { 'Highcrest Store', url } })
+    lib.notify({ title = 'Link copied', description = 'Paste it into your web browser to finish buying. Perks arrive in game automatically.', type = 'success', duration = 9000 })
 end)
 
 RegisterNUICallback('info', function(_, cb)

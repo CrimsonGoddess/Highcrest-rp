@@ -187,7 +187,24 @@ local function openVehCatsMenu(category, targetVehicle)
         if vehicle.category == category and vehicle.shopType == insideShop then
             vehicle.args.closestShop = insideShop
             vehicle.args.targetVehicle = targetVehicle
-            categoryMenu[#categoryMenu + 1] = vehicle
+            -- Highcrest VIP: label VIP Collection and early-access cars. Anyone can still put them on
+            -- display; buying is checked on the server.
+            local restricted = (GlobalState.hcVipCars or {})[vehicle.args.toVehicle]
+            if restricted then
+                local entry = lib.table.deepclone(vehicle)
+                local vip = LocalPlayer.state.vip
+                local perks = vip and vip.perks or {}
+                if restricted.collection then
+                    entry.title = '★ ' .. entry.title
+                    entry.description = entry.description .. (perks.collection and ' · VIP Collection' or ' · VIP Collection (VIP only)')
+                else
+                    entry.title = '◆ ' .. entry.title
+                    entry.description = entry.description .. (perks.earlyAccess and ' · VIP early access' or (' · VIP early access, everyone from ' .. restricted.opens))
+                end
+                categoryMenu[#categoryMenu + 1] = entry
+            else
+                categoryMenu[#categoryMenu + 1] = vehicle
+            end
         end
     end
 

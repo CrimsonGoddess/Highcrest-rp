@@ -5,7 +5,47 @@ const confirmEl = document.getElementById('confirm');
 const confirmTitle = document.getElementById('confirmTitle');
 const confirmText = document.getElementById('confirmText');
 const confirmGo = document.getElementById('confirmGo');
-const storeButton = document.querySelector('[data-link="store"]');
+// Store: VIP tiers from config. "Get" copies the tier's Tebex link (done in client.lua).
+function renderStore(store, vip) {
+    const box = document.getElementById('tiers');
+    box.textContent = '';
+    const currency = store.currency || '$';
+    (store.tiers || []).forEach((t) => {
+        const current = vip && vip.tier === t.tier;
+        const card = document.createElement('article');
+        card.className = `tier${t.featured ? ' featured' : ''}${current ? ' current' : ''}`;
+        card.style.setProperty('--tier', t.colour || '#d4af37');
+        const ribbon = current ? 'Your tier' : (t.featured ? 'Most popular' : '');
+        if (ribbon) { const r = document.createElement('span'); r.className = 'ribbon'; r.textContent = ribbon; card.appendChild(r); }
+        const name = document.createElement('h3'); name.textContent = t.name;
+        const price = document.createElement('p'); price.className = 'price';
+        price.innerHTML = `<strong>${currency}${t.price}</strong><span>/ ${t.period || 'month'}</span>`;
+        const list = document.createElement('ul');
+        (t.perks || []).forEach((p) => { const li = document.createElement('li'); li.textContent = p; list.appendChild(li); });
+        const buy = document.createElement('button');
+        buy.className = 'btn tier-buy';
+        buy.dataset.action = 'buy';
+        buy.dataset.url = t.url || '';
+        buy.textContent = current ? 'Renew' : `Get ${t.name}`;
+        card.append(name, price, list, buy);
+        box.appendChild(card);
+    });
+    document.getElementById('storeNote').textContent = store.note || '';
+    const status = document.getElementById('storeStatus');
+    const badge = document.getElementById('vipBadge');
+    const nav = document.getElementById('vipNav');
+    if (vip) {
+        const until = vip.expires ? ` until ${new Date(vip.expires * 1000).toLocaleDateString()}` : '';
+        status.textContent = `You are ${vip.label}${until}. Thank you!`;
+        badge.textContent = vip.label;
+        badge.style.setProperty('--tier', vip.colour || '#d4af37');
+        nav.textContent = vip.label;
+    } else {
+        status.textContent = 'Every import stays available to everyone. VIP adds extras.';
+    }
+    badge.hidden = !vip;
+    nav.hidden = !vip;
+}
 
 const CONFIRMS = {
     disconnect: {
@@ -41,9 +81,7 @@ function setText(id, text) {
 
 function open(data) {
     links = data.links || {};
-    const storeReady = Boolean(links.store);
-    storeButton.classList.toggle('disabled', !storeReady);
-    storeButton.querySelector('.soon').hidden = storeReady;
+    renderStore(data.store || {}, data.vip || null);
 
     const rules = document.getElementById('rules');
     rules.textContent = '';
@@ -65,7 +103,9 @@ function open(data) {
 // 'map': GTA's map shows on the right; 'info': the character / city / staff cards.
 function setMode(mode) {
     menu.classList.toggle('map-mode', mode === 'map');
-    document.querySelectorAll('.nav-btn[data-action="map"], .nav-btn[data-action="info"]').forEach((btn) => {
+    menu.classList.toggle('store-mode', mode === 'store');
+    document.getElementById('store').hidden = mode !== 'store';
+    document.querySelectorAll('.nav-btn[data-action="map"], .nav-btn[data-action="info"], .nav-btn[data-action="store"]').forEach((btn) => {
         btn.classList.toggle('active', btn.dataset.action === mode);
     });
     // The panel is narrower in map view; tell the game its new width.
@@ -183,6 +223,7 @@ document.addEventListener('click', (event) => {
 
     if (action === 'confirm') askConfirm(button.dataset.confirm);
     else if (action === 'cancel') cancelConfirm();
+    else if (action === 'buy') post('buy', { url: button.dataset.url || '' });
     else if (action === 'link') {
         if (links[button.dataset.link]) post('link', { name: button.dataset.link });
     } else post(action);
@@ -206,6 +247,12 @@ document.addEventListener('keydown', (event) => {
 if (new URLSearchParams(location.search).has('demo')) {
     open({
         links: { discord: 'https://discord.gg/example', store: '' },
+        vip: { tier: 'vip', label: 'VIP', colour: '#d4af37', expires: 1795000000 },
+        store: { currency: '$', note: 'All imports stay available to everyone for in-game money. VIP never includes in-game money.', tiers: [
+            { tier: 'supporter', name: 'Supporter', price: '4.99', period: 'month', colour: '#c0c0c0', perks: ['Supporter role in Discord', 'Supporter badge on your pause menu', 'Keeps Highcrest running'] },
+            { tier: 'vip', name: 'VIP', price: '9.99', period: 'month', colour: '#d4af37', featured: true, perks: ['Everything in Supporter', 'Early access to new imports', 'Buy VIP Collection cars', '1 custom licence plate (/vipplate)', 'Free "Bring to me" valet'] },
+            { tier: 'elite', name: 'Elite', price: '19.99', period: 'month', colour: '#c8102e', perks: ['Everything in VIP', '3 custom licence plates', 'Free garage transfers', 'Elite role in Discord'] },
+        ] },
         rules: [
             'Stay in character. Out-of-character talk goes in /ooc or Discord.',
             'No random deathmatch. Violence needs a roleplay reason.',
@@ -226,4 +273,5 @@ if (new URLSearchParams(location.search).has('demo')) {
 }
 // Browser preview: index.html?demo&map shows the Map tab layout.
 if (new URLSearchParams(location.search).has('map')) setMode('map');
+else if (new URLSearchParams(location.search).has('store')) setMode('store');
 else if (new URLSearchParams(location.search).has('demo')) setMode('info');
