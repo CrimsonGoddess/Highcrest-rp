@@ -63,6 +63,7 @@ Config.staff = {
     { name = 'Crimson', role = 'Owner', discord = '203335774895079425' },
     { name = 'Slug', role = 'Management', discord = '527137345619755018' },
     { name = 'Gina', role = 'Management', discord = '246682979244441601' },
+    { name = 'Lead Dev', role = 'Lead Dev', discord = '199508907444404224' },
     { name = 'Gracie', role = 'Admin', discord = '429060029342154772' },
     { name = 'Ash', role = 'Admin', discord = '733120302489534474' },
     { name = 'Tanor', role = 'Admin', discord = '249696922334396416' },
