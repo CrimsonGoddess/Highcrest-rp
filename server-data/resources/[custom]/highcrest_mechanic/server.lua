@@ -129,7 +129,13 @@ end
 
 -- Shop price lists. The boss sets them on the tablet; anything missing uses the config.
 local shopPrices = {}
-local SCALAR_PRICES = { 'cosmetic', 'color', 'customPaint', 'illegalTint', 'turbo' }
+local SCALAR_PRICES = { 'cosmetic', 'color', 'customPaint', 'illegalTint', 'repair', 'turbo' }
+
+-- Seconds a mechanic spends on one part.
+local function secondsFor(item)
+    local tab = item and item.tab
+    return Config.installSeconds[tab] or Config.installSeconds.default
+end
 
 local function defaultPrices()
     local p = { labourPerPart = Config.labourPerPart, levels = {} }
@@ -159,7 +165,7 @@ local function cleanPrices(input)
         if value < min or value > max then return nil, ('%s must be between $%d and $%d.'):format(label, min, max) end
         return value
     end
-    local labels = { cosmetic = 'Body part', color = 'Paint colour', customPaint = 'Custom paint', illegalTint = 'Pure Black tint', turbo = 'Turbo' }
+    local labels = { cosmetic = 'Body part', color = 'Paint colour', customPaint = 'Custom paint', illegalTint = 'Pure Black tint', repair = 'Full repair', turbo = 'Turbo' }
     for _, key in ipairs(SCALAR_PRICES) do
         -- Price lists saved before a price existed just get the standard one.
         local v, err = bounded(input[key] == nil and Config.prices[key] or input[key], Config.prices[key], labels[key])
@@ -201,6 +207,7 @@ local function partPrice(item, value, prices)
         return levels[value + 2] or levels[#levels]
     end
     if item.key == 'modTurbo' then return value and prices.turbo or 0 end
+    if item.key == 'repair' then return value and (prices.repair or Config.prices.repair) or 0 end
     if item.kind == 'toggle' and value == false then return 0 end
     if item.kind == 'paint' then return type(value) == 'table' and (prices.customPaint or Config.prices.customPaint) or prices.color end
     if item.kind == 'color' then return prices.color end
@@ -217,6 +224,7 @@ local function sameValue(a, b)
 end
 
 local function describe(item, value)
+    if item.key == 'repair' then return value and 'Engine and body' or 'Not needed' end
     if item.kind == 'level' then return value < 0 and 'Stock' or ('Level %d'):format(value + 1) end
     if item.kind == 'toggle' then return value and 'Fitted' or 'Removed' end
     if item.kind == 'color' then return colorSet[value] end
@@ -358,7 +366,7 @@ lib.callback.register('highcrest_mechanic:canDesign', function(source, shopId, p
                 local raw = (order.changes.values or {})[line.key]
                 lines[#lines + 1] = {
                     key = line.key, label = line.label, value = line.value, price = line.price,
-                    tab = item and item.tab, seconds = (item and item.tab == 'performance') and Config.installSeconds.performance or Config.installSeconds.default,
+                    tab = item and item.tab, seconds = secondsFor(item),
                     raw = raw, fitted = work[order.id].fitted[line.key] == true,
                     mats = stash and materialList(stash, item, raw) or {},
                 }
@@ -366,6 +374,7 @@ lib.callback.register('highcrest_mechanic:canDesign', function(source, shopId, p
             return true, nil, nil, {
                 id = order.id, customer = order.customer, plate = order.plate, parts = order.parts, labour = order.labour,
                 customerOnline = sourceByCitizen(order.citizenid) ~= nil, lines = lines,
+                hasRepair = (order.changes.values or {}).repair == true, repairPrice = pricesFor(order.shop).repair or Config.prices.repair,
             }
         end
     end
@@ -572,7 +581,7 @@ lib.callback.register('highcrest_mechanic:fitPart', function(source, id, key, ne
     if values[key] == nil then return false, 'That part is not on this order.' end
     if not vehicleNear(source, netId, order.plate, 8.0) then return false, 'The car has to be in the bay.' end
     local item = catalogue[key]
-    local seconds = (item and item.tab == 'performance') and Config.installSeconds.performance or Config.installSeconds.default
+    local seconds = secondsFor(item)
 
     local stash = (Config.shops[order.shop] or {}).stash
     local mats, short = materialList(stash, item, values[key])
@@ -605,6 +614,41 @@ lib.callback.register('highcrest_mechanic:fitPart', function(source, id, key, ne
         if not progress.fitted[k] then stock[k] = materialList(stash, catalogue[k], v) end
     end
     return true, Config.toProps(key, values[key]), stock
+end)
+
+-- Mechanic: the car came in damaged, add a full repair to the order. The customer pays for it
+-- with the rest of the order and is told straight away.
+lib.callback.register('highcrest_mechanic:addRepair', function(source, id, netId)
+    local player = getPlayer(source)
+    if not isMechanic(player) then return false, 'You must be an on-duty mechanic.' end
+    local order = loadOrder(tonumber(id) or 0)
+    local progress = order and work[order.id]
+    if not order or order.status ~= 'in_progress' or not progress or progress.mechanic ~= player.PlayerData.citizenid then
+        return false, 'Drive the car into the bay and press E to work on it.'
+    end
+    if not vehicleNear(source, netId, order.plate, 8.0) then return false, 'The car has to be in the bay.' end
+    local values = order.changes.values or {}
+    if values.repair then return false, 'A repair is already on this order.' end
+
+    local item = catalogue.repair
+    local price = partPrice(item, true, pricesFor(order.shop))
+    values.repair = true
+    order.changes.values = values
+    order.changes.lines = order.changes.lines or {}
+    local line = { key = 'repair', label = item.label, value = describe(item, true), price = price }
+    order.changes.lines[#order.changes.lines + 1] = line
+    MySQL.update.await('UPDATE highcrest_mechanic_orders SET changes = ?, parts = parts + ? WHERE id = ?',
+        { json.encode(order.changes), price, order.id })
+
+    local customer = sourceByCitizen(order.citizenid)
+    if customer then
+        notify(customer, ('Order #%d: the mechanic added a full repair (+$%d). You pay it with the rest of the order.'):format(order.id, price))
+    end
+    local stash = (Config.shops[order.shop] or {}).stash
+    return true, {
+        key = 'repair', label = line.label, value = line.value, price = price, tab = 'repair',
+        seconds = secondsFor(item), raw = true, fitted = false, mats = materialList(stash, item, true),
+    }, order.parts + price
 end)
 
 -- Mechanic: all parts fitted. Charge the customer, pay out, save the mods.

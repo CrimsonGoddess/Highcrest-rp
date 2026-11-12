@@ -603,3 +603,7 @@ kbd {
 .work-item.short { border-color: rgba(200, 16, 46, 0.35); }
 .work-item.short .work-state { color: #ff6b80; }
 #items > .note { margin-top: 0.6em; }
+
+/* "Add a full repair" card in the work menu */
+.work-item.add-repair { border-style: dashed; border-color: rgba(212, 175, 55, 0.45); background: rgba(212, 175, 55, 0.05); }
+.work-item.add-repair .work-state { color: var(--gold); }

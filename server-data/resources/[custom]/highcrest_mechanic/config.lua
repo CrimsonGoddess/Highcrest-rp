@@ -39,6 +39,7 @@ Config.prices = {
     color = 1000,
     customPaint = 2500,  -- custom colour wheel and Wild paints
     illegalTint = 5000,  -- Pure Black window tint (not street legal)
+    repair = 1500,       -- full repair (engine and body)
     turbo = 10000,
     -- Upgrade levels: the first price is stock, then level 1, 2...
     levels = {
@@ -76,6 +77,7 @@ Config.materials = {
         plateIndex = { aluminum = 1 },
         modHorns = { copper = 2, plastic = 1 },
         modLivery = { car_paint = 2, plastic = 1 },
+        repair = { advancedrepairkit = 1 },
     },
     -- Everything else, by kind.
     kinds = {
@@ -87,7 +89,7 @@ Config.materials = {
 }
 
 -- Seconds a mechanic spends fitting each part.
-Config.installSeconds = { performance = 8, default = 5 }
+Config.installSeconds = { performance = 8, repair = 10, default = 5 }
 
 -- Body parts and other mod slots: ox_lib property name -> GTA mod index.
 Config.modSlots = {
@@ -161,6 +163,12 @@ Config.catalogue = {
         items = {
             { key = 'modHorns', label = 'Horn', kind = 'mod' },
             { key = 'plateIndex', label = 'Plate style', kind = 'list', list = 'plateStyles' },
+        },
+    },
+    {
+        id = 'repair', label = 'Repair',
+        items = {
+            { key = 'repair', label = 'Full repair (engine and body)', kind = 'toggle' },
         },
     },
 }
@@ -278,6 +286,9 @@ function Config.toProps(key, value)
         end
         return { [key] = value }
     end
+    if key == 'repair' then
+        return value == true and { engineHealth = 1000.0, bodyHealth = 1000.0, tankHealth = 1000.0 } or {}
+    end
     if key == 'tyres' then
         return { modCustomTiresF = value == 1, modCustomTiresR = value == 1, driftTyres = value == 2 }
     end
@@ -295,6 +306,7 @@ function Config.fromProps(key, props)
         if type(v) == 'table' then return { v[1], v[2], v[3], props[PAINT_TYPE[key]] or 0 } end
         return v
     end
+    if key == 'repair' then return false end -- a repair is never "already fitted"
     if key == 'tyres' then
         if props.driftTyres then return 2 end
         return props.modCustomTiresF and 1 or 0
@@ -319,6 +331,7 @@ Config.workViews = {
     wheels = { angle = 20.0, dist = 3.8, height = 0.6 },                    -- low, side on
     lights = { angle = 75.0, dist = 5.0, height = 1.0 },
     extras = { angle = -90.0, dist = 5.0, height = 1.1 },                   -- rear
+    repair = { angle = 90.0, dist = 5.0, height = 1.3, hood = true },       -- front, bonnet up
 }
 
 -- Materials for one part: { item = count }. Taking a part off (stock / off / none) is free.

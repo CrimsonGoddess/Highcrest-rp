@@ -276,6 +276,16 @@ function renderWork() {
         card.addEventListener('click', () => fitPart(line));
         box.appendChild(card);
     });
+    if (order.damaged && !order.hasRepair) {
+        const add = el('button', 'work-item add-repair');
+        const text = el('div', 'work-text');
+        text.append(el('span', 'label', 'Add a full repair'),
+            el('span', 'value', `The car is damaged. Adds ${money(order.repairPrice || 0)} to the customer's bill.`));
+        add.append(text, el('span', 'work-state', '+ Add'));
+        add.disabled = !!fitting;
+        add.addEventListener('click', addRepair);
+        box.appendChild(add);
+    }
     box.appendChild(el('p', 'note', 'Materials come from the shop stash. Numbers in brackets are what the stash has.'));
     if (design.work.message) box.appendChild(el('p', 'message', design.work.message));
 }
@@ -307,6 +317,21 @@ async function fitPart(line) {
         renderItems();
         return;
     }
+    renderSummary();
+}
+
+async function addRepair() {
+    if (design.work.fitting) return;
+    const result = await post('addRepair');
+    if (!result || !result.ok) {
+        design.work.message = (result && result.message) || 'Could not add the repair.';
+    } else {
+        design.work.order.lines.push(result.line);
+        design.work.order.parts = result.parts;
+        design.work.order.hasRepair = true;
+        design.work.message = 'Repair added. The customer has been told.';
+    }
+    renderItems();
     renderSummary();
 }
 
@@ -531,7 +556,7 @@ function renderPrices() {
     box.appendChild(el('h3', '', 'Parts'));
     const partGrid = el('div', 'price-grid');
     [['cosmetic', 'Body part, wheels, lights, extras'], ['color', 'Paint colour'], ['customPaint', 'Custom and Wild paint'],
-        ['illegalTint', 'Pure Black tint (not street legal)'], ['turbo', 'Turbo']].forEach(([key, label]) => {
+        ['illegalTint', 'Pure Black tint (not street legal)'], ['repair', 'Full repair (engine and body)'], ['turbo', 'Turbo']].forEach(([key, label]) => {
         if (draft[key] === undefined) draft[key] = std[key];
         partGrid.appendChild(field(label, draft[key], std[key], (v) => { draft[key] = v; }));
     });
@@ -731,7 +756,7 @@ if (params.has('design')) {
 if (params.has('work')) {
     openWork({
         shop: 'Highcrest Motorworks', vehicle: 'Sultan RS', plate: 'HC 1234',
-        order: { id: 12, customer: 'Alex Mercer', parts: 33500, labour: 2000, customerOnline: true, lines: [
+        order: { id: 12, customer: 'Alex Mercer', parts: 33500, labour: 2000, customerOnline: true, damaged: true, repairPrice: 1500, lines: [
             { key: 'modEngine', label: 'Engine', value: 'Level 3', seconds: 8, fitted: true },
             { key: 'color1', label: 'Primary colour', value: 'Hyper Magenta', seconds: 5, mats: [{ label: 'Automotive Paint', count: 3, have: 8 }] },
             { key: 'windowTint', label: 'Window tint', value: 'Pure Black (not street legal)', seconds: 5, mats: [{ label: 'Glass', count: 3, have: 1 }, { label: 'Plastic', count: 1, have: 6 }] },

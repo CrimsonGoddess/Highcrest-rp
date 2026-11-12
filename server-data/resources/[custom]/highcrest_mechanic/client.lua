@@ -63,7 +63,13 @@ local function itemOptions(vehicle, item)
         options[1] = { value = -1, label = 'Stock' }
         for i = 0, count - 1 do options[#options + 1] = { value = i, label = ('Level %d'):format(i + 1) } end
     elseif item.kind == 'toggle' then
-        options = { { value = false, label = 'None' }, { value = true, label = 'Fitted' } }
+        if item.key == 'repair' then
+            -- Only offered when the car is actually damaged.
+            if GetVehicleEngineHealth(vehicle) >= 990.0 and GetVehicleBodyHealth(vehicle) >= 990.0 then return nil end
+            options = { { value = false, label = 'Not needed' }, { value = true, label = 'Repair it' } }
+        else
+            options = { { value = false, label = 'None' }, { value = true, label = 'Fitted' } }
+        end
     elseif item.kind == 'paint' then
         for _, group in ipairs(Config.paintGroups) do
             for _, c in ipairs(group.colors) do
@@ -148,7 +154,10 @@ local function previewProps(d)
     for k, v in pairs(d.original) do props[k] = v end
     if d.draft.wheels ~= nil and d.draft.modFrontWheels == nil then props.modFrontWheels = -1 end
     for key, value in pairs(d.draft) do
+        -- The design preview never repairs the car (that would be a free fix); only fitting it does.
+        if key == 'repair' and d.mode ~= 'work' then goto continue end
         for prop, v in pairs(Config.toProps(key, value)) do props[prop] = v end
+        ::continue::
     end
     return props
 end
@@ -159,6 +168,10 @@ local function applyPreview()
     -- A custom colour going back to a numbered one needs the custom colour cleared first.
     if type(props.color1) == 'number' then ClearVehicleCustomPrimaryColour(design.vehicle) end
     if type(props.color2) == 'number' then ClearVehicleCustomSecondaryColour(design.vehicle) end
+    if design.mode == 'work' and design.draft.repair then
+        SetVehicleFixed(design.vehicle)
+        SetVehicleDeformationFixed(design.vehicle)
+    end
     lib.setVehicleProperties(design.vehicle, props)
 end
 
@@ -226,6 +239,7 @@ local function startBay(shopId, target)
             if line.fitted and line.raw ~= nil then design.draft[line.key] = line.raw end
         end
         applyPreview()
+        order.damaged = GetVehicleEngineHealth(vehicle) < 990.0 or GetVehicleBodyHealth(vehicle) < 990.0
         SendNUIMessage({ action = 'openWork', shop = Config.shops[shopId].label, vehicle = vehicleName, plate = plate, order = order })
     else
         SendNUIMessage({
@@ -301,6 +315,7 @@ local WORK_ANIMS = {
     body = { spot = 'side', scenario = 'WORLD_HUMAN_WELDING' },
     paint = { spot = 'side', dict = 'switch@franklin@lamar_tagging_wall', clip = 'lamar_tagging_wall_loop_lamar', prop = 'prop_cs_spray_can' },
     extras = { spot = 'rear', dict = 'mini@repair', clip = 'fixing_a_ped' },
+    repair = { spot = 'front', dict = 'mini@repair', clip = 'fixing_a_player' },
 }
 
 -- Get out, walk to the part and start working on it.
@@ -383,6 +398,18 @@ RegisterNUICallback('fitPart', function(data, cb)
         end
         SendNUIMessage({ action = 'partDone', key = data.key, ok = done == true, message = not done and props or nil, stock = done and stock or nil })
     end)
+end)
+
+-- Mechanic: add a full repair to the order (the car came in damaged).
+RegisterNUICallback('addRepair', function(_, cb)
+    if not design or design.mode ~= 'work' or design.busy then return cb({ ok = false }) end
+    local d = design
+    local ok, line, parts = lib.callback.await('highcrest_mechanic:addRepair', false, d.order.id, NetworkGetNetworkIdFromEntity(d.vehicle))
+    if not ok then return cb({ ok = false, message = line }) end
+    d.order.lines[#d.order.lines + 1] = line
+    d.order.parts = parts
+    d.order.hasRepair = true
+    cb({ ok = true, line = line, parts = parts })
 end)
 
 RegisterNUICallback('finishWork', function(_, cb)
