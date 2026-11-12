@@ -27,3 +27,9 @@ server-data/resources/[[]rtx]/*
 !server-data/resources/[[]rtx]/rtx_shellcreator/
 server-data/resources/[[]rtx]/rtx_shellcreator/*
 !server-data/resources/[[]rtx]/rtx_shellcreator/config.lua
+
+# NN Appearance (bought, large thumbnails): only our config and logo are tracked
+server-data/resources/[[]standalone]/nn_appearance/*
+!server-data/resources/[[]standalone]/nn_appearance/shared/
+server-data/resources/[[]standalone]/nn_appearance/shared/*
+!server-data/resources/[[]standalone]/nn_appearance/shared/config.lua
