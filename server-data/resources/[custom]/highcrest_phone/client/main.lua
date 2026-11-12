@@ -418,3 +418,16 @@ AddEventHandler('onResourceStop', function(resource)
     end
     stopHolding()
 end)
+
+-- Emergency alerts (tsunami etc.): the phone slides up on its own with a red alert, no focus.
+-- Only players carrying a phone get it (checked by the sender).
+RegisterNetEvent('highcrest_phone:client:emergency', function(title, body, seconds)
+    SendNUIMessage({ action = 'emergency', title = title, body = body, seconds = seconds or 15 })
+    PlaySoundFrontend(-1, 'Text_Arrive_Tone', 'Phone_SoundSet_Default', true)
+    CreateThread(function()
+        for _ = 1, 2 do
+            Wait(900)
+            PlaySoundFrontend(-1, 'Text_Arrive_Tone', 'Phone_SoundSet_Default', true)
+        end
+    end)
+end)

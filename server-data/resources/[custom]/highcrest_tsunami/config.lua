@@ -24,3 +24,22 @@ Config.text = {
     phone = 'Tsunami warning for Los Santos. Seek high ground. City evacuation in 2 minutes.',
     chat = 'EMERGENCY ALERT: A tsunami is approaching. The city will be evacuated (server restart) in 2 minutes.',
 }
+
+-- The flood: the sea (every water area) rises by floodHeight metres over the warning, so the
+-- coast and low ground are under water by the restart. The preview (/tsunamitest) floods
+-- faster (previewSeconds) and then drains after previewHold seconds.
+Config.flood = {
+    enabled = true,
+    height = 30.0,
+    previewSeconds = 40,
+    previewHold = 15,
+}
+
+-- The storm during the flood: thunder, lightning, wind and huge waves that build up.
+Config.storm = {
+    enabled = true,
+    weather = 'THUNDER',
+    wind = 12.0,          -- wind speed (GTA's normal storm is about 5)
+    waves = 3.0,          -- deep ocean wave scale at the peak (1.0 = normal)
+    lightningEvery = { 3, 9 }, -- seconds between lightning flashes (random)
+}

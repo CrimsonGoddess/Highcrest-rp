@@ -11,6 +11,9 @@ local modelSet = {}
 for _, name in ipairs(Config.models) do modelSet[joaat(name)] = name end
 
 local current      -- { entity, coords, model, state, timeOffset }
+local emergency    -- { untilAt, text } while an emergency broadcast (tsunami) is on every TV
+
+local function emergencyOn() return emergency ~= nil and GetGameTimer() < emergency.untilAt end
 local dui, duiReady, renderId, runtimeTxd
 local volumePref = GetResourceKvpInt('highcrest_tv:volume')
 if volumePref == 0 and GetResourceKvpString('highcrest_tv:volumeSet') == nil then volumePref = 60 end
@@ -39,6 +42,11 @@ local function destroyScreen()
 end
 
 local function playOnScreen()
+    if emergencyOn() then
+        -- The emergency broadcast takes over the screen until it ends.
+        sendToScreen({ action = 'emergency', text = emergency.text, seconds = math.ceil((emergency.untilAt - GetGameTimer()) / 1000) })
+        return
+    end
     if not (current and current.state) then return end
     local elapsed = math.max(0, current.serverNow - current.state.startedAt + (GetGameTimer() - current.receivedAt) // 1000)
     sendToScreen({ action = 'play', media = current.state, start = elapsed, volume = 0 })
@@ -79,7 +87,7 @@ local function applyState(state, serverNow)
     current.state = state
     current.serverNow = serverNow or current.serverNow or 0
     current.receivedAt = GetGameTimer()
-    if state then
+    if state or emergencyOn() then
         createScreen()
         linkRenderTarget(current.model)
         playOnScreen()
@@ -125,7 +133,7 @@ end)
 -- Every frame while a TV is playing: draw the video onto its screen.
 CreateThread(function()
     while true do
-        if dui and renderId and current and current.state then
+        if dui and renderId and current and (current.state or emergencyOn()) then
             SetTextRenderId(renderId)
             SetScriptGfxDrawOrder(4)
             SetScriptGfxDrawBehindPausemenu(true)
@@ -141,7 +149,7 @@ end)
 -- Sound follows distance from the TV.
 CreateThread(function()
     while true do
-        if dui and duiReady and current and current.state and DoesEntityExist(current.entity) then
+        if dui and duiReady and current and (current.state or emergencyOn()) and DoesEntityExist(current.entity) then
             local dist = #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(current.entity))
             local fade = math.max(0.0, 1.0 - dist / Config.audioRange)
             sendToScreen({ action = 'volume', volume = math.floor(volumePref * fade) })
@@ -154,6 +162,20 @@ RegisterNetEvent('highcrest_tv:client:update', function(coords, state, serverNow
     if current and sameSpot(current.coords, coords) then
         applyState(state, serverNow)
     end
+end)
+
+-- Emergency broadcast (tsunami): the nearest TV shows it even if it's switched off.
+RegisterNetEvent('highcrest_tv:client:emergency', function(seconds, text)
+    emergency = { untilAt = GetGameTimer() + (tonumber(seconds) or 120) * 1000, text = text or {} }
+    if current then applyState(current.state, current.serverNow) end
+    CreateThread(function()
+        local mine = emergency
+        while emergency == mine and emergencyOn() do Wait(500) end
+        if emergency ~= mine then return end
+        emergency = nil
+        sendToScreen({ action = 'emergencyEnd' })
+        if current then applyState(current.state, current.serverNow) end
+    end)
 end)
 
 -- Target options on every supported TV.

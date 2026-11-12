@@ -35,8 +35,8 @@ function playTone(seconds) {
         for (let i = 0; i < 3; i++) {
             const start = now + i * burst;
             gain.gain.setValueAtTime(0.0, start);
-            gain.gain.linearRampToValueAtTime(0.12, start + 0.05);
-            gain.gain.setValueAtTime(0.12, start + burst - 0.45);
+            gain.gain.linearRampToValueAtTime(0.045, start + 0.05);
+            gain.gain.setValueAtTime(0.045, start + burst - 0.45);
             gain.gain.linearRampToValueAtTime(0.0, start + burst - 0.35);
         }
         const close = setTimeout(() => ctx.close(), seconds * 1000 + 200);

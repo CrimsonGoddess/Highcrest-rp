@@ -336,6 +336,13 @@ document.addEventListener('keydown', (event) => {
 window.addEventListener('message', ({ data }) => {
     switch (data.action) {
         case 'open': openPhone(data.data); break;
+        case 'emergency':
+            $('weaTitle').textContent = data.title || 'Emergency Alert';
+            $('weaBody').textContent = data.body || '';
+            $('wea').hidden = false;
+            clearTimeout(window.weaTimer);
+            window.weaTimer = setTimeout(() => { $('wea').hidden = true; }, (data.seconds || 15) * 1000);
+            break;
         case 'clock': setClock(data.hours, data.minutes); break;
         case 'photo': cropPhoto(data.src, data.crop).then((src) => finishPhoto(data.id, src)); break;
         case 'captured': onCaptured(data.result); break;

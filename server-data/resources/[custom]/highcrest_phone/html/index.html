@@ -6,6 +6,15 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Emergency alert (tsunami etc.): a phone-sized alert that slides up on its own, no focus. -->
+    <div id="wea" class="phone wea" hidden>
+        <div class="screen wea-screen">
+            <div class="wea-top"><span>⚠</span> Emergency Alert</div>
+            <h2 id="weaTitle">Tsunami Warning</h2>
+            <p id="weaBody"></p>
+            <p class="wea-src">Emergency Alert System · Los Santos</p>
+        </div>
+    </div>
     <div id="phone" class="phone" hidden>
         <div id="screen" class="screen">
             <div class="statusbar"><span id="clock">12:00</span><span class="brand">HIGHCREST</span></div>

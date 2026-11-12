@@ -1086,3 +1086,18 @@ select.field option {
     color: var(--gold);
     font-weight: 700;
 }
+
+/* Emergency alert (no focus; slides up, shakes, slides away) */
+.phone.wea { animation: rise 0.28s cubic-bezier(0.22, 0.61, 0.36, 1), wea-buzz 0.5s ease-in-out 0.3s 6; }
+.wea-screen {
+    justify-content: center; gap: 2.2vh; padding: 4vh 3vh;
+    background: radial-gradient(circle at 50% 30%, #3a0610, #0b0b0d 70%);
+    color: var(--white); text-align: center;
+}
+.wea-top { display: flex; align-items: center; justify-content: center; gap: 1vh; color: #ff4d66; font-size: 2vh; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; }
+.wea-top span { font-size: 3vh; animation: wea-blink 1s steps(1) infinite; }
+.wea-screen h2 { font-size: 3.6vh; line-height: 1.1; }
+.wea-screen p { font-size: 1.9vh; line-height: 1.45; color: #e8e8ec; }
+.wea-screen .wea-src { color: var(--muted); font-size: 1.4vh; letter-spacing: 0.1em; }
+@keyframes wea-buzz { 0%, 100% { translate: 0 0; } 25% { translate: -0.6vh 0; } 75% { translate: 0.6vh 0; } }
+@keyframes wea-blink { 50% { opacity: 0.25; } }
