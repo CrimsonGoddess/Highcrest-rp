@@ -42,11 +42,11 @@ for k, vehicle in pairs(VEHICLES) do
     end
 end
 
+-- Highcrest: A to Z by the title shown in the menu (brand + name), so lists read alphabetically.
 table.sort(vehicles, function(a, b)
-    local _, aName = a.title:upper():strsplit(' ', 2)
-    local _, bName = b.title:upper():strsplit(' ', 2)
-
-    return aName < bName
+    local aTitle = a.title:upper():gsub('^%s+', '')
+    local bTitle = b.title:upper():gsub('^%s+', '')
+    return aTitle < bTitle
 end)
 
 return {
