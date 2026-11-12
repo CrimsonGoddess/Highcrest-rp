@@ -160,8 +160,7 @@ document.addEventListener('click', (event) => {
     if (!button) return;
     const action = button.dataset.action;
 
-    if (action === 'info') document.querySelector('.content').scrollTo({ top: 0, behavior: 'smooth' }); // already showing
-    else if (action === 'confirm') askConfirm(button.dataset.confirm);
+    if (action === 'confirm') askConfirm(button.dataset.confirm);
     else if (action === 'cancel') cancelConfirm();
     else if (action === 'link') {
         if (links[button.dataset.link]) post('link', { name: button.dataset.link });
