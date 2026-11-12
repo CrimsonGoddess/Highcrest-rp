@@ -8023,6 +8023,75 @@ return {
         description = "Inscribed with a tablet image on it",
     },
 
+    -- Items the server already used, put back after the items list was replaced (2026-11-12)
+    ['parachute'] = {
+        label = 'Parachute',
+        weight = 8000,
+        stack = false,
+        client = {
+            anim = { dict = 'clothingshirt', clip = 'try_shirt_positive_d' },
+            usetime = 1500
+        }
+    },
+
+    ['lockpick'] = {
+        label = 'Lockpick',
+        weight = 160,
+    },
+
+    ['money'] = {
+        label = 'Money',
+    },
+
+    ['black_money'] = {
+        label = 'Dirty Money',
+    },
+
+    ['markedbills'] = {
+        label = 'Marked Bills',
+        weight = 100,
+        stack = false,
+        close = true,
+        description = 'Dirty money. Wash it before you can spend it.',
+    },
+
+    ['tirekit'] = {
+        label = 'Tyre Kit',
+        weight = 1000,
+        stack = true,
+        close = true,
+        description = 'Patches and a pump to fix a burst tyre.',
+        client = { image = 'tirerepairkit.png' },
+        server = { export = 'vehiclehandler.tirekit' },
+    },
+
+    ['car_paint'] = {
+        label = 'Automotive Paint',
+        weight = 800,
+        stack = true,
+        close = true,
+        description = 'Car paint for the mechanic shop. Paint jobs use it.',
+        client = { image = 'spray.png' },
+    },
+
+    ['diamond'] = {
+        label = 'Diamond',
+        weight = 1500,
+    },
+
+    ['10kgoldchain'] = {
+        label = '10k Gold Chain',
+        weight = 1500,
+    },
+
+    ['coke_brick'] = {
+        label = 'Coke Brick',
+        weight = 2000,
+    },
+
+    ['meth'] = {
+        label = 'Methamphetamine',
+        weight = 100,
+    },
+
 }
-
-
