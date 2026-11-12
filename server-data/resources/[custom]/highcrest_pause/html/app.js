@@ -68,6 +68,11 @@ function setMode(mode) {
     document.querySelectorAll('.nav-btn[data-action="map"], .nav-btn[data-action="info"]').forEach((btn) => {
         btn.classList.toggle('active', btn.dataset.action === mode);
     });
+    // The panel is narrower in map view; tell the game its new width.
+    requestAnimationFrame(() => {
+        const side = document.querySelector('.side');
+        post('layout', { panel: side.getBoundingClientRect().right / window.innerWidth });
+    });
 }
 
 // While the map shows, leaving the panel hands the mouse back to the map.
