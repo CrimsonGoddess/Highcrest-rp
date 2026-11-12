@@ -37,7 +37,7 @@ Config.WeatherSync = 'renewed-weathersync'-- renewed-weathersync / qb-weathersyn
 Config.Dispatch = 'default' -- origen_police / rcore_dispatch / cd_dispatch / core_dispatch / default / outwalter / ps-dispatch / qs-dispatch - The dispatch system that you are using for alerts
 Config.DispatchResource = 'qbx_police' -- The dispatch system resource folder name
 
-Config.Fuel = 'ox_fuel' -- okokGasStation / LegacyFuel / ox_fuel / lj-fuel / ti-fuel / ND_fuel / ps-fuel / esx-sna-fuel / cdn-fuel / FRFuel -- The fuel system that you're using
+Config.Fuel = 'LegacyFuel' -- okokGasStation / LegacyFuel / ox_fuel / lj-fuel / ti-fuel / ND_fuel / ps-fuel / esx-sna-fuel / cdn-fuel / FRFuel -- The fuel system that you're using
 Config.FuelResource = 'ox_fuel' -- The fuel system resource folder name
 
 Config.VehicleKeys = 'qb-vehiclekeys' -- mk_vehiclekeys / okokGarage / qs-vehiclekeys / wasabi_carlock / cd_garage / t1ger_keys / F_RealCarKeysSystem / fivecode_carkeys / qb-vehiclekeys / stasiek_vehiclekeys / ti_vehicleKeys / vehicles_keys / xd_locksystem / -- The vehicle key system that you're using
