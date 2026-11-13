@@ -166,12 +166,10 @@ end
 ---------------------------------------------------------------------------
 
 local function attach(panelId, entity, d)
-    return exports['cr-3dnui']:AttachPanelToEntity({
-        panelId = panelId, entity = entity, url = not panelId and PAGE or nil, resW = 1024, resH = 1024,
-        offset = d.offset, localNormal = d.normal, localUp = d.up,
-        width = d.width, height = d.height, zOffset = d.zOffset,
-        depthCompensation = 'screen', frontOnly = true,
-    })
+    local opts = AtmPanelOpts(entity, d) -- converts directions to world space (see atm_dui.lua)
+    opts.panelId = panelId
+    if not panelId then opts.url, opts.resW, opts.resH = PAGE, 1024, 1024 end
+    return exports['cr-3dnui']:AttachPanelToEntity(opts)
 end
 
 -- Returns 'save', 'redo' or nil (cancel).

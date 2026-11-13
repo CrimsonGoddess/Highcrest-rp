@@ -81,17 +81,35 @@ local function failed()
     lib.notify({ title = locale('bank_name'), description = locale('loading_failed'), type = 'error' })
 end
 
+-- ATM-relative direction -> world direction. cr-3dnui's own conversion reads GetEntityMatrix in
+-- the wrong order (it takes the forward axis as right), which turns panels sideways. So we convert
+-- here and pass rotateNormal = false (ATMs never move, so a world direction stays correct).
+function AtmWorldDir(entity, v)
+    local origin = GetOffsetFromEntityInWorldCoords(entity, 0.0, 0.0, 0.0)
+    local d = GetOffsetFromEntityInWorldCoords(entity, v.x, v.y, v.z) - origin
+    local l = #d
+    return l > 0 and d / l or d
+end
+
+-- The cr-3dnui attach options for a placement (shared with atm_placement.lua).
+function AtmPanelOpts(entity, p)
+    return {
+        entity = entity,
+        offset = p.offset,
+        localNormal = AtmWorldDir(entity, p.normal),
+        localUp = AtmWorldDir(entity, p.up or vector3(0.0, 0.0, 1.0)),
+        rotateNormal = false,
+        width = p.width, height = p.height, zOffset = p.zOffset,
+        depthCompensation = 'screen', frontOnly = true,
+    }
+end
+
 function StartAtmDui(entity)
     if panelId then return end
     local p = PlacementFor(entity)
-    panelId = exports['cr-3dnui']:AttachPanelToEntity({
-        entity = entity,
-        url = PAGE,
-        resW = 1024, resH = 1024,
-        offset = p.offset, localNormal = p.normal, localUp = p.up or vector3(0.0, 0.0, 1.0),
-        width = p.width, height = p.height, zOffset = p.zOffset,
-        depthCompensation = 'screen', frontOnly = true,
-    })
+    local opts = AtmPanelOpts(entity, p)
+    opts.url, opts.resW, opts.resH = PAGE, 1024, 1024
+    panelId = exports['cr-3dnui']:AttachPanelToEntity(opts)
     if not panelId then return failed() end
     atmEntity, lastEntity = entity, entity
     AtmCamStart(entity, p)
