@@ -8,6 +8,29 @@ const resourceName = (): string => {
   return fn ? fn() : 'highcrest_phone';
 };
 
+/**
+ * Lua can't tell an empty list from an empty table, so FiveM sends empty lists (no photos,
+ * no mail…) as {} instead of []. Turn every empty object into [] so `.map`/`.length` work.
+ * Code reading a field from an "object" that came through empty just gets undefined, as before.
+ */
+export function fixLists<T>(value: T): T {
+  if (Array.isArray(value)) return value.map(fixLists) as T;
+  if (value && typeof value === 'object') {
+    const keys = Object.keys(value as object);
+    if (keys.length === 0) return [] as T;
+    const out: Record<string, unknown> = {};
+    for (const key of keys) out[key] = fixLists((value as Record<string, unknown>)[key]);
+    return out as T;
+  }
+  return value;
+}
+
+/** Tell client Lua about a UI crash (printed in F8 and the client log). */
+export function reportError(message: string) {
+  if (isBrowser) return;
+  fetch(`https://${resourceName()}/uiError`, { method: 'POST', body: JSON.stringify({ message: message.slice(0, 2000) }) }).catch(() => {});
+}
+
 /** Call a RegisterNUICallback in client Lua. In the browser preview, returns `mock` instead. */
 export async function fetchNui<T = unknown>(name: string, data: unknown = {}, mock?: T): Promise<T> {
   if (isBrowser) return mock as T;
@@ -17,7 +40,7 @@ export async function fetchNui<T = unknown>(name: string, data: unknown = {}, mo
       headers: { 'Content-Type': 'application/json; charset=UTF-8' },
       body: JSON.stringify(data),
     });
-    return (await response.json()) as T;
+    return fixLists(await response.json()) as T;
   } catch {
     return false as T;
   }
@@ -32,7 +55,7 @@ export function useNuiEvent<T extends NuiMessage = NuiMessage>(action: string, h
   useEffect(() => {
     const listener = (event: MessageEvent) => {
       const message = event.data as T;
-      if (message && message.action === action) saved.current(message);
+      if (message && message.action === action) saved.current(fixLists(message));
     };
     window.addEventListener('message', listener);
     return () => window.removeEventListener('message', listener);

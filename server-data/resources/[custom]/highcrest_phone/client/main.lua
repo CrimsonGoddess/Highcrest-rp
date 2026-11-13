@@ -379,6 +379,12 @@ RegisterNUICallback('close', function(_, cb)
     cb(1)
 end)
 
+-- The React UI reports its own crashes here so they show in F8 and the client log.
+RegisterNUICallback('uiError', function(data, cb)
+    print(('^1[highcrest_phone UI] %s^7'):format(type(data) == 'table' and tostring(data.message) or '?'))
+    cb(1)
+end)
+
 RegisterNUICallback('startCamera', function(data, cb)
     cameraCrop = data.crop
     runCamera()
