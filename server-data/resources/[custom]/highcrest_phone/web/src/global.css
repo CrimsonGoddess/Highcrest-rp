@@ -465,3 +465,37 @@ body.preview { background: radial-gradient(circle at 30% 30%, #4a5a6a, #1a2028) 
   backdrop-filter: blur(4px);
   border-radius: 14px;
 }
+
+/* ------------------------------------------------------------------ photo picker, Pulse, Market, Spark, Darkweb */
+
+.sheet-backdrop { position: absolute; inset: 0; z-index: 40; display: flex; align-items: flex-end; background: rgba(0, 0, 0, 0.5); animation: fade 0.15s ease-out; }
+.sheet { width: 100%; max-height: 75%; overflow-y: auto; padding: 1.6vh 1.6vh 3vh; border-radius: 2.6vh 2.6vh 0 0; background: #17171c; animation: sheet-up 0.22s cubic-bezier(0.22, 0.61, 0.36, 1); }
+.photo-field { position: relative; }
+.photo-field-x { position: absolute; top: 0.6vh; right: 0.6vh; }
+.photo-loading { display: grid; place-items: center; height: 14vh; margin-top: 0.8vh; border-radius: 1vh; background: rgba(255, 255, 255, 0.05); }
+
+.post-action { display: flex; align-items: center; gap: 0.4vh; font-size: 0.9rem; color: var(--mantine-color-dimmed); }
+.post-action:hover { color: #fff; }
+.post-action.liked { color: #ff4d6d; }
+.profile-banner { height: 13vh; background: linear-gradient(135deg, #8a0b20, #1c1c22) center / cover no-repeat; }
+.profile-avatar { box-shadow: 0 0 0 0.4vh #0b0b0d; }
+
+.spark-card { transition: transform 0.22s ease-in, opacity 0.22s ease-in; }
+.spark-card.leave-left { transform: translateX(-120%) rotate(-12deg); opacity: 0; }
+.spark-card.leave-right { transform: translateX(120%) rotate(12deg); opacity: 0; }
+.spark-photo {
+  position: relative;
+  height: 44vh;
+  border-radius: 2.2vh;
+  background: linear-gradient(160deg, #d6336c, #2a060c) center / cover no-repeat;
+  box-shadow: 0 1vh 3vh rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+.spark-info { position: absolute; left: 0; right: 0; bottom: 0; padding: 4vh 1.6vh 1.6vh; background: linear-gradient(transparent, rgba(0, 0, 0, 0.8)); }
+
+.mono { font-family: Consolas, 'Courier New', monospace !important; }
+.darkweb { margin: 0 calc(var(--mantine-spacing-md) * -1); padding: 0 var(--mantine-spacing-md); }
+.dark-card { padding: 1.2vh; border: 1px solid rgba(116, 184, 22, 0.35); border-radius: 0.6vh; background: rgba(0, 0, 0, 0.75); }
+
+@keyframes fade { from { opacity: 0; } }
+@keyframes sheet-up { from { transform: translateY(100%); } }
