@@ -21,6 +21,8 @@ import { PulseApp } from './Pulse';
 import { MarketApp } from './Market';
 import { SparkApp } from './Spark';
 import { DarkwebApp } from './Darkweb';
+import { EmpireApp } from './Empire';
+import { HousingApp } from './Housing';
 
 export type AppDef = {
   id: string;
@@ -47,8 +49,8 @@ export const APPS: AppDef[] = [
   { id: 'market', label: 'Market', icon: IconShoppingBag, colors: ['#ffa94d', '#e8590c'], component: MarketApp },
   { id: 'spark', label: 'Spark', icon: IconHeart, colors: ['#ff8fab', '#d6336c'], component: SparkApp },
   { id: 'darkweb', label: 'Darkweb', icon: IconSpy, colors: ['#2b2b30', '#050506'], component: DarkwebApp },
-  { id: 'empire', label: 'Empire', icon: IconCrown, colors: ['#f2d16b', '#a8811c'] },
-  { id: 'housing', label: 'Housing', icon: IconHome, colors: ['#74c0fc', '#1c64c8'] },
+  { id: 'empire', label: 'Empire', icon: IconCrown, colors: ['#f2d16b', '#a8811c'], component: EmpireApp },
+  { id: 'housing', label: 'Housing', icon: IconHome, colors: ['#74c0fc', '#1c64c8'], component: HousingApp },
   { id: 'mail', label: 'Mail', icon: IconMail, colors: ['#5eb0ff', '#1f4e8c'], badge: (p) => p.unreadMail, component: MailApp },
   { id: 'garage', label: 'Garage', icon: IconCar, colors: ['#868e96', '#343a40'], component: GarageApp },
   { id: 'findFriends', label: 'Find Friends', icon: IconMapPin, colors: ['#69db7c', '#2b8a3e'], component: FindFriendsApp },

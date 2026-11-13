@@ -499,3 +499,10 @@ body.preview { background: radial-gradient(circle at 30% 30%, #4a5a6a, #1a2028) 
 
 @keyframes fade { from { opacity: 0; } }
 @keyframes sheet-up { from { transform: translateY(100%); } }
+
+/* ------------------------------------------------------------------ Empire, Housing */
+
+.biz-icon { display: grid; place-items: center; width: 4.4vh; height: 4.4vh; flex-shrink: 0; border-radius: 1.2vh; background: linear-gradient(145deg, #f2d16b, #a8811c); color: #0b0b0d; }
+.biz-balance { background: linear-gradient(135deg, rgba(212, 175, 55, 0.18), rgba(20, 20, 26, 0.6)) !important; }
+.biz-money { font-size: 2.6rem; font-weight: 700; line-height: 1.1; color: #d4af37; }
+.ledger-row { padding: 0.6vh 0.2vh; border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
