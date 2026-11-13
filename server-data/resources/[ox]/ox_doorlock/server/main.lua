@@ -394,9 +394,23 @@ RegisterNetEvent('ox_doorlock:editDoorlock', function(id, data)
     end
 end)
 
+
+local LOCKPICK_USES = 10
+
+-- One attempt uses one use. The item is removed when its uses run out.
+local function useLockpick(src, itemName)
+    local slot = exports.ox_inventory:GetSlotWithItem(src, itemName)
+    if not slot then return end
+    local uses = (slot.metadata and slot.metadata.uses or LOCKPICK_USES) - 1
+    if uses <= 0 then
+        exports.ox_inventory:RemoveItem(src, itemName, 1, nil, slot.slot)
+    else
+        exports.ox_inventory:SetMetadata(src, slot.slot, { uses = uses, description = uses .. ' uses left' })
+    end
+end
+
 RegisterNetEvent('ox_doorlock:breakLockpick', function()
-    local player = GetPlayer(source)
-    return player and DoesPlayerHaveItem(player, Config.LockpickItems, true)
+    useLockpick(source, 'lockpick')
 end)
 
 RegisterNetEvent('ox_doorlock:teleportToDoor', function(id)

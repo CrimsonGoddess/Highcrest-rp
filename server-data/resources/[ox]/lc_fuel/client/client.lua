@@ -872,6 +872,7 @@ function deleteRopeAndNozzleProp()
         DeleteRope(fuelRope)
     end
     if DoesEntityExist(fuelNozzle) then
+        exports.ox_target:removeLocalEntity(fuelNozzle, 'lc_fuel_return_nozzle')
         DeleteEntity(fuelNozzle)
     end
 end

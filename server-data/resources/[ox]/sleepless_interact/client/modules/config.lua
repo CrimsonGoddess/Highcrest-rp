@@ -46,7 +46,7 @@ config.duiScale = 0.2
 config.duiResolution = 2048
 
 -- Prompt theme.
-config.theme = 'cyber'
+config.theme = 'industrial'
 
 -- Accent color for each theme.
 config.themeColors = {
@@ -58,7 +58,7 @@ config.themeColors = {
 	cyber = { 0, 229, 255, 255 },
 	vice = { 255, 64, 180, 255 },
 	kawaii = { 255, 111, 168, 255 },
-	industrial = { 212, 168, 48, 255 },
+	industrial = { 212, 175, 55, 255 }, -- server gold #D4AF37
 	fantasy = { 212, 175, 110, 255 },
 }
 

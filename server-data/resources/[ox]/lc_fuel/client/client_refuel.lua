@@ -27,6 +27,8 @@ AddEventHandler('lc_fuel:getPumpNozzle', function(fuelAmountPurchased, fuelTypeP
 
     -- Spawn the nozzle
     fuelNozzle = createFuelNozzleObject(fuelTypePurchased)
+    -- Return option moves from the pump to the nozzle while it is in hand.
+    exports.ox_target:addLocalEntity(fuelNozzle, {{ name = 'lc_fuel_return_nozzle', label = Utils.translate('target.return_nozzle'), icon = 'fas fa-gas-pump', distance = 1.5, onSelect = returnNozzle }})
 
     -- Attach the nozzle
     attachNozzleToPed()
@@ -293,7 +295,7 @@ function createTargetForVehicleIteraction()
         distance = 2.0
     }
 
-    Utils.Target.createTargetForBone(vehicleCapBoneList(),attachParams,executeRefuelActionFromTarget,nil,canAttachNozzleTargetCallback)
+    Utils.Target.createTargetForBone({ "petrolcap", "petroltank" },attachParams,executeRefuelActionFromTarget,nil,canAttachNozzleTargetCallback)
 
     local detachParams = {
         labelText = Utils.translate("target.stop_refuel"),
@@ -302,7 +304,7 @@ function createTargetForVehicleIteraction()
         zone_id = "stop_refuel",
         distance = 2.0
     }
-    Utils.Target.createTargetForBone(vehicleCapBoneList(),detachParams,stopRefuelAction,nil,canDetachNozzleTargetCallback)
+    Utils.Target.createTargetForBone({ "petrolcap", "petroltank" },detachParams,stopRefuelAction,nil,canDetachNozzleTargetCallback)
 end
 
 function executeRefuelActionFromTarget()
@@ -347,7 +349,7 @@ function canOpenPumpUiTargetCallback()
 end
 
 function canReturnNozzleTargetCallback()
-    return DoesEntityExist(fuelNozzle)
+    return false -- return now lives on the nozzle itself (see getPumpNozzle)
 end
 
 -----------------------------------------------------------------------------------------------------------------------------------------

@@ -922,7 +922,6 @@ return {
     ['advancedlockpick'] = {
         label = 'Advanced Lockpick',
         weight = 500,
-        durability = 10,
         stack = false
     },
 
@@ -8039,7 +8038,6 @@ return {
     ['lockpick'] = {
         label = 'Lockpick',
         weight = 160,
-        durability = 10,
         stack = false
     },
 

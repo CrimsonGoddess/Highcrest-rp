@@ -59,10 +59,7 @@ local function pickLock(entity)
 		TriggerServerEvent('ox_doorlock:setState', door.id, door.state == 1 and 0 or 1, true)
 	end
 
-	if rand == 1 then
-		TriggerServerEvent('ox_doorlock:breakLockpick')
-		lib.notify({ type = 'error', description = locale('lockpick_broke') })
-	end
+	TriggerServerEvent('ox_doorlock:breakLockpick')
 
 	StopEntityAnim(cache.ped, 'pick_door', animDict, 0)
 	RemoveAnimDict(animDict)
