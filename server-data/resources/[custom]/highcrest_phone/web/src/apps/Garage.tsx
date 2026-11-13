@@ -1,16 +1,18 @@
-import { useState } from 'react';
-import { Badge, Button, Group, Progress, Stack, Text } from '@mantine/core';
-import { IconCar, IconGasStation, IconMapPin, IconSteeringWheel } from '@tabler/icons-react';
+import { useEffect, useState } from 'react';
+import { Alert, Badge, Button, Group, Paper, Progress, Stack, Text } from '@mantine/core';
+import { IconCar, IconMapPin, IconSteeringWheel } from '@tabler/icons-react';
 import { AppPage } from '../components/AppPage';
 import { fetchNui } from '../nui';
-import { Card, ConfirmButton, Empty, ErrorText, dollars, failure, setWaypoint, useNuiData, type Result } from '../util';
+import { ConfirmButton, Empty, dollars, errorOf, failed, setWaypoint } from '../util';
 
 type Vehicle = {
-  name: string; brand?: string; plate: string; state: number; stateLabel: string; garage?: string;
+  name: string; brand?: string; plate: string;
+  state: number; stateLabel: string; garage?: string;
   fuel: number; engine: number; body: number; depotPrice: number;
 };
+type Data = { vehicles: Vehicle[]; valetFee: number };
 
-const MOCK = {
+const MOCK: Data = {
   valetFee: 250,
   vehicles: [
     { name: 'Adder', brand: 'Truffade', plate: 'CRIM 777', state: 1, stateLabel: 'In garage', garage: 'Legion Square', fuel: 88, engine: 100, body: 96, depotPrice: 0 },
@@ -19,65 +21,76 @@ const MOCK = {
   ],
 };
 
-const STATE_COLOR: Record<number, string> = { 0: 'green', 1: 'blue', 2: 'red' };
-const barColor = (v: number) => (v > 60 ? 'green' : v > 30 ? 'yellow' : 'red');
+// qbx_garages states: 0 out, 1 in a garage, 2 impounded.
+const STATE_COLOR: Record<number, string> = { 0: 'yellow', 1: 'green', 2: 'red' };
+const barColor = (n: number) => (n > 60 ? 'green' : n > 30 ? 'yellow' : 'red');
 
-function Meter({ label, value, icon }: { label: string; value: number; icon?: React.ReactNode }) {
+function Meter({ label, value }: { label: string; value: number }) {
   return (
     <div style={{ flex: 1 }}>
-      <Group gap={4} justify="space-between"><Text size="xs" c="dimmed">{icon}{label}</Text><Text size="xs" fw={700}>{value}%</Text></Group>
+      <Group justify="space-between" gap={0}>
+        <Text size="xs" c="dimmed">{label}</Text>
+        <Text size="xs" fw={600}>{value}%</Text>
+      </Group>
       <Progress value={value} color={barColor(value)} size="sm" radius="xl" />
     </div>
   );
 }
 
 export function GarageApp() {
-  const { data, reload } = useNuiData<{ vehicles: Vehicle[]; valetFee?: number }>('garageGet', {}, MOCK);
-  const [error, setError] = useState<string | null>(null);
+  const [data, setData] = useState<Data | null>(null);
+  const [error, setError] = useState('');
+
+  const load = () => fetchNui<Data | false>('garageGet', {}, MOCK).then((d) => d && setData(d));
+  useEffect(() => { load(); }, []);
+
+  const locate = async (plate: string) => {
+    const spot = await fetchNui<{ x: number; y: number } | { error: string } | false>('garageLocate', plate, { x: 0, y: 0 });
+    if (failed(spot)) return setError(errorOf(spot, 'Your vehicle could not be located.'));
+    setError('');
+    setWaypoint(spot as { x: number; y: number });
+  };
+
+  const valet = async (plate: string) => {
+    const result = await fetchNui('garageValet', plate, { netId: 1 });
+    if (failed(result)) return setError(errorOf(result, 'The valet could not get your vehicle out.'));
+    setError('');
+    load();
+  };
+
+  const fee = data && data.valetFee > 0 ? ` (${dollars(data.valetFee)})` : ' (free)';
 
   return (
-    <AppPage title="Garage" subtitle={data ? `${data.vehicles.length} vehicles` : undefined}>
+    <AppPage title="Garage">
       <Stack gap="sm">
-        <ErrorText>{error}</ErrorText>
-        {data && data.vehicles.length === 0 && <Empty icon={<IconCar size={40} />} text="You don't own any vehicles yet." />}
-        {(data?.vehicles || []).map((v) => {
+        {error && <Alert color="red" variant="light" py={6}>{error}</Alert>}
+        {data && data.vehicles.length === 0 && <Empty icon={<IconCar size={40} />}>You don't own any vehicles yet.</Empty>}
+        {data?.vehicles.map((v) => {
           const place = v.state === 2 && v.depotPrice > 0 ? `Impound fee ${dollars(v.depotPrice)}` : v.garage;
           return (
-            <Card key={v.plate}>
+            <Paper key={v.plate} className="glass" p="sm" radius="lg">
               <Group justify="space-between" wrap="nowrap" align="flex-start">
                 <div style={{ minWidth: 0 }}>
                   <Text fw={700} truncate>{v.brand ? `${v.brand} ${v.name}` : v.name}</Text>
-                  <Group gap={6} mt={2}>
-                    <Badge variant="outline" color="gray" radius="sm" className="plate">{v.plate}</Badge>
-                    {place && <Text size="xs" c="dimmed" truncate>{place}</Text>}
-                  </Group>
+                  <Text size="xs" c="dimmed" truncate>{v.plate}{place ? ` · ${place}` : ''}</Text>
                 </div>
                 <Badge color={STATE_COLOR[v.state] || 'gray'} variant="light">{v.stateLabel}</Badge>
               </Group>
-              <Group gap="sm" mt="sm" wrap="nowrap">
-                <Meter label="Fuel" value={v.fuel} icon={<IconGasStation size={11} style={{ marginRight: 2 }} />} />
+              <Group gap="sm" mt="xs" wrap="nowrap">
+                <Meter label="Fuel" value={v.fuel} />
                 <Meter label="Engine" value={v.engine} />
                 <Meter label="Body" value={v.body} />
               </Group>
               {v.state === 0 && (
-                <Button mt="sm" size="xs" variant="light" fullWidth leftSection={<IconMapPin size={16} />} onClick={async () => {
-                  const spot = await fetchNui<Result<{ x: number; y: number }>>('garageLocate', v.plate, { x: 0, y: 0 });
-                  const err = failure(spot, 'Your vehicle could not be located.');
-                  setError(err);
-                  if (!err && spot) setWaypoint(spot);
-                }}>Find on map</Button>
+                <Button mt="xs" size="xs" variant="light" leftSection={<IconMapPin size={14} />} onClick={() => locate(v.plate)}>Find on map</Button>
               )}
               {v.state === 1 && (
-                <ConfirmButton mt="sm" size="xs" variant="light" fullWidth leftSection={<IconSteeringWheel size={16} />}
-                  label={`Bring to me${data?.valetFee ? ` (${dollars(data.valetFee)})` : ''}`} confirmLabel="Tap again to send a valet"
-                  onConfirm={async () => {
-                    const result = await fetchNui<Result<object>>('garageValet', v.plate, {});
-                    const err = failure(result, 'The valet could not get your vehicle out.');
-                    setError(err);
-                    if (!err) reload();
-                  }} />
+                <ConfirmButton mt="xs" size="xs" variant="light" leftSection={<IconSteeringWheel size={14} />}
+                  confirmLabel="Tap again to send a valet" onConfirm={() => valet(v.plate)}>
+                  {`Bring to me${fee}`}
+                </ConfirmButton>
               )}
-            </Card>
+            </Paper>
           );
         })}
       </Stack>

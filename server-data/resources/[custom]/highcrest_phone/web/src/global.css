@@ -441,3 +441,27 @@ body.preview { background: radial-gradient(circle at 30% 30%, #4a5a6a, #1a2028) 
 .presence { width: 0.9vh; height: 0.9vh; border-radius: 50%; background: #868e96; }
 .presence.on { background: #40c057; box-shadow: 0 0 0.6vh #40c057; }
 .plate { font-family: Consolas, monospace; letter-spacing: 0.08em; }
+
+/* Snake */
+.snake-board {
+  position: relative;
+  display: grid;
+  width: 100%;
+  aspect-ratio: 12 / 15;
+  gap: 2px;
+  padding: 4px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.snake-board i { border-radius: 3px; background: rgba(255, 255, 255, 0.03); }
+.snake-board i.body { background: #5c940d; }
+.snake-board i.head { background: #a9e34b; box-shadow: 0 0 8px rgba(169, 227, 75, 0.6); }
+.snake-board i.food { background: var(--mantine-primary-color-filled); border-radius: 50%; box-shadow: 0 0 8px var(--mantine-primary-color-filled); }
+.snake-overlay {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  background: rgba(11, 11, 13, 0.72);
+  backdrop-filter: blur(4px);
+  border-radius: 14px;
+}

@@ -12,10 +12,11 @@ import { PhoneApp } from './PhoneApp';
 import { ContactsApp } from './Contacts';
 import { MessagesApp } from './Messages';
 import { MailApp } from './Mail';
-import { GarageApp } from './Garage';
-import { FindFriendsApp } from './FindFriends';
-import { TaxiApp } from './Taxi';
 import { EmergencyApp } from './Emergency';
+import { FindFriendsApp } from './FindFriends';
+import { GarageApp } from './Garage';
+import { TaxiApp } from './Taxi';
+import { SnakeApp } from './Snake';
 
 export type AppDef = {
   id: string;
@@ -49,7 +50,7 @@ export const APPS: AppDef[] = [
   { id: 'findFriends', label: 'Find Friends', icon: IconMapPin, colors: ['#69db7c', '#2b8a3e'], component: FindFriendsApp },
   { id: 'taxi', label: 'Taxi', icon: IconSteeringWheel, colors: ['#ffe066', '#f59f00'], component: TaxiApp },
   { id: 'emergency', label: '911', icon: IconUrgent, colors: ['#ff6b6b', '#c8102e'], component: EmergencyApp },
-  { id: 'snake', label: 'Snake', icon: IconDeviceGamepad2, colors: ['#a9e34b', '#5c940d'] },
+  { id: 'snake', label: 'Snake', icon: IconDeviceGamepad2, colors: ['#a9e34b', '#5c940d'], component: SnakeApp },
   { id: 'settings', label: 'Settings', icon: IconSettings, colors: ['#adb5bd', '#495057'], dock: true, component: SettingsApp },
 ];
 

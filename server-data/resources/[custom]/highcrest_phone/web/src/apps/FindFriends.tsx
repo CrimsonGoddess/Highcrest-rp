@@ -1,103 +1,111 @@
-import { useState } from 'react';
-import { Avatar, Button, Group, SegmentedControl, Select, Stack, Text, TextInput } from '@mantine/core';
-import { IconMapPin, IconMapPinOff, IconShare } from '@tabler/icons-react';
+import { useEffect, useState } from 'react';
+import { Alert, Autocomplete, Button, Group, Paper, SimpleGrid, Stack, Text } from '@mantine/core';
+import { IconMapPin, IconMapPinOff, IconUsers } from '@tabler/icons-react';
 import { AppPage } from '../components/AppPage';
 import { fetchNui } from '../nui';
-import { avatarColor, displayName, initials } from '../state/comms';
+import { displayName } from '../state/comms';
 import { usePhone } from '../state/phone';
-import { Card, Empty, ErrorText, SectionTitle, failure, setWaypoint, useNuiData, type Result } from '../util';
+import { Empty, SectionLabel, dateTime, errorOf, failed, setWaypoint } from '../util';
 
-type Friend = { number: string; name?: string; online?: boolean; expiresAt?: number | null };
-type Data = { friends: Friend[]; sharing: Friend[] };
+type Share = { number: string; name?: string | null; expiresAt?: number | null; online?: boolean };
+type Data = { friends: Share[]; sharing: Share[] };
 
 const MOCK: Data = {
   friends: [{ number: '5559876543', name: 'Jamie Cole', online: true, expiresAt: null }],
-  sharing: [{ number: '5552223333', name: 'Rusty', expiresAt: 1793000000 }],
+  sharing: [{ number: '5552223333', name: 'Rusty', expiresAt: 1763000000 }],
 };
 
-function expiryText(expiresAt?: number | null) {
-  if (!expiresAt) return 'Until you stop';
-  return `Until ${new Date(expiresAt * 1000).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}`;
-}
+const until = (expiresAt?: number | null) => (expiresAt ? `Until ${dateTime(expiresAt)}` : 'Until you stop');
+
+const DURATIONS = [
+  { label: '1 hour', hours: 1 },
+  { label: '8 hours', hours: 8 },
+  { label: '24 hours', hours: 24 },
+  { label: 'Forever', hours: null },
+];
 
 export function FindFriendsApp() {
   const { phone } = usePhone();
-  const { data, set } = useNuiData<Data>('locationGet', {}, MOCK);
-  const [error, setError] = useState<string | null>(null);
-  const [shareError, setShareError] = useState<string | null>(null);
-  const [contact, setContact] = useState<string | null>(null);
-  const [number, setNumber] = useState('');
-  const [duration, setDuration] = useState('forever');
+  const [data, setData] = useState<Data | null>(null);
+  const [target, setTarget] = useState('');
+  const [error, setError] = useState('');
 
-  const share = async () => {
-    const target = number.trim() || contact || '';
-    const result = await fetchNui<Result<Data>>('locationShare', {
-      number: target, hours: duration === 'forever' ? null : Number(duration), forever: duration === 'forever',
-    }, MOCK);
-    const err = failure(result);
-    setShareError(err);
-    if (!err && result) { setNumber(''); set(result as Data); }
+  useEffect(() => {
+    fetchNui<Data | false>('locationGet', {}, MOCK).then((d) => d && setData(d));
+  }, []);
+
+  const contacts = phone?.contacts || [];
+  // Accept either a saved contact's name or a typed number.
+  const numberFor = (text: string) => contacts.find((c) => c.name === text)?.number || text.replace(/[^\d]/g, '');
+
+  const share = async (hours: number | null) => {
+    const number = numberFor(target.trim());
+    if (!number) return setError('Choose a contact or type a number.');
+    const result = await fetchNui<Data | { error: string } | false>('locationShare', { number, hours, forever: hours === null }, MOCK);
+    if (failed(result)) return setError(errorOf(result, 'Your location could not be shared.'));
+    setError('');
+    setTarget('');
+    setData(result as Data);
+  };
+
+  const find = async (number: string) => {
+    const spot = await fetchNui<{ x: number; y: number } | { error: string } | false>('locationFind', number, { x: 0, y: 0 });
+    if (failed(spot)) return setError(errorOf(spot, 'They could not be found.'));
+    setError('');
+    setWaypoint(spot as { x: number; y: number });
+  };
+
+  const update = async (callback: string, number: string) => {
+    const result = await fetchNui<Data | false>(callback, number, MOCK);
+    if (result) setData(result);
   };
 
   return (
     <AppPage title="Find Friends">
       <Stack gap="sm">
-        <SectionTitle>Friends sharing with you</SectionTitle>
-        <ErrorText>{error}</ErrorText>
-        {data && data.friends.length === 0 && <Empty icon={<IconMapPinOff size={36} />} text="Nobody is sharing their location with you." />}
-        {(data?.friends || []).map((f) => (
-          <Card key={f.number}>
-            <Group wrap="nowrap">
-              <Avatar color={avatarColor(f.name || f.number)} radius="xl">{initials(f.name)}</Avatar>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <Group gap={6}><Text fw={700} truncate>{displayName(f.name, f.number)}</Text><span className={`presence ${f.online ? 'on' : ''}`} /></Group>
-                <Text size="xs" c="dimmed">{expiryText(f.expiresAt)}</Text>
-              </div>
-            </Group>
-            <Group grow mt="sm" gap="xs">
-              <Button size="xs" leftSection={<IconMapPin size={16} />} onClick={async () => {
-                const spot = await fetchNui<Result<{ x: number; y: number }>>('locationFind', f.number, { x: 0, y: 0 });
-                const err = failure(spot, 'They could not be found.');
-                setError(err);
-                if (!err && spot) setWaypoint(spot);
-              }}>Find on map</Button>
-              <Button size="xs" variant="subtle" color="gray" onClick={async () => {
-                const result = await fetchNui<Data | false>('locationHide', f.number, MOCK);
-                if (result) set(result);
-              }}>Remove</Button>
-            </Group>
-          </Card>
-        ))}
-
-        <SectionTitle>You are sharing with</SectionTitle>
-        {data && data.sharing.length === 0 && <Text size="sm" c="dimmed">Nobody.</Text>}
-        {(data?.sharing || []).map((s) => (
-          <Card key={s.number}>
-            <Group wrap="nowrap">
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <Text fw={700} truncate>{displayName(s.name, s.number)}</Text>
-                <Text size="xs" c="dimmed">{expiryText(s.expiresAt)}</Text>
-              </div>
-              <Button size="xs" variant="light" color="red" onClick={async () => {
-                const result = await fetchNui<Data | false>('locationStop', s.number, MOCK);
-                if (result) set(result);
-              }}>Stop</Button>
-            </Group>
-          </Card>
-        ))}
-
-        <SectionTitle>Share my location</SectionTitle>
-        <Card>
+        <Paper className="glass" p="sm" radius="lg">
           <Stack gap="xs">
-            <Select placeholder="Choose a contact" value={contact} onChange={setContact} clearable
-              data={(phone?.contacts || []).map((c) => ({ value: c.number, label: c.name }))} comboboxProps={{ withinPortal: false }} />
-            <TextInput placeholder="...or type a number" value={number} onChange={(e) => setNumber(e.currentTarget.value.replace(/[^\d]/g, ''))} />
-            <SegmentedControl size="xs" fullWidth value={duration} onChange={setDuration}
-              data={[{ label: '1h', value: '1' }, { label: '8h', value: '8' }, { label: '24h', value: '24' }, { label: 'Forever', value: 'forever' }]} />
-            <ErrorText>{shareError}</ErrorText>
-            <Button leftSection={<IconShare size={18} />} onClick={share}>Share</Button>
+            <Text fw={700}>Share my location</Text>
+            <Autocomplete placeholder="Contact name or number" value={target} onChange={setTarget}
+              data={contacts.map((c) => c.name)} maxLength={40} />
+            <SimpleGrid cols={4} spacing={6}>
+              {DURATIONS.map((d) => (
+                <Button key={d.label} size="xs" px={4} variant={d.hours === null ? 'filled' : 'light'} onClick={() => share(d.hours)}>{d.label}</Button>
+              ))}
+            </SimpleGrid>
           </Stack>
-        </Card>
+        </Paper>
+        {error && <Alert color="red" variant="light" py={6}>{error}</Alert>}
+
+        <SectionLabel>Friends sharing with you</SectionLabel>
+        {data && data.friends.length === 0 && <Empty icon={<IconUsers size={36} />}>Nobody is sharing their location with you.</Empty>}
+        {data?.friends.map((f) => (
+          <Paper key={f.number} className="glass" p="sm" radius="lg">
+            <Group justify="space-between" wrap="nowrap">
+              <Text fw={700} truncate>{displayName(f.name, f.number)}</Text>
+              <Text size="xs" c={f.online ? 'green.4' : 'dimmed'}>{f.online ? 'Online' : 'Offline'}</Text>
+            </Group>
+            <Text size="xs" c="dimmed">{until(f.expiresAt)}</Text>
+            <Group gap="xs" mt="xs">
+              <Button size="xs" variant="light" leftSection={<IconMapPin size={14} />} onClick={() => find(f.number)}>Find on map</Button>
+              <Button size="xs" variant="subtle" color="gray" onClick={() => update('locationHide', f.number)}>Remove</Button>
+            </Group>
+          </Paper>
+        ))}
+
+        <SectionLabel>You are sharing with</SectionLabel>
+        {data && data.sharing.length === 0 && <Text size="sm" c="dimmed">Nobody.</Text>}
+        {data?.sharing.map((s) => (
+          <Paper key={s.number} className="glass" p="sm" radius="lg">
+            <Group justify="space-between" wrap="nowrap">
+              <div style={{ minWidth: 0 }}>
+                <Text fw={700} truncate>{displayName(s.name, s.number)}</Text>
+                <Text size="xs" c="dimmed">{until(s.expiresAt)}</Text>
+              </div>
+              <Button size="xs" variant="light" color="red" leftSection={<IconMapPinOff size={14} />} onClick={() => update('locationStop', s.number)}>Stop</Button>
+            </Group>
+          </Paper>
+        ))}
       </Stack>
     </AppPage>
   );
