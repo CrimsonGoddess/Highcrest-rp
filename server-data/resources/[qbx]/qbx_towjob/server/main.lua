@@ -137,7 +137,7 @@ end)
 
 lib.addCommand('tow', {help = locale('info.tow')}, function(source)
     local player = exports.qbx_core:GetPlayer(source)
-    if not player or player.PlayerData.job.name ~= 'tow' and player.PlayerData.job.name ~= 'mechanic' then return end
+    if not player or player.PlayerData.job.name ~= 'tow' and player.PlayerData.job.name ~= 'lsc_mech' then return end
     TriggerClientEvent('qb-tow:client:TowVehicle', source)
 end)
 

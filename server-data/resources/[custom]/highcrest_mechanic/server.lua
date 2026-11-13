@@ -343,7 +343,7 @@ lib.callback.register('highcrest_mechanic:canDesign', function(source, shopId, p
     local entity = NetworkGetEntityFromNetworkId(tonumber(netId) or 0)
     local pos = (entity ~= 0 and DoesEntityExist(entity)) and GetEntityCoords(entity) or GetEntityCoords(ped)
     local inStall = false
-    for _, bay in ipairs(shop.bays or { shop.bay }) do
+    for _, bay in ipairs(GetShopBays(shopId)) do
         if #(pos - bay.xyz) <= shop.bayRadius + 3.0 then inStall = true end
     end
     if not inStall then return false, 'Park the car in one of the stalls first.' end
@@ -475,6 +475,10 @@ end)
 lib.callback.register('highcrest_mechanic:setDuty', function(source, onDuty)
     local player = getPlayer(source)
     if not hasJob(player) then return false end
+    if onDuty and GetResourceState('highcrest_jobs') == 'started' and not exports.highcrest_jobs:InWorkArea(source) then
+        notify(source, 'You can only clock in at the shop.', 'error')
+        return false
+    end
     player.Functions.SetJobDuty(onDuty == true)
     notify(source, onDuty and 'You clocked in. Orders will show on your tablet.' or 'You clocked out.', 'success')
     return true

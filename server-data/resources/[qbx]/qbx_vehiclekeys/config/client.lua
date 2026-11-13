@@ -84,7 +84,7 @@ return {
                 [`ambulance`] = true,
             },
         },
-        mechanic = {
+        lsc_mech = {
             requireOnDuty = false,
             vehicles = {
                 [`towtruck`] = true,

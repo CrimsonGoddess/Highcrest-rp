@@ -451,7 +451,7 @@ end
 -- driver's seat), and "Open in the bay" when targeting a car parked in a stall.
 local function stallAt(coords)
     for shopId, shop in pairs(Config.shops) do
-        for _, bay in ipairs(shop.bays or { shop.bay }) do
+        for _, bay in ipairs(GetShopBays(shopId)) do
             if #(coords - bay.xyz) <= shop.bayRadius then return shopId end
         end
     end
@@ -466,11 +466,18 @@ for shopId, shop in pairs(Config.shops) do
     BeginTextCommandSetBlipName('STRING')
     AddTextComponentSubstringPlayerName(shop.blipLabel or shop.label)
     EndTextCommandSetBlipName(blip)
+end
 
-    -- An interaction point in the middle of each bay. It also works from the driver's seat
-    -- (allowInVehicle), so you can drive in and open the bay without getting out.
-    for i, bay in ipairs(shop.bays or { shop.bay }) do
-        exports.ox_target:addSphereZone({
+-- An interaction point in the middle of each bay. It also works from the driver's seat
+-- (allowInVehicle), so you can drive in and open the bay without getting out.
+-- Rebuilt whenever an admin adds, moves or removes a bay in /jobs.
+local bayZones = {}
+local function buildBayZones()
+    for _, id in ipairs(bayZones) do exports.ox_target:removeZone(id) end
+    bayZones = {}
+    for shopId, shop in pairs(Config.shops) do
+    for i, bay in ipairs(GetShopBays(shopId)) do
+        bayZones[#bayZones + 1] = exports.ox_target:addSphereZone({
             coords = bay.xyz + vec3(0.0, 0.0, 1.0),
             radius = shop.bayRadius,
             options = {{
@@ -492,7 +499,13 @@ for shopId, shop in pairs(Config.shops) do
             }},
         })
     end
+    end
 end
+
+AddStateBagChangeHandler('hcJobPoints', 'global', function()
+    SetTimeout(0, buildBayZones) -- next tick, once GlobalState holds the new value
+end)
+buildBayZones()
 
 exports.ox_target:addGlobalVehicle({
     {

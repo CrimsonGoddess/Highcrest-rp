@@ -7,7 +7,7 @@ lib.versionCheck("QuantumMalice/vehiclehandler")
 local function isMechanic(source)
     local player = exports.qbx_core:GetPlayer(source)
     local job = player and player.PlayerData.job
-    if job and job.name == 'mechanic' then return true end
+    if job and job.name == 'lsc_mech' then return true end
     TriggerClientEvent('ox_lib:notify', source, { description = 'Only mechanics know how to use this.', type = 'error' })
     return false
 end

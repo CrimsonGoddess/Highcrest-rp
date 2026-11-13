@@ -252,10 +252,10 @@ return {
             },
         },
     },
-    ['mechanic'] = {
-        label = 'Mechanic',
+    ['lsc_mech'] = {
+        label = 'LSC Mechanic',
         type = 'mechanic',
-        defaultDuty = true,
+        defaultDuty = false, -- Highcrest: clock in at the shop (on duty only inside the work area)
         offDutyPay = false,
         grades = {
             [0] = {
@@ -368,6 +368,21 @@ return {
                 name = 'Sales',
                 payment = 250
             },
+        },
+    },
+    -- TEMPORARY (2026-11-13): the old id, kept for ONE restart so qbx_core does not delete
+    -- mechanics' player_groups rows before highcrest_sql 018 moves them to lsc_mech. Remove after.
+    ['mechanic'] = {
+        label = 'Mechanic (old)',
+        type = 'mechanic',
+        defaultDuty = false,
+        offDutyPay = false,
+        grades = {
+            [0] = { name = 'Recruit', payment = 0 },
+            [1] = { name = 'Novice', payment = 0 },
+            [2] = { name = 'Experienced', payment = 0 },
+            [3] = { name = 'Advanced', payment = 0 },
+            [4] = { name = 'Manager', isboss = true, payment = 0 },
         },
     },
 }

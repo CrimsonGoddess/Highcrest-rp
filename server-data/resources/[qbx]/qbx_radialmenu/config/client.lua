@@ -351,7 +351,7 @@ return {
                 event = 'police:client:EscortPlayer',
             },
         },
-        mechanic = {
+        lsc_mech = {
             {
                 id = 'towVehicle',
                 icon = 'truck-pickup',

@@ -5,7 +5,8 @@
 local points = {}   -- id -> point
 local loaded = false
 
-local KINDS = { duty = true, stash = true, boss = true }
+-- bay: a mechanic work stall (used by highcrest_mechanic). area: where the job counts as at work.
+local KINDS = { duty = true, stash = true, boss = true, bay = true, area = true }
 
 local function isAdmin(source)
     return IsPlayerAceAllowed(source, Config.adminAce)
@@ -123,6 +124,7 @@ local function publishPoints()
         list[#list + 1] = {
             id = p.id, job = p.job, kind = p.kind, coords = p.coords,
             minGrade = p.data.minGrade or 0, label = p.data.label, stash = p.kind == 'stash' and stashId(p) or nil,
+            heading = p.data.heading, shop = p.data.shop, radius = p.data.radius,
         }
     end
     table.sort(list, function(a, b) return a.id < b.id end)
@@ -170,10 +172,76 @@ local function nearPoint(source, id, kind)
     return point, player
 end
 
+---------------------------------------------------------------------------
+-- Work areas: a job with 'area' spots is only on duty inside one of them
+---------------------------------------------------------------------------
+
+local OUTSIDE_GRACE = 60 -- seconds outside the area before being clocked out
+local CHECK_EVERY = 10000
+
+local function areasFor(jobName)
+    local list = {}
+    for _, p in pairs(points) do
+        if p.kind == 'area' and p.job == jobName then list[#list + 1] = p end
+    end
+    return list
+end
+
+local function insideAny(coords, areas)
+    for _, a in ipairs(areas) do
+        -- Flat distance, so floors and ramps don't matter.
+        if #(coords.xy - a.coords.xy) <= (a.data.radius or 40) then return true end
+    end
+    return false
+end
+
+--- True if the player may be on duty where they stand (always true for jobs without an area).
+local function inWorkArea(source)
+    local player = getPlayer(source)
+    local job = player and player.PlayerData.job
+    if not job then return false end
+    local areas = areasFor(job.name)
+    if #areas == 0 then return true end
+    return insideAny(GetEntityCoords(GetPlayerPed(source)), areas)
+end
+exports('InWorkArea', inWorkArea)
+
+local outsideSince = {} -- source -> os.time() when they left
+
+CreateThread(function()
+    while true do
+        Wait(CHECK_EVERY)
+        local now = os.time()
+        for _, src in ipairs(GetPlayers()) do
+            src = tonumber(src)
+            local player = getPlayer(src)
+            local job = player and player.PlayerData.job
+            local areas = job and job.onduty and areasFor(job.name) or {}
+            if #areas > 0 and not insideAny(GetEntityCoords(GetPlayerPed(src)), areas) then
+                if not outsideSince[src] then
+                    outsideSince[src] = now
+                    TriggerClientEvent('ox_lib:notify', src, { title = job.label, type = 'warning', duration = 8000,
+                        description = ('You left work. Go back within %d seconds or you will be clocked out.'):format(OUTSIDE_GRACE) })
+                elseif now - outsideSince[src] >= OUTSIDE_GRACE then
+                    outsideSince[src] = nil
+                    exports.qbx_core:SetJobDuty(src, false)
+                    TriggerClientEvent('ox_lib:notify', src, { title = job.label, type = 'inform',
+                        description = 'You were clocked out because you left work.' })
+                end
+            else
+                outsideSince[src] = nil
+            end
+        end
+    end
+end)
+
+AddEventHandler('playerDropped', function() outsideSince[source] = nil end)
+
 lib.callback.register('highcrest_jobs:toggleDuty', function(source, id)
     local point, player = nearPoint(source, id, 'duty')
     if not point then return false end
     local onDuty = not player.PlayerData.job.onduty
+    if onDuty and not inWorkArea(source) then return false, 'You can only clock in at work.' end
     exports.qbx_core:SetJobDuty(source, onDuty)
     return true, onDuty
 end)
@@ -268,7 +336,10 @@ lib.callback.register('highcrest_jobs:movePoint', function(source, id, coords)
     local point = points[tonumber(id) or 0]
     local c = validCoords(coords)
     if not point or not c then return false, 'Bad spot.' end
-    MySQL.update.await('UPDATE highcrest_job_points SET x = ?, y = ?, z = ? WHERE id = ?', { c.x, c.y, c.z, point.id })
+    local heading = tonumber(coords.w)
+    if point.kind == 'bay' and heading then point.data.heading = heading % 360 end
+    MySQL.update.await('UPDATE highcrest_job_points SET x = ?, y = ?, z = ?, data = ? WHERE id = ?',
+        { c.x, c.y, c.z, json.encode(point.data), point.id })
     point.coords = c
     if point.kind == 'stash' then registerStash(point) end
     publishPoints()
@@ -287,6 +358,13 @@ lib.callback.register('highcrest_jobs:addPoint', function(source, name, kind, op
         data.slots = math.max(5, math.min(200, math.floor(tonumber(opts.slots) or Config.stashDefaults.slots)))
         data.weight = math.max(10000, math.min(2000000, math.floor(tonumber(opts.weight) or Config.stashDefaults.weight)))
         data.personal = opts.personal == true
+    elseif kind == 'bay' then
+        data.heading = (tonumber(opts.coords and opts.coords.w) or 0) % 360
+        data.shop = type(opts.shop) == 'string' and opts.shop:sub(1, 30) or nil
+    elseif kind == 'area' then
+        data.radius = math.max(5, math.min(300, math.floor(tonumber(opts.radius) or 40)))
+        data.label = type(opts.label) == 'string' and opts.label:sub(1, 40) or nil
+        if data.label == '' then data.label = nil end
     end
     data.minGrade = math.max(0, math.min(Config.maxGrades - 1, math.floor(tonumber(opts.minGrade) or 0)))
 
@@ -296,6 +374,18 @@ lib.callback.register('highcrest_jobs:addPoint', function(source, name, kind, op
     addPointRow({ id = id, job = name, kind = kind, x = c.x, y = c.y, z = c.z, data = json.encode(data) })
     publishPoints()
     return true, 'Spot placed.'
+end)
+
+lib.callback.register('highcrest_jobs:setRadius', function(source, id, radius)
+    if not isAdmin(source) then return false, 'Admins only.' end
+    local point = points[tonumber(id) or 0]
+    radius = tonumber(radius)
+    if not point or point.kind ~= 'area' or not radius then return false, 'Bad area.' end
+    point.data.radius = math.max(5, math.min(300, math.floor(radius)))
+    MySQL.update.await('UPDATE highcrest_job_points SET data = ? WHERE id = ?', { json.encode(point.data), point.id })
+    publishPoints()
+    lib.print.info(('%s set work area %d (%s) to %d m'):format(staffName(source), point.id, point.job, point.data.radius))
+    return true, ('Work area is now %d m.'):format(point.data.radius)
 end)
 
 lib.callback.register('highcrest_jobs:deletePoint', function(source, id)

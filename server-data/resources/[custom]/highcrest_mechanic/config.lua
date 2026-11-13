@@ -1,7 +1,7 @@
 Config = {}
 
 -- Job that can use the mechanic tablet (must be on duty).
-Config.job = 'mechanic'
+Config.job = 'lsc_mech'
 
 -- Mechanic shops. Customers design their build in the design bay with their own car.
 --   business: the Empire business id that receives the shop's share (nil = none yet).

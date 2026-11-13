@@ -683,7 +683,7 @@ Config.Stores = {
 Config.ClothingRooms = {
     {
         -- Highcrest Motorworks (RFC LS Customs) changing room, on-duty mechanics
-        job = "mechanic",
+        job = "lsc_mech",
         coords = vector4(-350.65, -124.74, 39.05, 70.18),
         size = vector3(3, 3, 3),
         rotation = 70,

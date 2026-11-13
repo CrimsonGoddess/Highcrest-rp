@@ -8,7 +8,7 @@ local stash = {
     slots = 500,
     weight = 4000000,
     owner = false,
-    groups = {mechanic = 0},
+    groups = {lsc_mech = 0},
     coords = sharedConfig.locations.stash
 }
 exports.ox_inventory:RegisterStash(stash.id, stash.label, stash.slots, stash.weight, stash.owner, stash.groups, stash.coords)
@@ -188,7 +188,7 @@ lib.addCommand('setmechanic', {
         if args.target then
             local targetData = exports.qbx_core:GetPlayer(args.target)
             if targetData then
-                targetData.Functions.SetJob("mechanic")
+                targetData.Functions.SetJob("lsc_mech")
                 TriggerClientEvent('QBCore:Notify', targetData.PlayerData.source, "You Were Hired As An Autocare Employee!")
                 TriggerClientEvent('QBCore:Notify', source, "You have (" .. targetData.PlayerData.charinfo.firstname .. ") Hired As An Autocare Employee!")
             end
@@ -216,7 +216,7 @@ lib.addCommand('firemechanic', {
         if args.target then
             local TargetData = exports.qbx_core:GetPlayer(args.target)
             if TargetData then
-                if TargetData.PlayerData.job.name == "mechanic" then
+                if TargetData.PlayerData.job.name == "lsc_mech" then
                     TargetData.Functions.SetJob("unemployed")
                     TriggerClientEvent('QBCore:Notify', TargetData.PlayerData.source,  "You Were Fired As An Autocare Employee!")
                     TriggerClientEvent('QBCore:Notify', source, "You have (" .. TargetData.PlayerData.charinfo.firstname .. ") Fired As Autocare Employee!")

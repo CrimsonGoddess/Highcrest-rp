@@ -3,7 +3,7 @@ return {
 	-- Only the mechanic job can use it. Kits are made from metal scrap (recycling job, scrapyard).
 	{
 		name = 'mechanic_bench',
-		groups = { mechanic = 0 },
+		groups = { lsc_mech = 0 },
 		items = {
 			{
 				name = 'repairkit',
@@ -46,7 +46,7 @@ return {
 				size = vec3(2.0, 1.2, 1.2),
 				distance = 1.5,
 				rotation = 348.0,
-				groups = { mechanic = 0 },
+				groups = { lsc_mech = 0 },
 			},
 		},
 	},

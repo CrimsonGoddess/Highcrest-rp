@@ -10,7 +10,7 @@ return {
     ---@type table<GroupName, ZoneInfo|ZoneInfo[]>
     menus = {
         -- Highcrest Motorworks (RFC LS Customs), same desk as clock-in
-        mechanic = {
+        lsc_mech = {
             coords = vec3(-346.71, -130.3, 39.0),
             size = vec3(1.5, 1.5, 1.5),
             rotation = 256.34,

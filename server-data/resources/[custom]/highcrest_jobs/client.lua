@@ -26,7 +26,8 @@ local function optionsFor(point)
             canInteract = isMine,
             onSelect = function()
                 local ok, onDuty = lib.callback.await('highcrest_jobs:toggleDuty', false, point.id)
-                if ok then notify(onDuty and 'You clocked in.' or 'You clocked out.', 'success') end
+                if ok then notify(onDuty and 'You clocked in.' or 'You clocked out.', 'success')
+                elseif type(onDuty) == 'string' then notify(onDuty, 'error') end
             end,
         } }
     elseif point.kind == 'stash' then
@@ -72,7 +73,7 @@ end)
 -- /jobs editor
 ---------------------------------------------------------------------------
 
-local KIND_LABEL = { duty = 'Clock in / out', stash = 'Stash', boss = 'Boss menu' }
+local KIND_LABEL = { duty = 'Clock in / out', stash = 'Stash', boss = 'Boss menu', bay = 'Work bay', area = 'Work area' }
 local openEditor, openJob, openRanks, openPlaces
 
 local function typeOptions()
@@ -198,19 +199,27 @@ end
 -- The coords tool works at feet height, so convert both ways.
 local ZONE_HEIGHT = 1.0
 
+-- Work bays are stored at feet + 0.6 m (what highcrest_mechanic expects); areas at feet height.
+local KIND_HEIGHT = { bay = 0.6, area = 0.0 }
+local BAY_RADIUS = 4.0 -- highcrest_mechanic's bayRadius, for the preview circle
+
 -- Choose a spot with the /coords tool (raycast, nudging, preview). Falls back to where you stand.
-local function chooseSpot(title, start)
+-- kind changes the stored height and the preview; start may carry a heading (w).
+local function chooseSpot(title, start, kind, radius)
+    local height = KIND_HEIGHT[kind] or ZONE_HEIGHT
     if GetResourceState('highcrest_coords') ~= 'started' then
         local c = GetEntityCoords(cache.ped)
-        return { x = c.x, y = c.y, z = c.z }
+        return { x = c.x, y = c.y, z = c.z - 1.0 + height, w = GetEntityHeading(cache.ped) }
     end
     local spot = exports.highcrest_coords:pick({
         title = title,
-        start = start and vec4(start.x, start.y, start.z - ZONE_HEIGHT, GetEntityHeading(cache.ped)) or nil,
-        radius = 0.9, -- the zone size players interact with
+        start = start and vec4(start.x, start.y, start.z - height, start.w or GetEntityHeading(cache.ped)) or nil,
+        radius = radius or (kind == 'bay' and BAY_RADIUS) or 0.9, -- the zone size players interact with
+        preview = kind == 'bay' and 'vehicle' or nil,
+        model = kind == 'bay' and 'sultan' or nil, -- shows which way a car faces in the stall
     })
     if not spot then return nil end
-    return { x = spot.x, y = spot.y, z = spot.z + ZONE_HEIGHT }
+    return { x = spot.x, y = spot.y, z = spot.z + height, w = spot.h }
 end
 
 local function addPoint(data, kind)
@@ -231,8 +240,17 @@ local function addPoint(data, kind)
         })
         if not input then return openPlaces(data.name) end
         opts = { minGrade = input[1] }
+    elseif kind == 'area' then
+        local input = lib.inputDialog('New work area', {
+            { type = 'input', label = 'Name', placeholder = 'Building and parking lot', max = 40 },
+            { type = 'number', label = 'Radius (m) from the middle', default = 40, min = 5, max = 300 },
+        })
+        if not input then return openPlaces(data.name) end
+        opts = { label = input[1], radius = input[2] }
+    elseif kind == 'bay' then
+        opts = { shop = 'vinewood' } -- highcrest_mechanic's only shop for now
     end
-    local spot = chooseSpot(('Place %s: %s'):format(KIND_LABEL[kind]:lower(), data.job.label))
+    local spot = chooseSpot(('Place %s: %s'):format(KIND_LABEL[kind]:lower(), data.job.label), nil, kind, opts.radius)
     if not spot then return openPlaces(data.name) end
     opts.coords = spot
     local ok, message = lib.callback.await('highcrest_jobs:addPoint', false, data.name, kind, opts)
@@ -247,36 +265,55 @@ openPlaces = function(name)
         { title = 'Add a clock in / out spot', description = 'Opens the coords tool to place it', icon = 'clock', onSelect = function() addPoint(data, 'duty') end },
         { title = 'Add a stash', description = 'Opens the coords tool to place it', icon = 'box-open', onSelect = function() addPoint(data, 'stash') end },
         { title = 'Add a boss menu', description = 'Opens the coords tool to place it', icon = 'briefcase', onSelect = function() addPoint(data, 'boss') end },
+        { title = 'Add a work area', description = 'On duty only inside it; leaving clocks you out after 60 s', icon = 'draw-polygon', onSelect = function() addPoint(data, 'area') end },
     }
+    if data.job.type == 'mechanic' then
+        table.insert(options, 4, { title = 'Add a work bay', description = 'A stall where cars are worked on (car preview shows the facing)', icon = 'car', onSelect = function() addPoint(data, 'bay') end })
+    end
     local here = GetEntityCoords(cache.ped)
     for _, p in ipairs(data.points) do
         local pos = vec3(p.coords.x, p.coords.y, p.coords.z)
-        local extra = p.kind == 'stash' and (p.data.personal and ' · personal lockers' or ' · shared') or ''
+        local start = vec4(pos.x, pos.y, pos.z, p.data.heading or GetEntityHeading(cache.ped))
+        local extra = p.kind == 'stash' and (p.data.personal and ' · personal lockers' or ' · shared')
+            or p.kind == 'area' and (' · %d m radius'):format(p.data.radius or 40) or ''
         options[#options + 1] = {
             title = ('%s%s'):format(KIND_LABEL[p.kind] or p.kind, p.data.label and (': ' .. p.data.label) or ''),
             description = ('%.0f m away%s · /tp %.2f %.2f %.2f'):format(#(here - pos), extra, pos.x, pos.y, pos.z),
             icon = 'location-dot', arrow = true,
             onSelect = function()
+                local placeOptions = {
+                    { title = 'Move this spot', description = 'Opens the coords tool at the spot', icon = 'up-down-left-right', onSelect = function()
+                        local spot = chooseSpot(('Move %s'):format((KIND_LABEL[p.kind] or p.kind):lower()), start, p.kind, p.data.radius)
+                        if spot then
+                            local ok, message = lib.callback.await('highcrest_jobs:movePoint', false, p.id, spot)
+                            notify(message or (ok and 'Spot moved.' or 'Could not move it.'), ok and 'success' or 'error')
+                        end
+                        openPlaces(name)
+                    end },
+                    { title = 'Go there', icon = 'person-walking-arrow-right', onSelect = function()
+                        SetEntityCoords(cache.ped, pos.x, pos.y, pos.z, false, false, false, false)
+                    end },
+                    { title = 'Remove this spot', icon = 'trash', onSelect = function()
+                        local ok = lib.callback.await('highcrest_jobs:deletePoint', false, p.id)
+                        notify(ok and 'Spot removed.' or 'Could not remove it.', ok and 'success' or 'error')
+                        openPlaces(name)
+                    end },
+                }
+                if p.kind == 'area' then
+                    table.insert(placeOptions, 2, { title = 'Change the radius', description = ('Now %d m'):format(p.data.radius or 40), icon = 'expand', onSelect = function()
+                        local input = lib.inputDialog('Work area radius', {
+                            { type = 'number', label = 'Radius (m) from the middle', default = p.data.radius or 40, min = 5, max = 300 },
+                        })
+                        if input then
+                            local ok, message = lib.callback.await('highcrest_jobs:setRadius', false, p.id, input[1])
+                            notify(message or 'Could not change it.', ok and 'success' or 'error')
+                        end
+                        openPlaces(name)
+                    end })
+                end
                 lib.registerContext({
                     id = 'hcjobs_place', title = KIND_LABEL[p.kind] or p.kind, menu = 'hcjobs_places',
-                    options = {
-                        { title = 'Move this spot', description = 'Opens the coords tool at the spot', icon = 'up-down-left-right', onSelect = function()
-                            local spot = chooseSpot(('Move %s'):format((KIND_LABEL[p.kind] or p.kind):lower()), pos)
-                            if spot then
-                                local ok, message = lib.callback.await('highcrest_jobs:movePoint', false, p.id, spot)
-                                notify(message or (ok and 'Spot moved.' or 'Could not move it.'), ok and 'success' or 'error')
-                            end
-                            openPlaces(name)
-                        end },
-                        { title = 'Go there', icon = 'person-walking-arrow-right', onSelect = function()
-                            SetEntityCoords(cache.ped, pos.x, pos.y, pos.z, false, false, false, false)
-                        end },
-                        { title = 'Remove this spot', icon = 'trash', onSelect = function()
-                            local ok = lib.callback.await('highcrest_jobs:deletePoint', false, p.id)
-                            notify(ok and 'Spot removed.' or 'Could not remove it.', ok and 'success' or 'error')
-                            openPlaces(name)
-                        end },
-                    },
+                    options = placeOptions,
                 })
                 lib.showContext('hcjobs_place')
             end,
