@@ -2,6 +2,11 @@ local config = require 'config.client'
 local isSearchLocked = false
 local isSearchAllowed = false
 
+-- One prompt for both actions, shown while sat in a car with no keys.
+local function promptText()
+    return locale('info.search_keys_dispatch') .. ' | ' .. locale('info.hotwire_dispatch')
+end
+
 local function setSearchLabelState(isAllowed)
     if isSearchLocked and isAllowed then return end
     if isAllowed and cache.vehicle and GetVehicleConfig(cache.vehicle).findKeysChance == 0.0 then
@@ -9,7 +14,7 @@ local function setSearchLabelState(isAllowed)
         return
     end
     local isOpen, text = lib.isTextUIOpen()
-    local newText = locale('info.search_keys_dispatch')
+    local newText = promptText()
     local isValidMessage = text and text == newText
     if isAllowed and not isValidMessage and cache.seat == -1 then
         lib.showTextUI(newText)
@@ -83,6 +88,18 @@ local searchKeysKeybind = lib.addKeybind({
             isSearchLocked = false
             setSearchLabelState(not isFound)
         end
+    end
+})
+
+-- Hotwire on the same prompt. Uses B01 instead of a lockpick item.
+lib.addKeybind({
+    name = 'hotwire',
+    description = locale('info.hotwire'),
+    defaultKey = 'G',
+    onPressed = function()
+        if not (isSearchAllowed and cache.vehicle) then return end
+        setSearchLabelState(false)
+        Hotwire(cache.vehicle, false, nil, false)
     end
 })
 

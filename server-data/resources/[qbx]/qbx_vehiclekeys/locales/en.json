@@ -22,6 +22,8 @@
   "info": {
     "engine": "Toggle Engine",
     "search_keys_dispatch": "[H] - Search for Keys",
+    "hotwire_dispatch": "[G] - Hotwire",
+    "hotwire": "Hotwire vehicle",
     "search_keys": "Search for vehicle keys",
     "toggle_locks": "Toggle Vehicle Locks",
     "vehicle_theft": "Vehicle theft in progress. Type: "

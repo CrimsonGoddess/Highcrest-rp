@@ -203,7 +203,7 @@ function LockpickDoor(isAdvancedLockedpick, maxDistance, customChallenge)
             or config.anims.lockpick.class[GetVehicleClass(vehicle)]
             or config.anims.lockpick.default
         lib.playAnim(cache.ped, anim.dict, anim.clip, 3.0, 3.0, -1, 16, 0, false, false, false) -- lock opening animation
-        local isSuccess = customChallenge or lib.skillCheck(skillCheckConfig.difficulty, skillCheckConfig.inputs)
+        local isSuccess = customChallenge or exports['t3_lockpick']:startLockpick(isAdvancedLockedpick and 'advanced-lockpick' or 'lockpick')
 
         if getIsVehicleInRange(vehicle, maxDistance) then -- the action will be aborted if the opened vehicle is too far.
             lockpickCallback(vehicle, isAdvancedLockedpick, isSuccess)
@@ -224,7 +224,7 @@ end
 ---@param vehicle number The entity number of the vehicle.
 ---@param isAdvancedLockedpick boolean Determines whether an advanced lockpick was used.
 ---@param isSuccess boolean? Determines whether the lock has been successfully opened.
-local function hotwireCallback(vehicle, isAdvancedLockedpick, isSuccess)
+local function hotwireCallback(vehicle, isAdvancedLockedpick, isSuccess, usesItem)
     if isSuccess then
         hotwireSuccessCallback(vehicle)
     else -- if player fails quickevent
@@ -233,7 +233,7 @@ local function hotwireCallback(vehicle, isAdvancedLockedpick, isSuccess)
         exports.qbx_core:Notify(locale('notify.failed_lockedpick'), 'error')
     end
 
-    breakLockpick(isAdvancedLockedpick, vehicle)
+    if usesItem ~= false then breakLockpick(isAdvancedLockedpick, vehicle) end
 end
 
 local isHotwiringProcessLocked = false -- lock flag
@@ -241,7 +241,7 @@ local isHotwiringProcessLocked = false -- lock flag
 ---@param vehicle number The entity number of the vehicle.
 ---@param isAdvancedLockedpick boolean Determines whether an advanced lockpick was used
 ---@param customChallenge boolean? lockpick challenge
-function Hotwire(vehicle, isAdvancedLockedpick, customChallenge)
+function Hotwire(vehicle, isAdvancedLockedpick, customChallenge, usesItem)
     if cache.seat ~= -1 or GetIsVehicleAccessible(vehicle) then return end
     local skillCheckConfig = config.skillCheck[isAdvancedLockedpick and 'advancedHotwire' or 'hotwire']
 
@@ -258,9 +258,9 @@ function Hotwire(vehicle, isAdvancedLockedpick, customChallenge)
         or config.anims.hotwire.class[GetVehicleClass(vehicle)]
         or config.anims.hotwire.default
         lib.playAnim(cache.ped, anim.dict, anim.clip, 3.0, 3.0, -1, 16, 0, false, false, false) -- lock opening animation
-        local isSuccess = customChallenge or lib.skillCheck(skillCheckConfig.difficulty, skillCheckConfig.inputs)
+        local isSuccess = customChallenge or exports['B01_CTWHotWire']:startMinigame(15000)
 
-        hotwireCallback(vehicle, isAdvancedLockedpick, isSuccess)
+        hotwireCallback(vehicle, isAdvancedLockedpick, isSuccess, usesItem)
 
         Wait(config.hotwireCooldown)
         isHotwiringProcessLocked = false -- end of the critical section

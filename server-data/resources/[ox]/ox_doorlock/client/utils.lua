@@ -52,7 +52,7 @@ local function pickLock(entity)
 
 	TaskPlayAnim(cache.ped, animDict, 'pick_door', 3.0, 1.0, -1, 49, 0, true, true, true)
 
-	local success = lib.skillCheck(door.lockpickDifficulty or Config.LockDifficulty)
+	local success = exports['t3_lockpick']:startLockpick('lockpick')
 	local rand = math.random(1, success and 100 or 5)
 
 	if success then
