@@ -21,6 +21,7 @@ local FILES = {
     '016_highcrest_jobs.sql',
     '017_highcrest_vip.sql',
     '018_lsc_mech_rename.sql',
+    '019_ef_shops_admin.sql',
 }
 
 local function statements(sql)
