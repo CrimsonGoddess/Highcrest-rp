@@ -1,5 +1,5 @@
 return {
-    useTarget = false,
+    useTarget = true, -- third eye (sleepless_interact) instead of [E] prompts
     debugPoly = false,
     targets = {},
     partLabels = {

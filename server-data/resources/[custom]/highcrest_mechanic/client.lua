@@ -447,8 +447,8 @@ for shopId, shop in pairs(Config.shops) do
     end
 end
 
--- Stalls: a shop blip, [E] from the driver's seat (no ground markers; the RFC interior
--- shows the stalls), and "Open in the bay" when targeting a car parked in a stall.
+-- Stalls: a shop blip, and "Open in the bay" on the third eye when targeting a car parked
+-- in a stall (no ground markers or [E] prompt; the RFC interior shows the stalls).
 local function stallAt(coords)
     for shopId, shop in pairs(Config.shops) do
         for _, bay in ipairs(shop.bays or { shop.bay }) do
@@ -466,26 +466,6 @@ for shopId, shop in pairs(Config.shops) do
     BeginTextCommandSetBlipName('STRING')
     AddTextComponentSubstringPlayerName(shop.blipLabel or shop.label)
     EndTextCommandSetBlipName(blip)
-
-    for _, bay in ipairs(shop.bays or { shop.bay }) do
-
-        lib.zones.sphere({
-            coords = bay.xyz,
-            radius = shop.bayRadius,
-            inside = function()
-                if design or not cache.vehicle or GetPedInVehicleSeat(cache.vehicle, -1) ~= cache.ped then
-                    if lib.isTextUIOpen() then lib.hideTextUI() end
-                    return
-                end
-                if not lib.isTextUIOpen() then lib.showTextUI(('[E] Open the bay · %s'):format(shop.label), { icon = 'wrench' }) end
-                if IsControlJustReleased(0, 38) then
-                    lib.hideTextUI()
-                    startBay(shopId)
-                end
-            end,
-            onExit = function() lib.hideTextUI() end,
-        })
-    end
 end
 
 exports.ox_target:addGlobalVehicle({

@@ -65,7 +65,7 @@ local function registerDutyTarget()
     if config.useTarget then
         dutyTargetBoxId = exports.ox_target:addBoxZone({
             coords = coords,
-            size = vec3(2.5, 1.5, 1),
+            size = vec3(2.5, 1.5, 2),
             rotation = 338.16,
             debug = config.debugPoly,
             options = {{
@@ -168,9 +168,53 @@ local function registerStashTarget()
     end
 end
 
+local garageTargetCreated = false
+
 local function registerGarageZone()
     local coords = sharedConfig.locations.vehicle
     local veh = cache.vehicle
+
+    if config.useTarget then
+        -- Third eye: take a work vehicle out at the spot, or put one away by targeting it there.
+        if garageTargetCreated then return end
+        garageTargetCreated = true
+        local function onDutyMechanic()
+            return QBX.PlayerData.job.onduty and QBX.PlayerData.job.type == 'mechanic'
+        end
+        exports.ox_target:addSphereZone({
+            coords = coords.xyz + vec3(0, 0, 1.0),
+            radius = 1.5,
+            debug = config.debugPoly,
+            options = {{
+                name = 'mechanic_work_vehicles',
+                label = 'Take out a work vehicle',
+                icon = 'fa-solid fa-truck-pickup',
+                distance = 2.5,
+                canInteract = onDutyMechanic,
+                onSelect = function() lib.showContext('mechanicVehicles') end,
+            }},
+        })
+        exports.ox_target:addGlobalVehicle({{
+            name = 'mechanic_store_vehicle',
+            label = 'Put away work vehicle',
+            icon = 'fa-solid fa-square-parking',
+            distance = 3.0,
+            canInteract = function(entity)
+                local isWorkModel = false
+                for model in pairs(config.vehicles) do
+                    if GetEntityModel(entity) == joaat(model) then isWorkModel = true break end
+                end
+                return isWorkModel and onDutyMechanic() and #(GetEntityCoords(entity) - coords.xyz) < 10.0
+                    and GetVehicleNumberOfPassengers(entity) == 0 and IsVehicleSeatFree(entity, -1)
+            end,
+            onSelect = function(data)
+                if not NetworkHasControlOfEntity(data.entity) then NetworkRequestControlOfEntity(data.entity) end
+                SetEntityAsMissionEntity(data.entity, true, true)
+                DeleteVehicle(data.entity)
+            end,
+        }})
+        return
+    end
 
     lib.zones.box({
         coords = coords.xyz,
