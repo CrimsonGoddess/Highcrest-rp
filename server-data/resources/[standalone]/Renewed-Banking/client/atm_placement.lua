@@ -1,6 +1,6 @@
 -- /atmplace (admins): place the ATM screen panel by clicking the screen's corners, then fine-tune.
 --
--- 1. Pick corners: aim at the ATM's screen and left-click its TOP-LEFT, TOP-RIGHT and BOTTOM-LEFT
+-- 1. Pick corners: aim at the ATM's screen and left-click its TOP-LEFT, TOP-RIGHT, then either BOTTOM
 --    corners (right-click undoes the last one). That gives the panel's position, size and tilt.
 -- 2. Fine-tune, seen through the ATM camera players get:
 --      Scroll          push the panel in / out          Arrows   nudge the panel
@@ -18,7 +18,7 @@ local NUDGE = 0.002   -- metres per frame while an arrow is held
 local PUSH = 0.004    -- metres per scroll notch
 local SCALE = 0.01    -- 1% per scroll notch
 local CAM = 0.01      -- metres per frame for the camera
-local CORNERS = { 'TOP-LEFT', 'TOP-RIGHT', 'BOTTOM-LEFT' }
+local CORNERS = { 'TOP-LEFT', 'TOP-RIGHT', 'BOTTOM (left or right)' }
 
 -- Controls (read with IsDisabledControl*, everything else is disabled while placing).
 local C = {
@@ -45,14 +45,22 @@ end
 -- The panel's right axis from its normal and up.
 local function rightOf(d) return norm(cross(d.up, d.normal)) end
 
--- Three clicked corners (local) -> placement. The normal is made to face the camera.
-local function fromCorners(tl, tr, bl, camLocal)
-    local across, upward = tr - tl, tl - bl
-    local normal = norm(cross(across, upward))
-    local centre = (tr + bl) / 2
-    if dot(normal, camLocal - centre) < 0 then normal = normal * -1.0 end
-    local up = norm(upward - normal * dot(upward, normal))
-    return { offset = centre, normal = normal, up = up, width = len(across), height = len(upward) }
+-- Three clicked points (local) -> placement. The top edge (first two clicks) sets the direction
+-- and width; the third click (either bottom corner, or anywhere on the bottom edge) only sets
+-- the height. The normal is made to face the camera and `up` points to the top of the screen.
+local function fromCorners(tl, tr, bottom, camLocal)
+    local across = tr - tl
+    local width = len(across)
+    local R = norm(across)
+    local down = bottom - tl
+    local normal = norm(cross(across, down))
+    if dot(normal, camLocal - tl) < 0 then normal = normal * -1.0 end
+    -- Up is square to the top edge, in the screen's plane, pointing away from the bottom click.
+    local up = norm(cross(normal, R))
+    if dot(up, down) > 0 then up = up * -1.0 end
+    local height = math.abs(dot(down, up))
+    local centre = tl + across / 2 - up * (height / 2)
+    return { offset = centre, normal = normal, up = up, width = width, height = height }
 end
 
 ---------------------------------------------------------------------------
