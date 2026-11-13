@@ -10,7 +10,7 @@ import { FixedSizeGrid as Grid } from 'react-window'
 import {
   Eye, Camera, Check, Play, Search, X,
   Shirt, HardHat, Glasses, Watch, Footprints, ShoppingBag,
-  Shield, Paintbrush, Ear, Gem,
+  Shield, Paintbrush, Ear, Gem, PenTool,
   Car, Box, User, Palette, ChevronRight, ChevronDown, RotateCcw,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -31,13 +31,14 @@ export const CAT_ICON_MAP = {
   'Chest Hair': User, 'Body Blemishes': Paintbrush,
 }
 export const CAT_TYPE_ICON = {
-  'component': Shirt, 'prop': HardHat, 'overlay': Paintbrush, 'vehicle': Car, 'object': Box,
+  'component': Shirt, 'prop': HardHat, 'overlay': Paintbrush, 'tattoo': PenTool, 'vehicle': Car, 'object': Box,
 }
 
 // ── Tabs ────────────────────────────────────────────────
 const TABS = [
   { id: 'ped',        label: 'Ped',        icon: User,       types: ['component', 'prop'] },
   { id: 'appearance', label: 'Appearance', icon: Paintbrush, types: ['overlay'] },
+  { id: 'tattoos',    label: 'Tattoos',    icon: PenTool,    types: ['tattoo'] },
   { id: 'cars',       label: 'Cars',       icon: Car,        types: ['vehicle'] },
   { id: 'objects',    label: 'Objects',    icon: Box,        types: ['object'] },
 ]
@@ -149,6 +150,7 @@ export function CapturePreview({
   categories = [],
   mode = 'capture',  // 'capture' | 'browse'
   onStart, onCancel, onActiveChange, onSaveAngle, onColorChange,
+  gender = 'male', onGenderChange,
   // browse mode props
   browseItems, browseSelectedItem, onBrowseSelect, browseImgExt,
   browseSearch, onBrowseSearchChange, onRecapture,
@@ -157,12 +159,20 @@ export function CapturePreview({
   const [activeKey, setActiveKey]       = useState(categories[0]?.key ?? null)
   const [selected, setSelected]         = useState(() => new Set())
   const [savedCameras, setSavedCameras] = useState(() => new Set())
+  const [bothGenders, setBothGenders]   = useState(false)
+  const [switchingGender, setSwitchingGender] = useState(false)
+
+  // Mirrors AngleKey in client.lua: ped framings are saved per gender
+  const camKey = useCallback((cam) => (cam === 'vehicle' || cam === 'object') ? cam : `${gender}:${cam}`, [gender])
 
   const [pedSearch, setPedSearch]                   = useState('')
   const [expandedPedGroups, setExpandedPedGroups]   = useState(() => new Set(['components', 'props']))
 
   // ── Appearance tab state ──────────────────────────
   const [appearanceSearch, setAppearanceSearch] = useState('')
+
+  // ── Tattoos tab state ─────────────────────────────
+  const [tattooSearch, setTattooSearch] = useState('')
 
   // ── Cars tab state ────────────────────────────────
   const [expandedClasses, setExpandedClasses] = useState(() => new Set())
@@ -223,6 +233,7 @@ export function CapturePreview({
   // ── Derived data ──────────────────────────────────
   const pedCategories = useMemo(() => categories.filter(c => c.type === 'component' || c.type === 'prop'), [categories])
   const overlayCategories = useMemo(() => categories.filter(c => c.type === 'overlay'), [categories])
+  const tattooCategories = useMemo(() => categories.filter(c => c.type === 'tattoo'), [categories])
   const vehicleClasses = useMemo(() => categories.filter(c => c.type === 'vehicle' && c.models), [categories])
   const objectCategories = useMemo(() => categories.filter(c => c.type === 'object'), [categories])
 
@@ -253,16 +264,29 @@ export function CapturePreview({
   // Counts
   const pedSelectedCount = useMemo(() => pedCategories.filter(c => selected.has(c.key)).length, [pedCategories, selected])
   const overlaySelectedCount = useMemo(() => overlayCategories.filter(c => selected.has(c.key)).length, [overlayCategories, selected])
+  const tattooSelectedCount = useMemo(() => tattooCategories.filter(c => selected.has(c.key)).length, [tattooCategories, selected])
   const vehicleSelectedCount = selectedModels.size
   const objectSelectedCount = selectedObjects.size
-  const totalSelected = pedSelectedCount + overlaySelectedCount + vehicleSelectedCount + objectSelectedCount
+  // Everything shot on the ped, i.e. what "Capture both genders" repeats
+  const genderedSelectedCount = pedSelectedCount + overlaySelectedCount + tattooSelectedCount
+  const totalSelected = genderedSelectedCount + vehicleSelectedCount + objectSelectedCount
 
   const tabCounts = useMemo(() => ({
     ped: pedSelectedCount,
     appearance: overlaySelectedCount,
+    tattoos: tattooSelectedCount,
     cars: vehicleSelectedCount,
     objects: objectSelectedCount,
-  }), [pedSelectedCount, overlaySelectedCount, vehicleSelectedCount, objectSelectedCount])
+  }), [pedSelectedCount, overlaySelectedCount, tattooSelectedCount, vehicleSelectedCount, objectSelectedCount])
+
+  const tabHasItems = useMemo(() => ({
+    ped: pedCategories.length > 0,
+    appearance: overlayCategories.length > 0,
+    tattoos: tattooCategories.length > 0,
+    cars: vehicleClasses.length > 0,
+    objects: objectCategories.length > 0,
+  }), [pedCategories, overlayCategories, tattooCategories, vehicleClasses, objectCategories])
+  const visibleTabCount = TABS.filter(t => tabHasItems[t.id]).length
 
   // ── Ped handlers ──────────────────────────────────
   const handlePedToggle = useCallback((key) => {
@@ -278,14 +302,39 @@ export function CapturePreview({
     const activeCat = categories.find(c => c.key === activeKey)
     if (!activeCat?.camera) return
     onSaveAngle?.(activeCat.camera)
-    setSavedCameras(prev => { const n = new Set(prev); n.add(activeCat.camera); return n })
-  }, [activeKey, categories, onSaveAngle])
+    setSavedCameras(prev => { const n = new Set(prev); n.add(camKey(activeCat.camera)); return n })
+  }, [activeKey, categories, onSaveAngle, camKey])
+
+  // Per-row camera icon. The orbit only shows the active row's preset, so
+  // saving from any other row would file that framing under the wrong camera:
+  // first click selects the row, the next one saves.
+  const handleRowSave = useCallback((cat) => {
+    if (cat.key !== activeKey) { handleRowClick(cat); return }
+    onSaveAngle?.(cat.camera)
+    setSavedCameras(prev => { const n = new Set(prev); n.add(camKey(cat.camera)); return n })
+  }, [activeKey, handleRowClick, onSaveAngle, camKey])
+
+  const handleGenderClick = useCallback(async (g) => {
+    if (g === gender || switchingGender) return
+    setSwitchingGender(true)
+    try {
+      await onGenderChange?.(g)
+      // The new ped comes in bare; re-apply the active ped/overlay category
+      const activeCat = categories.find(c => c.key === activeKey)
+      if (activeCat && ['component', 'prop', 'overlay', 'tattoo'].includes(activeCat.type)) onActiveChange?.(activeCat)
+    } finally {
+      setSwitchingGender(false)
+    }
+  }, [gender, switchingGender, onGenderChange, categories, activeKey, onActiveChange])
 
   const pedSelectAll  = useCallback(() => setSelected(prev => { const n = new Set(prev); pedCategories.forEach(c => n.add(c.key)); return n }), [pedCategories])
   const pedSelectNone = useCallback(() => setSelected(prev => { const n = new Set(prev); pedCategories.forEach(c => n.delete(c.key)); return n }), [pedCategories])
 
   const overlaySelectAll  = useCallback(() => setSelected(prev => { const n = new Set(prev); overlayCategories.forEach(c => n.add(c.key)); return n }), [overlayCategories])
   const overlaySelectNone = useCallback(() => setSelected(prev => { const n = new Set(prev); overlayCategories.forEach(c => n.delete(c.key)); return n }), [overlayCategories])
+
+  const tattooSelectAll  = useCallback(() => setSelected(prev => { const n = new Set(prev); tattooCategories.forEach(c => n.add(c.key)); return n }), [tattooCategories])
+  const tattooSelectNone = useCallback(() => setSelected(prev => { const n = new Set(prev); tattooCategories.forEach(c => n.delete(c.key)); return n }), [tattooCategories])
 
   const togglePedGroup = useCallback((key) => {
     setExpandedPedGroups(prev => { const n = new Set(prev); n.has(key) ? n.delete(key) : n.add(key); return n })
@@ -346,16 +395,99 @@ export function CapturePreview({
     const chosen = []
     // Ped categories
     pedCategories.filter(c => selected.has(c.key)).forEach(c => chosen.push(c))
-    // Overlay categories
+    // Overlay + tattoo categories
     overlayCategories.filter(c => selected.has(c.key)).forEach(c => chosen.push(c))
+    tattooCategories.filter(c => selected.has(c.key)).forEach(c => chosen.push(c))
     // Vehicle models
     if (selectedModels.size > 0) chosen.push({ type: 'vehicle', id: '__models__', models: Array.from(selectedModels) })
     // Object models
     if (selectedObjects.size > 0) chosen.push({ type: 'object', id: '__models__', models: Array.from(selectedObjects) })
-    onStart?.(chosen)
-  }, [pedCategories, overlayCategories, selected, selectedModels, selectedObjects, totalSelected, onStart])
+    onStart?.(chosen, { bothGenders: bothGenders && genderedSelectedCount > 0 })
+  }, [pedCategories, overlayCategories, tattooCategories, selected, selectedModels, selectedObjects, totalSelected, onStart, bothGenders, genderedSelectedCount])
 
   const isBrowse = mode === 'browse'
+
+  // Flat category list shared by the Appearance and Tattoos tabs
+  const renderFlatTab = ({ cats, search, setSearch, placeholder, selectedCount, selectAll, selectNone, fallbackIcon, meta }) => {
+    const q = search.trim().toLowerCase()
+    const filtered = q ? cats.filter(c => c.label.toLowerCase().includes(q)) : cats
+
+    return (
+      <>
+        {/* Search */}
+        <div style={{ padding: '8px 20px 6px' }}>
+          <div className="flex items-center gap-2" style={{ height: 28, borderRadius: 6, padding: '0 8px', background: bg(0.015), border: border(0.04) }}>
+            <Search style={{ width: 10, height: 10, color: '#444', flexShrink: 0 }} />
+            <input value={search} onChange={e => setSearch(e.target.value)}
+              placeholder={placeholder} style={{ flex: 1, background: 'transparent', border: 'none', outline: 'none', fontSize: 10, color: '#ccc', caretColor: '#888' }} />
+            {search && (
+              <button onClick={() => setSearch('')} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'flex' }}>
+                <X style={{ width: 9, height: 9, color: '#555' }} />
+              </button>
+            )}
+          </div>
+        </div>
+
+        <div style={{ height: 1, background: 'rgba(255,255,255,0.04)' }} />
+
+        {/* Count + All/None */}
+        <div className="flex items-center justify-between" style={{ padding: '6px 20px 4px' }}>
+          <span style={{ fontSize: 10, color: '#555' }}>
+            <span style={{ color: '#999', fontWeight: 600 }}>{selectedCount}</span> / {cats.length} categories
+          </span>
+          <div className="flex items-center gap-1.5">
+            <button onClick={selectAll} style={{ fontSize: 10, color: '#666', background: 'none', border: 'none', cursor: 'pointer' }}>All</button>
+            <span style={{ fontSize: 10, color: '#333' }}>·</span>
+            <button onClick={selectNone} style={{ fontSize: 10, color: '#666', background: 'none', border: 'none', cursor: 'pointer' }}>None</button>
+          </div>
+        </div>
+
+        {/* Category list */}
+        <div className={isBrowse ? 'flex-1 overflow-hidden' : ''} style={{ padding: '2px 20px 10px' }}>
+          <ScrollArea style={{ height: isBrowse ? '100%' : 240 }}>
+            <div className="flex flex-col gap-0.5">
+              {filtered.map(cat => {
+                const isOn = selected.has(cat.key)
+                const isSaved = savedCameras.has(camKey(cat.camera))
+                const CatIcon = CAT_ICON_MAP[cat.label] ?? fallbackIcon
+                return (
+                  <div key={cat.key}
+                    onClick={() => handleRowClick(cat)}
+                    className="flex items-center gap-2 cursor-pointer select-none transition-all hover:opacity-100"
+                    style={{ height: 28, padding: '0 8px', borderRadius: 5, opacity: isOn ? 1 : 0.5,
+                      background: activeKey === cat.key ? bg(0.04) : 'transparent',
+                      border: activeKey === cat.key ? border(0.08) : '1px solid transparent',
+                    }}>
+                    <Checkbox checked={isOn} onChange={() => handlePedToggle(cat.key)} size={13} />
+                    <CatIcon style={{ width: 10, height: 10, color: '#666', flexShrink: 0 }} />
+                    <span className="flex-1 truncate" style={{ fontSize: 10, fontWeight: 500, color: '#ccc' }}>{cat.label}</span>
+                    {isSaved && <Camera style={{ width: 8, height: 8, color: '#22c55e', flexShrink: 0 }} />}
+                    {!isBrowse && (
+                      <span style={{ fontSize: 8, color: '#444', fontVariantNumeric: 'tabular-nums' }}>
+                        {meta(cat)}
+                      </span>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+          </ScrollArea>
+        </div>
+
+        {/* Save angle button */}
+        {!isBrowse && (
+          <div style={{ padding: '6px 20px 10px' }}>
+            <button onClick={handleSaveAngle}
+              className="flex items-center justify-center gap-1.5 w-full"
+              style={{ height: 28, borderRadius: 6, fontSize: 10, fontWeight: 600, color: '#888', background: bg(0.02), border: border(0.06), cursor: 'pointer' }}>
+              <Camera style={{ width: 9, height: 9 }} />
+              Save Camera Angle
+            </button>
+          </div>
+        )}
+      </>
+    )
+  }
 
   // ════════════════════════════════════════════════════
   // RENDER
@@ -383,6 +515,25 @@ export function CapturePreview({
                 <X style={{ width: 10, height: 10 }} />
               </button>
             )}
+            {!isBrowse && onGenderChange && (
+              <div className="flex gap-0.5" style={{ background: bg(0.02), borderRadius: 6, padding: 2, border: border(0.04), opacity: switchingGender ? 0.5 : 1 }}>
+                {[['male', 'Male'], ['female', 'Female']].map(([g, label]) => {
+                  const isActive = gender === g
+                  return (
+                    <button key={g} onClick={() => handleGenderClick(g)} disabled={switchingGender}
+                      style={{
+                        height: 22, padding: '0 9px', borderRadius: 4, border: 'none',
+                        cursor: switchingGender ? 'wait' : 'pointer',
+                        fontSize: 10, fontWeight: isActive ? 700 : 500,
+                        background: isActive ? 'rgba(255,255,255,0.08)' : 'transparent',
+                        color: isActive ? '#eee' : '#555',
+                      }}>
+                      {label}
+                    </button>
+                  )
+                })}
+              </div>
+            )}
           </div>
         </div>
 
@@ -393,15 +544,13 @@ export function CapturePreview({
               const isActive = activeTab === tab.id
               const count = tabCounts[tab.id] || 0
               const TabIcon = tab.icon
-              const hasItems = tab.id === 'ped' ? pedCategories.length > 0
-                : tab.id === 'appearance' ? overlayCategories.length > 0
-                : tab.id === 'cars' ? vehicleClasses.length > 0
-                : objectCategories.length > 0
-              if (!hasItems) return null
+              if (!tabHasItems[tab.id]) return null
               return (
-                <button key={tab.id} onClick={() => handleTabChange(tab.id)}
-                  className="flex items-center justify-center gap-1 flex-1 transition-all"
+                <button key={tab.id} onClick={() => handleTabChange(tab.id)} title={tab.label}
+                  className="flex items-center justify-center gap-1 transition-all"
                   style={{
+                    // Five labelled tabs don't fit 380px; past four only the active one shows its label
+                    flex: '1 1 auto', padding: '0 6px',
                     height: 26, borderRadius: 5, border: 'none', cursor: 'pointer',
                     fontSize: 10, fontWeight: isActive ? 700 : 500,
                     background: isActive ? 'rgba(255,255,255,0.08)' : 'transparent',
@@ -410,7 +559,9 @@ export function CapturePreview({
                     minWidth: 0, overflow: 'hidden',
                   }}>
                   <TabIcon style={{ width: 10, height: 10, flexShrink: 0 }} />
-                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{tab.label}</span>
+                  {(isActive || visibleTabCount <= 4) && (
+                    <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{tab.label}</span>
+                  )}
                   {count > 0 && (
                     <span style={{
                       fontSize: 8, fontWeight: 700, color: isActive ? '#fff' : '#888',
@@ -513,7 +664,8 @@ export function CapturePreview({
                             <div style={{ paddingLeft: 14, borderLeft: '1px solid rgba(255,255,255,0.04)', marginLeft: 10, marginTop: 1, marginBottom: 2 }}>
                               {filteredCats.map(cat => {
                                 const isOn = selected.has(cat.key)
-                                const isSaved = savedCameras.has(cat.camera)
+                                const isSaved = savedCameras.has(camKey(cat.camera))
+                                const isActive = activeKey === cat.key
                                 const CatIcon = CAT_ICON_MAP[cat.label] ?? Shirt
                                 return (
                                   <div key={cat.key}
@@ -521,13 +673,16 @@ export function CapturePreview({
                                       handleRowClick(cat)
                                     }}
                                     className="flex items-center gap-2 cursor-pointer select-none transition-all hover:opacity-100"
-                                    style={{ height: 24, padding: '0 6px', borderRadius: 4, opacity: isOn ? 1 : 0.5 }}>
+                                    style={{ height: 24, padding: '0 6px', borderRadius: 4, opacity: isOn ? 1 : 0.5,
+                                      background: isActive ? bg(0.04) : 'transparent',
+                                      border: isActive ? border(0.08) : '1px solid transparent',
+                                    }}>
                                     <Checkbox checked={isOn} onChange={() => handlePedToggle(cat.key)} size={12} />
                                     <CatIcon style={{ width: 9, height: 9, color: '#666', flexShrink: 0 }} />
                                     <span className="flex-1 truncate" style={{ fontSize: 9, fontWeight: 500, color: '#ccc' }}>{cat.label}</span>
                                     {isSaved && <Check style={{ width: 8, height: 8, color: '#22c55e', flexShrink: 0 }} />}
-                                    <div onClick={e => { e.stopPropagation(); setActiveKey(cat.key); onSaveAngle?.(cat.camera); setSavedCameras(prev => { const n = new Set(prev); n.add(cat.camera); return n }) }}
-                                      title="Save camera angle"
+                                    <div onClick={e => { e.stopPropagation(); handleRowSave(cat) }}
+                                      title={isActive ? 'Save camera angle' : 'Select to adjust the camera, click again to save'}
                                       className="flex items-center justify-center hover:bg-white/[0.06]"
                                       style={{ width: 16, height: 16, borderRadius: 3, cursor: 'pointer', flexShrink: 0 }}>
                                       <Camera style={{ width: 8, height: 8, color: isSaved ? '#22c55e' : '#666' }} />
@@ -547,88 +702,19 @@ export function CapturePreview({
           )
         })()}
 
-        {/* ═══ APPEARANCE TAB ═══ */}
-        {activeTab === 'appearance' && (() => {
-          const filteredOverlays = appearanceSearch.trim()
-            ? overlayCategories.filter(c => c.label.toLowerCase().includes(appearanceSearch.trim().toLowerCase()))
-            : overlayCategories
-
-          return (
-            <>
-              {/* Search */}
-              <div style={{ padding: '8px 20px 6px' }}>
-                <div className="flex items-center gap-2" style={{ height: 28, borderRadius: 6, padding: '0 8px', background: bg(0.015), border: border(0.04) }}>
-                  <Search style={{ width: 10, height: 10, color: '#444', flexShrink: 0 }} />
-                  <input value={appearanceSearch} onChange={e => setAppearanceSearch(e.target.value)}
-                    placeholder="Search overlays..." style={{ flex: 1, background: 'transparent', border: 'none', outline: 'none', fontSize: 10, color: '#ccc', caretColor: '#888' }} />
-                  {appearanceSearch && (
-                    <button onClick={() => setAppearanceSearch('')} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'flex' }}>
-                      <X style={{ width: 9, height: 9, color: '#555' }} />
-                    </button>
-                  )}
-                </div>
-              </div>
-
-              <div style={{ height: 1, background: 'rgba(255,255,255,0.04)' }} />
-
-              {/* Count + All/None */}
-              <div className="flex items-center justify-between" style={{ padding: '6px 20px 4px' }}>
-                <span style={{ fontSize: 10, color: '#555' }}>
-                  <span style={{ color: '#999', fontWeight: 600 }}>{overlaySelectedCount}</span> / {overlayCategories.length} categories
-                </span>
-                <div className="flex items-center gap-1.5">
-                  <button onClick={overlaySelectAll} style={{ fontSize: 10, color: '#666', background: 'none', border: 'none', cursor: 'pointer' }}>All</button>
-                  <span style={{ fontSize: 10, color: '#333' }}>·</span>
-                  <button onClick={overlaySelectNone} style={{ fontSize: 10, color: '#666', background: 'none', border: 'none', cursor: 'pointer' }}>None</button>
-                </div>
-              </div>
-
-              {/* Category list */}
-              <div className={isBrowse ? 'flex-1 overflow-hidden' : ''} style={{ padding: '2px 20px 10px' }}>
-                <ScrollArea style={{ height: isBrowse ? '100%' : 240 }}>
-                  <div className="flex flex-col gap-0.5">
-                    {filteredOverlays.map(cat => {
-                      const isOn = selected.has(cat.key)
-                      const isSaved = savedCameras.has(cat.camera)
-                      const CatIcon = CAT_ICON_MAP[cat.label] ?? Paintbrush
-                      return (
-                        <div key={cat.key}
-                          onClick={() => handleRowClick(cat)}
-                          className="flex items-center gap-2 cursor-pointer select-none transition-all hover:opacity-100"
-                          style={{ height: 28, padding: '0 8px', borderRadius: 5, opacity: isOn ? 1 : 0.5,
-                            background: activeKey === cat.key ? bg(0.04) : 'transparent',
-                            border: activeKey === cat.key ? border(0.08) : '1px solid transparent',
-                          }}>
-                          <Checkbox checked={isOn} onChange={() => handlePedToggle(cat.key)} size={13} />
-                          <CatIcon style={{ width: 10, height: 10, color: '#666', flexShrink: 0 }} />
-                          <span className="flex-1 truncate" style={{ fontSize: 10, fontWeight: 500, color: '#ccc' }}>{cat.label}</span>
-                          {isSaved && <Camera style={{ width: 8, height: 8, color: '#22c55e', flexShrink: 0 }} />}
-                          {!isBrowse && (
-                            <span style={{ fontSize: 8, color: '#444', fontVariantNumeric: 'tabular-nums' }}>
-                              ID {cat.id}
-                            </span>
-                          )}
-                        </div>
-                      )
-                    })}
-                  </div>
-                </ScrollArea>
-              </div>
-
-              {/* Save angle button */}
-              {!isBrowse && (
-                <div style={{ padding: '6px 20px 10px' }}>
-                  <button onClick={handleSaveAngle}
-                    className="flex items-center justify-center gap-1.5 w-full"
-                    style={{ height: 28, borderRadius: 6, fontSize: 10, fontWeight: 600, color: '#888', background: bg(0.02), border: border(0.06), cursor: 'pointer' }}>
-                    <Camera style={{ width: 9, height: 9 }} />
-                    Save Camera Angle
-                  </button>
-                </div>
-              )}
-            </>
-          )
-        })()}
+        {/* ═══ APPEARANCE / TATTOOS TABS ═══ */}
+        {activeTab === 'appearance' && renderFlatTab({
+          cats: overlayCategories, search: appearanceSearch, setSearch: setAppearanceSearch,
+          placeholder: 'Search overlays...', selectedCount: overlaySelectedCount,
+          selectAll: overlaySelectAll, selectNone: overlaySelectNone,
+          fallbackIcon: Paintbrush, meta: cat => `ID ${cat.id}`,
+        })}
+        {activeTab === 'tattoos' && renderFlatTab({
+          cats: tattooCategories, search: tattooSearch, setSearch: setTattooSearch,
+          placeholder: 'Search tattoo zones...', selectedCount: tattooSelectedCount,
+          selectAll: tattooSelectAll, selectNone: tattooSelectNone,
+          fallbackIcon: PenTool, meta: cat => `${cat.count ?? 0} tattoo${cat.count === 1 ? '' : 's'}`,
+        })}
 
         {/* ═══ CARS TAB ═══ */}
         {activeTab === 'cars' && (
@@ -815,6 +901,17 @@ export function CapturePreview({
 
         {/* ═══ FOOTER ═══ */}
         <div style={{ height: 1, background: 'rgba(255,255,255,0.04)' }} />
+        {!isBrowse && onGenderChange && genderedSelectedCount > 0 && (
+          <div className="flex items-center justify-between" style={{ padding: '10px 20px 0' }}>
+            <div>
+              <div style={{ fontSize: 10, fontWeight: 600, color: '#bbb' }}>Capture both genders</div>
+              <div style={{ fontSize: 8, color: '#555', marginTop: 1 }}>
+                {gender === 'male' ? 'Male' : 'Female'} first, then {gender === 'male' ? 'female' : 'male'} with the same categories
+              </div>
+            </div>
+            <Switch size="sm" checked={bothGenders} onCheckedChange={setBothGenders} />
+          </div>
+        )}
         {!isBrowse ? (
           <div className="flex items-center justify-between" style={{ padding: '12px 20px 14px' }}>
             <button onClick={onCancel} className="transition-colors hover:bg-white/[0.03]"

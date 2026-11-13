@@ -77,6 +77,7 @@ export default function App() {
 
   const [previewing,          setPreviewing]          = useState(false)
   const [previewCats,         setPreviewCats]         = useState([])
+  const [previewGender,       setPreviewGender]       = useState('male')
   const [capturing,           setCapturing]           = useState(false)
   const [capturePaused,       setCapturePaused]       = useState(false)
   const [overlayVisible,      setOverlayVisible]      = useState(true)
@@ -102,6 +103,7 @@ export default function App() {
           break
         case 'capturePreview':
           setPreviewCats(d.categories || [])
+          setPreviewGender(d.gender || 'male')
           setPreviewing(true)
           break
         case 'captureStart':
@@ -135,6 +137,13 @@ export default function App() {
       })
     } else if (cat.type === 'object') {
       arr.push({ type: cat.type, id: cat.id, gender: 'unisex', drawable: 0, texture: 0, label: cat.label, model: cat.id })
+    } else if (cat.type === 'tattoo') {
+      // drawable is the index in the zone list; Lua resolves it back to the tattoo.
+      // Lua may send an empty list as {} rather than []
+      const list = Array.isArray(cat.tattoos) ? cat.tattoos : []
+      list.forEach((t, idx) => {
+        arr.push({ type: 'tattoo', id: cat.id, gender, drawable: idx, texture: 0, label: t.overlay, collection: t.collection, overlay: t.overlay })
+      })
     } else {
       for (let d = 0; d < cat.drawables; d++)
         arr.push({ type: cat.type, id: cat.id, gender, drawable: d, texture: 0, label: cat.label })
@@ -188,17 +197,26 @@ export default function App() {
     fetchNUI('cancelPreview')
   }, [])
 
-  const handlePreviewStart = useCallback((chosen) => {
+  const handlePreviewStart = useCallback((chosen, opts = {}) => {
     const sc = chosen.filter(c => c.type === 'component').map(c => c.id)
     const sp = chosen.filter(c => c.type === 'prop').map(c => c.id)
     const sl = chosen.filter(c => c.type === 'overlay').map(c => c.id)
+    const st = chosen.filter(c => c.type === 'tattoo').map(c => c.id)
     // Vehicles/objects now send individual model name arrays
     const vehEntry = chosen.find(c => c.type === 'vehicle' && c.models)
     const objEntry = chosen.find(c => c.type === 'object' && c.models)
     const sv = vehEntry?.models || []
     const so = objEntry?.models || []
     setPreviewing(false)
-    fetchNUI('startCapture', { selectedComponents: sc, selectedProps: sp, selectedOverlays: sl, selectedVehicles: sv, selectedObjects: so })
+    fetchNUI('startCapture', { selectedComponents: sc, selectedProps: sp, selectedOverlays: sl, selectedTattoos: st, selectedVehicles: sv, selectedObjects: so, bothGenders: !!opts.bothGenders })
+  }, [])
+
+  const handlePreviewGenderChange = useCallback(async (g) => {
+    const r = await fetchNUI('setCaptureGender', { gender: g })
+    setPreviewGender(r?.gender || g)
+    // Lua sends the per-category counts as an array: category id N is index N-1
+    const counts = r?.tattooCounts
+    if (counts) setPreviewCats(prev => prev.map(c => c.type === 'tattoo' ? { ...c, count: counts[c.id - 1] ?? 0 } : c))
   }, [])
 
   const handlePreviewActiveChange = useCallback((cat) => {
@@ -381,7 +399,7 @@ export default function App() {
       key: `${cat.type}-${cat.id}-${idx}`, label: cat.label,
       icon: CAT_ICON_MAP[cat.label] ?? CAT_TYPE_ICON[cat.type] ?? Shirt,
       type: cat.type, id: cat.id, camera: cat.camera,
-      models: cat.models, category: cat.category,
+      models: cat.models, category: cat.category, count: cat.count,
     }))
     return (
       <div className="fixed inset-0 z-[9998] cursor-grab active:cursor-grabbing"
@@ -395,6 +413,8 @@ export default function App() {
             onActiveChange={handlePreviewActiveChange}
             onSaveAngle={handleSaveAngle}
             onColorChange={handleColorChange}
+            gender={previewGender}
+            onGenderChange={handlePreviewGenderChange}
           />
         </div>
         <OrbitHint />

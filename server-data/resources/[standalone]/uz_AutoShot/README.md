@@ -35,9 +35,12 @@ Iterates every drawable and texture automatically, runs chroma key removal serve
 - **Clothing components**: 11 ped slots (hair, mask, arms, pants, bags, shoes, accessories, undershirt, body armor, decals, tops) iterated by drawable and texture.
 - **Prop slots**: hats, glasses, ears, watches, bracelets. Watch and bracelet slots play a wrist-raise animation during capture.
 - **Head overlays**: 12 categories including facial hair, eyebrows, makeup, blemishes, ageing, blush, complexion, lipstick, moles, chest hair.
+- **Tattoos**: every tattoo in your `illenium-appearance` list (or your own list), grouped by body zone with a camera per zone. Torso tattoos are split into front and back using the game's tattoo shop data. Browse and re-capture them in the wardrobe.
 - **Vehicle capture**: auto-detects every loaded vehicle model and groups by class. Built-in primary / secondary color picker before each batch.
 - **Object capture**: configurable list of world props in `Customize.lua`. Edit the table or use a one-off command.
 - **Orbit camera**: rotate, roll, zoom, height, FOV. Save framing per category mid-session, copy current values to clipboard in Lua format.
+- **Male and female peds**: switch the studio ped between `mp_m_freemode_01` and `mp_f_freemode_01` from the preview header, or capture both genders in one run.
+- **Appearance restore**: your ped's look (hair color, head blend, overlays, tattoos) is restored after the studio closes. Uses `illenium-appearance` / `fivem-appearance` when running, native fallback otherwise.
 - **Server-side chroma key**: magenta or green background removal in Node with despill and 5x5 alpha feather for smooth edges.
 - **Wardrobe browser**: `/wardrobe` opens a thumbnail grid with category sidebar, drawable-id search, and click-to-apply preview on your ped.
 - **Re-capture broken thumbnails**: select bad shots in the wardrobe, re-shoot only those without re-running the entire batch.
@@ -59,6 +62,7 @@ Type `/shotmaker`, pick what you want to capture, frame the orbit camera, hit St
 - [screenshot-basic](https://github.com/citizenfx/screenshot-basic) *(included on most servers)*
   or [screencapture](https://github.com/itschip/screencapture) *(recommended replacement)*
 - FiveM server artifacts with `yarn` support (built-in since 4892+)
+- Optional: [illenium-appearance](https://github.com/iLLeniumStudios/illenium-appearance) or fivem-appearance, for a full appearance restore (tattoos included) when the studio closes
 
 ---
 
@@ -124,7 +128,36 @@ The orbit camera is active during the preview step before each capture session a
 | R | Reset to the category's default angle |
 | C | Copy the current camera values to your clipboard in Lua format, ready to paste into `Customize.CameraPresets` |
 
-To save the framing for a category mid-session, click the save button in the preview UI. Saved angles persist for the session: when the batch reaches a category you saved, that framing is reused automatically.
+To save the framing for a category mid-session, click the camera icon on its row in the preview UI. On a row that is not active, the first click only selects the category and moves the camera there; click again to save. Saved angles persist for the session: when the batch reaches a category you saved, that framing is reused automatically. Categories you did not save use their default preset angle, not the last framing you looked at.
+
+Ped angles are saved per gender. If a category has no saved angle for the current gender, the angle saved for the other gender is used.
+
+### Male / female ped
+
+The **Male / Female** toggle in the preview header swaps the studio ped model. Photos go to `shots/male/` or `shots/female/` accordingly. Turn on **Capture both genders** in the footer to shoot the selected ped categories for the current gender first, then the other gender, in one run. Vehicles and objects are captured once.
+
+---
+
+## Tattoos
+
+The **Tattoos** tab in the capture preview lists one category per body zone (`Customize.TattooCategories`), with the number of tattoos in each for the current gender. The tab only appears when a tattoo list is available:
+
+1. `Customize.Tattoos`, if you fill it in (same format as illenium-appearance's list), otherwise
+2. `customize/tattoos.lua` of `illenium-appearance`, read while that resource is running.
+
+Each tattoo is shot alone on a bare-skin ped (`Customize.TattooBody`: underwear, barefoot) with its zone's camera preset (`tattoo_torso`, `tattoo_back`, `tattoo_head`, `tattoo_left_arm`, ...). Frame each zone once in the preview and save the angle, as with clothing.
+
+Torso tattoos are split into **Torso (Front)** and **Torso (Back)** using the facing stored in the game's tattoo shop data. On first use F8 prints how many back-facing tattoos were found. Addon tattoos have no shop data and default to the front camera. If a tattoo lands in the wrong group, add it to `Customize.TattooFacing` and re-run that category:
+
+```lua
+Customize.TattooFacing = {
+    ['MP_Example_M_000'] = 'back',   -- overlay name from the list (hashMale / hashFemale)
+}
+```
+
+With `ChromaKeyColor = 'magenta'`, pink or purple ink can be keyed out with the background. Switch to `'green'` if your tattoo set has a lot of it.
+
+The wardrobe (`/wardrobe`) has a **Tattoos** tab too. Click a thumbnail to try the tattoo on your ped, or use re-capture mode to reshoot single tattoos that came out wrong.
 
 ---
 
@@ -144,9 +177,10 @@ All settings live in [`Customize.lua`](Customize.lua). Common knobs:
 | `Customize.CaptureAllTextures` | `false` | Capture all texture variants (not just default) |
 | `Customize.ChromaKeyColor` | `'magenta'` | Background color: `'green'` or `'magenta'` |
 | `Customize.BatchSize` | `10` | Captures per batch before cooldown |
-| `Customize.LatentRate` | `8000000` | Bytes/sec throttle for capture uploads |
+| `Customize.LatentRate` | `8000000` | Bytes/sec throttle per capture upload (the full-screen frame) |
+| `Customize.MaxPendingUploads` | `2` | Uploads in flight before the capture loop waits for the server |
 
-Camera presets, studio lighting, green screen dimensions, the head chroma mask (`Customize.HeadMask`), clothing/prop/overlay categories, and the object list are also configurable in the same file. Full reference at [uz-scripts.com/docs/free/uz-autoshot](https://uz-scripts.com/docs/free/uz-autoshot).
+Camera presets, studio lighting, green screen dimensions, the head chroma mask (`Customize.HeadMask`), clothing/prop/overlay/tattoo categories, the tattoo body outfit, and the object list are also configurable in the same file. Full reference at [uz-scripts.com/docs/free/uz-autoshot](https://uz-scripts.com/docs/free/uz-autoshot).
 
 ---
 
@@ -156,10 +190,13 @@ The URL exports return `cfx-nui` paths that any NUI in any resource can render d
 
 ```lua
 exports['uz_AutoShot']:getPhotoURL('male', 'component', 11, 5, 0)
--- 'https://cfx-nui-uz_AutoShot/shots/male/11/5_0.png'
+-- 'https://cfx-nui-uz_AutoShot/shots/male/11/5.png'
+
+exports['uz_AutoShot']:getPhotoURL('male', 'component', 11, 5, 2)
+-- 'https://cfx-nui-uz_AutoShot/shots/male/11/5_2.png'
 
 exports['uz_AutoShot']:getPhotoURL('male', 'prop', 0, 12, 0)
--- 'https://cfx-nui-uz_AutoShot/shots/male/prop_0/12_0.png'
+-- 'https://cfx-nui-uz_AutoShot/shots/male/prop_0/12.png'
 
 exports['uz_AutoShot']:getPhotoURL('male', 'overlay', 1, 3, 0)
 -- 'https://cfx-nui-uz_AutoShot/shots/male/overlay_1/3.png'
@@ -170,11 +207,14 @@ exports['uz_AutoShot']:getVehiclePhotoURL('adder')
 exports['uz_AutoShot']:getObjectPhotoURL('prop_bench_01a')
 -- 'https://cfx-nui-uz_AutoShot/shots/objects/prop_bench_01a.png'
 
+exports['uz_AutoShot']:getTattooURL('male', 'mpbeach_overlays', 'MP_Bea_M_Back_000')
+-- 'https://cfx-nui-uz_AutoShot/shots/male/tattoos/mpbeach_overlays/mp_bea_m_back_000.png'
+
 exports['uz_AutoShot']:getShotsBaseURL()
 -- 'https://cfx-nui-uz_AutoShot/shots'
 
 exports['uz_AutoShot']:getPhotoFormat()
--- 'png'  (whatever Customize.ScreenshotFormat is set to)
+-- 'png'  (extension on disk: always 'png' while TransparentBg is on, else Customize.ScreenshotFormat)
 ```
 
 `getPhotoURL(gender, itemType, id, drawable, texture)` arguments:
@@ -183,7 +223,9 @@ exports['uz_AutoShot']:getPhotoFormat()
 - `itemType`: `'component'`, `'prop'`, or `'overlay'`
 - `id`: component id (1-11, see `Customize.Categories`), prop id (0, 1, 2, 6, 7), or overlay index (0-11)
 - `drawable`: drawable id
-- `texture`: texture id. Ignored for `'overlay'`. For `'component'` and `'prop'` the URL always includes `_<texture>` in the filename, which only matches files on disk if you captured with `Customize.CaptureAllTextures = true`. With the default `false`, only texture 0 is captured and the file is named `<drawable>.<ext>` (no `_0`). Either flip that flag before capturing, or build the URL yourself for the no-texture case using `getShotsBaseURL()`.
+- `texture`: texture id. Ignored for `'overlay'`. `0` (or `nil`) maps to `<drawable>.<ext>`, anything above to `<drawable>_<texture>.<ext>`, matching the files on disk (see Output folder). Textures above 0 only exist if you captured with `Customize.CaptureAllTextures = true`.
+
+`getTattooURL(gender, collection, overlay)` takes the collection and overlay name exactly as in the tattoo list (`collection`, `hashMale` / `hashFemale`). Tattoo files are stored lowercased, so the same URL works on Windows and Linux hosts.
 
 All exports return strings synchronously. No async, no callbacks.
 
@@ -191,10 +233,7 @@ All exports return strings synchronously. No async, no callbacks.
 
 ## Output folder
 
-Photos live in `resources/uz_AutoShot/shots/`. Filename pattern depends on `Customize.CaptureAllTextures`:
-
-- `false` (default): only texture 0 captured, file is `<drawable>.<ext>`
-- `true`: every texture variant captured, file is `<drawable>_<texture>.<ext>`
+Photos live in `resources/uz_AutoShot/shots/`. Texture 0 is always `<drawable>.<ext>`. Other textures are only captured with `Customize.CaptureAllTextures = true` and are named `<drawable>_<texture>.<ext>`.
 
 Overlays never use a texture suffix.
 
@@ -209,9 +248,12 @@ shots/
 │   │   └── 5_2.png        # only when CaptureAllTextures = true
 │   ├── prop_0/            # Hats (propId 0)
 │   │   └── 0.png
-│   └── overlay_1/         # Facial Hair (overlayIndex 1)
-│       ├── 0.png
-│       └── 1.png
+│   ├── overlay_1/         # Facial Hair (overlayIndex 1)
+│   │   ├── 0.png
+│   │   └── 1.png
+│   └── tattoos/
+│       └── mpbeach_overlays/
+│           └── mp_bea_m_back_000.png   # <collection>/<overlay>, lowercased
 ├── female/
 │   └── ...
 ├── vehicles/
@@ -231,12 +273,15 @@ After a fresh capture, restart the resource before any other script can `<img sr
 | Problem | Fix |
 |---------|-----|
 | **Wardrobe and other UIs don't see brand-new captures.** | Restart the resource (`restart uz_AutoShot` or `refresh; ensure uz_AutoShot`). FiveM indexes the `cfx-nui` `files {}` block at resource start, so new PNGs only become servable after the next start. Existing photos keep working without restart. This is the single most common gotcha, do this first. |
-| Thumbnails come out fully black or blank. | `screenshot-basic` must start before `uz_AutoShot` in `server.cfg`. Watch the server console for `[uz_AutoShot] Saved: ...` lines while capturing. |
+| Thumbnails come out fully black or blank. | `screenshot-basic` must start before `uz_AutoShot` in `server.cfg`. Watch the server console for `[uz_AutoShot] Saved: ...` lines while capturing. For vehicles, an F8 line `Vehicle <model> was deleted before capture` means another resource (vehicle cleanup, anticheat) is removing client-side vehicles. |
+| `uz_AutoShot: pngjs missing on server` or `Server side not responding` when opening the studio, or F8 shows `Upload #N not confirmed by server` and `shots/` stays empty. | The server script is not running. Most often `pngjs` is missing: a `.yarn.installed` file without a `node_modules` folder (for example after copying the resource without it) makes yarn skip the install. Delete `.yarn.installed` and restart the server, or run `npm install` in the resource folder. Otherwise, check the server console for a `server.js` error on startup. |
+| F8 shows `Capture skipped (...): screenshot-basic did not respond within 10s`. | `screenshot-basic` is missing, stopped, or outdated. Update it and make sure it starts before `uz_AutoShot`. |
 | Magenta or green halo around the subject. | Switch `Customize.ChromaKeyColor`. Magenta tends to cut cleaner on skin tones, green is friendlier with red/orange clothing. |
 | Head clips into hats, hoods, or armor. | Tune `Customize.HeadMask`. Make the existing sphere smaller, or stack a second sphere for the neck. The commented neck entry in `Customize.lua` is a starting point. |
 | Resource refuses to start, console shows a name error. | Folder must be named exactly `uz_AutoShot`, case-sensitive. |
 | Wardrobe is empty. | Run `/shotmaker` to generate photos first, then restart the resource (see the first row). |
-| Captures stall mid-batch. | Lower `ScreenshotWidth`/`ScreenshotHeight` to 256 to ease the per-frame cost, or raise `Customize.LatentRate` if upload throughput is the bottleneck. |
+| Lag, rising ping, or `Timed out after 60 seconds` while capturing on a remote server. | Each capture uploads the full-screen frame; `ScreenshotWidth`/`ScreenshotHeight` only set the size the server resizes to, so lowering them does not shrink the upload. Lower your game resolution while capturing, and set `Customize.LatentRate` at or below your real upload speed (e.g. `2000000` for ~16 Mbit/s). `Customize.MaxPendingUploads` keeps the backlog bounded. |
+| Kicked with `Reliable network event size overflow: uz_autoshot:server:processCapture`. | v2.1.0+ sends captures as latent events, which never hit that limit. Seeing it means an outdated or modified `client.lua`, or another resource wrapping `TriggerLatentServerEvent`. Reinstall from the latest release. |
 | Single capture failing for a model. | Spawn name typo. Use `/shotcar adder` or `/shotprop prop_bench_01a` with the exact model spawn name. |
 
 ---
