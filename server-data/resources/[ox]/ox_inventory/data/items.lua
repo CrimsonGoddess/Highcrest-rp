@@ -922,6 +922,8 @@ return {
     ['advancedlockpick'] = {
         label = 'Advanced Lockpick',
         weight = 500,
+        durablity = 10,
+        stack = false
     },
 
     ['screwdriverset'] = {
@@ -8037,6 +8039,8 @@ return {
     ['lockpick'] = {
         label = 'Lockpick',
         weight = 160,
+        durability = 10,
+        stack = false
     },
 
     ['money'] = {

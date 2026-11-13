@@ -1,0 +1,94 @@
+/* The game shows through the backdrop, so the page itself stays transparent. */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  background: transparent !important;
+  overflow: hidden;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.panel {
+  width: min(1380px, 100%);
+  height: min(880px, 100%);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--mantine-color-body);
+}
+
+.panel-body {
+  flex: 1;
+  min-height: 0;
+  border-top: 1px solid var(--mantine-color-default-border);
+}
+
+.sidebar {
+  width: 300px;
+  flex-shrink: 0;
+  min-height: 0;
+  border-right: 1px solid var(--mantine-color-default-border);
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+}
+
+.shop-row {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  border-radius: var(--mantine-radius-sm);
+  box-sizing: border-box;
+}
+
+button.shop-row:hover,
+.shop-row:hover {
+  background: var(--mantine-color-default-hover);
+}
+
+.shop-row[data-active] {
+  background: var(--mantine-color-default-hover);
+  box-shadow: inset 3px 0 0 var(--mantine-primary-color-filled);
+}
+
+.items-grid {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.catalog-row {
+  padding: 4px 6px;
+  border-radius: var(--mantine-radius-sm);
+}
+
+.catalog-row:hover {
+  background: var(--mantine-color-default-hover);
+}
+
+.bulk {
+  padding: 8px;
+  border: 1px solid var(--mantine-color-default-border);
+  border-radius: var(--mantine-radius-sm);
+}
+
+@media (max-width: 900px) {
+  .items-grid {
+    grid-template-columns: 1fr;
+  }
+}

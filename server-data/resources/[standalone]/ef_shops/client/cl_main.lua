@@ -132,7 +132,7 @@ RegisterNUICallback("hideFrame", function(_, cb)
 	SendReactMessage("setCurrentShop", null)
 end)
 
-CreateThread(function()
+local function buildLocations()
 	for shopID, storeData in pairs(LOCATIONS) do
 		if not storeData.coords then goto continue end
 
@@ -228,7 +228,51 @@ CreateThread(function()
 
 		:: continue ::
 	end
+end
+
+local function clearLocations()
+	for _, entity in pairs(Vendors) do
+		if DoesEntityExist(entity) then
+			if IsModelAPed(GetEntityModel(entity)) then
+				DeletePed(entity)
+			else
+				DeleteEntity(entity)
+			end
+		end
+	end
+	Vendors = {}
+
+	for _, point in ipairs(Points) do
+		point:remove()
+	end
+	Points = {}
+
+	for _, blip in ipairs(Blips) do
+		RemoveBlip(blip)
+	end
+	Blips = {}
+
+	for _, target in ipairs(Targets) do
+		exports.ox_target:removeZone(target)
+	end
+	Targets = {}
+end
+
+-- Replaces the custom shops (ef_shops_admin) with `defs` and rebuilds every blip, vendor and target.
+local function applyCustom(defs)
+	clearLocations()
+	EF_ClearCustomShops(LOCATIONS, PRODUCTS)
+	for _, def in pairs(defs or {}) do
+		EF_ApplyCustomShop(def, LOCATIONS, PRODUCTS)
+	end
+	buildLocations()
+end
+
+CreateThread(function()
+	applyCustom(lib.callback.await("EF-Shops:Server:GetCustom", false))
 end)
+
+RegisterNetEvent('EF-Shops:Client:SyncCustom', applyCustom)
 
 -- Event handlers
 
@@ -271,23 +315,5 @@ end)
 AddEventHandler('onResourceStop', function(resource)
 	if resource ~= GetCurrentResourceName() then return end
 
-	for _, entity in pairs(Vendors) do
-		if IsModelAPed(GetEntityModel(entity)) then
-			DeletePed(entity)
-		else
-			DeleteObject(entity)
-		end
-	end
-
-	for _, point in ipairs(Points) do
-		point:remove()
-	end
-
-	for _, blip in ipairs(Blips) do
-		RemoveBlip(blip)
-	end
-
-	for _, target in ipairs(Targets) do
-		exports.ox_target:removeZone(target)
-	end
+	clearLocations()
 end)

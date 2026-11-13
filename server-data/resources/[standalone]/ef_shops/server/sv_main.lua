@@ -48,6 +48,41 @@ local function registerShop(shopType, shopData)
 	end
 end
 
+-- Builds one shop's stock from its product list. Calling it again restocks the shop (prices re-roll too).
+---@param shopID string
+local function buildShop(shopID)
+	local shopData = LOCATIONS[shopID]
+
+	if not shopData.shopItems or not PRODUCTS[shopData.shopItems] then
+		lib.print.error("A valid product ID (" .. tostring(shopData.shopItems) .. ") for [" .. shopID .. "] was not found.")
+		return
+	end
+
+	local shopProducts = {}
+	for item, data in pairs(PRODUCTS[shopData.shopItems]) do
+		shopProducts[#shopProducts + 1] = {
+			id = tonumber(item),
+			name = data.name,
+			price = config.fluctuatePrices and (math.round(data.price * (math.random(80, 120) / 100))) or data.price or 0, -- Price fluctuation algorithm from ox_inventory https://github.com/overextended/ox_inventory/blob/e3a6b905a1b8bdbd3066d012522cf5993466d166/modules/shops/server.lua#L32
+			license = data.license,
+			metadata = data.metadata,
+			count = data.defaultStock,
+			jobs = data.jobs
+		}
+	end
+
+	table.sort(shopProducts, function(a, b)
+		return a.name < b.name
+	end)
+
+	registerShop(shopID, {
+		name = shopData.Label,
+		inventory = shopProducts,
+		groups = shopData.groups,
+		coords = shopData.coords
+	})
+end
+
 lib.callback.register("EF-Shops:Server:OpenShop", function(source, shop_type, location)
 	local shop = ShopData[shop_type][location]
 	return shop.inventory
@@ -228,6 +263,78 @@ lib.callback.register("EF-Shops:Server:PurchaseItems", function(source, purchase
 	return true
 end)
 
+-- Custom shops (see ef_shops_admin). Saved definitions are kept here so new clients can be sent them.
+local CustomDefs = {}
+
+local function syncClients()
+	TriggerClientEvent('EF-Shops:Client:SyncCustom', -1, CustomDefs)
+end
+
+lib.callback.register('EF-Shops:Server:GetCustom', function()
+	return CustomDefs
+end)
+
+-- Replaces every custom shop with this list.
+exports('SetCustomShops', function(defs)
+	EF_ClearCustomShops(LOCATIONS, PRODUCTS)
+	for id in pairs(ShopData) do
+		if EF_IsCustomShop(id) then ShopData[id] = nil end
+	end
+
+	CustomDefs = {}
+	for _, def in ipairs(defs or {}) do
+		CustomDefs[def.id] = def
+		EF_ApplyCustomShop(def, LOCATIONS, PRODUCTS)
+		buildShop(def.id)
+	end
+	syncClients()
+end)
+
+-- Adds or replaces one custom shop. Its stock is rebuilt (restocked).
+exports('UpsertCustomShop', function(def)
+	CustomDefs[def.id] = def
+	EF_ApplyCustomShop(def, LOCATIONS, PRODUCTS)
+	buildShop(def.id)
+	syncClients()
+end)
+
+exports('RemoveCustomShop', function(id)
+	CustomDefs[id], LOCATIONS[id], PRODUCTS[id], ShopData[id] = nil, nil, nil, nil
+	syncClients()
+end)
+
+-- Restocks one shop (config or custom). Returns false if the shop does not exist.
+exports('RestockShop', function(id)
+	if not LOCATIONS[id] then return false end
+	buildShop(id)
+	return true
+end)
+
+-- Config shops, read-only, so the admin panel can copy them.
+exports('GetConfigShops', function()
+	local list = {}
+	for id, loc in pairs(LOCATIONS) do
+		if not EF_IsCustomShop(id) then
+			local coords = {}
+			for i, c in ipairs(loc.coords or {}) do
+				coords[i] = { x = c.x, y = c.y, z = c.z, w = c.w }
+			end
+			list[#list + 1] = {
+				id = id,
+				label = loc.label,
+				model = loc.model,
+				coords = coords,
+				blip = loc.blip,
+				jobs = loc.jobs,
+				target = loc.target,
+				products = PRODUCTS[loc.shopItems] or {},
+			}
+		end
+	end
+	table.sort(list, function(a, b) return a.id < b.id end)
+	return list
+end)
+
 AddEventHandler('onResourceStart', function(resource)
 	if GetCurrentResourceName() ~= resource and "ox_inventory" ~= resource then return end
 
@@ -240,36 +347,7 @@ AddEventHandler('onResourceStart', function(resource)
 		end
 	end
 
-	for shopID, shopData in pairs(LOCATIONS) do
-		if not shopData.shopItems or not PRODUCTS[shopData.shopItems] then
-			lib.print.error("A valid product ID (" .. shopData.shopItems .. ") for [" .. shopID .. "] was not found.")
-			goto continue
-		end
-
-		local shopProducts = {}
-		for item, data in pairs(PRODUCTS[shopData.shopItems]) do
-			shopProducts[#shopProducts + 1] = {
-				id = tonumber(item),
-				name = data.name,
-				price = config.fluctuatePrices and (math.round(data.price * (math.random(80, 120) / 100))) or data.price or 0, -- Price fluctuation algorithm from ox_inventory https://github.com/overextended/ox_inventory/blob/e3a6b905a1b8bdbd3066d012522cf5993466d166/modules/shops/server.lua#L32
-				license = data.license,
-				metadata = data.metadata,
-				count = data.defaultStock,
-				jobs = data.jobs
-			}
-		end
-
-		table.sort(shopProducts, function(a, b)
-			return a.name < b.name
-		end)
-
-		registerShop(shopID, {
-			name = shopData.Label,
-			inventory = shopProducts,
-			groups = shopData.groups,
-			coords = shopData.coords
-		})
-
-		::continue::
+	for shopID in pairs(LOCATIONS) do
+		buildShop(shopID)
 	end
 end)
