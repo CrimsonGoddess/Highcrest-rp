@@ -72,9 +72,9 @@ Config.RecyclingCenter = {
 	OpenHour = 9, -- From what hour should the pawnshop be open? ( 9 = 9 am )
 	CloseHour = 21, -- From what hour should the pawnshop be closed? ( 21 = 9pm )
 
-	PayAtDoor = 100, -- Set to nil to disable charge for entering warehouse
+	PayAtDoor = nil, -- Set to nil to disable charge for entering warehouse
 
-	TradeForRandomItems = false,	-- Set to true to make players recieve randomly picked materials when trading recyclablematerials
+	TradeForRandomItems = true,	-- Set to true to make players recieve randomly picked materials when trading recyclablematerials
 
 	propTable = { -- Table of crates that will spawn
 		"ex_Prop_Crate_Bull_SC_02",

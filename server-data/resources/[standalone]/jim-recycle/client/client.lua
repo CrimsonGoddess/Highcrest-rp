@@ -96,30 +96,20 @@ onPlayerLoaded(function()
             if jobLoc.Trade then
                 for i = 1, #jobLoc.Trade do
                     local nameTrade = "RecycleTrade:"..location..i
-                    -- Keep the ped handle: a zone target has no entity, so data.entity is nil and the old code passed the whole target table to natives
+                    -- Entity target on the trader's chest bone (a zone target has no entity, so it could not be interacted with)
                     makeDistPed(jobLoc.Trade[i].model, jobLoc.Trade[i].coords, true, false, jobLoc.Trade[i].scenario, false, false, function(ped)
                         TradePeds[nameTrade] = ped
+                        exports.ox_target:addLocalEntity(ped, { {
+                            label = locale("target", "trade"),
+                            icon = "fas fa-box",
+                            distance = 2.0,
+                            bones = { "SKEL_Spine2" },
+                            groups = loc.Job,
+                            onSelect = function(data)
+                                Recycling.Trade.Menu({ Ped = data.entity })
+                            end,
+                        } })
                     end)
-
-                    Targets[nameTrade] =
-                        createBoxTarget( { nameTrade, vec3(jobLoc.Trade[i].coords.x, jobLoc.Trade[i].coords.y, jobLoc.Trade[i].coords.z-1), jobLoc.Trade[i].w, jobLoc.Trade[i].d,
-                            { 	name = nameTrade,
-                                heading = jobLoc.Trade[i].coords.w,
-                                debugPoly = debugMode,
-                                minZ = jobLoc.Trade[i].coords.z-0.5,
-                                maxZ = jobLoc.Trade[i].coords.z+1,
-                            }, }, {
-                            {
-                                action = function(data)
-                                    local ped = TradePeds[nameTrade]
-                                    if not ped or not DoesEntityExist(ped) then return end
-                                    Recycling.Trade.Menu({ Ped = ped })
-                                end,
-                                icon = "fas fa-box",
-                                job = loc.Job,
-                                label = locale("target", "trade"),
-                            },
-                        }, 1.5)
                 end
             end
         end
@@ -192,13 +182,13 @@ Recycling.Functions.createProps = function(location)
     for i = 1, #loc.SearchLocations do
         searchProps[#searchProps+1] = makeProp({
             prop = Config.RecyclingCenter.propTable[math.random(1, #Config.RecyclingCenter.propTable)],
-            coords = loc.SearchLocations[i] - vec4(0, 0, 1.03, 0)
+            coords = loc.SearchLocations[i] -- makeProp already drops the z by 1.03
         }, 1, 0)
     end
     for i = 1, #loc.ExtraPropLocations do
         Props[#Props+1] = makeProp({
             prop = Config.RecyclingCenter.propTable[math.random(1, #Config.RecyclingCenter.propTable)],
-            coords = loc.ExtraPropLocations[i] - vec4(0, 0, 1.03, 0)
+            coords = loc.ExtraPropLocations[i]
         }, 1, 0)
     end
     for k in pairs(Config.RecyclingCenter.scrapPool) do
