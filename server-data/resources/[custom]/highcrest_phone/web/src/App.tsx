@@ -7,6 +7,7 @@ import { mockPhone } from './mock';
 import { fetchNui, isBrowser, mockMessage, useNuiEvent } from './nui';
 import { cropPhoto, finishPhoto } from './photos';
 import { CameraProvider, useCamera } from './state/camera';
+import { CommsProvider } from './state/comms';
 import { PhoneProvider, usePhone } from './state/phone';
 import { makeTheme } from './theme';
 import type { Crop, Photo, PhoneData } from './types';
@@ -65,8 +66,10 @@ function Themed({ visible, setVisible }: { visible: boolean; setVisible: (v: boo
   const { phone } = usePhone();
   return (
     <MantineProvider theme={makeTheme(phone?.settings.accentColor || '#C8102E')} forceColorScheme="dark">
-      <Bridge setVisible={setVisible} />
-      {visible && <Phone />}
+      <CommsProvider visible={visible}>
+        <Bridge setVisible={setVisible} />
+        {visible && <Phone />}
+      </CommsProvider>
       <EmergencyAlert />
     </MantineProvider>
   );

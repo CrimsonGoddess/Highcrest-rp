@@ -10,7 +10,11 @@ export const mockPhone: PhoneData = {
     { id: 4, takenAt: 1762960000 },
   ],
   phoneNumber: '5551234567',
-  contacts: [],
+  contacts: [
+    { id: 1, name: 'Jamie Cole', number: '5559876543' },
+    { id: 2, name: 'Rusty', number: '5552223333' },
+    { id: 3, name: 'Gracie', number: '5554445555' },
+  ],
   unreadMessages: 3,
   unreadMail: 1,
   swatches: ['#0B0B0D', '#1C1C22', '#F5F5F5', '#C8102E', '#D4AF37', '#1F4E8C', '#1E7A5A', '#6B2FA0', '#E0689A', '#E07A1F'],

@@ -350,3 +350,89 @@ body.preview { background: radial-gradient(circle at 30% 30%, #4a5a6a, #1a2028) 
 @keyframes bob { 50% { transform: translateY(-0.5vh); } }
 @keyframes flash { from { opacity: 0.85; } }
 @keyframes buzz { 25% { translate: -0.4vh 0; } 75% { translate: 0.4vh 0; } }
+
+/* ------------------------------------------------------------------ lists, phone, messages */
+
+.list-row {
+  display: flex;
+  align-items: center;
+  gap: 1.2vh;
+  width: 100%;
+  padding: 0.9vh 1vh;
+  border-radius: 1.4vh;
+  transition: background 0.12s;
+}
+.list-row:hover { background: rgba(255, 255, 255, 0.06); }
+
+.call-strip {
+  position: absolute;
+  top: 4.6vh;
+  left: 50%;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 0.5vh;
+  padding: 0.4vh 1.4vh;
+  border: 0;
+  border-radius: 2vh;
+  background: #2f9e44;
+  color: #fff;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  cursor: pointer;
+  animation: slide-in 0.25s ease-out;
+}
+
+.dial-number { min-height: 2.4rem; font-size: 2.2rem; font-weight: 700; letter-spacing: 0.04em; }
+.keypad { display: grid; grid-template-columns: repeat(3, 7.4vh); gap: 1.4vh 2.4vh; }
+.key {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 7.4vh;
+  height: 7.4vh;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: background 0.1s, transform 0.1s;
+}
+.key:hover { background: rgba(255, 255, 255, 0.18); }
+.key:active { transform: scale(0.94); background: rgba(255, 255, 255, 0.28); }
+.key-digit { font-size: 2rem; font-weight: 600; line-height: 1; }
+.key-letters { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; opacity: 0.6; min-height: 0.8rem; }
+
+.call-screen {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 25%, rgba(60, 60, 70, 0.6), rgba(8, 8, 10, 0.94) 70%);
+  backdrop-filter: blur(30px);
+}
+.call-actions { position: absolute; left: 0; right: 0; bottom: 7vh; }
+.ring-pulse { animation: ring-pulse 1.4s ease-out infinite; }
+@keyframes ring-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(64, 192, 87, 0.55); }
+  100% { box-shadow: 0 0 0 2.4vh rgba(64, 192, 87, 0); }
+}
+
+.bubble {
+  position: relative;
+  max-width: 78%;
+  padding: 0.8vh 1.2vh 0.5vh;
+  border-radius: 1.8vh 1.8vh 1.8vh 0.5vh;
+  background: rgba(255, 255, 255, 0.12);
+  align-self: flex-start;
+  word-break: break-word;
+  user-select: text;
+  animation: slide-in 0.18s ease-out;
+}
+.bubble.mine {
+  align-self: flex-end;
+  border-radius: 1.8vh 1.8vh 0.5vh 1.8vh;
+  background: var(--mantine-color-accent-6);
+  color: var(--mantine-color-accent-contrast, #fff);
+}
+.bubble small { display: block; margin-top: 0.2vh; font-size: 0.7rem; opacity: 0.65; text-align: right; }
+.composer { padding: 0.8vh 1.2vh 2.6vh; border-top: 1px solid rgba(255, 255, 255, 0.06); }

@@ -8,6 +8,9 @@ import type { PhoneData } from '../types';
 import { SettingsApp } from './Settings';
 import { GalleryApp } from './Gallery';
 import { CameraApp } from './Camera';
+import { PhoneApp } from './PhoneApp';
+import { ContactsApp } from './Contacts';
+import { MessagesApp } from './Messages';
 
 export type AppDef = {
   id: string;
@@ -25,9 +28,9 @@ export type AppDef = {
 };
 
 export const APPS: AppDef[] = [
-  { id: 'phone', label: 'Phone', icon: IconPhone, colors: ['#3ddc84', '#1e9e57'], dock: true },
-  { id: 'messages', label: 'Messages', icon: IconMessageCircle, colors: ['#4cd964', '#1f8f3a'], dock: true, badge: (p) => p.unreadMessages },
-  { id: 'contacts', label: 'Contacts', icon: IconAddressBook, colors: ['#9aa0a6', '#5f6368'] },
+  { id: 'phone', label: 'Phone', icon: IconPhone, colors: ['#3ddc84', '#1e9e57'], dock: true, component: PhoneApp },
+  { id: 'messages', label: 'Messages', icon: IconMessageCircle, colors: ['#4cd964', '#1f8f3a'], dock: true, badge: (p) => p.unreadMessages, component: MessagesApp },
+  { id: 'contacts', label: 'Contacts', icon: IconAddressBook, colors: ['#9aa0a6', '#5f6368'], component: ContactsApp },
   { id: 'camera', label: 'Camera', icon: IconCamera, colors: ['#3a3d44', '#16171b'], dock: true, component: CameraApp, fullscreen: true },
   { id: 'gallery', label: 'Gallery', icon: IconPhoto, colors: ['#ffb347', '#e0479e'], component: GalleryApp },
   { id: 'pulse', label: 'Pulse', icon: IconBolt, colors: ['#ff4d6d', '#8a0b20'] },

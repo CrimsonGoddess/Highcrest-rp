@@ -2,7 +2,9 @@ import { useEffect, useRef } from 'react';
 import { Kbd, Text } from '@mantine/core';
 import { appById } from '../apps/registry';
 import { usePhoto } from '../photos';
+import { IconPhone } from '@tabler/icons-react';
 import { useCamera } from '../state/camera';
+import { displayName, useComms } from '../state/comms';
 import { usePhone } from '../state/phone';
 import { ComingSoon } from './ComingSoon';
 import { HomeScreen } from './HomeScreen';
@@ -15,6 +17,18 @@ function useWallpaper(): string {
   const photo = usePhoto(kind === 'photo' ? Number(value) : null);
   if (kind === 'photo') return photo ? `url("${photo}") center / cover no-repeat` : '#0b0b0d';
   return phone?.wallpapers.find((w) => w.id === value)?.css || '#0b0b0d';
+}
+
+/** A green pill at the top while on a call in another app. Tap to go back to the call. */
+function CallStrip() {
+  const { call } = useComms();
+  const { route, open, locked } = usePhone();
+  if (!call || locked || (route?.app === 'phone' && route.page === 'call')) return null;
+  return (
+    <button className="call-strip" onClick={() => open('phone', 'call')}>
+      <IconPhone size={14} /> {call.state === 'active' ? 'On a call' : call.incoming ? 'Incoming call' : 'Calling'} · {displayName(call.name, call.number)}
+    </button>
+  );
 }
 
 function Content() {
@@ -56,6 +70,7 @@ export function Phone() {
         <span className="side-button volume" />
         <div className="screen" style={{ background: camera.active ? 'transparent' : wallpaper }}>
           {!camera.active && <StatusBar hideClock={locked} />}
+          {!camera.active && <CallStrip />}
           <div className="content"><Content /></div>
           {!camera.active && !locked && <button className="home-indicator" onClick={home} aria-label="Home" />}
           <div ref={flashRef} className="flash" />
