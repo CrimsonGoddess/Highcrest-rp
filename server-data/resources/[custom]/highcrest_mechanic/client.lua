@@ -447,8 +447,8 @@ for shopId, shop in pairs(Config.shops) do
     end
 end
 
--- Stalls: a shop blip, and "Open in the bay" on the third eye when targeting a car parked
--- in a stall (no ground markers or [E] prompt; the RFC interior shows the stalls).
+-- Stalls: a shop blip, an "Open the bay" interaction point in each stall (usable from the
+-- driver's seat), and "Open in the bay" when targeting a car parked in a stall.
 local function stallAt(coords)
     for shopId, shop in pairs(Config.shops) do
         for _, bay in ipairs(shop.bays or { shop.bay }) do
@@ -466,6 +466,32 @@ for shopId, shop in pairs(Config.shops) do
     BeginTextCommandSetBlipName('STRING')
     AddTextComponentSubstringPlayerName(shop.blipLabel or shop.label)
     EndTextCommandSetBlipName(blip)
+
+    -- An interaction point in the middle of each bay. It also works from the driver's seat
+    -- (allowInVehicle), so you can drive in and open the bay without getting out.
+    for i, bay in ipairs(shop.bays or { shop.bay }) do
+        exports.ox_target:addSphereZone({
+            coords = bay.xyz + vec3(0.0, 0.0, 1.0),
+            radius = shop.bayRadius,
+            options = {{
+                name = ('highcrest_mechanic_bay_%s_%d'):format(shopId, i),
+                label = 'Open the bay',
+                icon = 'fa-solid fa-screwdriver-wrench',
+                distance = 4.0,
+                allowInVehicle = true,
+                canInteract = function()
+                    if design then return false end
+                    if cache.vehicle then return GetPedInVehicleSeat(cache.vehicle, -1) == cache.ped end
+                    return lib.getClosestVehicle(bay.xyz, shop.bayRadius, false) ~= nil
+                end,
+                onSelect = function()
+                    if cache.vehicle then return startBay(shopId) end
+                    local vehicle = lib.getClosestVehicle(bay.xyz, shop.bayRadius, false)
+                    if vehicle then startBay(shopId, vehicle) end
+                end,
+            }},
+        })
+    end
 end
 
 exports.ox_target:addGlobalVehicle({
