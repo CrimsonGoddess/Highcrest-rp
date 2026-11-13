@@ -3,12 +3,21 @@
 -- Backspace cancels. Nudge keys are held (hold to move):
 --   Arrows: panel left/right/up/down    Q/E: panel in/out    Z/X: width    C/V: height
 --   R/F: camera higher/lower           T/G: camera further/closer
+--   A/D: turn the panel left/right
 
 local PAGE = ('nui://%s/web/public/preview.html'):format(GetCurrentResourceName()) -- placeholder screen, visible while placing
 local ATM_SET = {}
 for _, model in ipairs(Config.atms) do ATM_SET[model] = true end
 
 local STEP = 0.003
+local TURN = 0.02 -- radians per frame for yaw (about 1 degree)
+
+-- Turns the panel's facing around the vertical axis.
+local function yaw(d, ang)
+    local n = d.normal
+    local c, s = math.cos(ang), math.sin(ang)
+    d.normal = vector3(n.x * c - n.y * s, n.x * s + n.y * c, n.z)
+end
 local ADJUST = {
     { name = 'panel_left',  key = 'LEFT',  dir = -1, fn = function(d, s) d.offset = d.offset + vector3(s, 0.0, 0.0) end },
     { name = 'panel_right', key = 'RIGHT', dir =  1, fn = function(d, s) d.offset = d.offset + vector3(s, 0.0, 0.0) end },
@@ -24,6 +33,8 @@ local ADJUST = {
     { name = 'cam_up',      key = 'R',     dir =  1, fn = function(d, s) d.camHeight = d.camHeight + s end },
     { name = 'cam_closer',  key = 'G',     dir = -1, fn = function(d, s) d.camDistance = math.max(0.2, d.camDistance + s) end },
     { name = 'cam_further', key = 'T',     dir =  1, fn = function(d, s) d.camDistance = math.max(0.2, d.camDistance + s) end },
+    { name = 'turn_left',   key = 'A',     dir =  1, step = TURN, fn = function(d, s) yaw(d, s) end },
+    { name = 'turn_right',  key = 'D',     dir = -1, step = TURN, fn = function(d, s) yaw(d, s) end },
 }
 
 local active, panelId = false, nil
@@ -136,7 +147,7 @@ local function runPlacement(entity)
         local changed = false
         for _, a in ipairs(ADJUST) do
             if held[a.name] then
-                a.fn(d, a.dir * STEP)
+                a.fn(d, a.dir * (a.step or STEP))
                 changed = true
             end
         end
