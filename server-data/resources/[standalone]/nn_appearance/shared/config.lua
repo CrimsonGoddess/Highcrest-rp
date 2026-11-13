@@ -30,8 +30,8 @@ Config.PrimaryColor = "#C8102E"
 -- Preview pictures shown in the menu. They're already included with the script,
 -- so most servers can leave this exactly as it is.
 Config.ItemImages = {
-    resource = nil,    -- Leave as nil. Only change if you made your own with uz_AutoShot.
-    format = "webp"    -- Leave as "webp". Use "png" only if your own images aren't converted.
+    resource = "uz_AutoShot", -- Highcrest: our own pictures, taken in game with /shotmaker (uz_AutoShot)
+    format = "png"            -- uz_AutoShot saves PNG
 }
 
 -- Turn clothing into inventory items. When on, buying clothes gives you items for
