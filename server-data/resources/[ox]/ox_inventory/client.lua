@@ -793,6 +793,12 @@ local function registerCommands()
 				if entityType == 2 and Inventory.CanAccessTrunk(entity) then
 					return Inventory.OpenTrunk(entity)
 				end
+
+				-- Highcrest: no aim needed, Tab also opens the trunk of the car you stand at the back of
+				local near = lib.getClosestVehicle(GetEntityCoords(playerPed), 3.0, false)
+				if near and Inventory.CanAccessTrunk(near) then
+					return Inventory.OpenTrunk(near)
+				end
 			end
 
 			local closest = lib.points.getClosestPoint()
