@@ -1,4 +1,4 @@
-﻿-- cr-3dnui/client/state.lua
+-- cr-3dnui/client/state.lua
 -- Shared runtime state for the library
 
 CR3D = CR3D or {}

@@ -1,4 +1,4 @@
-﻿-- cr-3dnui/client/focus/focus.lua
+-- cr-3dnui/client/focus/focus.lua
 -- Focus + keyboard capture helper (raycast/UV based)
 -- Cursor-mode / direct mouse forwarding will be added later as a separate interaction mode.
 

@@ -1,4 +1,4 @@
-﻿-- cr-3dnui (library) - client/main.lua
+-- cr-3dnui (library) - client/main.lua
 -- Renders DUI-backed HTML pages on arbitrary world-space quads,
 -- raycast -> UV helpers, optional native mouse injection,
 -- focus + keyboard capture helpers, and entity attachment helper.

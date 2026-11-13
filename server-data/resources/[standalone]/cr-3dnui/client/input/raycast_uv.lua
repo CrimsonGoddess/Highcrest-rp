@@ -1,4 +1,4 @@
-﻿-- cr-3dnui/client/input/raycast_uv.lua
+-- cr-3dnui/client/input/raycast_uv.lua
 -- Raycast camera -> hit on panel plane, returns UV coords (0..1)
 -- This is the "world interaction" path used by current API.
 

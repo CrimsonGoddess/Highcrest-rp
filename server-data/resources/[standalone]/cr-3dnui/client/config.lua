@@ -1,4 +1,4 @@
-﻿-- cr-3dnui/client/config.lua
+-- cr-3dnui/client/config.lua
 -- Central configuration (safe defaults; consumers can edit or override via exports later if desired)
 
 CR3D = CR3D or {}

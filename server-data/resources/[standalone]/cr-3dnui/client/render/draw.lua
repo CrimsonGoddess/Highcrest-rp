@@ -1,4 +1,4 @@
-﻿-- cr-3dnui/client/render/draw.lua
+-- cr-3dnui/client/render/draw.lua
 -- Panel rendering
 
 CR3D = CR3D or {}

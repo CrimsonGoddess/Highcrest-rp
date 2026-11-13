@@ -1,4 +1,4 @@
-﻿-- cr-3dnui/client/render/basis.lua
+-- cr-3dnui/client/render/basis.lua
 -- Panel basis builder (center, normal, right, up, half extents)
 -- Includes helpers:
 --   - depthCompensation = "screen"
