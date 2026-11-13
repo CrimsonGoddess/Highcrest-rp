@@ -87,7 +87,7 @@ function StartAtmDui(entity)
         entity = entity,
         url = PAGE,
         resW = 1024, resH = 1024,
-        offset = p.offset, localNormal = p.normal,
+        offset = p.offset, localNormal = p.normal, localUp = vector3(0.0, 0.0, 1.0),
         width = p.width, height = p.height, zOffset = p.zOffset,
         depthCompensation = 'screen', frontOnly = true,
     })

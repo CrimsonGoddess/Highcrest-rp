@@ -118,7 +118,7 @@ local function runPlacement(entity)
     local d = copyPlacement(PlacementFor(entity))
     panelId = exports['cr-3dnui']:AttachPanelToEntity({
         entity = entity, url = PAGE, resW = 1024, resH = 1024,
-        offset = d.offset, localNormal = d.normal,
+        offset = d.offset, localNormal = d.normal, localUp = vector3(0.0, 0.0, 1.0),
         width = d.width, height = d.height, zOffset = d.zOffset,
         depthCompensation = 'screen', frontOnly = true,
     })
@@ -143,7 +143,7 @@ local function runPlacement(entity)
         if changed then
             exports['cr-3dnui']:AttachPanelToEntity({
                 panelId = panelId, entity = entity,
-                offset = d.offset, localNormal = d.normal, zOffset = d.zOffset,
+                offset = d.offset, localNormal = d.normal, localUp = vector3(0.0, 0.0, 1.0), zOffset = d.zOffset,
                 depthCompensation = 'screen', frontOnly = true,
             })
             exports['cr-3dnui']:SetPanelSize(panelId, d.width, d.height)
