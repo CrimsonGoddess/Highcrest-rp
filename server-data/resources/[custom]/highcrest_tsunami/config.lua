@@ -5,11 +5,12 @@ Config = {}
 -- must be one of those times in seconds (120 = 2 minutes).
 Config.warnAt = 120
 
--- How long the full-screen emergency broadcast stays up before shrinking to a countdown bar.
-Config.broadcastSeconds = 18
-
--- The ground starts shaking this many seconds before the restart.
+-- A light ground rumble starts this many seconds before the restart.
 Config.shakeFrom = 30
+
+-- City-wide blackout (street, building and traffic lights; car lights stay on), this many
+-- seconds after the warning starts. Set through Renewed-Weathersync (GlobalState.blackOut).
+Config.blackout = { enabled = true, after = 20 }
 
 -- Only players carrying this item get the phone alert.
 Config.phoneItem = 'phone'
@@ -25,9 +26,10 @@ Config.text = {
     chat = 'EMERGENCY ALERT: A tsunami is approaching. The city will be evacuated (server restart) in 2 minutes.',
 }
 
--- The flood: the sea (every water area) rises by floodHeight metres over the warning, so the
--- coast and low ground are under water by the restart. The preview (/tsunamitest) floods
--- faster (previewSeconds) and then drains after previewHold seconds.
+-- The flood: flood.xml (water tiles over the whole map at sea level) is loaded and rises by
+-- `height` metres over the warning, so the coast and low ground are under water by the restart.
+-- While it's loaded, GTA's lakes and rivers inland are replaced by it. The preview (/tsunamitest)
+-- floods faster (previewSeconds), holds for previewHold seconds, then drains.
 Config.flood = {
     enabled = true,
     height = 30.0,

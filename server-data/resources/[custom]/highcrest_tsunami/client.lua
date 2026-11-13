@@ -1,144 +1,113 @@
-local endsAt = 0
-local shaking = false
+-- Highcrest tsunami, client side. Nothing here takes the mouse or covers the screen:
+--   * an emergency ticker scrolls across the top (the compass moves below it)
+--   * the alert goes to the phone and the nearest TV (sent by the server)
+--   * the sea rises over the city (our own water layout, flood.xml), with a storm and a blackout
+-- A preview (/tsunamitest) runs faster, only for the admin, and puts everything back afterwards.
 
+local TICKER_HEIGHT = 3.6 -- vh, must match .ticker height in html/style.css
+local active = false      -- the ticker / event is running
+local previewRun = 0      -- bumps on each preview so an old one can't undo a newer one
+
+---------------------------------------------------------------------------
+-- Ticker and ground shake
+---------------------------------------------------------------------------
+
+local shaking = false
 local function stopShake()
-    if shaking then
-        StopGameplayCamShaking(true)
-        shaking = false
-    end
+    if shaking then StopGameplayCamShaking(true) shaking = false end
 end
 
-RegisterNetEvent('highcrest_tsunami:client:warn', function(seconds, preview)
-    endsAt = GetGameTimer() + seconds * 1000
-    SendNUIMessage({
-        action = 'warn',
-        seconds = seconds,
-        broadcastSeconds = Config.broadcastSeconds,
-        text = Config.text,
-        preview = preview == true,
-    })
+local function hideTicker()
+    SendNUIMessage({ action = 'stop' })
+    TriggerEvent('highcrest_ui:setTopBanner', 0)
+    stopShake()
+    active = false
+end
 
-    -- The ground shakes harder as the wave gets closer. A preview only shakes briefly.
+local function showTicker(seconds, preview)
+    active = true
+    SendNUIMessage({ action = 'warn', seconds = seconds, text = Config.text, preview = preview == true })
+    TriggerEvent('highcrest_ui:setTopBanner', TICKER_HEIGHT)
+
+    -- A light rumble near the end, growing as the water arrives.
     CreateThread(function()
-        local shakeUntil = preview and (GetGameTimer() + 6000) or endsAt
-        local shakeStart = preview and GetGameTimer() or (endsAt - Config.shakeFrom * 1000)
-        while GetGameTimer() < shakeUntil do
-            if GetGameTimer() >= shakeStart and not shaking then
-                ShakeGameplayCam('ROAD_VIBRATION_SHAKE', 0.6)
-                shaking = true
-            end
-            if shaking then
-                local left = (shakeUntil - GetGameTimer()) / 1000
-                local total = preview and 6 or Config.shakeFrom
-                SetGameplayCamShakeAmplitude(0.6 + (1 - left / total) * 1.4)
+        local endsAt = GetGameTimer() + seconds * 1000
+        local shakeFor = math.min(Config.shakeFrom, seconds) * 1000
+        while active and GetGameTimer() < endsAt do
+            local left = endsAt - GetGameTimer()
+            if left <= shakeFor then
+                if not shaking then ShakeGameplayCam('ROAD_VIBRATION_SHAKE', 0.3) shaking = true end
+                SetGameplayCamShakeAmplitude(0.3 + (1 - left / shakeFor) * 0.9)
             end
             Wait(250)
         end
         stopShake()
     end)
-end)
-
-RegisterNetEvent('highcrest_tsunami:client:phone', function()
-    PlaySoundFrontend(-1, 'Text_Arrive_Tone', 'Phone_SoundSet_Default', true)
-    lib.notify({
-        title = 'Emergency Alert',
-        description = Config.text.phone,
-        icon = 'triangle-exclamation',
-        iconColor = '#ff4d66',
-        type = 'error',
-        position = 'top',
-        duration = 15000,
-    })
-end)
-
-AddEventHandler('onResourceStop', function(resource)
-    if resource == GetCurrentResourceName() then stopShake() end
-end)
+end
 
 ---------------------------------------------------------------------------
--- The flood: raise every water area a little at a time.
+-- Flood: load a water layout that covers the whole map at sea level, then raise it.
+-- GTA's own water only covers the sea, so raising it never reaches the land.
 ---------------------------------------------------------------------------
 
-local flooding = false
-local baseLevels -- quad index -> original height
+local flooded = false
+local level = 0.0
 
-local function readBaseLevels()
-    local levels = {}
-    for i = 0, GetWaterQuadCount() - 1 do
-        local ok, level = GetWaterQuadLevel(i)
-        if ok then levels[i] = level end
+local function setLevel(value)
+    level = value
+    for i = 0, GetWaterQuadCount() - 1 do SetWaterQuadLevel(i, value) end
+end
+
+local function loadFloodWater()
+    if flooded then return true end
+    if not LoadWaterFromPath(GetCurrentResourceName(), 'flood.xml') then
+        print('^1[highcrest_tsunami] Could not load flood.xml^7')
+        return false
     end
-    return levels
+    flooded = true
+    setLevel(0.0)
+    return true
 end
 
-local function setFlood(extra)
-    for i, level in pairs(baseLevels) do SetWaterQuadLevel(i, level + extra) end
+local function restoreWater()
+    if not flooded then return end
+    ResetWater() -- back to GTA's normal water
+    flooded = false
+    level = 0.0
 end
 
-local function drain()
-    if not baseLevels then return end
-    setFlood(0.0)
-    flooding = false
+-- Ease the water from `from` to `to` over `ms`. Stops early if the run was replaced.
+local function easeLevel(from, to, ms, run)
+    local started = GetGameTimer()
+    while true do
+        if run and run ~= previewRun then return false end
+        local t = math.min(1.0, (GetGameTimer() - started) / ms)
+        -- Slow at first and faster at the end on the way up; smooth on the way down.
+        local k = to > from and (t * t) or (1 - (1 - t) * (1 - t))
+        setLevel(from + (to - from) * k)
+        if t >= 1.0 then return true end
+        Wait(100)
+    end
 end
-
--- Rise from 0 to height over `seconds`. With hold set (the preview), drain afterwards.
-local function flood(seconds, hold)
-    if not Config.flood.enabled or flooding then return end
-    flooding = true
-    baseLevels = baseLevels or readBaseLevels()
-    CreateThread(function()
-        local started = GetGameTimer()
-        local total = seconds * 1000
-        while flooding do
-            local t = math.min(1.0, (GetGameTimer() - started) / total)
-            -- Slow at first, faster near the end, like a wave arriving.
-            setFlood(Config.flood.height * (t * t))
-            if t >= 1.0 then break end
-            Wait(500)
-        end
-        if hold and flooding then
-            Wait(hold * 1000)
-            drain()
-        end
-    end)
-end
-
-RegisterNetEvent('highcrest_tsunami:client:flood', function(seconds, hold)
-    flood(tonumber(seconds) or 120, hold and tonumber(hold) or nil)
-end)
-
-AddEventHandler('onResourceStop', function(resource)
-    if resource == GetCurrentResourceName() then drain() end
-end)
 
 ---------------------------------------------------------------------------
--- The storm: thunder, lightning, wind and waves that build up with the flood.
+-- Storm and blackout
 ---------------------------------------------------------------------------
 
 local storming = false
 
-local function stopStorm()
-    if not storming then return end
-    storming = false
-    ResetDeepOceanScaler()
-    SetWind(0.0)
-    SetWindSpeed(0.0)
-    -- Hand the weather back to the server's weather.
-    local current = GlobalState.weather
-    if current and current.weather then SetWeatherTypeOvertimePersist(current.weather, 15.0) end
-end
-
-local function storm(seconds, hold)
+local function startStorm(seconds)
     local s = Config.storm
-    if not s.enabled or storming then return end
+    if not s.enabled then return end
     storming = true
-    SetWeatherTypeOvertimePersist(s.weather, 8.0)
+    ClearOverrideWeather()
+    SetWeatherTypeOvertimePersist(s.weather, 6.0)
+    SetRainLevel(1.0)
     CreateThread(function()
         local started = GetGameTimer()
-        local total = seconds * 1000
-        local nextFlash = GetGameTimer() + 2000
+        local nextFlash = GetGameTimer() + 1500
         while storming do
-            local t = math.min(1.0, (GetGameTimer() - started) / total)
+            local t = math.min(1.0, (GetGameTimer() - started) / (seconds * 1000))
             SetDeepOceanScaler(1.0 + (s.waves - 1.0) * t)
             SetWind(1.0)
             SetWindSpeed(s.wind * (0.4 + 0.6 * t))
@@ -146,17 +115,85 @@ local function storm(seconds, hold)
                 ForceLightningFlash()
                 nextFlash = GetGameTimer() + math.random(s.lightningEvery[1], s.lightningEvery[2]) * 1000
             end
-            if hold and GetGameTimer() - started > total + hold * 1000 then break end
             Wait(250)
         end
-        if hold then stopStorm() end
     end)
 end
 
-RegisterNetEvent('highcrest_tsunami:client:storm', function(seconds, hold)
-    storm(tonumber(seconds) or 120, hold and tonumber(hold) or nil)
+local function stopStorm()
+    if not storming then return end
+    storming = false
+    ResetDeepOceanScaler()
+    SetRainLevel(-1.0)
+    SetWind(0.0)
+    SetWindSpeed(0.0)
+    local current = GlobalState.weather
+    if current and current.weather then SetWeatherTypeOvertimePersist(current.weather, 15.0) end
+end
+
+local function setBlackout(on)
+    SetArtificialLightsState(on)
+    SetArtificialLightsStateAffectsVehicles(false) -- car lights keep working
+end
+
+---------------------------------------------------------------------------
+-- The real event (before a scheduled restart). Storm weather and the blackout are set
+-- server-wide through Renewed-Weathersync (GlobalState); the rest runs here.
+---------------------------------------------------------------------------
+
+RegisterNetEvent('highcrest_tsunami:client:start', function(seconds)
+    seconds = tonumber(seconds) or 120
+    showTicker(seconds, false)
+    startStorm(seconds)
+    if Config.flood.enabled and loadFloodWater() then
+        CreateThread(function() easeLevel(0.0, Config.flood.height, seconds * 1000) end)
+    end
 end)
 
+---------------------------------------------------------------------------
+-- Preview: only this player, faster, then everything goes back.
+---------------------------------------------------------------------------
+
+local function endPreview()
+    previewRun = previewRun + 1
+    hideTicker()
+    stopStorm()
+    LocalPlayer.state:set('syncWeather', true, true) -- Renewed-Weathersync takes over again
+    setBlackout(GlobalState.blackOut == true)
+    restoreWater()
+end
+
+RegisterNetEvent('highcrest_tsunami:client:preview', function()
+    local f = Config.flood
+    previewRun = previewRun + 1
+    local run = previewRun
+    local seconds = f.previewSeconds
+
+    -- Stop Renewed-Weathersync from putting the weather back mid-preview.
+    LocalPlayer.state:set('syncWeather', false, true)
+    showTicker(seconds + f.previewHold, true)
+    startStorm(seconds)
+    -- Lights go out a few seconds in, like the power failing.
+    SetTimeout(4000, function() if run == previewRun then setBlackout(true) end end)
+
+    CreateThread(function()
+        if f.enabled and loadFloodWater() then
+            if not easeLevel(0.0, f.height, seconds * 1000, run) then return end
+        else
+            Wait(seconds * 1000)
+        end
+        Wait(f.previewHold * 1000)
+        if run ~= previewRun then return end
+        if flooded then easeLevel(level, 0.0, 8000, run) end
+        if run == previewRun then endPreview() end
+    end)
+end)
+
+RegisterNetEvent('highcrest_tsunami:client:stopPreview', endPreview)
+
 AddEventHandler('onResourceStop', function(resource)
-    if resource == GetCurrentResourceName() then stopStorm() end
+    if resource ~= GetCurrentResourceName() then return end
+    hideTicker()
+    stopStorm()
+    restoreWater()
 end)
