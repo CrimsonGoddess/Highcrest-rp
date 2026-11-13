@@ -10,6 +10,7 @@ local function toPlacement(raw)
     return {
         offset = vector3(raw.offset.x, raw.offset.y, raw.offset.z),
         normal = vector3(raw.normal.x, raw.normal.y, raw.normal.z),
+        up = raw.up and vector3(raw.up.x, raw.up.y, raw.up.z) or nil, -- tilted screens (/atmplace corners)
         width = raw.width, height = raw.height, zOffset = raw.zOffset,
         camDistance = raw.camDistance, camHeight = raw.camHeight,
     }
@@ -87,7 +88,7 @@ function StartAtmDui(entity)
         entity = entity,
         url = PAGE,
         resW = 1024, resH = 1024,
-        offset = p.offset, localNormal = p.normal, localUp = vector3(0.0, 0.0, 1.0),
+        offset = p.offset, localNormal = p.normal, localUp = p.up or vector3(0.0, 0.0, 1.0),
         width = p.width, height = p.height, zOffset = p.zOffset,
         depthCompensation = 'screen', frontOnly = true,
     })

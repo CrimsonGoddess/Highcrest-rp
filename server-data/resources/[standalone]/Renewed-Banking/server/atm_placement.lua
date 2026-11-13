@@ -21,7 +21,7 @@ local function clean(d)
     local offset, normal = vec(d.offset), vec(d.normal)
     if not offset or not normal then return nil end
     return {
-        offset = offset, normal = normal,
+        offset = offset, normal = normal, up = vec(d.up), -- up: tilted screens (nil = straight up)
         width = num(d.width, 0.36), height = num(d.height, 0.28), zOffset = num(d.zOffset, 0.004),
         camDistance = num(d.camDistance, 0.8), camHeight = num(d.camHeight, 0.0),
     }
