@@ -33,12 +33,15 @@ function StartAtmDui(entity)
     })
     if not panelId then return failed() end
     atmEntity = entity
+    lib.notify({ title = 'ATM debug', description = 'step 1: panel attached ' .. tostring(panelId), type = 'inform' }) -- DEBUG
 
     CreateThread(function()
         Wait(1500) -- give the page time to load before messaging it
         if not panelId then return end
         sendToPage({ action = 'updateLocale', translations = lib.getLocales(), currency = Config.currency })
+        lib.notify({ title = 'ATM debug', description = 'step 2: waiting for accounts', type = 'inform' }) -- DEBUG
         local accounts = lib.callback.await('renewed-banking:server:initalizeBanking', false)
+        lib.notify({ title = 'ATM debug', description = 'step 3: accounts ' .. tostring(accounts ~= nil), type = 'inform' }) -- DEBUG
         if not panelId then return end
         if not accounts then return failed() end
         sendToPage({ action = 'setVisible', status = true, accounts = accounts, loading = false, atm = true })
