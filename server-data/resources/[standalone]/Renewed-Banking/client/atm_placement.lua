@@ -4,7 +4,7 @@
 --   Arrows: panel left/right/up/down    Q/E: panel in/out    Z/X: width    C/V: height
 --   R/F: camera higher/lower           T/G: camera further/closer
 
-local PAGE = ('nui://%s/web/public/index.html'):format(GetCurrentResourceName())
+local PAGE = ('nui://%s/web/public/preview.html'):format(GetCurrentResourceName()) -- placeholder screen, visible while placing
 local ATM_SET = {}
 for _, model in ipairs(Config.atms) do ATM_SET[model] = true end
 
@@ -86,7 +86,7 @@ local function panelCorners(entity, d)
 end
 
 local function marker(p, r, g, b)
-    DrawMarker(28, p.x, p.y, p.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.05, 0.05, 0.05, r, g, b, 220, false, false, 2, false, nil, nil, false)
+    DrawMarker(28, p.x, p.y, p.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.12, 0.12, 0.12, r, g, b, 230, false, false, 2, false, nil, nil, false)
 end
 
 local EDGES = { { 1, 2 }, { 2, 4 }, { 4, 3 }, { 3, 1 } }
