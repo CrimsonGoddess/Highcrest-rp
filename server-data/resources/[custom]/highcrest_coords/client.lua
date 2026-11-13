@@ -167,7 +167,10 @@ local function focusPanel()
     SetNuiFocus(true, true)
 end
 
-local function close()
+-- Set while another script is waiting for a point (exports.highcrest_coords:pick).
+local picking = nil -- { promise, savedSettings }
+
+local function close(result)
     if not isOpen then return end
     isOpen, mode = false, 'panel'
     SetNuiFocusKeepInput(false)
@@ -176,6 +179,12 @@ local function close()
     deleteGhost()
     clearOutline()
     if lib.isTextUIOpen() then lib.hideTextUI() end
+    if picking then
+        local p = picking
+        picking = nil
+        settings = p.savedSettings
+        p.promise:resolve(result)
+    end
 end
 
 local function open()
@@ -189,6 +198,34 @@ local function open()
 end
 
 RegisterNetEvent('highcrest_coords:client:open', open)
+
+--- Let another script ask the player to choose a spot with the full coords tool.
+--- opts: { title = 'Place stash', start = vec3/vec4 (feet height), radius = number, preview = 'marker'|'ped'|'vehicle'|'object', model = string }
+--- Returns { x, y, z, h } at feet height, or nil if cancelled. Blocks the calling thread.
+local function pick(opts)
+    opts = type(opts) == 'table' and opts or {}
+    if isOpen then close() end
+    if picking then return nil end
+    local s = opts.start
+    picking = { promise = promise.new(), savedSettings = settings }
+    settings = {
+        preview = opts.preview or 'marker',
+        model = opts.model or '',
+        radius = tonumber(opts.radius) or 0.0,
+    }
+    isOpen = true
+    point = s and { x = round(s.x), y = round(s.y), z = round(s.z), h = round(s.w or GetEntityHeading(cache.ped)) } or feet()
+    focusPanel()
+    send('open', { point = point, settings = settings, points = savedPoints(), pick = { title = opts.title or 'Choose a spot' } })
+    syncGhost()
+    return Citizen.Await(picking.promise)
+end
+exports('pick', pick)
+
+RegisterNUICallback('confirm', function(_, cb)
+    cb(1)
+    close({ x = point.x, y = point.y, z = point.z, h = point.h })
+end)
 
 local function num(v, fallback)
     v = tonumber(v)

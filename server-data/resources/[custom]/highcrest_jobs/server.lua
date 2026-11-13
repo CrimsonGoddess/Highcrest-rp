@@ -254,6 +254,28 @@ lib.callback.register('highcrest_jobs:deleteJob', function(source, name)
     return true, 'In-game edits removed. The original version comes back after the next server restart.'
 end)
 
+-- A spot chosen in the coords tool: real numbers inside the map.
+local function validCoords(c)
+    if type(c) ~= 'table' then return nil end
+    local x, y, z = tonumber(c.x), tonumber(c.y), tonumber(c.z)
+    if not (x and y and z) then return nil end
+    if math.abs(x) > 10000 or math.abs(y) > 10000 or z < -500 or z > 3000 then return nil end
+    return vec3(x, y, z)
+end
+
+lib.callback.register('highcrest_jobs:movePoint', function(source, id, coords)
+    if not isAdmin(source) then return false, 'Admins only.' end
+    local point = points[tonumber(id) or 0]
+    local c = validCoords(coords)
+    if not point or not c then return false, 'Bad spot.' end
+    MySQL.update.await('UPDATE highcrest_job_points SET x = ?, y = ?, z = ? WHERE id = ?', { c.x, c.y, c.z, point.id })
+    point.coords = c
+    if point.kind == 'stash' then registerStash(point) end
+    publishPoints()
+    lib.print.info(('%s moved job spot %d (%s %s)'):format(staffName(source), point.id, point.job, point.kind))
+    return true, 'Spot moved.'
+end)
+
 lib.callback.register('highcrest_jobs:addPoint', function(source, name, kind, opts)
     if not isAdmin(source) then return false, 'Admins only.' end
     if not KINDS[kind] or not exports.qbx_core:GetJob(name) then return false, 'Bad spot.' end
@@ -268,12 +290,12 @@ lib.callback.register('highcrest_jobs:addPoint', function(source, name, kind, op
     end
     data.minGrade = math.max(0, math.min(Config.maxGrades - 1, math.floor(tonumber(opts.minGrade) or 0)))
 
-    local c = GetEntityCoords(GetPlayerPed(source))
+    local c = validCoords(opts.coords) or GetEntityCoords(GetPlayerPed(source))
     local id = MySQL.insert.await('INSERT INTO highcrest_job_points (job, kind, x, y, z, data) VALUES (?, ?, ?, ?, ?, ?)',
         { name, kind, c.x, c.y, c.z, json.encode(data) })
     addPointRow({ id = id, job = name, kind = kind, x = c.x, y = c.y, z = c.z, data = json.encode(data) })
     publishPoints()
-    return true, 'Spot placed where you are standing.'
+    return true, 'Spot placed.'
 end)
 
 lib.callback.register('highcrest_jobs:deletePoint', function(source, id)

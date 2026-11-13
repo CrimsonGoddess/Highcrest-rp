@@ -352,6 +352,12 @@ function close() {
 
 $('close').onclick = close;
 
+// Pick mode: another script asked for a spot.
+let picking = false;
+const confirmPick = () => { if (picking) post('confirm'); };
+$('pickConfirm').onclick = confirmPick;
+$('pickCancel').onclick = close;
+
 window.addEventListener('message', (event) => {
     const { action, data } = event.data || {};
     if (action === 'open') {
@@ -359,6 +365,9 @@ window.addEventListener('message', (event) => {
         state.points = Array.isArray(data.points) ? data.points : [];
         state.settings = { ...state.settings, ...data.settings };
         state.entity = null;
+        picking = !!data.pick;
+        $('pickBar').classList.toggle('hidden', !picking);
+        if (picking) $('pickTitle').textContent = data.pick.title;
         $('panel').classList.remove('hidden', 'looking');
         $('relative').checked = state.relative;
         $('precision').value = String(state.precision);
@@ -393,6 +402,10 @@ window.addEventListener('keydown', (e) => {
         return close();
     }
     if (typing(document.activeElement)) return;
+    if (e.key === 'Enter' && picking) {
+        e.preventDefault();
+        return confirmPick();
+    }
 
     const mult = e.shiftKey ? 10 : e.ctrlKey ? 0.1 : 1;
     const s = state.step * mult;

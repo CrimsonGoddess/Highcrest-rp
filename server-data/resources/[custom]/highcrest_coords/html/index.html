@@ -15,6 +15,15 @@
         <button class="icon" id="close" title="Close (Esc)">✕</button>
     </header>
 
+    <section id="pickBar" class="hidden">
+        <div class="pick-title" id="pickTitle">Choose a spot</div>
+        <div class="muted small">Move the point where you want it, then confirm.</div>
+        <div class="row">
+            <button id="pickConfirm" class="primary grow">Confirm here <kbd>Enter</kbd></button>
+            <button id="pickCancel" class="ghost">Cancel</button>
+        </div>
+    </section>
+
     <section>
         <div class="section-title">Point <span class="muted">feet height, same as /vec4</span></div>
         <div id="axes"></div>

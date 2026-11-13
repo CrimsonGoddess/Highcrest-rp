@@ -194,6 +194,25 @@ openRanks = function(name)
     lib.showContext('hcjobs_ranks')
 end
 
+-- Spots are interaction zones, so they sit about 1 m above the ground (body height).
+-- The coords tool works at feet height, so convert both ways.
+local ZONE_HEIGHT = 1.0
+
+-- Choose a spot with the /coords tool (raycast, nudging, preview). Falls back to where you stand.
+local function chooseSpot(title, start)
+    if GetResourceState('highcrest_coords') ~= 'started' then
+        local c = GetEntityCoords(cache.ped)
+        return { x = c.x, y = c.y, z = c.z }
+    end
+    local spot = exports.highcrest_coords:pick({
+        title = title,
+        start = start and vec4(start.x, start.y, start.z - ZONE_HEIGHT, GetEntityHeading(cache.ped)) or nil,
+        radius = 0.9, -- the zone size players interact with
+    })
+    if not spot then return nil end
+    return { x = spot.x, y = spot.y, z = spot.z + ZONE_HEIGHT }
+end
+
 local function addPoint(data, kind)
     local opts = {}
     if kind == 'stash' then
@@ -213,6 +232,9 @@ local function addPoint(data, kind)
         if not input then return openPlaces(data.name) end
         opts = { minGrade = input[1] }
     end
+    local spot = chooseSpot(('Place %s: %s'):format(KIND_LABEL[kind]:lower(), data.job.label))
+    if not spot then return openPlaces(data.name) end
+    opts.coords = spot
     local ok, message = lib.callback.await('highcrest_jobs:addPoint', false, data.name, kind, opts)
     notify(message or 'Could not place it.', ok and 'success' or 'error')
     openPlaces(data.name)
@@ -222,9 +244,9 @@ openPlaces = function(name)
     local data = lib.callback.await('highcrest_jobs:editorJob', false, name)
     if not data then return openEditor() end
     local options = {
-        { title = 'Put a clock in / out spot here', icon = 'clock', onSelect = function() addPoint(data, 'duty') end },
-        { title = 'Put a stash here', icon = 'box-open', onSelect = function() addPoint(data, 'stash') end },
-        { title = 'Put a boss menu here', icon = 'briefcase', onSelect = function() addPoint(data, 'boss') end },
+        { title = 'Add a clock in / out spot', description = 'Opens the coords tool to place it', icon = 'clock', onSelect = function() addPoint(data, 'duty') end },
+        { title = 'Add a stash', description = 'Opens the coords tool to place it', icon = 'box-open', onSelect = function() addPoint(data, 'stash') end },
+        { title = 'Add a boss menu', description = 'Opens the coords tool to place it', icon = 'briefcase', onSelect = function() addPoint(data, 'boss') end },
     }
     local here = GetEntityCoords(cache.ped)
     for _, p in ipairs(data.points) do
@@ -238,6 +260,14 @@ openPlaces = function(name)
                 lib.registerContext({
                     id = 'hcjobs_place', title = KIND_LABEL[p.kind] or p.kind, menu = 'hcjobs_places',
                     options = {
+                        { title = 'Move this spot', description = 'Opens the coords tool at the spot', icon = 'up-down-left-right', onSelect = function()
+                            local spot = chooseSpot(('Move %s'):format((KIND_LABEL[p.kind] or p.kind):lower()), pos)
+                            if spot then
+                                local ok, message = lib.callback.await('highcrest_jobs:movePoint', false, p.id, spot)
+                                notify(message or (ok and 'Spot moved.' or 'Could not move it.'), ok and 'success' or 'error')
+                            end
+                            openPlaces(name)
+                        end },
                         { title = 'Go there', icon = 'person-walking-arrow-right', onSelect = function()
                             SetEntityCoords(cache.ped, pos.x, pos.y, pos.z, false, false, false, false)
                         end },
