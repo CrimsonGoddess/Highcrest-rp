@@ -4,7 +4,7 @@ lua54 'yes'
 
 name 'highcrest_phone'
 description 'Highcrest RP phone'
-version '0.9.0'
+version '1.0.0'
 
 dependencies {
     'ox_lib',
@@ -44,17 +44,11 @@ server_scripts {
     'server/housing.lua',
 }
 
-ui_page 'html/index.html'
+-- The phone UI is the React + Mantine app in web/ (source in web/src, built with `npm run build`).
+-- The old hand-written phone is still in html/. To roll back, restore this file from commit 2f59532 (git checkout 2f59532 -- fxmanifest.lua).
+ui_page 'web/build/index.html'
 
 files {
-    'html/index.html',
-    'html/style.css',
-    'html/app.js',
-    'html/comms.js',
-    'html/games.js',
-    'html/apps.js',
-    'html/services.js',
-    'html/empire.js',
-    'html/housing.js',
-    'html/assets/fonts/*.woff2',
+    'web/build/index.html',
+    'web/build/assets/*',
 }
