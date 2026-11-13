@@ -418,7 +418,7 @@ CreateThread(function()
 end)
 
 ---------------------------------------------------------------------------
--- F10: my jobs (switch, clock out, quit). Players hold up to qbx:max_jobs_per_player jobs (2).
+-- F10: my jobs (switch, quit). Players hold up to qbx:max_jobs_per_player jobs (2).
 ---------------------------------------------------------------------------
 
 local openMyJobs
@@ -434,15 +434,8 @@ local function jobDetails(job)
             notify(ok and ('You are now working as %s.'):format(job.label) or (message or 'Could not switch.'), ok and 'success' or 'error')
             if ok then openMyJobs() end
         end }
-    elseif job.onDuty then
-        options[#options + 1] = { title = 'Clock out', description = 'Stop working (and stop getting paid)', icon = 'clock', onSelect = function()
-            local ok = lib.callback.await('highcrest_jobs:clockOut', false)
-            notify(ok and 'You clocked out.' or 'You are not clocked in.', ok and 'success' or 'error')
-            openMyJobs()
-        end }
-    else
-        options[#options + 1] = { title = 'Clock in at your workplace', description = job.hasArea and 'Only inside the work area' or 'Use the clock-in spot', icon = 'clock', disabled = true }
     end
+    -- Clocking in and out only happens at the workplace's clock-in spot, never from this menu.
     options[#options + 1] = { title = 'Quit this job', description = 'You lose this job and its rank', icon = 'door-open', iconColor = '#e03131', onSelect = function()
         local answer = lib.alertDialog({
             header = ('Quit %s?'):format(job.label),
@@ -488,7 +481,7 @@ end
 
 lib.addKeybind({
     name = 'myjobs',
-    description = 'My jobs (switch, clock out, quit)',
+    description = 'My jobs (switch, quit)',
     defaultKey = 'F10',
     onPressed = function()
         if IsPauseMenuActive() or IsNuiFocused() then return end

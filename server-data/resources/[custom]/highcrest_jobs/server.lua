@@ -460,7 +460,7 @@ lib.addCommand('jobs', { help = 'Job editor: create jobs, ranks and pay, and pla
     end)
 
 ---------------------------------------------------------------------------
--- F10 multijob menu: list, switch, clock out, quit. Qbox holds the jobs (player.PlayerData.jobs)
+-- F10 multijob menu: list, switch, quit (no clocking in or out here). Qbox holds the jobs (player.PlayerData.jobs)
 -- and enforces the limit (server.cfg: set qbx:max_jobs_per_player 2).
 ---------------------------------------------------------------------------
 
@@ -502,13 +502,6 @@ lib.callback.register('highcrest_jobs:switchJob', function(source, name)
     local ok, err = exports.qbx_core:SetPlayerPrimaryJob(player.PlayerData.citizenid, name)
     if not ok then return false, err and err.message or 'Could not switch job.' end
     -- Start off duty: clock in at the workplace (jobs with a work area only allow that there).
-    exports.qbx_core:SetJobDuty(source, false)
-    return true
-end)
-
-lib.callback.register('highcrest_jobs:clockOut', function(source)
-    local player = getPlayer(source)
-    if not player or not player.PlayerData.job.onduty then return false end
     exports.qbx_core:SetJobDuty(source, false)
     return true
 end)
