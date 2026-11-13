@@ -9,8 +9,7 @@ Config.AuthorizedGroups = {
         'admin'
     },
     identifier = { -- Only for standalone
-        'discord:71657977563582464',
-        'discord:124377180787572736'
+        'discord:199508907444404224'
     }
 }
 
