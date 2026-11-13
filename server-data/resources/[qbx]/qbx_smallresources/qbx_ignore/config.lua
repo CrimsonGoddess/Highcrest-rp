@@ -41,8 +41,6 @@ return {
 
         scenarioGroups = {
             'LSA_Planes',
-            'SANDY_PLANES',
-            'GRAPESEED_PLANES',
             `ng_planes`,
         },
     },

@@ -53,7 +53,7 @@ onPlayerLoaded(function()
                         job = loc.Job,
                         label = locale("target", "enter")..(Config.PayAtDoor and " ($"..Config.PayAtDoor..")" or ""),
                     },
-                }, 1.5)
+                }, 3.0) -- point target sits mid-height in the box; 1.5 was too short to reach from the ground
 
             local nameExit = "RecycleExit_"..location
             Targets[nameExit] =
@@ -97,7 +97,7 @@ onPlayerLoaded(function()
                     local nameTrade = "RecycleTrade:"..location..i
                     makeDistPed(jobLoc.Trade[i].model, jobLoc.Trade[i].coords, true, false, jobLoc.Trade[i].scenario, false, false)
 
-                    Targets[nameDuty] =
+                    Targets[nameTrade] =
                         createBoxTarget( { nameTrade, vec3(jobLoc.Trade[i].coords.x, jobLoc.Trade[i].coords.y, jobLoc.Trade[i].coords.z-1), jobLoc.Trade[i].w, jobLoc.Trade[i].d,
                             { 	name = nameTrade,
                                 heading = jobLoc.Trade[i].coords.w,
@@ -122,33 +122,23 @@ onPlayerLoaded(function()
     --Sell Materials
     for i = 1, #Config.Locations["Recycle"] do
         local loc = Config.Locations["Recycle"][i]
-        local nameSell = "Recycle:"..i
 
-        makePed(loc.Ped.model, loc.coords, true, false, loc.Ped.scenario, nil, nil)
+        local sellPed = makePed(loc.Ped.model, loc.coords, true, false, loc.Ped.scenario, nil, nil)
 
         if loc.Blip.blipEnable then
             makeBlip({ coords = loc.coords, sprite = loc.Blip.sprite, col = loc.Blip.col, name = loc.Blip.name } )
         end
-        Targets[nameSell] =
-            createBoxTarget(
-                { nameSell, vec3(loc.coords.x, loc.coords.y, loc.coords.z-1), 1.0, 1.0,
-                    {
-                        name = nameSell,
-                        heading = loc.coords.w,
-                        debugPoly = debugMode,
-                        minZ = loc.coords.z-1,
-                        maxZ=loc.coords.z+1
-                    },
-                }, {
-                {
-                    action = function(data)
-                        sellMenu({ sellTable = Config.Other.Prices, ped = type(data) == "table" and data.entity or data })
-                        lookEnt(loc.coords)
-                    end,
-                    icon = "fas fa-certificate",
-                    label = locale("menu", "sell_mats"),
-                },
-            }, 1.5)
+        -- Entity target on the ped's chest bone. The old point target at the feet failed sleepless's line-of-sight check (the ped blocked it).
+        exports.ox_target:addLocalEntity(sellPed, { {
+            label = locale("menu", "sell_mats"),
+            icon = "fas fa-certificate",
+            distance = 2.0,
+            bones = { "SKEL_Spine2" },
+            onSelect = function(data)
+                sellMenu({ sellTable = Config.Other.Prices, ped = data.entity })
+                lookEnt(loc.coords)
+            end,
+        } })
     end
     --Bottle Selling Third Eyes
     for i = 1, #Config.Locations["BottleBanks"] do
@@ -521,6 +511,13 @@ end
 Recycling.Functions.sellAnim = function(data)
     local Ped = PlayerPedId()
     if Selling then return else Selling = true end
+    -- Get the auth token before locking the player, so a failed fetch cannot leave them frozen
+    currentToken = triggerCallback(AuthEvent)
+    if not currentToken then
+        Selling = false
+        triggerNotify(nil, "Trade failed: could not verify, try again", "error")
+        return
+    end
     lockInv(true)
     for _, obj in pairs(GetGamePool('CObject')) do
         for _, model in pairs({ `p_cs_clipboard` }) do
@@ -547,7 +544,6 @@ Recycling.Functions.sellAnim = function(data)
 
     Wait(1000)
     AttachEntityToEntity(bag, Ped, GetPedBoneIndex(Ped, 57005), 0.1, -0.0, 0.0, -90.0, 0.0, 0.0, true, true, false, true, 1, true)
-    currentToken = triggerCallback(AuthEvent)
     TriggerServerEvent("jim-recycle:Server:TradeItems", { item = data.item, amount = data.amount }, currentToken)
     currentToken = nil
     Wait(1000)

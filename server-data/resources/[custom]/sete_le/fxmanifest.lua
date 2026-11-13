@@ -19,7 +19,7 @@ data_file "POPSCHED_FILE" "popcycle.dat"
 
 data_file "DISPATCH_DATA_FILE" "data/**/dispatch.meta"
 data_file "LOADOUTS_FILE" "data/**/loadouts.meta"
-data_file "AMBIENT_VEHICLE_MODEL_SET_FILE" "data/**/vehiclemodelsets.meta"
+-- vehiclemodelsets.meta disabled: the README says it crashes the game (load-in hang)
 
 dependencies {
 	"/gameBuild:3258",
