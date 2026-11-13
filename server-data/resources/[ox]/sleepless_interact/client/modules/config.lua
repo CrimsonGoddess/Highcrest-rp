@@ -46,7 +46,7 @@ config.duiScale = 0.2
 config.duiResolution = 2048
 
 -- Prompt theme.
-config.theme = 'industrial'
+config.theme = 'modern'
 
 -- Accent color for each theme.
 config.themeColors = {
