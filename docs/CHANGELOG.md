@@ -2,6 +2,37 @@
 
 Posted to Discord. Newest first.
 
+## 2026-11-13
+
+- Added Custom phone redesign: smoother, faster phone with a new look across every app
+- Added Custom VIP system with a Store page in the pause menu (custom plates, free valet and free car transfers)
+- Added Custom emote menu on F4 with a live preview of your character
+- Added Custom couples and partner dances: the other player gets a Y/N request
+- Added Custom F2 vehicle menu: seats, doors, windows, engine, lights, indicators, hazards, interior light and underglow
+- Added Custom /carry
+- Added Custom multijob menu on F10 (/myjobs): hold up to 2 jobs, switch between them, clock out or quit
+- Added Custom mechanic Stance tab: ride height, camber and wheel poke
+- Added Custom mechanic full repairs, Chameleon paints and classic liveries
+- Added Custom ATM screens for Renewed-Banking: use your bank right on the ATM screen
+- Added Mad Union Depository heist
+- Added NN Appearance character and clothing creator
+- Added LC Fuel
+- Added Sleepless Interact third eye
+- Added Sleepless Inventory Addons: weapons on your back and carrying items in your hands
+- Added Jim Recycle: recycling centre job, dumpster diving and scrapping
+- Added Pickle Weapon Throwing
+- Added CTW Hotwire and T3 Lockpick minigames
+- Added Skysder's Enhanced Traffic Experience: busier, more realistic traffic and pedestrians
+- Added new engine sounds
+- Added Vinewood Sign map
+- Changed Imports & Customs to the RFC Luxury Autos showroom and Highcrest Motorworks to the RFC LS Customs building
+- Changed mechanics to use the third eye instead of [E]
+- Changed Custom tsunami warning: emergency ticker, phone alert, storm, blackout and a flood that rises over the city
+- Changed lockpicks and advanced lockpicks to 10 uses each
+- Changed chat messages to fade out after 8 seconds
+- Changed dealerships to list cars A to Z
+- Fixed missing inventory items
+
 ## 2026-11-11 (third update)
 
 - Added Pug Coke Business: buy a hidden coke lab, fly low-altitude drug plane drops and let your workers turn the bricks into product
