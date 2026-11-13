@@ -12,11 +12,15 @@ shared_scripts {
     'bays.lua',
 }
 
-client_script 'client.lua'
+client_scripts {
+    'client.lua',
+    'stance_client.lua',
+}
 
 server_scripts {
     '@oxmysql/lib/MySQL.lua',
     'server.lua',
+    'stance_server.lua',
 }
 
 ui_page 'html/index.html'

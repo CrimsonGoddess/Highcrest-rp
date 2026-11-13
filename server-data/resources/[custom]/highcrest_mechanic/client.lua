@@ -57,6 +57,10 @@ local function itemOptions(vehicle, item)
         if count <= 0 then return nil end
         options[1] = { value = -1, label = 'Stock' }
         for i = 0, count - 1 do options[#options + 1] = { value = i, label = modLabel(vehicle, slot, i, item.label) } end
+    elseif item.kind == 'stance' then
+        local class = GetVehicleClass(vehicle)
+        if class == 8 or class == 13 or GetVehicleNumberOfWheels(vehicle) < 4 then return nil end -- bikes
+        for _, o in ipairs(Config.stanceOptions(item.key)) do options[#options + 1] = { value = o[1], label = o[2] } end
     elseif item.kind == 'livery' then
         -- Classic liveries (SetVehicleLivery). Hidden if the car has mod-slot liveries instead.
         if GetNumVehicleMods(vehicle, 48) > 0 then return nil end
@@ -186,6 +190,7 @@ local function applyPreview()
         SetVehicleDeformationFixed(design.vehicle)
     end
     lib.setVehicleProperties(design.vehicle, props)
+    StancePreview(design.vehicle, props) -- stance_client.lua
 end
 
 local workProp
@@ -204,6 +209,7 @@ local function endDesign()
     if DoesEntityExist(d.vehicle) then
         -- Work that wasn't finished (and paid) comes off again.
         lib.setVehicleProperties(d.vehicle, d.finalProps or d.original)
+        StancePreview(d.vehicle, nil) -- back to the car's saved stance
         SetVehicleDoorShut(d.vehicle, 4, false)
         FreezeEntityPosition(d.vehicle, false)
     end
@@ -230,6 +236,8 @@ local function startBay(shopId, target)
     if not ok then return lib.notify({ title = 'Mechanic', description = reason, type = 'error', duration = 8000 }) end
 
     local props = lib.getVehicleProperties(vehicle)
+    -- Stance isn't a GTA property: add the car's saved stance so the menu and preview start from it.
+    for key, value in pairs(Entity(vehicle).state.hcStance or {}) do props[key] = value end
     SetVehicleModKit(vehicle, 0)
     FreezeEntityPosition(vehicle, true)
     SetVehicleEngineOn(vehicle, false, true, true)
@@ -330,6 +338,7 @@ local WORK_ANIMS = {
     extras = { spot = 'rear', dict = 'mini@repair', clip = 'fixing_a_ped' },
     repair = { spot = 'front', dict = 'mini@repair', clip = 'fixing_a_player' },
 }
+WORK_ANIMS.stance = WORK_ANIMS.wheels
 
 -- Get out, walk to the part and start working on it.
 local function goToWork(vehicle, tab)

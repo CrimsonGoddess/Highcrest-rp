@@ -85,6 +85,11 @@ Config.materials = {
         modHorns = { copper = 2, plastic = 1 },
         modLivery = { car_paint = 2, plastic = 1 },
         livery = { car_paint = 2, plastic = 1 },
+        stanceHeight = { steel = 2, rubber = 1 },     -- lowering springs
+        stanceCamberF = { steel = 1, aluminum = 1 },  -- camber arms
+        stanceCamberR = { steel = 1, aluminum = 1 },
+        stanceTrackF = { aluminum = 2 },              -- spacers
+        stanceTrackR = { aluminum = 2 },
         repair = { advancedrepairkit = 1 },
     },
     -- Everything else, by kind.
@@ -157,6 +162,18 @@ Config.catalogue = {
             { key = 'wheelColor', label = 'Rim colour', kind = 'color' },
             { key = 'tyres', label = 'Tyres', kind = 'list', list = 'tyreTypes' },
             { key = 'tyreSmoke', label = 'Tyre smoke', kind = 'list', list = 'smokeColors' },
+        },
+    },
+    {
+        -- Stance (wheel poke, camber, ride height). Not a GTA mod: stored in player_vehicles.mods
+        -- and applied by stance_client.lua for everyone near the car. Steps and limits: Config.stance.
+        id = 'stance', label = 'Stance',
+        items = {
+            { key = 'stanceHeight', label = 'Ride height', kind = 'stance' },
+            { key = 'stanceCamberF', label = 'Front camber', kind = 'stance' },
+            { key = 'stanceCamberR', label = 'Rear camber', kind = 'stance' },
+            { key = 'stanceTrackF', label = 'Front wheel poke', kind = 'stance' },
+            { key = 'stanceTrackR', label = 'Rear wheel poke', kind = 'stance' },
         },
     },
     {
@@ -355,6 +372,7 @@ end
 
 function Config.fromProps(key, props)
     props = props or {}
+    if Config.stance.keys[key] then return props[key] or 0 end -- no stance saved = stock
     if PAINT_TYPE[key] then
         local v = props[key]
         if type(v) == 'table' then return { v[1], v[2], v[3], props[PAINT_TYPE[key]] or 0 } end
@@ -383,6 +401,7 @@ Config.workViews = {
     body = { angle = 135.0, dist = 6.0, height = 1.4 },
     paint = { angle = 150.0, dist = 6.5, height = 1.8 },
     wheels = { angle = 20.0, dist = 3.8, height = 0.6 },                    -- low, side on
+    stance = { angle = 20.0, dist = 4.2, height = 0.5 },                     -- low, side on
     lights = { angle = 75.0, dist = 5.0, height = 1.0 },
     extras = { angle = -90.0, dist = 5.0, height = 1.1 },                   -- rear
     repair = { angle = 90.0, dist = 5.0, height = 1.3, hood = true },       -- front, bonnet up
@@ -392,6 +411,7 @@ Config.workViews = {
 function Config.materialsFor(item, value)
     local m = Config.materials
     if value == -1 or value == false then return {} end
+    if item.kind == 'stance' and value == 0 then return {} end -- back to stock is free
     if item.kind == 'neon' and type(value) == 'table' and not (value[1] or value[2] or value[3] or value[4]) then return {} end
     if item.kind == 'level' then
         local per = m.levels[item.key] or {}
@@ -410,3 +430,34 @@ end
 
 -- Job types allowed to order catalogue items marked policeOnly (armour).
 Config.policeJobTypes = { leo = true }
+
+-- Stance limits ("street": noticeable but drivable). Each option is one step; 0 = stock.
+--   height: lowered by step x heightStep metres · camber: step x camberStep degrees (top of the
+--   wheel in) · track: wheel pushed out by step x trackStep metres.
+-- If camber or height go the wrong way in game, flip camberSign / heightSign.
+Config.stance = {
+    heightStep = 0.012, heightMax = 5,   -- up to 6 cm lower
+    camberStep = 1.0,   camberMax = 6,   -- up to 6 degrees
+    trackStep = 0.012,  trackMax = 4,    -- up to ~5 cm poke
+    camberSign = 1.0,
+    heightSign = 1.0,
+    drawDistance = 120.0,                -- stanced cars further away than this aren't updated
+    keys = {
+        stanceHeight = 'height', stanceCamberF = 'camber', stanceCamberR = 'camber',
+        stanceTrackF = 'track', stanceTrackR = 'track',
+    },
+}
+
+-- The options for one stance key: { value, label } from stock (0) to the limit.
+function Config.stanceOptions(key)
+    local s, kind = Config.stance, Config.stance.keys[key]
+    local list = { { 0, 'Stock' } }
+    if kind == 'height' then
+        for i = 1, s.heightMax do list[#list + 1] = { i, ('Lowered %.1f cm'):format(i * s.heightStep * 100) } end
+    elseif kind == 'camber' then
+        for i = 1, s.camberMax do list[#list + 1] = { i, ('-%.0f°'):format(i * s.camberStep) } end
+    elseif kind == 'track' then
+        for i = 1, s.trackMax do list[#list + 1] = { i, ('+%.1f cm'):format(i * s.trackStep * 100) } end
+    end
+    return list
+end

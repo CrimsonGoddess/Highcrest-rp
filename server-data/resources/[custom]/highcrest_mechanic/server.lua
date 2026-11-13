@@ -110,6 +110,7 @@ local function validValue(item, value)
     local kind = item.kind
     if kind == 'mod' then return isInteger(value, -1, 100) end
     if kind == 'livery' then return isInteger(value, 0, 100) end
+    if kind == 'stance' then return isInteger(value, 0, #Config.stanceOptions(item.key) - 1) end
     if kind == 'level' then
         local levels = Config.prices.levels[item.key]
         return levels and isInteger(value, -1, #levels - 2)
@@ -237,6 +238,10 @@ local function describe(item, value)
     if item.kind == 'level' then return value < 0 and 'Stock' or ('Level %d'):format(value + 1) end
     if item.kind == 'toggle' then return value and 'Fitted' or 'Removed' end
     if item.kind == 'livery' then return ('Livery %d'):format(value + 1) end
+    if item.kind == 'stance' then
+        local o = Config.stanceOptions(item.key)[value + 1]
+        return o and o[2] or tostring(value)
+    end
     if item.kind == 'color' then return colorSet[value] end
     if item.kind == 'paint' then
         if type(value) == 'number' then return colorSet[value] end
@@ -716,6 +721,7 @@ lib.callback.register('highcrest_mechanic:complete', function(source, id, netId)
     end
     MySQL.update.await('UPDATE player_vehicles SET mods = ? WHERE plate = ?', { json.encode(props), order.plate })
     work[order.id] = nil
+    StanceSaved(order.plate, props, netId) -- stance_server.lua: everyone sees the new stance
 
     -- Pay out: parts and the shop's labour share to the business, the rest to the mechanic.
     local shop = Config.shops[order.shop]
