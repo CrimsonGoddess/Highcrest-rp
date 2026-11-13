@@ -56,3 +56,11 @@ RegisterServerEvent("jim-recycle:Server:TradeItems", function(data, token)
         triggerNotify(nil, "Not Enough Items", "error", src)
     end
 end)
+
+-- jim_bridge refuses every sellMenu call from an unregistered shop name
+for i = 1, #Config.Locations["Recycle"] do
+    registerSellShop("RecycleSell"..i, Config.Locations["Recycle"][i].coords, { Prices = Config.Other.Prices })
+end
+for i = 1, #Config.Locations["BottleBanks"] do
+    registerSellShop("BottleBank"..i, Config.Locations["BottleBanks"][i].coords, { Bottles = Config.Other.BottleBankTable })
+end

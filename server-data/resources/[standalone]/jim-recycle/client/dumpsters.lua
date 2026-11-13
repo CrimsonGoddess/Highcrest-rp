@@ -9,7 +9,7 @@ if Config.DumpsterDiving.Enable then
         createModelTarget(Config.DumpsterDiving.models, {
             {
                 action = function(data)
-                    Dumpsters.StartSearch(type(data) == "table" and data.entity or data)
+                    Dumpsters.StartSearch(data.entity)
                 end,
                 icon = "fas fa-dumpster",
                 label = locale("target", "search_trash"),

@@ -1,4 +1,5 @@
 onDuty, Peds, Targets, searchProps, Props, randPackage = false, {}, {}, {}, {}, nil
+local TradePeds = {}
 local TrollyProp = nil
 
 Recycling = {
@@ -95,7 +96,10 @@ onPlayerLoaded(function()
             if jobLoc.Trade then
                 for i = 1, #jobLoc.Trade do
                     local nameTrade = "RecycleTrade:"..location..i
-                    makeDistPed(jobLoc.Trade[i].model, jobLoc.Trade[i].coords, true, false, jobLoc.Trade[i].scenario, false, false)
+                    -- Keep the ped handle: a zone target has no entity, so data.entity is nil and the old code passed the whole target table to natives
+                    makeDistPed(jobLoc.Trade[i].model, jobLoc.Trade[i].coords, true, false, jobLoc.Trade[i].scenario, false, false, function(ped)
+                        TradePeds[nameTrade] = ped
+                    end)
 
                     Targets[nameTrade] =
                         createBoxTarget( { nameTrade, vec3(jobLoc.Trade[i].coords.x, jobLoc.Trade[i].coords.y, jobLoc.Trade[i].coords.z-1), jobLoc.Trade[i].w, jobLoc.Trade[i].d,
@@ -107,7 +111,9 @@ onPlayerLoaded(function()
                             }, }, {
                             {
                                 action = function(data)
-                                    Recycling.Trade.Menu({ Ped = type(data) == "table" and data.entity or data })
+                                    local ped = TradePeds[nameTrade]
+                                    if not ped or not DoesEntityExist(ped) then return end
+                                    Recycling.Trade.Menu({ Ped = ped })
                                 end,
                                 icon = "fas fa-box",
                                 job = loc.Job,
@@ -135,7 +141,7 @@ onPlayerLoaded(function()
             distance = 2.0,
             bones = { "SKEL_Spine2" },
             onSelect = function(data)
-                sellMenu({ sellTable = Config.Other.Prices, ped = data.entity })
+                sellMenu({ sellTable = Config.Other.Prices, ped = data.entity, name = "RecycleSell"..i })
                 lookEnt(loc.coords)
             end,
         } })
@@ -164,9 +170,11 @@ onPlayerLoaded(function()
                 }, {
                 {
                     action = function(data)
+                        -- Zone target, so no entity: animate the player. shortcut: bottle sell animates the player, not a ped; upgrade by spawning a ped at the bank.
                         sellMenu({
                             sellTable = Config.Other.BottleBankTable,
-                            ped = type(data) == "table" and data.entity or data
+                            ped = PlayerPedId(),
+                            name = "BottleBank"..i
                         })
                         lookEnt(loc.coords)
                     end,

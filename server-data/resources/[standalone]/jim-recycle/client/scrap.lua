@@ -8,7 +8,7 @@ if Config.ScrapyardSearching.Enable then
         createModelTarget(Config.ScrapyardSearching.models, {
             {
                 action = function(data)
-                    Scrapping.StartSearch(type(data) == "table" and data.entity or data)
+                    Scrapping.StartSearch(data.entity)
                 end,
                 icon = "fas fa-dumpster",
                 label = locale("target", "search"),
