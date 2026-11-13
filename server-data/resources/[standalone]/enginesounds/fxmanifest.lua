@@ -136,11 +136,11 @@ data_file 'AUDIO_WAVEPACK' 'sfx/dlc_rh4'
 
 data_file 'AUDIO_GAMEDATA' 'audioconfig/elegyrh6_game.dat'
 data_file 'AUDIO_SOUNDDATA' 'audioconfig/elegyrh6_sounds.dat'
-data_file 'AUDIO_WAVEPACK' 'sfx/dlc_elegyrh6'
+data_file 'AUDIO_WAVEPACK' 'sfx/dlc_rh6elegy'
 
 data_file 'AUDIO_GAMEDATA' 'audioconfig/elegyrh7_game.dat'
 data_file 'AUDIO_SOUNDDATA' 'audioconfig/elegyrh7_sounds.dat'
-data_file 'AUDIO_WAVEPACK' 'sfx/dlc_elegyrh7'
+data_file 'AUDIO_WAVEPACK' 'sfx/dlc_rh7elegy'
 
 data_file 'AUDIO_GAMEDATA' 'audioconfig/elegyx_game.dat'
 data_file 'AUDIO_SOUNDDATA' 'audioconfig/elegyx_sounds.dat'
@@ -171,37 +171,15 @@ data_file 'AUDIO_GAMEDATA' 'audioconfig/lg86fer812sf_game.dat'
 data_file 'AUDIO_SOUNDDATA' 'audioconfig/lg86fer812sf_sounds.dat'
 data_file 'AUDIO_WAVEPACK' 'sfx/dlc_lg86fer812sf'
 
-data_file "AUDIO_SYNTHDATA" "audioconfig/boorc_amp.dat"
-data_file "AUDIO_GAMEDATA" "audioconfig/boorc_game.dat"
-data_file "AUDIO_SOUNDDATA" "audioconfig/boorc_sounds.dat"
-data_file "AUDIO_WAVEPACK" "sfx/dlc_boorc"
 
-data_file "AUDIO_SYNTHDATA" "audioconfig/hkpanto_amp.dat"
-data_file "AUDIO_GAMEDATA" "audioconfig/hkpanto_game.dat"
-data_file "AUDIO_SOUNDDATA" "audioconfig/hkpanto_sounds.dat"
-data_file "AUDIO_WAVEPACK" "sfx/dlc_hkpanto"
 
-data_file "AUDIO_SYNTHDATA" "audioconfig/kc33mitsu4g63t_amp.dat"
-data_file "AUDIO_GAMEDATA" "audioconfig/kc33mitsu4g63t_game.dat"
-data_file "AUDIO_SOUNDDATA" "audioconfig/kc33mitsu4g63t_sounds.dat"
-data_file "AUDIO_WAVEPACK" "sfx/dlc_kc33mitsu4g63t"
 
-data_file "AUDIO_SYNTHDATA" "audioconfig/sentinelsg4_amp.dat"
-data_file "AUDIO_GAMEDATA" "audioconfig/sentinelsg4_game.dat"
-data_file "AUDIO_SOUNDDATA" "audioconfig/sentinelsg4_sounds.dat"
-data_file "AUDIO_WAVEPACK" "sfx/dlc_sentinelsg4"
 
-data_file "AUDIO_GAMEDATA" "audioconfig/uranusc_game.dat"
-data_file "AUDIO_SOUNDDATA" "audioconfig/uranusc_sounds.dat"
-data_file "AUDIO_WAVEPACK" "sfx/dlc_uranusc"
 
 data_file 'AUDIO_GAMEDATA' 'audioconfig/tagt3flat6_game.dat'
 data_file 'AUDIO_SOUNDDATA' 'audioconfig/tagt3flat6_sounds.dat'
 data_file 'AUDIO_WAVEPACK' 'sfx/dlc_tagt3flat6'
 
-data_file 'AUDIO_GAMEDATA' 'audioconfig/yosv8_game.dat'
-data_file 'AUDIO_SOUNDDATA' 'audioconfig/yosv8_sounds.dat'
-data_file 'AUDIO_WAVEPACK' 'sfx/dlc_yosv8'
 
 data_file 'AUDIO_GAMEDATA' 'audioconfig/st39e92_game.dat'
 data_file 'AUDIO_SOUNDDATA' 'audioconfig/st39e92_sounds.dat'
@@ -358,3 +336,6 @@ data_file "AUDIO_SYNTHDATA" "audioconfig/rocket_amp.dat"
 data_file "AUDIO_GAMEDATA" "audioconfig/rocket_game.dat"
 data_file "AUDIO_SOUNDDATA" "audioconfig/rocket_sounds.dat"
 data_file "AUDIO_WAVEPACK" "sfx/dlc_rocket"
+-- Highcrest: removed yosv8 (its files were never in the pack, so GTA crashed on load) and
+-- boorc, hkpanto, kc33mitsu4g63t, sentinelsg4, uranusc (already loaded by the sound_* resources
+-- in [cars]; loading them twice is unsafe). elegyrh6/7 wavepacks point at the real folder names.
