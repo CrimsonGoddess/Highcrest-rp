@@ -18,8 +18,8 @@ Config.Locations =  {
             },
             JobLocations = {
                 Enter = { coords = vec4(746.77, -1399.05, 26.92, 1.26), w = 0.4, d = 1.6, tele = vec4(736.95, -1374.25, 12.63, 266.58) },
-                Exit = { coords = vec4(736.27, -1374.31, 11.64, 0.0), w = 1.5, d = 0.6, tele = vec4(746.77, -1399.53, 26.61, 181.16) },
-                Duty = { coords = vec4(739.55, -1376.5, 12.14, 0.0), w = 0.5, d = 0.5, },
+                Exit = { coords = vec4(736.39, -1374.31, 12.68, 60.71), w = 1.5, d = 0.6, tele = vec4(746.77, -1399.53, 26.61, 181.16) },
+                Duty = { coords = vec4(739.58, -1376.50, 12.46, 101.87), w = 0.5, d = 0.5, },
                 Trolly = { coords = vec4(743.86, -1369.56, 12.67, 256.38), prop = "ex_Prop_Crate_Closed_BC" },
                 Trade = {
                     { coords = vector4(748.49, -1399.93, 26.58, 179.0), w = 1.0, d = 1.0, model = `S_M_Y_Construct_02`, scenario = "WORLD_HUMAN_CLIPBOARD", },

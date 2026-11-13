@@ -85,7 +85,7 @@ onPlayerLoaded(function()
                     }, }, {
                     {
                         action = function()
-                            Recycling.Functions.dutyToggle({ job = loc.Job, Trolly = jobLoc.Trolly })
+                            Recycling.Functions.dutyToggle({ job = loc.Job, Trolly = jobLoc.Trolly, location = location })
                         end,
                         icon = "fas fa-recycle",
                         job = loc.Job,
@@ -103,7 +103,6 @@ onPlayerLoaded(function()
                             label = locale("target", "trade"),
                             icon = "fas fa-box",
                             distance = 2.0,
-                            bones = { "SKEL_Spine2" },
                             groups = loc.Job,
                             onSelect = function(data)
                                 Recycling.Trade.Menu({ Ped = data.entity })
@@ -129,7 +128,6 @@ onPlayerLoaded(function()
             label = locale("menu", "sell_mats"),
             icon = "fas fa-certificate",
             distance = 2.0,
-            bones = { "SKEL_Spine2" },
             onSelect = function(data)
                 sellMenu({ sellTable = Config.Other.Prices, ped = data.entity, name = "RecycleSell"..i })
                 lookEnt(loc.coords)
@@ -182,13 +180,13 @@ Recycling.Functions.createProps = function(location)
     for i = 1, #loc.SearchLocations do
         searchProps[#searchProps+1] = makeProp({
             prop = Config.RecyclingCenter.propTable[math.random(1, #Config.RecyclingCenter.propTable)],
-            coords = loc.SearchLocations[i] -- makeProp already drops the z by 1.03
+            coords = loc.SearchLocations[i] - vec4(0, 0, 1.03, 0)
         }, 1, 0)
     end
     for i = 1, #loc.ExtraPropLocations do
         Props[#Props+1] = makeProp({
             prop = Config.RecyclingCenter.propTable[math.random(1, #Config.RecyclingCenter.propTable)],
-            coords = loc.ExtraPropLocations[i]
+            coords = loc.ExtraPropLocations[i] - vec4(0, 0, 1.03, 0)
         }, 1, 0)
     end
     for k in pairs(Config.RecyclingCenter.scrapPool) do
@@ -395,6 +393,10 @@ Recycling.PickUpPackage.collectReward = function(data)
 end
 
 Recycling.Functions.dutyToggle = function(data)
+    -- Zone enter did not always spawn the crates (north warehouse came up empty), so spawn them here if missing
+    if #searchProps == 0 and data.location then
+        Recycling.Functions.createProps(data.location)
+    end
     if Config.JobRole then
         if onDuty then
             Recycling.Functions.EndJob()
