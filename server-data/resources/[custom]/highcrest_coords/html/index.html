@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Highcrest Coords</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="panel" class="hidden">
+    <header>
+        <div>
+            <div class="eyebrow">Highcrest dev tools</div>
+            <h1>Coords</h1>
+        </div>
+        <button class="icon" id="close" title="Close (Esc)">✕</button>
+    </header>
+
+    <section>
+        <div class="section-title">Point <span class="muted">feet height, same as /vec4</span></div>
+        <div id="axes"></div>
+        <div class="row steps">
+            <span class="label">Move step</span>
+            <div class="chips" id="step"></div>
+        </div>
+        <div class="row steps">
+            <span class="label">Turn step</span>
+            <div class="chips" id="hstep"></div>
+        </div>
+        <label class="toggle"><input type="checkbox" id="relative"> Arrow keys move relative to the heading (forward / right)</label>
+    </section>
+
+    <section>
+        <div class="grid-actions">
+            <button data-act="raycast" class="primary">Raycast <kbd>R</kbd></button>
+            <button data-act="me">My position <kbd>M</kbd></button>
+            <button data-act="ground">Snap to ground <kbd>G</kbd></button>
+            <button data-act="faceMe">Face me <kbd>F</kbd></button>
+            <button data-act="waypoint">Waypoint <kbd>W</kbd></button>
+            <button data-act="teleport">Teleport <kbd>T</kbd></button>
+        </div>
+        <div class="hint">Hold <kbd>Space</kbd> to look around with the mouse.</div>
+    </section>
+
+    <section>
+        <div class="section-title">Preview</div>
+        <div class="segmented" id="preview">
+            <button data-v="marker">Marker</button>
+            <button data-v="ped">Ped</button>
+            <button data-v="vehicle">Vehicle</button>
+            <button data-v="object">Prop</button>
+        </div>
+        <div class="row" id="modelRow">
+            <input id="model" type="text" placeholder="Model name, e.g. adder or prop_bench_01a" spellcheck="false">
+            <button id="loadModel">Show</button>
+        </div>
+        <div class="row">
+            <span class="label">Zone radius</span>
+            <input id="radius" type="number" step="0.1" min="0" value="0">
+            <span class="muted small">0 = off. Shows a sphere zone around the point.</span>
+        </div>
+        <div class="error" id="previewError"></div>
+    </section>
+
+    <section id="entityCard" class="hidden">
+        <div class="section-title">Picked entity</div>
+        <div id="entityRows"></div>
+    </section>
+
+    <section>
+        <div class="section-title">Copy
+            <span class="right">Decimals
+                <select id="precision"><option>2</option><option>3</option><option>4</option></select>
+            </span>
+        </div>
+        <div id="formats"></div>
+        <div class="hint">Click a line to copy it. <kbd>C</kbd> copies the starred one.</div>
+    </section>
+
+    <section>
+        <div class="section-title">Saved points</div>
+        <div class="row">
+            <input id="label" type="text" placeholder="Label, e.g. LSC bay 7" spellcheck="false">
+            <button id="savePoint">Save</button>
+        </div>
+        <div id="points"></div>
+        <div class="row end">
+            <button id="copyAll" class="ghost">Copy all</button>
+            <button id="clearAll" class="ghost danger">Clear</button>
+        </div>
+    </section>
+
+    <footer>
+        <kbd>←↑↓→</kbd> move <kbd>PgUp/PgDn</kbd> up/down <kbd>Q/E</kbd> turn
+        <kbd>Shift</kbd> ×10 <kbd>Ctrl</kbd> ×0.1 <kbd>Esc</kbd> close
+    </footer>
+</div>
+
+<div id="rayHint" class="hidden">Raycast: aim and click to pick</div>
+<script src="app.js"></script>
+</body>
+</html>
