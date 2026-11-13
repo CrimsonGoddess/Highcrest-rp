@@ -69,7 +69,7 @@ foreach ($resource in $Resources) {
         [void]$lines.Add(('mkdir "{0}/{1}"' -f $remoteBase, $resource))
         [void]$lines.Add('option batch abort')
     }
-    [void]$lines.Add(('synchronize remote {0} -criteria=either "{1}" "{2}/{3}"' -f $mode, $local, $remoteBase, $resource))
+    [void]$lines.Add(('synchronize remote {0} -criteria=either -filemask="|node_modules/; .git/" "{1}" "{2}/{3}"' -f $mode, $local, $remoteBase, $resource))
 }
 foreach ($folder in $Folders) {
     $local = Join-Path (Join-Path $root 'server-data') $folder
@@ -81,7 +81,7 @@ foreach ($folder in $Folders) {
         [void]$lines.Add(('mkdir "{0}"' -f $remote))
         [void]$lines.Add('option batch abort')
     }
-    [void]$lines.Add(('synchronize remote {0} -criteria=either "{1}" "{2}"' -f $mode, $local, $remote))
+    [void]$lines.Add(('synchronize remote {0} -criteria=either -filemask="|node_modules/; .git/" "{1}" "{2}"' -f $mode, $local, $remote))
 }
 foreach ($file in $Files) {
     if ($file -match '(^|[\\/])secrets\.cfg$') { throw 'secrets.cfg is never deployed by this script.' }

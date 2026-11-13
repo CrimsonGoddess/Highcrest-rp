@@ -1,0 +1,352 @@
+@font-face {
+  font-family: 'Rajdhani';
+  src: url('./fonts/rajdhani-latin-500-normal.woff2') format('woff2');
+  font-weight: 500;
+}
+@font-face {
+  font-family: 'Rajdhani';
+  src: url('./fonts/rajdhani-latin-700-normal.woff2') format('woff2');
+  font-weight: 700;
+}
+
+/* Everything is sized from the screen height, so the phone looks the same at any resolution. */
+html { font-size: 1.55vh; }
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: transparent !important;
+  user-select: none;
+}
+body { color: #f5f5f5; }
+body.preview { background: radial-gradient(circle at 30% 30%, #4a5a6a, #1a2028) !important; }
+
+.gold { color: #d4af37; }
+
+/* ------------------------------------------------------------------ frame */
+
+.phone {
+  --case: #1c1c22;
+  position: fixed;
+  right: 3vh;
+  bottom: 3vh;
+  width: 38vh;
+  height: 80vh;
+  padding: 1vh;
+  border-radius: 6vh;
+  background: var(--case);
+  box-shadow:
+    0 2.5vh 6vh rgba(0, 0, 0, 0.7),
+    inset 0 0 0 0.22vh rgba(255, 255, 255, 0.18),
+    inset 0 0 0 0.6vh rgba(0, 0, 0, 0.35);
+  transform: scale(0.8);
+  transform-origin: bottom right;
+  transition: background-color 0.3s ease;
+  animation: rise 0.32s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.side-button {
+  position: absolute;
+  width: 0.45vh;
+  border-radius: 0.3vh;
+  background: var(--case);
+  filter: brightness(0.8);
+}
+.side-button.power { right: -0.35vh; top: 22%; height: 9%; }
+.side-button.volume { left: -0.35vh; top: 18%; height: 14%; }
+
+.screen {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 5.1vh;
+  background: #0b0b0d;
+  isolation: isolate;
+}
+.screen::after { /* soft vignette so white text stays readable on bright wallpapers */
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.35), transparent 22%, transparent 70%, rgba(0, 0, 0, 0.45));
+  pointer-events: none;
+}
+.content { position: relative; flex: 1; min-height: 0; }
+
+.statusbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 4.4vh;
+  padding: 0 2.6vh;
+  font-weight: 700;
+  font-size: 1.05rem;
+  z-index: 5;
+}
+.statusbar-time { min-width: 4em; }
+.statusbar-icons { display: flex; gap: 0.5vh; align-items: center; min-width: 4em; justify-content: flex-end; }
+.island {
+  position: absolute;
+  left: 50%;
+  top: 1vh;
+  width: 11vh;
+  height: 2.9vh;
+  border-radius: 2vh;
+  background: #000;
+  transform: translateX(-50%);
+}
+
+.home-indicator {
+  position: absolute;
+  left: 50%;
+  bottom: 0.9vh;
+  width: 13vh;
+  height: 0.55vh;
+  border: 0;
+  border-radius: 1vh;
+  background: rgba(255, 255, 255, 0.85);
+  transform: translateX(-50%);
+  cursor: pointer;
+  z-index: 10;
+}
+.home-indicator::before { content: ''; position: absolute; inset: -1.2vh -2vh; }
+
+.glass {
+  background: rgba(20, 20, 26, 0.55) !important;
+  backdrop-filter: blur(18px) saturate(1.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ------------------------------------------------------------------ lock screen */
+
+.lock {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.26s ease-in, opacity 0.26s ease-in;
+}
+.lock.leaving { transform: translateY(-12%); opacity: 0; }
+.lock-date { font-size: 1.25rem; font-weight: 600; opacity: 0.9; }
+.lock-clock { font-size: 6.4rem; font-weight: 700; line-height: 1; letter-spacing: -0.02em; text-shadow: 0 0.4vh 2vh rgba(0, 0, 0, 0.35); }
+.lock-hint { position: absolute; left: 0; right: 0; bottom: 3.2vh; }
+.bob { animation: bob 1.6s ease-in-out infinite; }
+.notif { animation: slide-in 0.35s ease-out both; }
+
+/* ------------------------------------------------------------------ home */
+
+.home {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 1vh 1.8vh 2.6vh;
+  animation: zoom-in 0.25s ease-out;
+}
+.widget {
+  position: relative;
+  padding: 1.4vh 1.8vh;
+  border-radius: 2.6vh;
+  overflow: hidden;
+}
+.widget-clock { font-size: 3.4rem; font-weight: 700; line-height: 1; }
+.widget-brand {
+  position: absolute;
+  right: 1.8vh;
+  bottom: 1.2vh;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  color: #d4af37;
+  opacity: 0.85;
+}
+.app-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.9vh 0.6vh;
+  margin-top: 2.2vh;
+  align-content: start;
+  flex: 1;
+}
+.app-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55vh;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.app-tile {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 6.4vh;
+  height: 6.4vh;
+  border-radius: 1.75vh;
+  color: #fff;
+  box-shadow: 0 0.6vh 1.4vh rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transition: transform 0.12s ease, filter 0.12s ease;
+}
+.app-icon:hover .app-tile { transform: translateY(-0.2vh) scale(1.04); filter: brightness(1.08); }
+.app-icon:active .app-tile { transform: scale(0.93); }
+.app-label { font-size: 0.88rem; font-weight: 600; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7); white-space: nowrap; }
+.app-badge {
+  position: absolute;
+  top: -0.6vh;
+  right: -0.6vh;
+  min-width: 2.3vh;
+  height: 2.3vh;
+  padding: 0 0.6vh;
+  border-radius: 1.2vh;
+  background: var(--mantine-color-accent-6);
+  color: var(--mantine-color-accent-contrast, #fff);
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 2.3vh;
+  box-shadow: 0 0 0 0.25vh rgba(0, 0, 0, 0.35);
+}
+.dock {
+  display: flex;
+  justify-content: space-around;
+  padding: 1.2vh 1vh;
+  border-radius: 3vh;
+}
+
+/* ------------------------------------------------------------------ app pages */
+
+.app-screen { position: absolute; inset: 0; animation: app-in 0.22s cubic-bezier(0.22, 0.61, 0.36, 1); }
+.app-page {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: rgba(11, 11, 13, 0.82);
+  backdrop-filter: blur(24px);
+}
+.app-header { padding: 0.4vh 1vh 1vh; }
+.app-body { flex: 1; min-height: 0; padding-bottom: 2vh; }
+
+.swatch {
+  display: grid;
+  place-items: center;
+  width: 3.4vh;
+  height: 3.4vh;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+  transition: transform 0.12s;
+}
+.swatch:hover { transform: scale(1.1); }
+.swatch.on { box-shadow: 0 0 0 0.3vh #0b0b0d, 0 0 0 0.55vh #f5f5f5; }
+
+.wallpaper-tile {
+  position: relative;
+  height: 11vh;
+  border-radius: 1.4vh;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+.wallpaper-tile span {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 0.4vh;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.45);
+}
+.wallpaper-tile.on { box-shadow: 0 0 0 0.3vh var(--mantine-color-accent-6); }
+
+.thumb {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 3 / 4;
+  border-radius: 0.8vh;
+  background: rgba(255, 255, 255, 0.05) center / cover no-repeat;
+  transition: transform 0.12s;
+}
+.thumb:hover { transform: scale(1.03); }
+.viewer-frame { border-radius: 1.4vh; overflow: hidden; background: #000; }
+
+/* ------------------------------------------------------------------ camera */
+
+/* The phone becomes the viewfinder in the middle of the screen; everything around it is dimmed. */
+.phone.camera {
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  padding: 0;
+  border: 1vh solid var(--case);
+  background: transparent;
+  transform: translate(-50%, -50%) scale(0.8);
+  transform-origin: center;
+  box-shadow: 0 0 0 200vmax rgba(0, 0, 0, 0.62), 0 2vh 5vh rgba(0, 0, 0, 0.75);
+  animation: none;
+  transition: none;
+}
+.phone.camera.landscape { transform: translate(-50%, -50%) rotate(90deg) scale(1.08); }
+.phone.camera .screen::after { display: none; }
+.phone.camera .side-button { display: none; }
+.camera-view {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 2vh;
+  text-shadow: 0 1px 4px #000;
+}
+.camera-grid {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, transparent 33.2%, rgba(255, 255, 255, 0.22) 33.2% 33.5%, transparent 33.5% 66.5%, rgba(255, 255, 255, 0.22) 66.5% 66.8%, transparent 66.8%),
+    linear-gradient(to bottom, transparent 33.2%, rgba(255, 255, 255, 0.22) 33.2% 33.5%, transparent 33.5% 66.5%, rgba(255, 255, 255, 0.22) 66.5% 66.8%, transparent 66.8%);
+}
+.camera-message { position: relative; font-weight: 700; }
+.camera-bar {
+  position: fixed;
+  bottom: 2vh;
+  left: 50%;
+  padding: 0.8vh 1.6vh;
+  border-radius: 1.2vh;
+  background: rgba(11, 11, 13, 0.85);
+  text-align: center;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+.flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; z-index: 50; }
+.flash.go { animation: flash 0.35s ease-out; }
+
+/* ------------------------------------------------------------------ emergency alert */
+
+.wea {
+  position: fixed;
+  right: 3vh;
+  bottom: 3vh;
+  width: 30vh;
+  padding: 1.8vh;
+  border-radius: 2.4vh;
+  border-top: 0.5vh solid #c8102e;
+  background: rgba(15, 15, 18, 0.95);
+  box-shadow: 0 2vh 5vh rgba(0, 0, 0, 0.7);
+  animation: rise 0.28s cubic-bezier(0.22, 0.61, 0.36, 1), buzz 0.5s ease-in-out 0.3s 6;
+}
+.wea-top { color: #ff6b7f; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.9rem; }
+
+/* ------------------------------------------------------------------ motion */
+
+@keyframes rise { from { opacity: 0; translate: 0 5vh; } }
+@keyframes zoom-in { from { opacity: 0; transform: scale(1.06); } }
+@keyframes app-in { from { opacity: 0; transform: scale(0.94) translateY(2vh); } }
+@keyframes slide-in { from { opacity: 0; transform: translateY(-1vh); } }
+@keyframes bob { 50% { transform: translateY(-0.5vh); } }
+@keyframes flash { from { opacity: 0.85; } }
+@keyframes buzz { 25% { translate: -0.4vh 0; } 75% { translate: 0.4vh 0; } }
