@@ -97,7 +97,9 @@ function AtmPanelOpts(entity, p)
         entity = entity,
         offset = p.offset,
         localNormal = AtmWorldDir(entity, p.normal),
-        localUp = AtmWorldDir(entity, p.up or vector3(0.0, 0.0, 1.0)),
+        -- Reversed on purpose: cr-3dnui maps the texture's BOTTOM (v = 1) to its "up" side and
+        -- builds right = normal x up, so a true up shows the page rotated 180 degrees.
+        localUp = AtmWorldDir(entity, p.up or vector3(0.0, 0.0, 1.0)) * -1.0,
         rotateNormal = false,
         width = p.width, height = p.height, zOffset = p.zOffset,
         depthCompensation = 'screen', frontOnly = true,
