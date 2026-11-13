@@ -17,7 +17,12 @@ local function gearText(vehicle, speed)
     return tostring(gear)
 end
 
+-- Off: the user went back to qbx_hud's own vehicle gauges (2026-11-13). Set true to bring this back
+-- (and hide #speedometer, #fuelgauge, #altitudegauge, #seatbelt again in qbx_hud/html/styles.css).
+local USE_CUSTOM_SPEEDO = false
+
 CreateThread(function()
+    if not USE_CUSTOM_SPEEDO then return end
     local shown = false
     while true do
         local vehicle = cache.vehicle

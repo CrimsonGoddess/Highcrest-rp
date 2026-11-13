@@ -297,11 +297,3 @@ altitude {
 #playerHud {
     display: none !important;
 }
-
-/* Highcrest: the vehicle gauges come from highcrest_ui's speedometer instead. */
-#speedometer,
-#fuelgauge,
-#altitudegauge,
-#seatbelt {
-    display: none !important;
-}
