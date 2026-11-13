@@ -60,7 +60,6 @@ local ITEMS = {
 
 	},
 	hardware = {
-		{ name = 'lockpick', price = 120, defaultStock = 50, category = 'Tools' },
 		{ name = 'duct_tape', price = 30, defaultStock = 50, category = 'Tools' },
 		{ name = 'cleaning_kit', price = 30, defaultStock = 50, category = 'Tools' },
 		{ name = 'drill', price = 500, defaultStock = 50, category = 'Tools' },

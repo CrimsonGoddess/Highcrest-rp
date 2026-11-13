@@ -179,7 +179,7 @@ return {
 			color = 7,
 		}
 	},
-	parts = {
+	--[[parts = {
 		label = "Car Parts",
 		model = {
 			`s_m_m_autoshop_02`,
@@ -195,5 +195,5 @@ return {
 			sprite = 677,
 			color = 7,
 		}
-	},
+	},--]]
 }
