@@ -57,6 +57,17 @@ local function itemOptions(vehicle, item)
         if count <= 0 then return nil end
         options[1] = { value = -1, label = 'Stock' }
         for i = 0, count - 1 do options[#options + 1] = { value = i, label = modLabel(vehicle, slot, i, item.label) } end
+    elseif item.kind == 'livery' then
+        -- Classic liveries (SetVehicleLivery). Hidden if the car has mod-slot liveries instead.
+        if GetNumVehicleMods(vehicle, 48) > 0 then return nil end
+        local count = GetVehicleLiveryCount(vehicle)
+        if count <= 1 then return nil end
+        for i = 0, count - 1 do
+            local text = GetLiveryName(vehicle, i)
+            local label = text and GetLabelText(text) or nil
+            if not label or label == 'NULL' or label == '' then label = ('Livery %d'):format(i + 1) end
+            options[#options + 1] = { value = i, label = label }
+        end
     elseif item.kind == 'level' then
         local count = math.min(#Config.prices.levels[item.key] - 1, GetNumVehicleMods(vehicle, slot))
         if count <= 0 then return nil end
@@ -99,8 +110,10 @@ local function buildCatalogue(vehicle, props)
     local tabs = {}
     for _, tab in ipairs(Config.catalogue) do
         local items = {}
+        local job = (exports.qbx_core:GetPlayerData() or {}).job or {}
+        local isPolice = Config.policeJobTypes[job.type or ''] == true
         for _, item in ipairs(tab.items) do
-            local options = itemOptions(vehicle, item)
+            local options = (not item.policeOnly or isPolice) and itemOptions(vehicle, item) or nil
             if options then
                 items[#items + 1] = {
                     key = item.key, label = item.label, kind = item.kind, options = options,

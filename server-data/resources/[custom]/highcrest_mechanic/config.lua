@@ -84,6 +84,7 @@ Config.materials = {
         plateIndex = { aluminum = 1 },
         modHorns = { copper = 2, plastic = 1 },
         modLivery = { car_paint = 2, plastic = 1 },
+        livery = { car_paint = 2, plastic = 1 },
         repair = { advancedrepairkit = 1 },
     },
     -- Everything else, by kind.
@@ -116,7 +117,7 @@ Config.catalogue = {
             { key = 'modBrakes', label = 'Brakes', kind = 'level' },
             { key = 'modTransmission', label = 'Transmission', kind = 'level' },
             { key = 'modSuspension', label = 'Suspension', kind = 'level' },
-            { key = 'modArmor', label = 'Armour', kind = 'level' },
+            { key = 'modArmor', label = 'Armour', kind = 'level', policeOnly = true }, -- only police (job type leo) can order it
             { key = 'modTurbo', label = 'Turbo', kind = 'toggle' },
         },
     },
@@ -134,7 +135,6 @@ Config.catalogue = {
             { key = 'modRightFender', label = 'Right fender', kind = 'mod' },
             { key = 'modRoof', label = 'Roof', kind = 'mod' },
             { key = 'modFrame', label = 'Roll cage', kind = 'mod' },
-            { key = 'modLivery', label = 'Livery', kind = 'mod' },
         },
     },
     {
@@ -143,6 +143,10 @@ Config.catalogue = {
             { key = 'color1', label = 'Primary colour', kind = 'paint' },
             { key = 'color2', label = 'Secondary colour', kind = 'paint' },
             { key = 'pearlescentColor', label = 'Pearlescent shine', kind = 'color' },
+            -- Two livery systems: mod slot 48, and the older SetVehicleLivery list most add-on,
+            -- police and EMS cars use. A car shows one Livery (the classic list only if it has no mod liveries).
+            { key = 'modLivery', label = 'Livery', kind = 'mod' },
+            { key = 'livery', label = 'Livery', kind = 'livery' },
         },
     },
     {
@@ -403,3 +407,6 @@ function Config.materialsFor(item, value)
     if item.kind == 'paint' and type(value) == 'table' then return m.kinds.customPaint end
     return m.kinds[item.kind] or {}
 end
+
+-- Job types allowed to order catalogue items marked policeOnly (armour).
+Config.policeJobTypes = { leo = true }

@@ -109,6 +109,7 @@ end
 local function validValue(item, value)
     local kind = item.kind
     if kind == 'mod' then return isInteger(value, -1, 100) end
+    if kind == 'livery' then return isInteger(value, 0, 100) end
     if kind == 'level' then
         local levels = Config.prices.levels[item.key]
         return levels and isInteger(value, -1, #levels - 2)
@@ -235,6 +236,7 @@ local function describe(item, value)
     if item.key == 'repair' then return value and 'Engine and body' or 'Not needed' end
     if item.kind == 'level' then return value < 0 and 'Stock' or ('Level %d'):format(value + 1) end
     if item.kind == 'toggle' then return value and 'Fitted' or 'Removed' end
+    if item.kind == 'livery' then return ('Livery %d'):format(value + 1) end
     if item.kind == 'color' then return colorSet[value] end
     if item.kind == 'paint' then
         if type(value) == 'number' then return colorSet[value] end
@@ -420,10 +422,13 @@ lib.callback.register('highcrest_mechanic:submit', function(source, shopId, plat
     local current = json.decode(stored.mods or '{}') or {}
     local prices = pricesFor(shopId)
     local lines, clean, parts = {}, {}, 0
+    local isPolice = Config.policeJobTypes[player.PlayerData.job.type or ''] == true
     for key, value in pairs(changes) do
         value = normalise(value)
         local item = catalogue[key]
-        if item and validValue(item, value) and not sameValue(Config.fromProps(key, current), value) then
+        -- Police-only parts (armour): others can only take them off, not fit them.
+        local allowed = item and (not item.policeOnly or isPolice or value == -1)
+        if allowed and validValue(item, value) and not sameValue(Config.fromProps(key, current), value) then
             clean[key] = value
             local price = partPrice(item, value, prices)
             parts = parts + price
