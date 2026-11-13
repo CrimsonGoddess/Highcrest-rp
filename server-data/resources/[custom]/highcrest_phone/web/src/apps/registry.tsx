@@ -11,6 +11,11 @@ import { CameraApp } from './Camera';
 import { PhoneApp } from './PhoneApp';
 import { ContactsApp } from './Contacts';
 import { MessagesApp } from './Messages';
+import { MailApp } from './Mail';
+import { GarageApp } from './Garage';
+import { FindFriendsApp } from './FindFriends';
+import { TaxiApp } from './Taxi';
+import { EmergencyApp } from './Emergency';
 
 export type AppDef = {
   id: string;
@@ -39,11 +44,11 @@ export const APPS: AppDef[] = [
   { id: 'darkweb', label: 'Darkweb', icon: IconSpy, colors: ['#2b2b30', '#050506'] },
   { id: 'empire', label: 'Empire', icon: IconCrown, colors: ['#f2d16b', '#a8811c'] },
   { id: 'housing', label: 'Housing', icon: IconHome, colors: ['#74c0fc', '#1c64c8'] },
-  { id: 'mail', label: 'Mail', icon: IconMail, colors: ['#5eb0ff', '#1f4e8c'], badge: (p) => p.unreadMail },
-  { id: 'garage', label: 'Garage', icon: IconCar, colors: ['#868e96', '#343a40'] },
-  { id: 'findFriends', label: 'Find Friends', icon: IconMapPin, colors: ['#69db7c', '#2b8a3e'] },
-  { id: 'taxi', label: 'Taxi', icon: IconSteeringWheel, colors: ['#ffe066', '#f59f00'] },
-  { id: 'emergency', label: '911', icon: IconUrgent, colors: ['#ff6b6b', '#c8102e'] },
+  { id: 'mail', label: 'Mail', icon: IconMail, colors: ['#5eb0ff', '#1f4e8c'], badge: (p) => p.unreadMail, component: MailApp },
+  { id: 'garage', label: 'Garage', icon: IconCar, colors: ['#868e96', '#343a40'], component: GarageApp },
+  { id: 'findFriends', label: 'Find Friends', icon: IconMapPin, colors: ['#69db7c', '#2b8a3e'], component: FindFriendsApp },
+  { id: 'taxi', label: 'Taxi', icon: IconSteeringWheel, colors: ['#ffe066', '#f59f00'], component: TaxiApp },
+  { id: 'emergency', label: '911', icon: IconUrgent, colors: ['#ff6b6b', '#c8102e'], component: EmergencyApp },
   { id: 'snake', label: 'Snake', icon: IconDeviceGamepad2, colors: ['#a9e34b', '#5c940d'] },
   { id: 'settings', label: 'Settings', icon: IconSettings, colors: ['#adb5bd', '#495057'], dock: true, component: SettingsApp },
 ];

@@ -436,3 +436,8 @@ body.preview { background: radial-gradient(circle at 30% 30%, #4a5a6a, #1a2028) 
 }
 .bubble small { display: block; margin-top: 0.2vh; font-size: 0.7rem; opacity: 0.65; text-align: right; }
 .composer { padding: 0.8vh 1.2vh 2.6vh; border-top: 1px solid rgba(255, 255, 255, 0.06); }
+
+.dot { width: 1vh; height: 1vh; border-radius: 50%; background: var(--mantine-color-accent-6); flex-shrink: 0; }
+.presence { width: 0.9vh; height: 0.9vh; border-radius: 50%; background: #868e96; }
+.presence.on { background: #40c057; box-shadow: 0 0 0.6vh #40c057; }
+.plate { font-family: Consolas, monospace; letter-spacing: 0.08em; }
