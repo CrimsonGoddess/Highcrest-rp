@@ -15,6 +15,7 @@ Config = {
         height = 0.28,
         zOffset = 0.004,
         camDistance = 0.8, -- how far the zoom camera stands in front of the panel
+        camHeight = 0.0, -- camera height above/below the panel centre
     },
     atms = {
         `prop_atm_01`,
