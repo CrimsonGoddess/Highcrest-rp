@@ -416,3 +416,83 @@ CreateThread(function()
         icon = 'money-bill-wave', event = 'highcrest_jobs:client:bossRanks', args = { type = 'job' },
     })
 end)
+
+---------------------------------------------------------------------------
+-- F10: my jobs (switch, clock out, quit). Players hold up to qbx:max_jobs_per_player jobs (2).
+---------------------------------------------------------------------------
+
+local openMyJobs
+
+local function money(n) return ('$%s'):format(tostring(math.floor(n or 0)):reverse():gsub('(%d%d%d)', '%1,'):reverse():gsub('^,', '')) end
+
+local function jobDetails(job)
+    local status = job.active and (job.onDuty and 'Active · on duty' or 'Active · off duty') or 'Not active'
+    local options = {}
+    if not job.active then
+        options[#options + 1] = { title = 'Use this job', description = 'Makes it your active job (you start off duty)', icon = 'right-left', onSelect = function()
+            local ok, message = lib.callback.await('highcrest_jobs:switchJob', false, job.name)
+            notify(ok and ('You are now working as %s.'):format(job.label) or (message or 'Could not switch.'), ok and 'success' or 'error')
+            if ok then openMyJobs() end
+        end }
+    elseif job.onDuty then
+        options[#options + 1] = { title = 'Clock out', description = 'Stop working (and stop getting paid)', icon = 'clock', onSelect = function()
+            local ok = lib.callback.await('highcrest_jobs:clockOut', false)
+            notify(ok and 'You clocked out.' or 'You are not clocked in.', ok and 'success' or 'error')
+            openMyJobs()
+        end }
+    else
+        options[#options + 1] = { title = 'Clock in at your workplace', description = job.hasArea and 'Only inside the work area' or 'Use the clock-in spot', icon = 'clock', disabled = true }
+    end
+    options[#options + 1] = { title = 'Quit this job', description = 'You lose this job and its rank', icon = 'door-open', iconColor = '#e03131', onSelect = function()
+        local answer = lib.alertDialog({
+            header = ('Quit %s?'):format(job.label),
+            content = ('You will lose the job and your rank (%s). Someone would have to hire you again.'):format(job.rank),
+            centered = true, cancel = true, labels = { confirm = 'Quit', cancel = 'Keep it' },
+        })
+        if answer ~= 'confirm' then return openMyJobs() end
+        local ok, message = lib.callback.await('highcrest_jobs:quitJob', false, job.name)
+        notify(ok and ('You quit %s.'):format(job.label) or (message or 'Could not quit.'), ok and 'success' or 'error')
+        openMyJobs()
+    end }
+    lib.registerContext({ id = 'hcjobs_mine_job', title = ('%s · %s'):format(job.label, job.rank), menu = 'hcjobs_mine',
+        options = { { title = status, description = ('Pay %s per paycheck%s'):format(money(job.pay), job.boss and ' · Boss' or ''), icon = 'circle-info', readOnly = true }, table.unpack(options) } })
+    lib.showContext('hcjobs_mine_job')
+end
+
+openMyJobs = function()
+    local data = lib.callback.await('highcrest_jobs:myJobs', false)
+    if not data then return end
+    local options = {}
+    for _, job in ipairs(data.jobs) do
+        options[#options + 1] = {
+            title = job.label,
+            description = ('%s · %s/paycheck%s'):format(job.rank, money(job.pay),
+                job.active and (job.onDuty and ' · ACTIVE, on duty' or ' · ACTIVE, off duty') or ''),
+            icon = job.active and 'briefcase' or 'suitcase', iconColor = job.active and '#C8102E' or nil,
+            arrow = true,
+            onSelect = function() jobDetails(job) end,
+        }
+    end
+    if #data.jobs == 0 then
+        options[#options + 1] = { title = 'No jobs yet', description = 'Get hired by a business, or apply at City Hall', icon = 'circle-info', readOnly = true }
+    elseif data.active ~= 'unemployed' then
+        options[#options + 1] = { title = 'Go off work (no active job)', description = 'Keeps your jobs, just stops using them', icon = 'bed', onSelect = function()
+            local ok, message = lib.callback.await('highcrest_jobs:switchJob', false, 'unemployed')
+            notify(ok and 'You are off work.' or (message or 'Could not switch.'), ok and 'success' or 'error')
+            if ok then openMyJobs() end
+        end }
+    end
+    lib.registerContext({ id = 'hcjobs_mine', title = ('My jobs (%d/%d)'):format(#data.jobs, data.max), options = options })
+    lib.showContext('hcjobs_mine')
+end
+
+lib.addKeybind({
+    name = 'myjobs',
+    description = 'My jobs (switch, clock out, quit)',
+    defaultKey = 'F10',
+    onPressed = function()
+        if IsPauseMenuActive() or IsNuiFocused() then return end
+        openMyJobs()
+    end,
+})
+RegisterCommand('myjobs', function() openMyJobs() end, false)

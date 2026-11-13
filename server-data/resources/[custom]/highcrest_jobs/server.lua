@@ -458,3 +458,69 @@ lib.addCommand('jobs', { help = 'Job editor: create jobs, ranks and pay, and pla
         if not loaded then return TriggerClientEvent('ox_lib:notify', source, { description = 'Jobs are still loading.', type = 'error' }) end
         TriggerClientEvent('highcrest_jobs:client:openEditor', source)
     end)
+
+---------------------------------------------------------------------------
+-- F10 multijob menu: list, switch, clock out, quit. Qbox holds the jobs (player.PlayerData.jobs)
+-- and enforces the limit (server.cfg: set qbx:max_jobs_per_player 2).
+---------------------------------------------------------------------------
+
+local MAX_JOBS = GetConvarInt('qbx:max_jobs_per_player', 1)
+local SWITCH_COOLDOWN = 5 -- seconds between job switches
+local lastSwitch = {}
+
+lib.callback.register('highcrest_jobs:myJobs', function(source)
+    local player = getPlayer(source)
+    if not player then return false end
+    local current = player.PlayerData.job
+    local list = {}
+    for name, grade in pairs(player.PlayerData.jobs or {}) do
+        local job = exports.qbx_core:GetJob(name)
+        if job then
+            local g = job.grades[grade] or {}
+            list[#list + 1] = {
+                name = name, label = job.label or name, grade = grade, rank = g.name or ('Rank %d'):format(grade),
+                pay = g.payment or 0, boss = g.isboss == true, active = current.name == name,
+                onDuty = current.name == name and current.onduty == true,
+                hasArea = #areasFor(name) > 0,
+            }
+        end
+    end
+    table.sort(list, function(a, b) return a.label < b.label end)
+    return { jobs = list, max = MAX_JOBS, active = current.name, activeLabel = current.label }
+end)
+
+lib.callback.register('highcrest_jobs:switchJob', function(source, name)
+    local player = getPlayer(source)
+    if not player or type(name) ~= 'string' then return false, 'Something went wrong.' end
+    if name ~= 'unemployed' and not (player.PlayerData.jobs or {})[name] then return false, 'You don\'t have that job.' end
+    if player.PlayerData.job.name == name then return true end
+    local now = os.time()
+    if lastSwitch[source] and now - lastSwitch[source] < SWITCH_COOLDOWN then
+        return false, 'Wait a few seconds before switching again.'
+    end
+    lastSwitch[source] = now
+    local ok, err = exports.qbx_core:SetPlayerPrimaryJob(player.PlayerData.citizenid, name)
+    if not ok then return false, err and err.message or 'Could not switch job.' end
+    -- Start off duty: clock in at the workplace (jobs with a work area only allow that there).
+    exports.qbx_core:SetJobDuty(source, false)
+    return true
+end)
+
+lib.callback.register('highcrest_jobs:clockOut', function(source)
+    local player = getPlayer(source)
+    if not player or not player.PlayerData.job.onduty then return false end
+    exports.qbx_core:SetJobDuty(source, false)
+    return true
+end)
+
+lib.callback.register('highcrest_jobs:quitJob', function(source, name)
+    local player = getPlayer(source)
+    if not player or type(name) ~= 'string' or name == 'unemployed' then return false, 'Something went wrong.' end
+    if not (player.PlayerData.jobs or {})[name] then return false, 'You don\'t have that job.' end
+    local ok, err = exports.qbx_core:RemovePlayerFromJob(player.PlayerData.citizenid, name)
+    if not ok then return false, err and err.message or 'Could not quit.' end
+    lib.print.info(('%s quit job %s'):format(GetPlayerName(source) or source, name))
+    return true
+end)
+
+AddEventHandler('playerDropped', function() lastSwitch[source] = nil end)
