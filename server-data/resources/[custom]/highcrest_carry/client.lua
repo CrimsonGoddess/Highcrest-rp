@@ -1,4 +1,5 @@
--- Highcrest /carry, client side. /carry next to someone asks them; /carry again or X puts them down.
+-- Highcrest /carry, client side. /carry next to someone picks them up (no prompt); /carry again or
+-- X puts them down. A carried player who isn't downed can press X to get down.
 
 local CARRIER_ANIM = { dict = 'missfinale_c2mcs_1', clip = 'fin_c2_mcs_1_camman', flag = 49 }
 local CARRIED_ANIM = { dict = 'nm', clip = 'firemans_carry', flag = 33 }
@@ -41,19 +42,7 @@ RegisterCommand('carry', function()
     TriggerServerEvent('highcrest_carry:server:request', GetPlayerServerId(playerId))
 end, false)
 
-TriggerEvent('chat:addSuggestion', '/carry', 'Carry the closest player (they have to accept). Use again to put them down.')
-
-RegisterNetEvent('highcrest_carry:client:ask', function(from)
-    local name = GetPlayerName(GetPlayerFromServerId(from)) or 'Someone'
-    local answer = lib.alertDialog({
-        header = 'Carry request',
-        content = ('%s wants to carry you.'):format(name),
-        centered = true,
-        cancel = true,
-        labels = { confirm = 'Accept', cancel = 'Decline' },
-    })
-    TriggerServerEvent('highcrest_carry:server:answer', answer == 'confirm')
-end)
+TriggerEvent('chat:addSuggestion', '/carry', 'Pick up the closest player. Use again (or X) to put them down.')
 
 RegisterNetEvent('highcrest_carry:client:carry', function(target)
     state, other = 'carrying', target
@@ -91,9 +80,16 @@ RegisterNetEvent('highcrest_carry:client:carried', function(carrier)
     local carrierPed = GetPlayerPed(GetPlayerFromServerId(carrier))
     AttachEntityToEntity(cache.ped, carrierPed, 0, 0.27, 0.15, 0.63, 0.5, 0.5, 180.0, false, false, false, false, 2, false)
     playAnim(CARRIED_ANIM)
+    -- Not downed: you can get down yourself (the server ignores it while you're downed).
+    local meta = (exports.qbx_core:GetPlayerData() or {}).metadata or {}
+    local downed = meta.isdead or meta.inlaststand
+    if not downed then lib.showTextUI('[X] Get down', { icon = 'hand' }) end
 
     CreateThread(function()
         while state == 'carried' do
+            if IsControlJustReleased(0, 73) then -- X
+                TriggerServerEvent('highcrest_carry:server:stop')
+            end
             if not DoesEntityExist(GetPlayerPed(GetPlayerFromServerId(other))) then
                 TriggerServerEvent('highcrest_carry:server:stop')
                 finish()

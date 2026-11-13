@@ -1,12 +1,10 @@
--- Highcrest /carry. The server decides who carries whom: it checks distance, that neither
--- player is already carrying or carried, and that the target agreed (or is downed).
+-- Highcrest /carry. The server decides who carries whom: it checks distance and that neither
+-- player is already carrying or carried. There is no consent prompt.
 
 local MAX_DISTANCE = 3.0
-local REQUEST_TIME = 15000
 
 local carrying = {} -- [carrier] = target
 local carriedBy = {} -- [target] = carrier
-local pending = {}  -- [target] = { from = carrier, expires = ms }
 
 local function busy(id)
     return carrying[id] ~= nil or carriedBy[id] ~= nil
@@ -25,7 +23,6 @@ local function isDowned(id)
 end
 
 local function start(carrier, target)
-    pending[target] = nil
     carrying[carrier] = target
     carriedBy[target] = carrier
     TriggerClientEvent('highcrest_carry:client:carry', carrier, target)
@@ -58,41 +55,19 @@ RegisterNetEvent('highcrest_carry:server:request', function(target)
     end
     if isDowned(src) then return end
 
-    if isDowned(target) then
-        return start(src, target)
-    end
-
-    local open = pending[target]
-    if open and open.expires > GetGameTimer() then
-        return lib.notify(src, { description = 'They already have a carry request open.', type = 'error' })
-    end
-    pending[target] = { from = src, expires = GetGameTimer() + REQUEST_TIME }
-    TriggerClientEvent('highcrest_carry:client:ask', target, src)
-    lib.notify(src, { description = 'Asked them if you can carry them.', type = 'inform' })
-end)
-
-RegisterNetEvent('highcrest_carry:server:answer', function(accept)
-    local src = source
-    local request = pending[src]
-    pending[src] = nil
-    if not request or request.expires < GetGameTimer() then return end
-    local carrier = request.from
-    if not GetPlayerName(carrier) then return end
-    if accept ~= true then
-        return lib.notify(carrier, { description = 'They said no.', type = 'error' })
-    end
-    if busy(carrier) or busy(src) or not closeEnough(carrier, src) or isDowned(carrier) then
-        return lib.notify(carrier, { description = 'Carry cancelled: you moved apart.', type = 'error' })
-    end
-    start(carrier, src)
+    -- No consent step (user's choice, 2026-11-13): pick them up straight away. A carried player
+    -- who isn't downed can get down with X (client).
+    start(src, target)
 end)
 
 RegisterNetEvent('highcrest_carry:server:stop', function()
-    stop(source)
+    local src = source
+    -- A downed player being carried can't end it themselves.
+    if carriedBy[src] and isDowned(src) then return end
+    stop(src)
 end)
 
 AddEventHandler('playerDropped', function()
     local src = source
     stop(src)
-    pending[src] = nil
 end)

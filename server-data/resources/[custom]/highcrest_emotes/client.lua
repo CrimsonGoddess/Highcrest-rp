@@ -35,6 +35,7 @@ local CATEGORIES = {
 
 local catalogue      -- sent to the menu: { categories, emotes = { { i, c, l, k, x } } }
 local fullData = {}  -- i -> scully's entry, used for the preview
+local catLists = {}  -- category id -> scully's raw list (to find a shared emote's partner)
 
 -- Only list emotes this game can actually play: every animation dictionary must exist
 -- (some use animations from newer GTA updates or files that aren't loaded on this build).
@@ -75,6 +76,7 @@ local function buildCatalogue()
     for _, cat in ipairs(CATEGORIES) do
         local data = loadData(cat.file)
         local list = data and (data.options or data) or {}
+        catLists[cat.id] = list
         local count = 0
         for _, e in ipairs(list) do
             if type(e) == 'table' and e.Command and e.Label and playable(e, cat) then
@@ -192,8 +194,77 @@ end
 -- Menu
 ---------------------------------------------------------------------------
 
+---------------------------------------------------------------------------
+-- Two-person emotes: we ask the other player ourselves (clear prompt, 15 s, feedback for the
+-- sender), then the server starts scully's synchronized emote for both.
+---------------------------------------------------------------------------
+
+local SHARED = { couples = true, partnerdance = true }
+local ASK_SECONDS = 15
+
+local function copy(t) return lib.table.deepclone(t) end
+
+-- scully's data for both sides: mine and the partner's.
+local function sharedPair(entry)
+    local e = fullData[entry.i]
+    if not e then return nil end
+    if entry.x == 'partnerdance' then
+        -- Same as scully's partner dances: 's' + dance command, both people do the same dance.
+        local d = copy(e)
+        d.Command = 's' .. e.Command
+        d.Options = d.Options or {}
+        d.Options.Shared = { OtherEmote = d.Command }
+        d.Synchronized = true
+        return d, copy(d)
+    end
+    local otherCommand = e.Options and e.Options.Shared and e.Options.Shared.OtherEmote
+    for _, o in ipairs(catLists.couples or {}) do
+        if o.Command == otherCommand then
+            local mine, theirs = copy(e), copy(o)
+            mine.Synchronized, theirs.Synchronized = true, true
+            return mine, theirs
+        end
+    end
+end
+
+local function askShared(entry)
+    local mine, theirs = sharedPair(entry)
+    if not mine then
+        return lib.notify({ description = 'That emote is missing its partner animation.', type = 'error' })
+    end
+    local playerId = lib.getClosestPlayer(GetEntityCoords(cache.ped), 3.0, false)
+    if not playerId then
+        return lib.notify({ description = 'Stand next to someone first (within 3 m).', type = 'error' })
+    end
+    TriggerServerEvent('highcrest_emotes:server:ask', GetPlayerServerId(playerId), mine, theirs)
+end
+
+-- Someone asked us.
+local asking = false
+RegisterNetEvent('highcrest_emotes:client:asked', function(name, label)
+    if asking then return end
+    asking = true
+    PlaySoundFrontend(-1, 'NAV', 'HUD_AMMO_SHOP_SOUNDSET', false)
+    local deadline = GetGameTimer() + ASK_SECONDS * 1000
+    local answer, shown
+    while GetGameTimer() < deadline and answer == nil do
+        local left = math.ceil((deadline - GetGameTimer()) / 1000)
+        if left ~= shown then
+            shown = left
+            lib.showTextUI(('%s wants to do **%s** with you  \n[Y] Accept · [N] Decline (%d)'):format(name, label, left), { icon = 'people-arrows' })
+        end
+        if IsControlJustPressed(0, 246) then answer = true end      -- Y
+        if IsControlJustPressed(0, 306) then answer = false end     -- N
+        Wait(0)
+    end
+    lib.hideTextUI()
+    asking = false
+    TriggerServerEvent('highcrest_emotes:server:answer', answer == true)
+end)
+
 local function play(entry)
     if type(entry) ~= 'table' or type(entry.c) ~= 'string' then return end
+    if entry.k == 'emote' and SHARED[entry.x] then return askShared(entry) end
     if entry.k == 'walk' then
         exports[SCULLY]:setWalkByCommand(entry.c)
     elseif entry.k == 'expression' then
