@@ -5,6 +5,16 @@ Config = {
     renewedMultiJob = false, -- QBCORE ONLY! https://github.com/Renewed-Scripts/qb-phone  
     progressbar = 'circle', -- circle or rectangle (Anything other than circle will default to rectangle)
     currency = 'USD', -- USD, EUR, GBP ect.....
+    -- ATM screen as a 3D panel on the machine (needs cr-3dnui). false = old NUI popup.
+    atmDui = true,
+    -- Panel placement in the ATM's local space. Tune in game per model: offset is metres from the prop's origin.
+    atmPanel = {
+        offset = vector3(0.0, -0.2, 0.9),
+        normal = vector3(0.0, -1.0, 0.0),
+        width = 0.36,
+        height = 0.28,
+        zOffset = 0.004,
+    },
     atms = {
         `prop_atm_01`,
         `prop_atm_02`,

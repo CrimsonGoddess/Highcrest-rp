@@ -17,7 +17,10 @@ client_scripts {
     'client/framework.lua',
     'client/main.lua',
     'client/menus.lua',
+    'client/atm_dui.lua',
 }
+
+dependency 'cr-3dnui'
 
 server_scripts {
     '@oxmysql/lib/MySQL.lua',

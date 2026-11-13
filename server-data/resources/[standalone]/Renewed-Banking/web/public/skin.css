@@ -1,0 +1,63 @@
+/* ATM skin. Only applies when the server marks the open screen as an ATM (body.atm-skin, set by skin.js). Bank branch UI is untouched. */
+
+body.atm-skin {
+    background: transparent;
+    font-family: "Roboto Mono", "Roboto", monospace;
+}
+
+body.atm-skin .main {
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    left: 0;
+    border-radius: 2.5rem;
+    border: 0.8rem solid #1b1d22;
+    background: radial-gradient(ellipse at top, #15382c 0%, #07120e 70%);
+    box-shadow: inset 0 0 4rem rgba(0, 0, 0, 0.8);
+    color: #b9ffd9;
+}
+
+body.atm-skin h3.heading,
+body.atm-skin h2,
+body.atm-skin h5 {
+    color: #7dffb8;
+    text-shadow: 0 0 0.6rem rgba(125, 255, 184, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.15rem;
+}
+
+body.atm-skin .btn {
+    border-radius: 0.6rem;
+    font-family: inherit;
+    letter-spacing: 0.1rem;
+}
+
+body.atm-skin .btn-green,
+body.atm-skin .btn-orange,
+body.atm-skin .btn-grey {
+    background-color: #0f2a20;
+    border: 2px solid #2fe08f;
+    color: #7dffb8;
+}
+
+body.atm-skin .btn-green:is(:hover, :focus, :focus-within),
+body.atm-skin .btn-orange:is(:hover, :focus, :focus-within),
+body.atm-skin .btn-grey:is(:hover, :focus, :focus-within) {
+    background-color: #2fe08f;
+    color: #04110b;
+}
+
+body.atm-skin .form-row input {
+    background-color: #04110b !important;
+    border: 1px solid #2fe08f !important;
+    color: #7dffb8 !important;
+}
+
+body.atm-skin .popup-content {
+    background-color: #0a1a14;
+    border: 2px solid #2fe08f;
+}
+
+body.atm-skin .popup-container {
+    background-color: rgba(0, 0, 0, 0.7);
+}

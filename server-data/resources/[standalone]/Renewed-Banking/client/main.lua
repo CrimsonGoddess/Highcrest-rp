@@ -50,7 +50,7 @@ RegisterNetEvent('Renewed-Banking:client:openBankUI', function(data)
             mouse = false,
         }
     }) then
-        openBankUI(data.atm)
+        if data.atm and data.entity and Config.atmDui then StartAtmDui(data.entity) else openBankUI(data.atm) end
         Wait(500)
         ClearPedTasksImmediately(PlayerPed)
     else
