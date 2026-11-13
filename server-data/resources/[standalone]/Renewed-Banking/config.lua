@@ -14,6 +14,7 @@ Config = {
         width = 0.36,
         height = 0.28,
         zOffset = 0.004,
+        camDistance = 0.8, -- how far the zoom camera stands in front of the panel
     },
     atms = {
         `prop_atm_01`,
