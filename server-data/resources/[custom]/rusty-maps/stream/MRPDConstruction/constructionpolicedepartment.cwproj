@@ -1,0 +1,49 @@
+<CodeWalkerProject>
+  <Name>New CodeWalker Project</Name>
+  <Version value="1" />
+  <YmapFilenames>
+    <Item>constructionpolicedepartment.ymap</Item>
+    <Item>dt1_17_strm_0.ymap</Item>
+    <Item>dt1_19_strm_0.ymap</Item>
+    <Item>dt1_rd1_strm_7.ymap</Item>
+    <Item>hei_cs3_04_strm_4.ymap</Item>
+    <Item>lr_cs4_06_strm_0.ymap</Item>
+    <Item>lr_cs4_13.ymap</Item>
+    <Item>lr_cs4_13_critical_0.ymap</Item>
+    <Item>lr_cs4_13_critical_2.ymap</Item>
+    <Item>lr_cs4_13_critical_3.ymap</Item>
+    <Item>lr_cs4_13_long_0.ymap</Item>
+    <Item>lr_cs4_13_long_1.ymap</Item>
+    <Item>lr_cs4_13_strm_1.ymap</Item>
+    <Item>lr_cs4_13_strm_2.ymap</Item>
+    <Item>lr_cs4_13_strm_3.ymap</Item>
+    <Item>lr_cs4_13_strm_4.ymap</Item>
+    <Item>lr_cs6_03_strm_2.ymap</Item>
+    <Item>map1.ymap</Item>
+    <Item>myproject_distantlights.ymap</Item>
+    <Item>myproject_lodlights.ymap</Item>
+    <Item>hei_dt1_19_strm_0.ymap</Item>
+  </YmapFilenames>
+  <YtypFilenames>
+    <Item>hei_dlc_heist_police.ytyp</Item>
+    <Item>v_int_20.ytyp</Item>
+  </YtypFilenames>
+  <YbnFilenames>
+    <Item>hei_heist_police_dlc.ybn</Item>
+  </YbnFilenames>
+  <YndFilenames>
+    <Item>nodes689.ynd</Item>
+  </YndFilenames>
+  <YnvFilenames />
+  <TrainsFilenames />
+  <ScenarioFilenames />
+  <AudioRelFilenames />
+  <YdrFilenames />
+  <YddFilenames />
+  <YftFilenames />
+  <YtdFilenames>
+    <Item>hei_heist_dlc_police_txd+hi.ytd</Item>
+    <Item>hei_heist_dlc_police_txd.ytd</Item>
+    <Item>hei_heist_policedlc_shell+hidr.ytd</Item>
+  </YtdFilenames>
+</CodeWalkerProject>

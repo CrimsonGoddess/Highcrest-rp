@@ -1,0 +1,16 @@
+fx_version 'cerulean'
+game 'gta5'
+lua54 'yes'
+
+name 'highcrest_rob'
+description 'Highcrest rob prompt: weapon out next to a player with their hands up opens their inventory'
+version '1.0.0'
+
+shared_script '@ox_lib/init.lua'
+client_script 'client.lua'
+
+dependencies {
+    'ox_lib',
+    'ox_inventory',
+    'ox_target',
+}

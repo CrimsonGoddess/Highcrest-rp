@@ -786,6 +786,15 @@ local function registerCommands()
 				return openGlovebox(cache.vehicle)
 			end
 
+			-- Highcrest: main key opens the trunk you stand at (re-apply after ox_inventory updates)
+			if not cache.vehicle then
+				local entity, entityType = Utils.Raycast(2)
+
+				if entityType == 2 and Inventory.CanAccessTrunk(entity) then
+					return Inventory.OpenTrunk(entity)
+				end
+			end
+
 			local closest = lib.points.getClosestPoint()
 
 			if closest and closest.currentDistance < 1.2 and (not closest.instance or closest.instance == currentInstance) then

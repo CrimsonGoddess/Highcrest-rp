@@ -1,0 +1,1288 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<CVehicleModelInfoVarGlobal>
+    <Wheels>
+        <!-- VWT_SPORT -->
+        <Item />
+        <!-- VWT_MUSCLE -->
+        <Item>
+            <Item>
+                <wheelName>wheel_musc_e33</wheelName>
+                <wheelVariation>wheel_musc_e33w</wheelVariation>
+                <modShopLabel>wheel_musc_e33</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_musc_e33a</wheelName>
+                <wheelVariation>wheel_musc_e33aw</wheelVariation>
+                <modShopLabel>wheel_musc_e33a</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_musc_e33b</wheelName>
+                <wheelVariation>wheel_musc_e33bw</wheelVariation>
+                <modShopLabel>wheel_musc_e33b</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_musc_e33c</wheelName>
+                <wheelVariation>wheel_musc_e33cw</wheelVariation>
+                <modShopLabel>wheel_musc_e33c</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_musc_e33d</wheelName>
+                <wheelVariation>wheel_musc_e33dw</wheelVariation>
+                <modShopLabel>wheel_musc_e33d</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_musc_e43</wheelName>
+                <wheelVariation>wheel_musc_e43w</wheelVariation>
+                <modShopLabel>wheel_musc_e43</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_musc_e43a</wheelName>
+                <wheelVariation>wheel_musc_e43aw</wheelVariation>
+                <modShopLabel>wheel_musc_e43a</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_musc_e43b</wheelName>
+                <wheelVariation>wheel_musc_e43bw</wheelVariation>
+                <modShopLabel>wheel_musc_e43b</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_musc_e34</wheelName>
+                <wheelVariation>wheel_musc_e34w</wheelVariation>
+                <modShopLabel>wheel_musc_e34</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_musc_e34a</wheelName>
+                <wheelVariation>wheel_musc_e34aw</wheelVariation>
+                <modShopLabel>wheel_musc_e34a</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_musc_e34b</wheelName>
+                <wheelVariation>wheel_musc_e34bw</wheelVariation>
+                <modShopLabel>wheel_musc_e34b</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_musc_e38</wheelName>
+                <wheelVariation>wheel_musc_e38w</wheelVariation>
+                <modShopLabel>wheel_musc_e38</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_musc_e38a</wheelName>
+                <wheelVariation>wheel_musc_e38aw</wheelVariation>
+                <modShopLabel>wheel_musc_e38a</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_musc_e38b</wheelName>
+                <wheelVariation>wheel_musc_e38bw</wheelVariation>
+                <modShopLabel>wheel_musc_e38b</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e1</wheelName>
+                <wheelVariation>wheel2_musc_e1w</wheelVariation>
+                <modShopLabel>wheel2_musc_e1</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e2</wheelName>
+                <wheelVariation>wheel2_musc_e2w</wheelVariation>
+                <modShopLabel>wheel2_musc_e2</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e3</wheelName>
+                <wheelVariation>wheel2_musc_e3w</wheelVariation>
+                <modShopLabel>wheel2_musc_e3</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e36</wheelName>
+                <wheelVariation>wheel2_musc_e36w</wheelVariation>
+                <modShopLabel>wheel2_musc_e36</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e4</wheelName>
+                <wheelVariation>wheel2_musc_e4w</wheelVariation>
+                <modShopLabel>wheel2_musc_e4</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e37</wheelName>
+                <wheelVariation>wheel2_musc_e37w</wheelVariation>
+                <modShopLabel>wheel2_musc_e37</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e5</wheelName>
+                <wheelVariation>wheel2_musc_e5w</wheelVariation>
+                <modShopLabel>wheel2_musc_e5</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e6</wheelName>
+                <wheelVariation>wheel2_musc_e6w</wheelVariation>
+                <modShopLabel>wheel2_musc_e6</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e7</wheelName>
+                <wheelVariation>wheel2_musc_e7w</wheelVariation>
+                <modShopLabel>wheel2_musc_e7</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e8</wheelName>
+                <wheelVariation>wheel2_musc_e8w</wheelVariation>
+                <modShopLabel>wheel2_musc_e8</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e29</wheelName>
+                <wheelVariation>wheel2_musc_e29w</wheelVariation>
+                <modShopLabel>wheel2_musc_e29</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e9</wheelName>
+                <wheelVariation>wheel2_musc_e9w</wheelVariation>
+                <modShopLabel>wheel2_musc_e9</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e10</wheelName>
+                <wheelVariation>wheel2_musc_e10w</wheelVariation>
+                <modShopLabel>wheel2_musc_e10</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e10a</wheelName>
+                <wheelVariation>wheel2_musc_e10aw</wheelVariation>
+                <modShopLabel>wheel2_musc_e10a</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e11</wheelName>
+                <wheelVariation>wheel2_musc_e11w</wheelVariation>
+                <modShopLabel>wheel2_musc_e11</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e12</wheelName>
+                <wheelVariation>wheel2_musc_e12w</wheelVariation>
+                <modShopLabel>wheel2_musc_e12</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e24</wheelName>
+                <wheelVariation>wheel2_musc_e24w</wheelVariation>
+                <modShopLabel>wheel2_musc_e24</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e13</wheelName>
+                <wheelVariation>wheel2_musc_e13w</wheelVariation>
+                <modShopLabel>wheel2_musc_e13</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e35</wheelName>
+                <wheelVariation>wheel2_musc_e35w</wheelVariation>
+                <modShopLabel>wheel2_musc_e35</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e14</wheelName>
+                <wheelVariation>wheel2_musc_e14w</wheelVariation>
+                <modShopLabel>wheel2_musc_e14</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e39</wheelName>
+                <wheelVariation>wheel2_musc_e39w</wheelVariation>
+                <modShopLabel>wheel2_musc_e39</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e27</wheelName>
+                <wheelVariation>wheel2_musc_e27w</wheelVariation>
+                <modShopLabel>wheel2_musc_e27</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e15</wheelName>
+                <wheelVariation>wheel2_musc_e15w</wheelVariation>
+                <modShopLabel>wheel2_musc_e15</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e16</wheelName>
+                <wheelVariation>wheel2_musc_e16w</wheelVariation>
+                <modShopLabel>wheel2_musc_e16</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e17</wheelName>
+                <wheelVariation>wheel2_musc_e17w</wheelVariation>
+                <modShopLabel>wheel2_musc_e17</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e18</wheelName>
+                <wheelVariation>wheel2_musc_e18w</wheelVariation>
+                <modShopLabel>wheel2_musc_e18</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e42</wheelName>
+                <wheelVariation>wheel2_musc_e42w</wheelVariation>
+                <modShopLabel>wheel2_musc_e42</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e19</wheelName>
+                <wheelVariation>wheel2_musc_e19w</wheelVariation>
+                <modShopLabel>wheel2_musc_e19</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e20</wheelName>
+                <wheelVariation>wheel2_musc_e20w</wheelVariation>
+                <modShopLabel>wheel2_musc_e20</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e25</wheelName>
+                <wheelVariation>wheel2_musc_e25w</wheelVariation>
+                <modShopLabel>wheel2_musc_e25</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e21</wheelName>
+                <wheelVariation>wheel2_musc_e21w</wheelVariation>
+                <modShopLabel>wheel2_musc_e21</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e22</wheelName>
+                <wheelVariation>wheel2_musc_e22w</wheelVariation>
+                <modShopLabel>wheel2_musc_e22</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e23</wheelName>
+                <wheelVariation>wheel2_musc_e23w</wheelVariation>
+                <modShopLabel>wheel2_musc_e23</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e26</wheelName>
+                <wheelVariation>wheel2_musc_e26w</wheelVariation>
+                <modShopLabel>wheel2_musc_e26</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e40</wheelName>
+                <wheelVariation>wheel2_musc_e40w</wheelVariation>
+                <modShopLabel>wheel2_musc_e40</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e41</wheelName>
+                <wheelVariation>wheel2_musc_e41w</wheelVariation>
+                <modShopLabel>wheel2_musc_e41</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e28</wheelName>
+                <wheelVariation>wheel2_musc_e28w</wheelVariation>
+                <modShopLabel>wheel2_musc_e28</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e30</wheelName>
+                <wheelVariation>wheel2_musc_e30w</wheelVariation>
+                <modShopLabel>wheel2_musc_e30</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e31</wheelName>
+                <wheelVariation>wheel2_musc_e31w</wheelVariation>
+                <modShopLabel>wheel2_musc_e31</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e32</wheelName>
+                <wheelVariation>wheel2_musc_e32w</wheelVariation>
+                <modShopLabel>wheel2_musc_e32</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e33</wheelName>
+                <wheelVariation>wheel2_musc_e33w</wheelVariation>
+                <modShopLabel>wheel2_musc_e33</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e43</wheelName>
+                <wheelVariation>wheel2_musc_e43w</wheelVariation>
+                <modShopLabel>wheel2_musc_e43</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e34</wheelName>
+                <wheelVariation>wheel2_musc_e34w</wheelVariation>
+                <modShopLabel>wheel2_musc_e34</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel2_musc_e38</wheelName>
+                <wheelVariation>wheel2_musc_e38w</wheelVariation>
+                <modShopLabel>wheel2_musc_e38</modShopLabel>
+                <rimRadius value="0.31652" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmusc_01</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmusc_02</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmusc_03</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmusc_05</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmusc_06</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmusc_07</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmusc_08</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmusc_09</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmusc_10</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmusc_11</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmusc_12</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmusc_13</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmusc_15</wheelName>
+                <wheelVariation />
+                <modShopLabel>A3</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmusc_16</wheelName>
+                <wheelVariation />
+                <modShopLabel>A3</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmuscc_01</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmuscc_02</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmuscc_03</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmuscc_05</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmuscc_06</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmuscc_07</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmuscc_08</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmuscc_09</wheelName>
+                <wheelVariation />
+                <modShopLabel>A3</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmuscc_10</wheelName>
+                <wheelVariation />
+                <modShopLabel>A3</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmuscc_11</wheelName>
+                <wheelVariation />
+                <modShopLabel>A3</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmuscc_12</wheelName>
+                <wheelVariation />
+                <modShopLabel>A3</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmuscc_13</wheelName>
+                <wheelVariation />
+                <modShopLabel>A3</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmuscc_14</wheelName>
+                <wheelVariation />
+                <modShopLabel>A3</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmuscc_16</wheelName>
+                <wheelVariation />
+                <modShopLabel>A3</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmuscc_17</wheelName>
+                <wheelVariation />
+                <modShopLabel>A3</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_bmuscc_01</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_bmuscc_02</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_bmusc_03</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_bmuscc_03</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_bmuscc_04</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vmusc_19</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii2_adv_1</wheelName>
+                <wheelVariation>cii2_adv_1_c</wheelVariation>
+                <modShopLabel>cii2_adv_1</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii2_adv_1_v</wheelName>
+                <wheelVariation>cii2_adv_1_v_c</wheelVariation>
+                <modShopLabel>cii2_adv_1_v</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii2_adv_7</wheelName>
+                <wheelVariation>cii2_adv_7_c</wheelVariation>
+                <modShopLabel>cii2_adv_7</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii2_adv_7_v</wheelName>
+                <wheelVariation>cii2_adv_7_v_c</wheelVariation>
+                <modShopLabel>cii2_adv_7_v</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii2_adv_8</wheelName>
+                <wheelVariation>cii2_adv_8_c</wheelVariation>
+                <modShopLabel>cii2_adv_8</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii2_adv_8_v</wheelName>
+                <wheelVariation>cii2_adv_8_v_c</wheelVariation>
+                <modShopLabel>cii2_adv_8_v</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii2_adv_9</wheelName>
+                <wheelVariation>cii2_adv_9_c</wheelVariation>
+                <modShopLabel>cii2_adv_9</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii2_adv_9_v</wheelName>
+                <wheelVariation>cii2_adv_9_v_c</wheelVariation>
+                <modShopLabel>cii2_adv_9_v</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii2_adv_10</wheelName>
+                <wheelVariation>cii2_adv_10_c</wheelVariation>
+                <modShopLabel>cii2_adv_10</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii2_adv_10_v</wheelName>
+                <wheelVariation>cii2_adv_10_v_c</wheelVariation>
+                <modShopLabel>cii2_adv_10_v</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii2_asa_3</wheelName>
+                <wheelVariation>cii2_asa_3_c</wheelVariation>
+                <modShopLabel>cii2_asa_3</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii2_asa_3_v</wheelName>
+                <wheelVariation>cii2_asa_3_v_c</wheelVariation>
+                <modShopLabel>cii2_asa_3_v</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii2_ham_1</wheelName>
+                <wheelVariation>cii2_ham_1_c</wheelVariation>
+                <modShopLabel>cii2_ham_1</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii2_ham_1_v</wheelName>
+                <wheelVariation>cii2_ham_1_v_c</wheelVariation>
+                <modShopLabel>cii2_ham_1_v</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii2_hre_3</wheelName>
+                <wheelVariation>cii2_hre_3_c</wheelVariation>
+                <modShopLabel>cii2_hre_3</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii2_hre_3_v</wheelName>
+                <wheelVariation>cii2_hre_3_v_c</wheelVariation>
+                <modShopLabel>cii2_hre_3_v</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii2_hre_11</wheelName>
+                <wheelVariation>cii2_hre_11_c</wheelVariation>
+                <modShopLabel>cii2_hre_11</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii2_hre_11_v</wheelName>
+                <wheelVariation>cii2_hre_11_v_c</wheelVariation>
+                <modShopLabel>cii2_hre_11_v</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii2_hre_21</wheelName>
+                <wheelVariation>cii2_hre_21_c</wheelVariation>
+                <modShopLabel>cii2_hre_21</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii2_hre_21_v</wheelName>
+                <wheelVariation>cii2_hre_21_v_c</wheelVariation>
+                <modShopLabel>cii2_hre_21_v</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii2_hre_23</wheelName>
+                <wheelVariation>cii2_hre_23_c</wheelVariation>
+                <modShopLabel>cii2_hre_23</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii2_hre_23_v</wheelName>
+                <wheelVariation>cii2_hre_23_v_c</wheelVariation>
+                <modShopLabel>cii2_hre_23_v</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii2_spe_1</wheelName>
+                <wheelVariation>cii2_spe_1_c</wheelVariation>
+                <modShopLabel>cii2_spe_1</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii2_spe_1_v</wheelName>
+                <wheelVariation>cii2_spe_1_v_c</wheelVariation>
+                <modShopLabel>cii2_spe_1_v</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+        </Item>
+        <!-- VWT_LOWRIDER -->
+        <Item>
+            <Item>
+                <wheelName>wheel_vloride_01</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vloride_02</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vloride_03</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vloride_04</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vloride_09</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vloridec_01</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vloridec_02</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vloridec_03</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vloridec1_03</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vloridec_04</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vloridec_05</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vloridec_06</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vloridec_07</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vloridec_09</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii_bs_3</wheelName>
+                <wheelVariation>cii_bs_3_c</wheelVariation>
+                <modShopLabel>cii_bs_3</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii_bs_3_v</wheelName>
+                <wheelVariation>cii_bs_3_v_c</wheelVariation>
+                <modShopLabel>cii_bs_3_v</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii_cos_2</wheelName>
+                <wheelVariation>cii_cos_2_c</wheelVariation>
+                <modShopLabel>cii_cos_2</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii_cos_2_v</wheelName>
+                <wheelVariation>cii_cos_2_v_c</wheelVariation>
+                <modShopLabel>cii_cos_2_v</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii_ffs_9</wheelName>
+                <wheelVariation>cii_ffs_9_c</wheelVariation>
+                <modShopLabel>cii_ffs_9</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii_ffs_9_v</wheelName>
+                <wheelVariation>cii_ffs_9_v_c</wheelVariation>
+                <modShopLabel>cii_ffs_9_v</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii_hr_6</wheelName>
+                <wheelVariation>cii_hr_6_c</wheelVariation>
+                <modShopLabel>cii_hr_6</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii_hr_6_v</wheelName>
+                <wheelVariation>cii_hr_6_v_c</wheelVariation>
+                <modShopLabel>cii_hr_6_v</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii_hr_9</wheelName>
+                <wheelVariation>cii_hr_9_c</wheelVariation>
+                <modShopLabel>cii_hr_9</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii_hr_9_v</wheelName>
+                <wheelVariation>cii_hr_9_v_c</wheelVariation>
+                <modShopLabel>cii_hr_9_v</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii_roti_8</wheelName>
+                <wheelVariation>cii_roti_8_c</wheelVariation>
+                <modShopLabel>cii_roti_8</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii_roti_8_v</wheelName>
+                <wheelVariation>cii_roti_8_v_c</wheelVariation>
+                <modShopLabel>cii_roti_8_v</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii_roti_9</wheelName>
+                <wheelVariation>cii_roti_9_c</wheelVariation>
+                <modShopLabel>cii_roti_9</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii_roti_9_v</wheelName>
+                <wheelVariation>cii_roti_9_v_c</wheelVariation>
+                <modShopLabel>cii_roti_9_v</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii_rt_2</wheelName>
+                <wheelVariation>cii_rt_2_c</wheelVariation>
+                <modShopLabel>cii_rt_2</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii_rt_2_v</wheelName>
+                <wheelVariation>cii_rt_2_v_c</wheelVariation>
+                <modShopLabel>cii_rt_2_v</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii_sry_3</wheelName>
+                <wheelVariation>cii_sry_3_c</wheelVariation>
+                <modShopLabel>cii_sry_3</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii_sry_3_v</wheelName>
+                <wheelVariation>cii_sry_3_v_c</wheelVariation>
+                <modShopLabel>cii_sry_3_v</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii_wat_2</wheelName>
+                <wheelVariation>cii_wat_2_c</wheelVariation>
+                <modShopLabel>cii_wat_2</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii_wat_2_v</wheelName>
+                <wheelVariation>cii_wat_2_v_c</wheelVariation>
+                <modShopLabel>cii_wat_2_v</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii_wor_7</wheelName>
+                <wheelVariation>cii_wor_7_c</wheelVariation>
+                <modShopLabel>cii_wor_7</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii_wor_7_v</wheelName>
+                <wheelVariation>cii_wor_7_v_c</wheelVariation>
+                <modShopLabel>cii_wor_7_v</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii_wor_11</wheelName>
+                <wheelVariation>cii_wor_11_c</wheelVariation>
+                <modShopLabel>cii_wor_11</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>cii_wor_11_v</wheelName>
+                <wheelVariation>cii_wor_11_v_c</wheelVariation>
+                <modShopLabel>cii_wor_11_v</modShopLabel>
+                <rimRadius value="0.379500" />
+                <rear value="false" />
+            </Item>
+        </Item>
+        <!-- VWT_SUV -->
+        <Item>
+            <Item>
+                <wheelName>wheel_vsuv_06</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vsuv_07</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vsuv_08</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vsuv1_10</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vsuv_11</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vsuv_12</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vsuv_16</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vsuv1_17</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vsuv_19</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vsuv_20</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vsuvc_06</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vsuvc_07</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vsuvc_08</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vsuvc1_10</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vsuvc_11</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vsuvc_12</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vsuvc_16</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vsuvc1_17</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vsuvc_18</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vsuvc_19</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vsuvc_20</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vsuv_21</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vsuv_10</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vsuv_17</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+            <Item>
+                <wheelName>wheel_vsuvc_10</wheelName>
+                <wheelVariation />
+                <modShopLabel>A</modShopLabel>
+                <rimRadius value="0.348500" />
+                <rear value="false" />
+            </Item>
+        </Item>
+        <!-- VWT_OFFROAD -->
+        <Item />
+        <!-- VWT_TUNER -->
+        <Item />
+        <!-- VWT_BIKE -->
+        <Item />
+        <!-- VWT_HIEND -->
+        <Item />
+        <!-- VWT_SUPERMOD1 -->
+        <Item />
+        <!-- VWT_SUPERMOD2 -->
+        <Item />
+    </Wheels>
+</CVehicleModelInfoVarGlobal>
