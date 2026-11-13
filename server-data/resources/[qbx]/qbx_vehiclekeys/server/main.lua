@@ -53,23 +53,9 @@ RegisterNetEvent('qbx_vehiclekeys:server:hotwiredVehicle', function(netId)
 end)
 
 
-local LOCKPICK_USES = 10
-
--- One attempt uses one use. The item is removed when its uses run out.
-local function useLockpick(src, itemName)
-    local slot = exports.ox_inventory:GetSlotWithItem(src, itemName)
-    if not slot then return end
-    local uses = (slot.metadata and slot.metadata.uses or LOCKPICK_USES) - 1
-    if uses <= 0 then
-        exports.ox_inventory:RemoveItem(src, itemName, 1, nil, slot.slot)
-    else
-        exports.ox_inventory:SetMetadata(src, slot.slot, { uses = uses, description = uses .. ' uses left' })
-    end
-end
-
 RegisterNetEvent('qb-vehiclekeys:server:breakLockpick', function(itemName)
     if not (itemName == 'lockpick' or itemName == 'advancedlockpick') then return end
-    useLockpick(source, itemName)
+    exports.highcrest_itemuses:consume(source, itemName)
 end)
 
 RegisterNetEvent('qb-vehiclekeys:server:setVehLockState', function(netId, state)
