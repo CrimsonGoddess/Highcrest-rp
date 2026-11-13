@@ -506,3 +506,8 @@ body.preview { background: radial-gradient(circle at 30% 30%, #4a5a6a, #1a2028) 
 .biz-balance { background: linear-gradient(135deg, rgba(212, 175, 55, 0.18), rgba(20, 20, 26, 0.6)) !important; }
 .biz-money { font-size: 2.6rem; font-weight: 700; line-height: 1.1; color: #d4af37; }
 .ledger-row { padding: 0.6vh 0.2vh; border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
+
+/* Mantine marks the page as dark mode (color-scheme: dark). Chrome then paints an OPAQUE
+   #121212 backdrop behind the whole NUI frame, covering the game with grey.
+   Keep the page's color scheme normal so the frame stays see-through. */
+:root, html, body { color-scheme: normal !important; }
