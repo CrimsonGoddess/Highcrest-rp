@@ -103,8 +103,9 @@ CreateThread(function()
                 DisableControlAction(0, control, true)
             end
 
-            if IsPauseMenuActive() then
+            if IsPauseMenuActive() or LocalPlayer.state.hcBlockPause then
                 -- While a GTA menu we didn't open (e.g. settings) is up, Esc belongs to it.
+                -- hcBlockPause: another screen (an ATM) uses Esc to close itself.
                 blockedUntil = GetGameTimer() + 400
             elseif GetGameTimer() > blockedUntil and not IsNuiFocused() then
                 for _, control in ipairs(PAUSE_CONTROLS) do

@@ -70,6 +70,9 @@ end
 
 local function endAtmSession()
     AtmCamStop()
+    -- highcrest_pause ignores Esc while this is set; keep it a moment so the Esc release that
+    -- closed the ATM does not open the pause menu.
+    SetTimeout(500, function() if not panelId then LocalPlayer.state:set('hcBlockPause', false, false) end end)
     if not panelId then return end
     exports['cr-3dnui']:EndFocus()
     exports['cr-3dnui']:DestroyPanel(panelId)
@@ -106,6 +109,40 @@ function AtmPanelOpts(entity, p)
     }
 end
 
+local function vnorm(v) local l = #v return l > 0 and v / l or v end
+local function vdot(a, b) return a.x * b.x + a.y * b.y + a.z * b.z end
+local function vcross(a, b) return vector3(a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z, a.x * b.y - a.y * b.x) end
+
+-- Where the mouse cursor points on the ATM screen, as page coordinates 0..1 (u right, v down),
+-- or nil when it's off the screen. The ray goes from the ATM camera through the cursor.
+function AtmCursorUV(entity, p)
+    if not cam then return nil end
+    local sx, sy = GetControlNormal(0, 239), GetControlNormal(0, 240)
+    local camPos, rot = GetCamCoord(cam), GetCamRot(cam, 2)
+    local rx, rz = math.rad(rot.x), math.rad(rot.z)
+    local forward = vector3(-math.sin(rz) * math.cos(rx), math.cos(rz) * math.cos(rx), math.sin(rx))
+    local right = vnorm(vcross(forward, vector3(0.0, 0.0, 1.0)))
+    local up = vcross(right, forward)
+    local tanV = math.tan(math.rad(GetCamFov(cam)) / 2)
+    local aspect = GetAspectRatio(false)
+    local dir = vnorm(forward + right * ((sx * 2 - 1) * tanV * aspect) + up * ((1 - sy * 2) * tanV))
+
+    -- The panel: centre, facing, true up and right (as the player sees it).
+    local N = AtmWorldDir(entity, p.normal)
+    local U = AtmWorldDir(entity, p.up or vector3(0.0, 0.0, 1.0))
+    local R = vnorm(vcross(U, N))
+    local centre = GetOffsetFromEntityInWorldCoords(entity, p.offset.x, p.offset.y, p.offset.z) + N * (p.zOffset or 0.0)
+
+    local denom = vdot(dir, N)
+    if math.abs(denom) < 0.0001 then return nil end
+    local t = vdot(centre - camPos, N) / denom
+    if t < 0 then return nil end
+    local rel = camPos + dir * t - centre
+    local lx, ly = vdot(rel, R) / (p.width / 2), vdot(rel, U) / (p.height / 2)
+    if math.abs(lx) > 1 or math.abs(ly) > 1 then return nil end
+    return (lx + 1) / 2, (1 - ly) / 2
+end
+
 function StartAtmDui(entity)
     if panelId then return end
     local p = PlacementFor(entity)
@@ -114,6 +151,7 @@ function StartAtmDui(entity)
     panelId = exports['cr-3dnui']:AttachPanelToEntity(opts)
     if not panelId then return failed() end
     atmEntity, lastEntity = entity, entity
+    LocalPlayer.state:set('hcBlockPause', true, false)
     AtmCamStart(entity, p)
 
     CreateThread(function()
@@ -125,18 +163,25 @@ function StartAtmDui(entity)
         if not accounts then return failed() end
         sendToPage({ action = 'setVisible', status = true, accounts = accounts, loading = false, atm = true })
 
-        -- The crosshair is the mouse. Attack/aim are disabled so clicks don't fire a weapon.
-        exports['cr-3dnui']:BeginFocus(panelId, { maxDist = 2.0, drawCursor = true, autoExitOnMiss = false })
+        -- A normal mouse cursor drives the screen. cr-3dnui's own focus raycasts down the middle of
+        -- the rendering camera, which is fixed here, so the cursor never moved; we cast our own ray
+        -- from the cursor through the ATM camera instead. Esc or walking away closes it.
         while panelId do
-            DisableControlAction(0, 24, true)
-            DisableControlAction(0, 25, true)
-            local hit, u, v = exports['cr-3dnui']:FocusTick()
-            if hit then
+            SetMouseCursorActiveThisFrame()
+            DisableControlAction(0, 1, true)   -- look left/right (the view stays on the ATM)
+            DisableControlAction(0, 2, true)   -- look up/down
+            DisableControlAction(0, 24, true)  -- attack
+            DisableControlAction(0, 25, true)  -- aim
+            DisableControlAction(0, 200, true) -- Esc: close the ATM instead of the pause menu
+            DisableControlAction(0, 199, true)
+
+            local u, v = AtmCursorUV(atmEntity, p)
+            if u then
                 exports['cr-3dnui']:SendMouseMove(panelId, u, v)
                 if IsDisabledControlJustPressed(0, 24) then exports['cr-3dnui']:SendMouseDown(panelId, 'left') end
                 if IsDisabledControlJustReleased(0, 24) then exports['cr-3dnui']:SendMouseUp(panelId, 'left') end
             end
-            if not exports['cr-3dnui']:IsFocused() or not DoesEntityExist(atmEntity)
+            if IsDisabledControlJustPressed(0, 200) or not DoesEntityExist(atmEntity)
                 or #(GetEntityCoords(cache.ped) - GetEntityCoords(atmEntity)) > 2.5 then
                 return endAtmSession()
             end
