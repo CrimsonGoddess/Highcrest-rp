@@ -962,6 +962,8 @@
             }
             if (data.stats) showStats(data.stats);
             if (data.compass) showCompass(data.compass);
+            // Another resource shows a banner across the top (the tsunami ticker): drop the compass below it.
+            if (typeof data.topBanner === 'number') element('compass').style.top = data.topBanner > 0 ? data.topBanner + 'vh' : '0';
             if (data.status) showStatus(data.status);
             if (data.speedo) showSpeedo(data.speedo);
             if (data.vehmenu) showVehMenu(data.vehmenu);

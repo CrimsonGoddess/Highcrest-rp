@@ -2,40 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Tsunami Warning</title>
+    <title>Tsunami Ticker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Full-screen emergency broadcast, styled like a TV emergency channel. -->
-    <div id="broadcast" class="broadcast" hidden>
-        <div class="bars" aria-hidden="true">
-            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-        </div>
-        <header class="eas-head">
-            <span class="eas-dot"></span>
-            Emergency Alert System
-            <span id="previewTag" class="preview-tag" hidden>Preview</span>
-        </header>
-        <main class="eas-body">
-            <svg class="wave-icon" viewBox="0 0 64 64" aria-hidden="true">
-                <path d="M4 42c6 0 9-6 15-6s9 6 15 6 9-6 15-6 9 6 11 6M4 52c6 0 9-6 15-6s9 6 15 6 9-6 15-6 9 6 11 6" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-                <path d="M10 34c0-14 11-24 25-24 6 0 11 2 15 6-9-1-17 5-17 14 0 4 2 7 5 9" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <h1 id="headline"></h1>
-            <p id="bodyText" class="body-text"></p>
-            <p class="countdown-label">City evacuation in</p>
-            <p id="bigCountdown" class="big-countdown">2:00</p>
-        </main>
-        <footer class="ticker"><div id="ticker" class="ticker-track"></div></footer>
+    <!-- Emergency alert ticker across the top of the screen. Never takes the mouse or keyboard. -->
+    <div id="ticker" class="ticker" hidden>
+        <div class="label"><span class="dot"></span>EMERGENCY ALERT<span id="previewTag" class="preview" hidden>PREVIEW</span></div>
+        <div class="track"><div id="scroll" class="scroll"></div></div>
+        <div class="count">EVACUATION <b id="countdown">2:00</b></div>
     </div>
-
-    <!-- After the broadcast, a small countdown stays on screen until the restart. -->
-    <div id="mini" class="mini" hidden>
-        <span class="mini-dot"></span>
-        <strong>Tsunami warning</strong>
-        <span>Evacuation in <b id="miniCountdown">1:40</b></span>
-    </div>
-
     <script src="app.js"></script>
 </body>
 </html>

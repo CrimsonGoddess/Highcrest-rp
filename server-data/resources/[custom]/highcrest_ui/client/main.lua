@@ -119,3 +119,9 @@ lib.onCache('vehicle', function(vehicle)
     if vehicle then SetTimeout(500, allowDriveBy) end
 end)
 allowDriveBy()
+
+-- Another resource is showing a banner across the top of the screen (height in vh, 0 = none):
+-- the compass moves down below it. Used by highcrest_tsunami's alert ticker.
+AddEventHandler('highcrest_ui:setTopBanner', function(heightVh)
+    SendNUIMessage({ topBanner = tonumber(heightVh) or 0 })
+end)
