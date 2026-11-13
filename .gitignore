@@ -36,3 +36,6 @@ server-data/resources/[[]standalone]/nn_appearance/shared/*
 
 # Phone UI source build tools (the built files in web/build are shipped)
 server-data/resources/[[]custom]/highcrest_phone/web/node_modules/
+
+# Clothing packs (large, built with DurtyClothTool from D:ivem, uploaded directly, not in git)
+server-data/resources/[[]clothing]/
