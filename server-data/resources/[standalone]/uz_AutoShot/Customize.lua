@@ -9,8 +9,10 @@ Customize.RoutingBucket     = 999
 Customize.ScreenshotQuality = 0.92          -- 0.0–1.0 (webp/jpg only)
 Customize.ScreenshotFormat  = 'png'         -- 'png' | 'webp' | 'jpg'
 Customize.TransparentBg     = true          -- chroma key removal (png only)
-Customize.ScreenshotWidth   = 512
-Customize.ScreenshotHeight  = 512
+Customize.ScreenshotWidth   = 360           -- Highcrest: matches the 360 px tall capture below (no upscaling)
+Customize.ScreenshotHeight  = 360
+Customize.CaptureMaxWidth   = 640           -- Highcrest: frame size sent to the server (keeps uploads small)
+Customize.CaptureMaxHeight  = 360
 
 Customize.StudioCoords      = vector3(0.0, 0.0, -150.0)
 Customize.StudioHeading     = 180.0

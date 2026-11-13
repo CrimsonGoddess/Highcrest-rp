@@ -533,6 +533,10 @@ local function CaptureAndUpload(filename)
     if Customize.TransparentBg then encoding = 'png' end
 
     local opts = { encoding = encoding }
+    -- Highcrest: shrink the frame before upload (screencapture supports maxWidth/maxHeight).
+    -- Full-screen PNGs were too big for one latent event ("latent event packet overflow").
+    if Customize.CaptureMaxWidth then opts.maxWidth = Customize.CaptureMaxWidth end
+    if Customize.CaptureMaxHeight then opts.maxHeight = Customize.CaptureMaxHeight end
     if encoding ~= 'png' then
         opts.quality = Customize.ScreenshotQuality
     end
