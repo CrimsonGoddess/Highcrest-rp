@@ -1902,8 +1902,8 @@ end)
 -- COMMANDS
 -- ════════════════════════════════════════════════════════
 
-RegisterCommand(Customize.Command, function() EnterCapturePreview() end, Customize.AceRestricted)
-RegisterCommand(Customize.MenuCommand, function() OpenClothingMenu() end, Customize.AceRestricted)
+RegisterCommand(Customize.Command, function() EnterCapturePreview() end, false) -- Highcrest: production mode blocks restricted client commands; the server still refuses non-admin captures
+RegisterCommand(Customize.MenuCommand, function() OpenClothingMenu() end, false)
 
 -- Single vehicle capture command
 RegisterCommand('shotcar', function(_, args)
@@ -1960,7 +1960,7 @@ RegisterCommand('shotcar', function(_, args)
         SendNUIMessage({ type = 'singleEntityPreview', model = modelName, entityType = 'vehicle' })
         SetNuiFocus(true, true)
     end
-end, Customize.AceRestricted)
+end, false)
 
 -- Single object capture command
 RegisterCommand('shotprop', function(_, args)
@@ -2017,7 +2017,7 @@ RegisterCommand('shotprop', function(_, args)
         SendNUIMessage({ type = 'singleEntityPreview', model = modelName, entityType = 'object' })
         SetNuiFocus(true, true)
     end
-end, Customize.AceRestricted)
+end, false)
 
 -- Single entity capture confirmation
 RegisterNUICallback('confirmSingleCapture', function(data, cb)
