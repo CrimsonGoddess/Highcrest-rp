@@ -1,7 +1,7 @@
--- txAdmin announces each scheduled restart a few times beforehand. At Config.warnAt seconds out,
--- the tsunami arrives: an alert on everyone's phone and the nearest TV, an emergency ticker across
--- the top of the screen, a storm, a city-wide blackout and the sea rising over the city until
--- the restart. Nothing blocks the screen.
+-- txAdmin announces each scheduled restart a few times beforehand. At Config.timeline.alertAt
+-- seconds out (3 minutes), the tsunami starts for everyone; each client runs the timeline
+-- (alert, storm, blackout, flood). The server also sets the storm and the blackout server-wide
+-- through Renewed-Weathersync at the same moments. The restart resets everything.
 
 local function alertPhones(targets)
     for _, src in ipairs(targets) do
@@ -17,38 +17,43 @@ local function everyone()
     return list
 end
 
-local function startTsunami(seconds)
-    TriggerClientEvent('highcrest_tsunami:client:start', -1, seconds)
-    TriggerClientEvent('highcrest_tv:client:emergency', -1, seconds, Config.text)
+local started = false
+
+local function startTsunami()
+    if started then return end
+    started = true
+    local tl = Config.timeline
+    TriggerClientEvent('highcrest_tsunami:client:start', -1)
+    TriggerClientEvent('highcrest_tv:client:emergency', -1, tl.alertAt, Config.text)
     alertPhones(everyone())
-    -- Server-wide storm and blackout through Renewed-Weathersync (it already stopped its own
-    -- weather cycle for the scheduled restart). The restart resets both.
-    if Config.storm.enabled then
-        GlobalState.weather = { weather = Config.storm.weather, time = 9000000, windSpeed = Config.storm.wind * 2 }
-    end
-    if Config.blackout.enabled then
-        SetTimeout(Config.blackout.after * 1000, function() GlobalState.blackOut = true end)
-    end
     TriggerClientEvent('chat:addMessage', -1, {
         color = { 200, 16, 46 },
         args = { 'Emergency Alert', Config.text.chat },
     })
+
+    if Config.storm.enabled then
+        SetTimeout((tl.alertAt - tl.stormAt) * 1000, function()
+            GlobalState.weather = { weather = Config.storm.weather, time = 9000000, windSpeed = Config.storm.wind * 2 }
+        end)
+    end
+    if Config.blackout.enabled then
+        SetTimeout((tl.alertAt - tl.lightsAt) * 1000, function() GlobalState.blackOut = true end)
+    end
 end
 
 AddEventHandler('txAdmin:events:scheduledRestart', function(eventData)
     local seconds = eventData and tonumber(eventData.secondsRemaining)
-    if seconds == Config.warnAt then startTsunami(seconds) end
+    if seconds == Config.timeline.alertAt then startTsunami() end
 end)
 
--- /tsunamitest: only the admin who runs it sees it (ticker, phone, nearest TV, storm, blackout,
--- flood), faster, and everything goes back to normal afterwards. /tsunamistop ends it early.
+-- /tsunamitest: the full 3-minute timeline for the admin who runs it only (ticker, phone, nearest
+-- TV, storm, blackout, flood), then everything goes back. /tsunamistop ends it early.
 lib.addCommand('tsunamitest', {
-    help = 'Preview the tsunami (only you see it; everything goes back to normal after)',
+    help = 'Preview the tsunami (3 minutes, only you see it; everything goes back after)',
     restricted = 'group.admin',
 }, function(source)
-    local f = Config.flood
     TriggerClientEvent('highcrest_tsunami:client:preview', source)
-    TriggerClientEvent('highcrest_tv:client:emergency', source, f.previewSeconds + f.previewHold, Config.text)
+    TriggerClientEvent('highcrest_tv:client:emergency', source, Config.timeline.alertAt, Config.text)
     alertPhones({ source })
 end)
 
