@@ -385,8 +385,7 @@ Recycling.PickUpPackage.collectReward = function(data)
         scrapProp = nil
 
         stopAnim("mp_car_bomb", "car_bomb_mechanic", Ped)
-        currentToken = triggerCallback(AuthEvent)
-        addItem("recyclablematerial", math.random(Config.Other.RecycleAmounts["Recycle"].Min, Config.Other.RecycleAmounts["Recycle"].Max))
+        TriggerServerEvent("jim-recycle:Server:RecycleReward", triggerCallback(AuthEvent))
         Recycling.PickUpPackage.PickRandomEntity(data.Trolly)
     end
     CollectingReward = false

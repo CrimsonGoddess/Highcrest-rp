@@ -17,6 +17,15 @@ RegisterServerEvent("jim-recycle:Server:DoorCharge", function()
 end)
 
 
+-- Server-side grant: client-side addItem read a bridge token that jim-recycle never set, so nothing was given
+RegisterServerEvent("jim-recycle:Server:RecycleReward", function(token)
+    local src = source
+    if not checkToken(src, token, "stash", getPlayer(src).name) then
+        return
+    end
+    addItem("recyclablematerial", math.random(Config.Other.RecycleAmounts["Recycle"].Min, Config.Other.RecycleAmounts["Recycle"].Max), nil, src)
+end)
+
 RegisterServerEvent("jim-recycle:Server:TradeItems", function(data, token)
     local src = source
     if src then
