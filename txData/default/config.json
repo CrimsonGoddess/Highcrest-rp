@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "general": {
+    "serverName": "Highcrest Roleplay"
+  },
+  "server": {
+    "dataPath": "C:/Users/Administrator/Documents/GitHub/Highcrest-rp/server-data/"
+  }
+}
