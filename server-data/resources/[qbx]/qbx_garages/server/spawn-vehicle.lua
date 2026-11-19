@@ -170,6 +170,7 @@ local function spawnVehicle(source, vehicleId, garageName, accessPointIndex)
     end
 
     TriggerClientEvent('vehiclekeys:client:SetOwner', source, playerVehicle.props.plate)
+    if GetResourceState('p_vehiclekey') == 'started' then exports.p_vehiclekey:giveCarKey(source, playerVehicle.props.plate) end
 
     TriggerEvent('qbx_garages:server:vehicleSpawned', veh)
     return netId

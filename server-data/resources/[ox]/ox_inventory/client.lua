@@ -30,6 +30,7 @@ local invBusy = true
 
 ---@type boolean?
 local invOpen = false
+local ignitionInventory = false -- ignition slot payload, sent with setupInventory on open
 local IsPedCuffed = IsPedCuffed
 local playerPed = cache.ped
 
@@ -291,7 +292,8 @@ function client.openInventory(inv, data)
         action = 'setupInventory',
         data = {
             leftInventory = left,
-            rightInventory = currentInventory
+            rightInventory = currentInventory,
+            ignitionInventory = ignitionInventory
         }
     })
 
@@ -1881,9 +1883,11 @@ RegisterNetEvent('ox_inventory:refreshBag', function(kind)
 end)
 
 -- ignition slot (assigned by the vehicle keys resource while driving)
+-- Only push while the inventory is open: setupInventory always opens the UI, so sending it on every seat change spammed it.
 RegisterNetEvent('ox_inventory:setIgnition', function(data)
 	if source == '' then return end
-	SendNUIMessage({ action = 'setupInventory', data = { ignitionInventory = data or false } })
+	ignitionInventory = data or false
+	if invOpen then SendNUIMessage({ action = 'setupInventory', data = { ignitionInventory = ignitionInventory } }) end
 end)
 
 RegisterNUICallback('closeBag', function(_, cb)

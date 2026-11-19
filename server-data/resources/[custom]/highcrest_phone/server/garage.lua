@@ -147,6 +147,7 @@ local function bringVehicle(source, data)
 
     valetLast[source] = now
     TriggerClientEvent('vehiclekeys:client:SetOwner', source, vehicle.props.plate)
+    if GetResourceState('p_vehiclekey') == 'started' then exports.p_vehiclekey:giveCarKey(source, vehicle.props.plate) end
     TriggerEvent('qbx_garages:server:vehicleSpawned', entity)
     return { netId = netId, x = x, y = y }
 end

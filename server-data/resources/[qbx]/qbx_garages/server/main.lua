@@ -315,6 +315,7 @@ lib.callback.register('qbx_garages:server:parkVehicle', function(source, netId, 
         })
         if not saved then return false end
 
+        if GetResourceState('p_vehiclekey') == 'started' then exports.p_vehiclekey:removeCarKeys(source, GetVehicleNumberPlateText(vehicle)) end
         exports.qbx_core:DeleteVehicle(vehicle)
         return true
     end)
