@@ -39,3 +39,4 @@ server-data/resources/[[]custom]/highcrest_phone/web/node_modules/
 
 # Clothing packs (large, built with DurtyClothTool from D:ivem, uploaded directly, not in git)
 server-data/resources/[[]clothing]/
+/server-data/resources/\[cars\]/HighCrest_Imports
