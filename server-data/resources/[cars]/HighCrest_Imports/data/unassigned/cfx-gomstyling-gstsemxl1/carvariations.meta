@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CVehicleModelInfoVariation>
+  <variationData>
+	     <Item>
+      <modelName>gstsemxl1</modelName>
+      <colors>
+        <Item>
+          <indices content="char_array">  <!-- White / Dark Grey -->
+            122
+            15
+            112
+            0
+            13
+            111
+            13
+          </indices>
+        </Item>
+        <Item>
+          <indices content="char_array">  <!-- Black / Black -->
+            15
+            15
+            16
+            0
+            6
+            111
+            13
+          </indices>
+        </Item>
+        <Item>
+          <indices content="char_array">  <!-- Dark Red / Black -->
+            32
+            15
+            27
+            0
+            12
+            111
+            13
+          </indices>
+        </Item>
+        <Item>
+          <indices content="char_array">  <!-- Red / Black -->
+            27
+            15
+            44
+            0
+            13
+            111
+            13
+          </indices>
+        </Item>
+        <Item>
+          <indices content="char_array">  <!-- Dark Blue / Black -->
+            62
+            15
+            64
+            0
+            6
+            111
+            13
+          </indices>
+        </Item>
+        <Item>
+          <indices content="char_array">  <!-- Midnight Blue / Black -->
+            75
+            15
+            64
+            0
+            6
+            111
+            13
+          </indices>
+        </Item>
+        <Item>
+          <indices content="char_array">  <!-- Grey / Black -->
+            8
+            15
+            11
+            0
+            6
+            111
+            13
+          </indices>
+        </Item>
+        <Item>
+          <indices content="char_array">  <!-- Sea Green / Light silver  -->
+            52
+            15
+            52
+            6
+            6
+            111
+            13
+          </indices>
+        </Item>
+      </colors>
+      <kits>
+        <Item>6121_gstsemxl1_modkit</Item>
+      </kits>
+      <windowsWithExposedEdges />
+      <plateProbabilities>
+        <Probabilities>
+          <Item>
+            <Name>Yellow Plate</Name>
+            <Value value="100" />
+          </Item>
+        </Probabilities>
+      </plateProbabilities>
+      <lightSettings value="666" />
+      <sirenSettings value="0" />
+    </Item>
+       <Item>
+      <modelName>gstsemxl1b</modelName>
+      <colors>
+        <Item>
+          <indices content="char_array">  <!-- White / Dark Grey -->
+            122
+            15
+            112
+            0
+            13
+            111
+            13
+          </indices>
+        </Item>
+        <Item>
+          <indices content="char_array">  <!-- Black / Black -->
+            15
+            15
+            16
+            0
+            6
+            111
+            13
+          </indices>
+        </Item>
+        <Item>
+          <indices content="char_array">  <!-- Dark Red / Black -->
+            32
+            15
+            27
+            0
+            12
+            111
+            13
+          </indices>
+        </Item>
+        <Item>
+          <indices content="char_array">  <!-- Red / Black -->
+            27
+            15
+            44
+            0
+            13
+            111
+            13
+          </indices>
+        </Item>
+        <Item>
+          <indices content="char_array">  <!-- Dark Blue / Black -->
+            62
+            15
+            64
+            0
+            6
+            111
+            13
+          </indices>
+        </Item>
+        <Item>
+          <indices content="char_array">  <!-- Midnight Blue / Black -->
+            75
+            15
+            64
+            0
+            6
+            111
+            13
+          </indices>
+        </Item>
+        <Item>
+          <indices content="char_array">  <!-- Grey / Black -->
+            8
+            15
+            11
+            0
+            6
+            111
+            13
+          </indices>
+        </Item>
+        <Item>
+          <indices content="char_array">  <!-- Sea Green / Light silver  -->
+            52
+            15
+            52
+            6
+            6
+            111
+            13
+          </indices>
+        </Item>
+      </colors>
+      <kits>
+        <Item>0_default_modkit</Item>
+      </kits>
+      <windowsWithExposedEdges />
+      <plateProbabilities>
+        <Probabilities>
+          <Item>
+            <Name>Yellow Plate</Name>
+            <Value value="100" />
+          </Item>
+        </Probabilities>
+      </plateProbabilities>
+      <lightSettings value="666" />
+      <sirenSettings value="0" />
+    </Item>
+  </variationData>
+</CVehicleModelInfoVariation>

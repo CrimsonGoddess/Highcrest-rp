@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CVehicleModelInfoVariation>
+	<variationData>
+		<Item>
+			<modelName>rattowc</modelName>
+			<colors>
+				<Item>
+				<indices content="char_array" > 
+					7
+					44
+					0
+					0
+					44
+					134
+				</indices>
+				<liveries>
+					<Item value="false" />
+					<Item value="false" />
+					<Item value="false" />
+					<Item value="false" />
+					<Item value="false" />
+					<Item value="false" />
+					<Item value="false" />
+					<Item value="false" />
+				</liveries>
+			</Item>
+			</colors>
+			<kits>
+			<Item>5058_rattowc_modkit</Item>
+			</kits>
+			<windowsWithExposedEdges />
+			<plateProbabilities>
+			<Probabilities>
+				<Item>
+					<Name>Standard White</Name>
+					<Value value="20" />
+				</Item>
+				<Item>
+					<Name>White Plate 2</Name>
+					<Value value="20" />
+				</Item>
+				<Item>
+					<Name>Blue Plate</Name>
+					<Value value="20" />
+				</Item>
+				<Item>
+					<Name>Yellow Plate</Name>
+					<Value value="20" />
+				</Item>
+				<Item>
+					<Name>yankton plate</Name>
+					<Value value="20" />
+				</Item>
+				</Probabilities>
+			</plateProbabilities>
+			<lightSettings value="2" />
+			<sirenSettings value="9" />
+		</Item>
+		<Item>
+			<modelName>rathaulc</modelName>
+			<colors>
+				<Item>
+				<indices content="char_array" > 
+					7
+					44
+					0
+					0
+					44
+					134
+				</indices>
+				<liveries>
+					<Item value="false" />
+					<Item value="false" />
+					<Item value="false" />
+					<Item value="false" />
+					<Item value="false" />
+					<Item value="false" />
+					<Item value="false" />
+					<Item value="false" />
+				</liveries>
+			</Item>
+			</colors>
+			<kits>
+			<Item>5059_rathaulc_modkit</Item>
+			</kits>
+			<windowsWithExposedEdges />
+			<plateProbabilities>
+			<Probabilities>
+				<Item>
+					<Name>Standard White</Name>
+					<Value value="20" />
+				</Item>
+				<Item>
+					<Name>White Plate 2</Name>
+					<Value value="20" />
+				</Item>
+				<Item>
+					<Name>Blue Plate</Name>
+					<Value value="20" />
+				</Item>
+				<Item>
+					<Name>Yellow Plate</Name>
+					<Value value="20" />
+				</Item>
+				<Item>
+					<Name>yankton plate</Name>
+					<Value value="20" />
+				</Item>
+				</Probabilities>
+			</plateProbabilities>
+			<lightSettings value="2" />
+			<sirenSettings value="0" />
+		</Item>
+			<Item>
+			<modelName>rattruckc</modelName>
+			<colors>
+				<Item>
+				<indices content="char_array" > 
+					7
+					44
+					0
+					0
+					44
+					134
+				</indices>
+				<liveries>
+					<Item value="false" />
+					<Item value="false" />
+					<Item value="false" />
+					<Item value="false" />
+					<Item value="false" />
+					<Item value="false" />
+					<Item value="false" />
+					<Item value="false" />
+				</liveries>
+			</Item>
+			</colors>
+			<kits>
+			<Item>5060_rattruckc_modkit</Item>
+			</kits>
+			<windowsWithExposedEdges />
+			<plateProbabilities>
+			<Probabilities>
+				<Item>
+					<Name>Standard White</Name>
+					<Value value="20" />
+				</Item>
+				<Item>
+					<Name>White Plate 2</Name>
+					<Value value="20" />
+				</Item>
+				<Item>
+					<Name>Blue Plate</Name>
+					<Value value="20" />
+				</Item>
+				<Item>
+					<Name>Yellow Plate</Name>
+					<Value value="20" />
+				</Item>
+				<Item>
+					<Name>yankton plate</Name>
+					<Value value="20" />
+				</Item>
+				</Probabilities>
+			</plateProbabilities>
+			<lightSettings value="2" />
+			<sirenSettings value="0" />
+		</Item>
+		<Item>
+			<modelName>ratraid</modelName>
+			<colors>
+				<Item>
+				<indices content="char_array" > 
+					7
+					44
+					0
+					0
+					44
+					134
+				</indices>
+				<liveries>
+					<Item value="false" />
+					<Item value="false" />
+					<Item value="false" />
+					<Item value="false" />
+					<Item value="false" />
+					<Item value="false" />
+					<Item value="false" />
+					<Item value="false" />
+				</liveries>
+			</Item>
+			</colors>
+			<kits>
+			<Item>5061_ratraid_modkit</Item>
+			</kits>
+			<windowsWithExposedEdges />
+			<plateProbabilities>
+			<Probabilities>
+				<Item>
+					<Name>Standard White</Name>
+					<Value value="20" />
+				</Item>
+				<Item>
+					<Name>White Plate 2</Name>
+					<Value value="20" />
+				</Item>
+				<Item>
+					<Name>Blue Plate</Name>
+					<Value value="20" />
+				</Item>
+				<Item>
+					<Name>Yellow Plate</Name>
+					<Value value="20" />
+				</Item>
+				<Item>
+					<Name>yankton plate</Name>
+					<Value value="20" />
+				</Item>
+				</Probabilities>
+			</plateProbabilities>
+			<lightSettings value="2" />
+			<sirenSettings value="0" />
+		</Item>
+	</variationData>
+</CVehicleModelInfoVariation>

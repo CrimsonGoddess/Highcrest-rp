@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<CVehicleModelInfoVariation>
+  <variationData>
+	  <Item>
+		  <modelName>gstjrz1</modelName>
+		  <colors>
+			  <Item>
+				  <indices content="char_array">
+					  111
+					  8
+					  112
+					  156
+					  7
+					  89
+				  </indices>
+				  <liveries>
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+				  </liveries>
+			  </Item>
+			  <Item>
+				  <indices content="char_array">
+					  29
+					  8
+					  30
+					  156
+					  7
+					  89
+				  </indices>
+				  <liveries>
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+				  </liveries>
+			  </Item>
+			  <Item>
+				  <indices content="char_array">
+					  134
+					  8
+					  111
+					  156
+					  7
+					  89
+				  </indices>
+				  <liveries>
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+				  </liveries>
+			  </Item>
+			  <Item>
+				  <indices content="char_array">
+					  4
+					  8
+					  119
+					  156
+					  7
+					  89
+				  </indices>
+				  <liveries>
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+				  </liveries>
+			  </Item>
+			  <Item>
+				  <indices content="char_array">
+					  0
+					  8
+					  1
+					  156
+					  7
+					  89
+				  </indices>
+				  <liveries>
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+				  </liveries>
+			  </Item>
+			  <Item>
+				  <indices content="char_array">
+					  49
+					  8
+					  51
+					  156
+					  7
+					  89
+				  </indices>
+				  <liveries>
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+				  </liveries>
+			  </Item>
+			  <Item>
+				  <indices content="char_array">
+					  69
+					  8
+					  67
+					  156
+					  7
+					  89
+				  </indices>
+				  <liveries>
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+				  </liveries>
+			  </Item>
+			  <Item>
+				  <indices content="char_array">
+					  50
+					  8
+					  53
+					  156
+					  7
+					  89
+				  </indices>
+				  <liveries>
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+				  </liveries>
+			  </Item>
+			  <Item>
+				  <indices content="char_array">
+					  70
+					  0
+					  71
+					  156
+					  111
+					  111
+				  </indices>
+				  <liveries>
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+					  <Item value="false" />
+				  </liveries>
+			  </Item>
+		  </colors>
+		  <kits>
+			  <Item>gstjrz1_modkit</Item>
+		  </kits>
+		  <windowsWithExposedEdges />
+		  <plateProbabilities>
+			  <Probabilities>
+				  <Item>
+					  <Name>Standard White</Name>
+					  <Value value="100" />
+				  </Item>
+			  </Probabilities>
+		  </plateProbabilities>
+		  <lightSettings value="1" />
+		  <sirenSettings value="0" />
+	  </Item>
+  </variationData>
+</CVehicleModelInfoVariation>

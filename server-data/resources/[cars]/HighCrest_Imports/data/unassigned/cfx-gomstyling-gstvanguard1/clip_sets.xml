@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fwClipSetManager>
+  <clipSets>
+    <Item type="fwClipSet" key="veh@std@ps@claudinsuicide">
+      <fallbackId />
+      <clipDictionaryName>veh@std@ps@claudinsuicide</clipDictionaryName>
+      <clipItems />
+      <moveNetworkFlags />
+    </Item>
+    <Item type="fwClipSet" key="veh@std@ds@claudinsuicide">
+      <fallbackId />
+      <clipDictionaryName>veh@std@ds@claudinsuicide</clipDictionaryName>
+      <clipItems />
+      <moveNetworkFlags />
+    </Item>
+  </clipSets>
+  <clipDictionaryMetadatas>
+	<Item key="veh@std@ps@claudinsuicide">
+      <streamingPolicy>SP_STREAMING</streamingPolicy>
+      <memoryGroup>MG_Vehicle</memoryGroup>
+      <streamingPriority>SP_Medium</streamingPriority>
+    </Item>
+	<Item key="veh@std@ds@claudinsuicide">
+      <streamingPolicy>SP_STREAMING</streamingPolicy>
+      <memoryGroup>MG_Vehicle</memoryGroup>
+      <streamingPriority>SP_Medium</streamingPriority>
+    </Item>
+	</clipDictionaryMetadatas>
+</fwClipSetManager>

@@ -1,0 +1,5 @@
+Citizen.CreateThread(function()
+AddTextEntry("gstwar1", "Warrior")
+AddTextEntry("gstwar1b", "Warrior Hellfire")
+AddTextEntry("gstwar1c", "Warrior Hellfire 6x6")
+end)

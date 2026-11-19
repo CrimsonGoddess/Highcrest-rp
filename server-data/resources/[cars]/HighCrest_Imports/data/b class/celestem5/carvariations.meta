@@ -1,0 +1,92 @@
+<CVehicleModelInfoVariation>
+  <variationData>
+<Item>
+<modelName>celestem5</modelName>
+<colors>
+	<Item>
+	  <indices content="char_array">
+		112
+		33
+		0
+		0
+		106
+		1
+	  </indices>
+	</Item>
+	<Item>
+	  <indices content="char_array">
+		27
+		27
+		0
+		0
+		106
+		1
+	  </indices>
+	</Item>
+	<Item>
+	  <indices content="char_array">
+		0
+		0
+		0
+		0
+		32
+		1
+	  </indices>
+	</Item>
+	<Item>
+	  <indices content="char_array">
+		51
+		51
+		0
+		0
+		106
+		1
+	  </indices>
+	</Item>
+	<Item>
+	  <indices content="char_array">
+		112
+		112
+		0
+		0
+		106
+		1
+	  </indices>
+	</Item>
+	<Item>
+	  <indices content="char_array">
+		4
+		4
+		4
+		0
+		106
+		1
+	  </indices>
+	</Item>
+	<Item>
+	  <indices content="char_array">
+		68
+		68
+		0
+		0
+		112
+		112
+	  </indices>
+	</Item>
+</colors>
+      <kits>
+        <Item>955_celestem5_modkit</Item>
+      </kits>
+	        <plateProbabilities>
+        <Probabilities>
+          <Item>
+            <Name>Standard White</Name>
+            <Value value="100" />
+          </Item>
+        </Probabilities>
+		</plateProbabilities>
+<lightSettings value="955" />
+
+</Item>
+  </variationData>
+</CVehicleModelInfoVariation>

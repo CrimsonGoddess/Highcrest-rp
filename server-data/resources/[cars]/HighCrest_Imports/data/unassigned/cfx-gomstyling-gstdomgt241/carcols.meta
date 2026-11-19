@@ -1,0 +1,4864 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CVehicleModelInfoVarGlobal>
+  <Kits>
+    <Item>
+      <kitName>1826_gstdomgt241_modkit</kitName>
+      <id value="1826" />
+      <kitType>MKT_SPECIAL</kitType>
+      <visibleMods>
+<Item>
+          <modelName>gstdomgt241_liv1</modelName>
+          <modShopLabel>gstdomgt241_liv1</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv2</modelName>
+          <modShopLabel>gstdomgt241_liv2</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv3</modelName>
+          <modShopLabel>gstdomgt241_liv3</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv4</modelName>
+          <modShopLabel>gstdomgt241_liv4</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv5</modelName>
+          <modShopLabel>gstdomgt241_liv5</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv6</modelName>
+          <modShopLabel>gstdomgt241_liv6</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv7</modelName>
+          <modShopLabel>gstdomgt241_liv7</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv8</modelName>
+          <modShopLabel>gstdomgt241_liv8</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv9</modelName>
+          <modShopLabel>gstdomgt241_liv9</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv10</modelName>
+          <modShopLabel>gstdomgt241_liv10</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv11</modelName>
+          <modShopLabel>gstdomgt241_liv11</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv12</modelName>
+          <modShopLabel>gstdomgt241_liv12</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv13</modelName>
+          <modShopLabel>gstdomgt241_liv13</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv14</modelName>
+          <modShopLabel>gstdomgt241_liv14</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv15</modelName>
+          <modShopLabel>gstdomgt241_liv15</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv16</modelName>
+          <modShopLabel>gstdomgt241_liv16</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv17</modelName>
+          <modShopLabel>gstdomgt241_liv17</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv18</modelName>
+          <modShopLabel>gstdomgt241_liv18</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv19</modelName>
+          <modShopLabel>gstdomgt241_liv19</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv20</modelName>
+          <modShopLabel>gstdomgt241_liv20</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv20</modelName>
+          <modShopLabel>gstdomgt241_liv20</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv21</modelName>
+          <modShopLabel>gstdomgt241_liv21</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv22</modelName>
+          <modShopLabel>gstdomgt241_liv22</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv1</modelName>
+          <modShopLabel>gstdomgt241_liv1</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv23</modelName>
+          <modShopLabel>gstdomgt241_liv23</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv24</modelName>
+          <modShopLabel>gstdomgt241_liv24</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv25</modelName>
+          <modShopLabel>gstdomgt241_liv25</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv26</modelName>
+          <modShopLabel>gstdomgt241_liv26</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv27</modelName>
+          <modShopLabel>gstdomgt241_liv27</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv28</modelName>
+          <modShopLabel>gstdomgt241_liv28</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv29</modelName>
+          <modShopLabel>gstdomgt241_liv29</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv30</modelName>
+          <modShopLabel>gstdomgt241_liv30</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv31</modelName>
+          <modShopLabel>gstdomgt241_liv31</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv32</modelName>
+          <modShopLabel>gstdomgt241_liv32</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv33</modelName>
+          <modShopLabel>gstdomgt241_liv33</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv34</modelName>
+          <modShopLabel>gstdomgt241_liv34</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_liv35</modelName>
+          <modShopLabel>gstdomgt241_liv35</modShopLabel>
+          <linkedModels />
+          <turnOffBones />
+          <type>VMT_LIVERY_MOD</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        
+          <Item>
+          <modelName>gstdomgt241_bodywide_kit_adry53</modelName>
+          <modShopLabel>Parched35 Widebody Fenders</modShopLabel>
+          <linkedModels>
+          <Item>gstdomgt241_doorleftwide_kit_adry53</Item>
+          <Item>gstdomgt241_doorrightwide_kit_adry53</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>door_dside_f</Item>
+          <Item>door_pside_f</Item>
+          <Item>mod_v</Item>
+          <Item>mod_w</Item>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_INTERIOR1</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+          <Item>
+          <modelName>gstdomgt241_bodywide_kit_gtd</modelName>
+          <modShopLabel>GT-R Widebody Fenders</modShopLabel>
+          <linkedModels>
+          <Item>null</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>bodyshell</Item>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_INTERIOR1</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                  <Item>
+          <modelName>gstdomgt241_bodywide_kit_hycade</modelName>
+          <modShopLabel>SIGHCADE Widebody Fenders</modShopLabel>
+          <linkedModels>
+          <Item>gstdomgt241_skirtwide_kit_hycade</Item>
+          <Item>gstdomgt241_doorrightwide_kit_hycade</Item>
+          <Item>gstdomgt241_doorleftwide_kit_hycade</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>bodyshell</Item>
+        <Item>door_dside_f</Item>
+        <Item>door_pside_f</Item>
+        <Item>mod_v</Item>
+        <Item>mod_w</Item>
+      </turnOffBones> 
+          <type>VMT_INTERIOR1</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                  <Item>
+          <modelName>gstdomgt241_bodywide_kit_kargz</modelName>
+          <modShopLabel>GargX Widebody Fenders</modShopLabel>
+          <linkedModels>
+          <Item>null</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>bodyshell</Item>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_INTERIOR1</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                  <Item>
+          <modelName>gstdomgt241_bodywide_kit_ponyup</modelName>
+          <modShopLabel>TriggerPull Widebody Fenders</modShopLabel>
+          <linkedModels>
+          <Item>null</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>null</Item>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_INTERIOR1</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                  <Item>
+          <modelName>gstdomgt241_bodywide_kit_robotdusk</modelName>
+          <modShopLabel>Cyborg Dusk Widebody Fenders</modShopLabel>
+          <linkedModels>
+          <Item>null</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>null</Item>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_INTERIOR1</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                  <Item>
+          <modelName>gstdomgt241_bodywide_kit_rtrspec518</modelName>
+          <modShopLabel>TRT S518 Widebody Fenders</modShopLabel>
+          <linkedModels>
+          <Item>null</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>null</Item>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_INTERIOR1</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                  <Item>
+          <modelName>gstdomgt241_bodywide_kit_rtrspec524fd</modelName>
+          <modShopLabel>TRT S524FDR Widebody Fenders</modShopLabel>
+          <linkedModels>
+          <Item>null</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>null</Item>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_INTERIOR1</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                          <Item>
+          <modelName>gstdomgt241_bodywide_kit_rtrspec524</modelName>
+          <modShopLabel>TRT S524CPT Widebody Fenders</modShopLabel>
+          <linkedModels>
+          <Item>null</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>bodyshell</Item>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_INTERIOR1</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                          <Item>
+          <modelName>gstdomgt241_bodywide_kit_shiro</modelName>
+          <modShopLabel>Zeromai Widebody Fenders</modShopLabel>
+          <linkedModels>
+          <Item>null</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>null</Item>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_INTERIOR1</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                          <Item>
+          <modelName>gstdomgt241_bodywide_kit_supersnake</modelName>
+          <modShopLabel>SuperBullet Widebody Fenders</modShopLabel>
+          <linkedModels>
+          <Item>null</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>bodyshell</Item>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_INTERIOR1</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+
+
+
+
+
+
+
+
+
+
+          <Item>
+          <modelName>gstdomgt241_skirtwide_kit_adry53</modelName>
+          <modShopLabel>Parched35 Widebody Skirts</modShopLabel>
+          <linkedModels>
+          <Item>null</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>null</Item>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_INTERIOR2</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                  <Item>
+          <modelName>gstdomgt241_skirtwide_kit_hycade</modelName>
+          <modShopLabel>SIGHCADE Widebody Skirts</modShopLabel>
+          <linkedModels>
+       </linkedModels>
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_INTERIOR2</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                  <Item>
+          <modelName>gstdomgt241_skirtwide_kit_kargz</modelName>
+          <modShopLabel>GargX Widebody Skirts</modShopLabel>
+          <linkedModels>
+          <Item>null</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>null</Item>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_INTERIOR2</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                  <Item>
+          <modelName>gstdomgt241_skirtwide_kit_robotdusk</modelName>
+          <modShopLabel>Cyborg Dusk Widebody Skirts</modShopLabel>
+          <linkedModels>
+          <Item>null</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>null</Item>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_INTERIOR2</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                  <Item>
+          <modelName>gstdomgt241_skirt_kit_rtrspec518</modelName>
+          <modShopLabel>TRT S518 Skirts</modShopLabel>
+          <linkedModels>
+          <Item>null</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>null</Item>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_INTERIOR2</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                  <Item>
+          <modelName>gstdomgt241_skirt_kit_rtrspec524fd</modelName>
+          <modShopLabel>TRT S524FDR Skirts</modShopLabel>
+          <linkedModels>
+          <Item>null</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>null</Item>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_INTERIOR2</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                          <Item>
+          <modelName>gstdomgt241_skirtwide_kit_rtrspec524</modelName>
+          <modShopLabel>TRT S524CPT Widebody Skirts</modShopLabel>
+          <linkedModels>
+          <Item>null</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>null</Item>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_INTERIOR2</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                          <Item>
+          <modelName>gstdomgt241_skirtwide_kit_shiro</modelName>
+          <modShopLabel>Zeromai Widebody Skirts</modShopLabel>
+          <linkedModels>
+          <Item>null</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>null</Item>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_INTERIOR2</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+
+
+
+
+
+                          <Item>
+          <modelName>gstdomgt241_diffuser_kit_darkhorse</modelName>
+          <modShopLabel>BrightBullet Rear Diffuser</modShopLabel>
+          <linkedModels>
+          <Item>null</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>mod_o</Item>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_INTERIOR3</type>
+          <bone>bumper_r</bone>
+          <collisionBone>bumper_r</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                          <Item>
+          <modelName>gstdomgt241_diffuser_kit_kargz</modelName>
+          <modShopLabel>GargX Rear Diffuser</modShopLabel>
+          <linkedModels>
+          <Item>null</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>mod_o</Item>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_INTERIOR3</type>
+          <bone>bumper_r</bone>
+          <collisionBone>bumper_r</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+
+
+
+
+
+                                                                                                                    <Item>
+          <modelName>gstdomgt241_grille_kit_rtrspec518</modelName>
+          <modShopLabel>TRT S518 Grille</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_k</Item>
+        <Item>mod_m</Item>
+        <Item>mod_l</Item>
+      </turnOffBones> 
+          <type>VMT_CHASSIS5</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                            <Item>
+          <modelName>gstdomgt241_grille_kit_rtrspec524fd</modelName>
+          <modShopLabel>TRT S524FD Grille</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_k</Item>
+        <Item>mod_m</Item>
+        <Item>mod_l</Item>
+      </turnOffBones> 
+          <type>VMT_CHASSIS5</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                            <Item>
+          <modelName>gstdomgt241_grille_kit_supersnake</modelName>
+          <modShopLabel>SuperBullet Grille</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_k</Item>
+        <Item>mod_m</Item>
+        <Item>mod_l</Item>
+      </turnOffBones> 
+          <type>VMT_CHASSIS5</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                            <Item>
+          <modelName>gstdomgt241_grillewide_kit_adry53</modelName>
+          <modShopLabel>Parched35 Grille</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_k</Item>
+        <Item>mod_m</Item>
+        <Item>mod_l</Item>
+      </turnOffBones> 
+          <type>VMT_CHASSIS5</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+
+
+
+                                                                                                                            <Item>
+          <modelName>gstdomgt241_trunk_kit_supersnake</modelName>
+          <modShopLabel>SuperBullet Trunk</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>boot</Item>
+      </turnOffBones> 
+          <type>VMT_INTERIOR4</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                    <Item>
+          <modelName>gstdomgt241_trunk_kit_ponyup</modelName>
+          <modShopLabel>TriggerPull Trunk</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>boot</Item>
+      </turnOffBones> 
+          <type>VMT_INTERIOR4</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                    <Item>
+          <modelName>gstdomgt241_trunk_kit_kargz</modelName>
+          <modShopLabel>GargX Trunk</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>boot</Item>
+      </turnOffBones> 
+          <type>VMT_INTERIOR4</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                    <Item>
+          <modelName>gstdomgt241_trunk_kit_hycade</modelName>
+          <modShopLabel>SIGHCADE Trunk</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>boot</Item>
+      </turnOffBones> 
+          <type>VMT_INTERIOR4</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                    <Item>
+          <modelName>gstdomgt241_trunk_kit_gtd</modelName>
+          <modShopLabel>GT-R Trunk</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>boot</Item>
+      </turnOffBones> 
+          <type>VMT_INTERIOR4</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+
+                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler_kit_rtrspec524fd</modelName>
+          <modShopLabel>TRT S524FD Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler_kit_supersnake</modelName>
+          <modShopLabel>SuperBullet Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler_kit_robotdusk</modelName>
+          <modShopLabel>Cyborg Dusk Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler_kit_hycade</modelName>
+          <modShopLabel>SIGHCADE Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler_kit_gtd</modelName>
+          <modShopLabel>GT-R Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler_kit_darkhorse</modelName>
+          <modShopLabel>BrightBullet Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                    <Item>
+          <modelName>gstdomgt241_spoilerwide_kit_adry53</modelName>
+          <modShopLabel>Parched35 Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                    <Item>
+          <modelName>gstdomgt241_spoilerwide_kit_shiro</modelName>
+          <modShopLabel>Zeromai Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+
+
+
+                                                                                                                                                    <Item>
+          <modelName>gstdomgt241_bumfwide_kit_shiro</modelName>
+          <modShopLabel>Zeromai Front Bumper Widebody</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_n</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_F</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_bumfwide_kit_adry53</modelName>
+          <modShopLabel>Parched35 Front Splitter</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_n</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_F</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_bumf_kit_darkhorse</modelName>
+          <modShopLabel>BrightBullet Front Bumper</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>bumper_f</Item>
+        <Item>mod_j</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_F</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                                    <Item>
+          <modelName>gstdomgt241_bumf_kit_gtd</modelName>
+          <modShopLabel>GT-R Front Bumper</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>bumper_f</Item>
+        <Item>mod_n</Item>
+        <Item>mod_m</Item>
+        <Item>mod_l</Item>
+        <Item>mod_j</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_F</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_bumfwide_kit_gtd</modelName>
+          <modShopLabel>GT-R Widebody Front Bumper</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>bumper_f</Item>
+        <Item>mod_n</Item>
+        <Item>mod_m</Item>
+        <Item>mod_l</Item>
+        <Item>mod_j</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_F</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_bumf_kit_hycade</modelName>
+          <modShopLabel>SIGHCADE Front Bumper</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_n</Item>
+        <Item>mod_j</Item>
+        <Item>bumper_f</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_F</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_bumfwide_kit_hycade</modelName>
+          <modShopLabel>SIGHCADE Widebody Front Bumper</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_n</Item>
+        <Item>mod_j</Item>
+        <Item>bumper_f</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_F</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_bumf_kit_kargz</modelName>
+          <modShopLabel>GargX Front Bumper</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_n</Item>
+        <Item>mod_j</Item>
+        <Item>bumper_f</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_F</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_bumfwide_kit_kargz</modelName>
+          <modShopLabel>GargX Widebody Front Bumper</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_n</Item>
+        <Item>mod_j</Item>
+        <Item>bumper_f</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_F</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_bumf_kit_robotdusk</modelName>
+          <modShopLabel>Cyborg Dusk Front Bumper</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_n</Item>
+        <Item>mod_j</Item>
+        <Item>bumper_f</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_F</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_bumfwide_kit_robotdusk</modelName>
+          <modShopLabel>Cyborg Dusk Widebody Front Bumper</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_n</Item>
+        <Item>mod_j</Item>
+        <Item>bumper_f</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_F</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_bumfwide_kit_ponyup</modelName>
+          <modShopLabel>TriggerPull Widebody Front Bumper</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_n</Item>
+        <Item>mod_j</Item>
+        <Item>bumper_f</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_F</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_bumf_kit_supersnake</modelName>
+          <modShopLabel>SuperBullet Front Bumper</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_n</Item>
+        <Item>mod_j</Item>
+        <Item>bumper_f</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_F</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_bumfwide_kit_supersnake</modelName>
+          <modShopLabel>SuperBullet Widebody Front Bumper</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_n</Item>
+        <Item>mod_j</Item>
+        <Item>bumper_f</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_F</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_bumfwide_kit_shiro</modelName>
+          <modShopLabel>Zeromai Front Bumper Widebody</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_n</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_F</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_bumf_kit_rtrspec524fd</modelName>
+          <modShopLabel>TRT S524FD Front Splitter</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_n</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_F</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_bumf_kit_rtrspec518</modelName>
+          <modShopLabel>TRT S518 Front Splitter N Canards</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_n</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_F</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                                    <Item>
+          <modelName>gstdomgt241_bumfwide_kit_rtrspec524</modelName>
+          <modShopLabel>TRT S524CPT Widebody Front Bumper</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_n</Item>
+        <Item>mod_j</Item>
+        <Item>bumper_f</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_F</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+
+
+<Item>
+          <modelName>gstdomgt241_bumrwide_kit_shiro</modelName>
+          <modShopLabel>Zeromai Rear Bumper Widebody</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_R</type>
+          <bone>bumper_r</bone>
+          <collisionBone>bumper_r</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_bumr_kit_darkhorse</modelName>
+          <modShopLabel>BrightBullet Rear Bumper</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>bumper_r</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_R</type>
+          <bone>bumper_r</bone>
+          <collisionBone>bumper_r</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_bumr_kit_gtd</modelName>
+          <modShopLabel>GT-R Rear Bumper</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>bumper_r</Item>
+        <Item>mod_o</Item>
+        <Item>mod_p</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_R</type>
+          <bone>bumper_r</bone>
+          <collisionBone>bumper_r</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_bumrwide_kit_gtd</modelName>
+          <modShopLabel>GT-R Widebody Rear Bumper</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>bumper_r</Item>
+        <Item>mod_o</Item>
+        <Item>mod_p</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_R</type>
+          <bone>bumper_r</bone>
+          <collisionBone>bumper_r</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_bumr_kit_hycade</modelName>
+          <modShopLabel>SIGHCADE Rear Bumper</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>bumper_r</Item>
+        <Item>mod_o</Item>
+        <Item>mod_p</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_R</type>
+          <bone>bumper_r</bone>
+          <collisionBone>bumper_r</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_bumrwide_kit_hycade</modelName>
+          <modShopLabel>SIGHCADE Widebody Rear Bumper</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>bumper_r</Item>
+        <Item>mod_o</Item>
+        <Item>mod_p</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_R</type>
+          <bone>bumper_r</bone>
+          <collisionBone>bumper_r</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_bumrwide_kit_kargz</modelName>
+          <modShopLabel>GargX Rear Bumper Widebody</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_R</type>
+          <bone>bumper_r</bone>
+          <collisionBone>bumper_r</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_bumr_kit_robotdusk</modelName>
+          <modShopLabel>Cyborg Dusk Rear Bumper</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>bumper_r</Item>
+        <Item>mod_o</Item>
+        <Item>mod_p</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_R</type>
+          <bone>bumper_r</bone>
+          <collisionBone>bumper_r</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_bumrwide_kit_robotdusk</modelName>
+          <modShopLabel>Cyborg Dusk Widebody Rear Bumper</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>bumper_r</Item>
+        <Item>mod_o</Item>
+        <Item>mod_p</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_R</type>
+          <bone>bumper_r</bone>
+          <collisionBone>bumper_r</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+        <Item>
+          <modelName>gstdomgt241_bumrwide_kit_ponyup</modelName>
+          <modShopLabel>TriggerPull Widebody Rear Bumper</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>bumper_r</Item>
+        <Item>mod_o</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_R</type>
+          <bone>bumper_r</bone>
+          <collisionBone>bumper_r</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                <Item>
+          <modelName>gstdomgt241_bumrwide_kit_supersnake</modelName>
+          <modShopLabel>SuperBullet Widebody Rear Bumper</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>bumper_r</Item>
+        <Item>mod_o</Item>
+      </turnOffBones> 
+          <type>VMT_BUMPER_R</type>
+          <bone>bumper_r</bone>
+          <collisionBone>bumper_r</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+
+
+          <Item>
+          <modelName>gstdomgt241_hoodwide_kit_adry53</modelName>
+          <modShopLabel>Parched35 Hood</modShopLabel>
+          <linkedModels>
+          <Item>null</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>bonnet</Item>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_BONNET</type>
+          <bone>bonnet</bone>
+          <collisionBone>bonnet</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+          <Item>
+          <modelName>gstdomgt241_hood_kit_darkhorse</modelName>
+          <modShopLabel>BrightBullet Hood</modShopLabel>
+          <linkedModels>
+          <Item>null</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>bonnet</Item>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_BONNET</type>
+          <bone>bonnet</bone>
+          <collisionBone>bonnet</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+          <Item>
+          <modelName>gstdomgt241_hood_kit_gtd</modelName>
+          <modShopLabel>GT-R Hood</modShopLabel>
+          <linkedModels>
+          <Item>null</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>bonnet</Item>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_BONNET</type>
+          <bone>bonnet</bone>
+          <collisionBone>bonnet</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+          <Item>
+          <modelName>gstdomgt241_hood_kit_hycade</modelName>
+          <modShopLabel>SIGHCADE Hood</modShopLabel>
+          <linkedModels>
+          <Item>null</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>bonnet</Item>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_BONNET</type>
+          <bone>bonnet</bone>
+          <collisionBone>bonnet</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                  <Item>
+          <modelName>gstdomgt241_hood_kit_robotdusk</modelName>
+          <modShopLabel>Cyborg Dusk Hood</modShopLabel>
+          <linkedModels>
+          <Item>null</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>bonnet</Item>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_BONNET</type>
+          <bone>bonnet</bone>
+          <collisionBone>bonnet</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                  <Item>
+          <modelName>gstdomgt241_hood_kit_supersnake</modelName>
+          <modShopLabel>SuperBullet Hood</modShopLabel>
+          <linkedModels>
+          <Item>null</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>bonnet</Item>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_BONNET</type>
+          <bone>bonnet</bone>
+          <collisionBone>bonnet</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                  <Item>
+          <modelName>gstdomgt241_hood_kit_rtrspec518</modelName>
+          <modShopLabel>TRTS518 Hood</modShopLabel>
+          <linkedModels>
+          <Item>null</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>bonnet</Item>
+        <Item>null</Item>
+      </turnOffBones> 
+          <type>VMT_BONNET</type>
+          <bone>bonnet</bone>
+          <collisionBone>bonnet</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <Item>
+          <modelName>gstdomgt241_i6t</modelName>
+          <modShopLabel>gstdomgt241_i6t</modShopLabel>
+          <linkedModels>
+          <Item>gstdomgt241_i6t_anim</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>engineblock</Item>
+        <Item>mod_e</Item>
+      </turnOffBones> 
+          <type>VMT_ENGINEBAY1</type>
+          <bone>engineblock</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+    <Item>
+          <modelName>gstdomgt241_i6tt</modelName>
+          <modShopLabel>gstdomgt241_i6tt</modShopLabel>
+          <linkedModels>
+          <Item>gstdomgt241_i6tt_anim</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>engineblock</Item>
+        <Item>mod_e</Item>
+      </turnOffBones> 
+          <type>VMT_ENGINEBAY1</type>
+          <bone>engineblock</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+    <Item>
+          <modelName>gstdomgt241_v6tt</modelName>
+          <modShopLabel>gstdomgt241_v6tt</modShopLabel>
+          <linkedModels>
+          <Item>gstdomgt241_v6tt_anim</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>engineblock</Item>
+        <Item>mod_e</Item>
+      </turnOffBones> 
+          <type>VMT_ENGINEBAY1</type>
+          <bone>engineblock</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+    <Item>
+          <modelName>gstdomgt241_v8t</modelName>
+          <modShopLabel>gstdomgt241_v8t</modShopLabel>
+          <linkedModels>
+          <Item>gstdomgt241_v8t_anim</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>engineblock</Item>
+        <Item>mod_e</Item>
+      </turnOffBones> 
+          <type>VMT_ENGINEBAY1</type>
+          <bone>engineblock</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+    <Item>
+          <modelName>gstdomgt241_v8tt</modelName>
+          <modShopLabel>gstdomgt241_v8tt</modShopLabel>
+          <linkedModels>
+          <Item>gstdomgt241_v8tt_anim</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>engineblock</Item>
+        <Item>mod_e</Item>
+      </turnOffBones> 
+          <type>VMT_ENGINEBAY1</type>
+          <bone>engineblock</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+    <Item>
+          <modelName>gstdomgt241_v8tc</modelName>
+          <modShopLabel>gstdomgt241_v8tc</modShopLabel>
+          <linkedModels>
+          <Item>gstdomgt241_v8tc_anim</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>engineblock</Item>
+        <Item>mod_e</Item>
+      </turnOffBones> 
+          <type>VMT_ENGINEBAY1</type>
+          <bone>engineblock</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+    <Item>
+          <modelName>gstdomgt241_v8sc</modelName>
+          <modShopLabel>gstdomgt241_v8sc</modShopLabel>
+          <linkedModels>
+          <Item>gstdomgt241_v8sc_anim</Item>
+       </linkedModels>
+      <turnOffBones>
+          <Item>engineblock</Item>
+        <Item>mod_e</Item>
+      </turnOffBones> 
+          <type>VMT_ENGINEBAY1</type>
+          <bone>engineblock</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item> 
+		
+		<Item>
+          <modelName>gstdomgt241_exhaust1</modelName>
+          <modShopLabel>Chrome Stock Pipes</modShopLabel>
+          <linkedModels />
+		  <turnOffBones>
+         	<Item>misc_a</Item>
+          <Item>exhaust</Item>
+          <Item>exhaust_2</Item>
+          <Item>exhaust_3</Item>
+          <Item>exhaust_4</Item>
+		  </turnOffBones> 
+          <type>VMT_EXHAUST</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+            <Item>
+          <modelName>gstdomgt241_exhaust2</modelName>
+          <modShopLabel>Straight Pipes</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+          <Item>misc_a</Item>
+          <Item>exhaust</Item>
+          <Item>exhaust_2</Item>
+          <Item>exhaust_3</Item>
+          <Item>exhaust_4</Item>
+      </turnOffBones> 
+          <type>VMT_EXHAUST</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+            <Item>
+          <modelName>gstdomgt241_exhaust3</modelName>
+          <modShopLabel>Chrome Straight Pipes</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+          <Item>misc_a</Item>
+          <Item>exhaust</Item>
+          <Item>exhaust_2</Item>
+          <Item>exhaust_3</Item>
+          <Item>exhaust_4</Item>
+      </turnOffBones> 
+          <type>VMT_EXHAUST</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+            <Item>
+          <modelName>gstdomgt241_exhaust4</modelName>
+          <modShopLabel>Box Pipes</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+          <Item>misc_a</Item>
+          <Item>exhaust</Item>
+          <Item>exhaust_2</Item>
+          <Item>exhaust_3</Item>
+          <Item>exhaust_4</Item>
+      </turnOffBones> 
+          <type>VMT_EXHAUST</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+            <Item>
+          <modelName>gstdomgt241_exhaust5</modelName>
+          <modShopLabel>Chrome Box Pipes</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+          <Item>misc_a</Item>
+          <Item>exhaust</Item>
+          <Item>exhaust_2</Item>
+          <Item>exhaust_3</Item>
+          <Item>exhaust_4</Item>
+      </turnOffBones> 
+          <type>VMT_EXHAUST</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+            <Item>
+          <modelName>gstdomgt241_exhaust6</modelName>
+          <modShopLabel>Chrome Simple Pipes</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+          <Item>misc_a</Item>
+          <Item>exhaust</Item>
+          <Item>exhaust_2</Item>
+          <Item>exhaust_3</Item>
+          <Item>exhaust_4</Item>
+      </turnOffBones> 
+          <type>VMT_EXHAUST</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+            <Item>
+          <modelName>gstdomgt241_exhaust7</modelName>
+          <modShopLabel>Dark Simple Pipes</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+          <Item>misc_a</Item>
+          <Item>exhaust</Item>
+          <Item>exhaust_2</Item>
+          <Item>exhaust_3</Item>
+          <Item>exhaust_4</Item>
+      </turnOffBones> 
+          <type>VMT_EXHAUST</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+            <Item>
+          <modelName>gstdomgt241_exhaust8</modelName>
+          <modShopLabel>Dark Loud Pipes</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+          <Item>misc_a</Item>
+          <Item>exhaust</Item>
+          <Item>exhaust_2</Item>
+          <Item>exhaust_3</Item>
+          <Item>exhaust_4</Item>
+      </turnOffBones> 
+          <type>VMT_EXHAUST</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+            <Item>
+          <modelName>gstdomgt241_exhaust9</modelName>
+          <modShopLabel>Chrome Slashed Pipes</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+          <Item>misc_a</Item>
+          <Item>exhaust</Item>
+          <Item>exhaust_2</Item>
+          <Item>exhaust_3</Item>
+          <Item>exhaust_4</Item>
+      </turnOffBones> 
+          <type>VMT_EXHAUST</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+            <Item>
+          <modelName>gstdomgt241_exhaust10</modelName>
+          <modShopLabel>Dark Slashed Pipes</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+          <Item>misc_a</Item>
+          <Item>exhaust</Item>
+          <Item>exhaust_2</Item>
+          <Item>exhaust_3</Item>
+          <Item>exhaust_4</Item>
+      </turnOffBones> 
+          <type>VMT_EXHAUST</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+            <Item>
+          <modelName>gstdomgt241_exhaust11</modelName>
+          <modShopLabel>CarBIG(funny carbon) Slashed Pipes</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+          <Item>misc_a</Item>
+          <Item>exhaust</Item>
+          <Item>exhaust_2</Item>
+          <Item>exhaust_3</Item>
+          <Item>exhaust_4</Item>
+      </turnOffBones> 
+          <type>VMT_EXHAUST</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+            <Item>
+          <modelName>gstdomgt241_exhaust12</modelName>
+          <modShopLabel>TALL Slashed Blast Pipes</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+          <Item>misc_a</Item>
+          <Item>exhaust</Item>
+          <Item>exhaust_2</Item>
+          <Item>exhaust_3</Item>
+          <Item>exhaust_4</Item>
+      </turnOffBones> 
+          <type>VMT_EXHAUST</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+            <Item>
+          <modelName>gstdomgt241_exhaust13</modelName>
+          <modShopLabel>Medium Blast Pipes</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+          <Item>misc_a</Item>
+          <Item>exhaust</Item>
+          <Item>exhaust_2</Item>
+          <Item>exhaust_3</Item>
+          <Item>exhaust_4</Item>
+      </turnOffBones> 
+          <type>VMT_EXHAUST</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+
+            <Item>
+          <modelName>gstdomgt241_sidescoop1</modelName>
+          <modShopLabel>Primary DOMINATOR Side Scoop</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_INTERIOR1</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                    <Item>
+          <modelName>gstdomgt241_sidescoop2</modelName>
+          <modShopLabel>Secondary DOMINATOR Side Scoop</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_INTERIOR1</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                    <Item>
+          <modelName>gstdomgt241_sidescoop3</modelName>
+          <modShopLabel>Carbon DOMINATOR Side Scoop</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_INTERIOR1</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+
+                    <Item>
+          <modelName>gstdomgt241_dragpack1</modelName>
+          <modShopLabel>Drag Parachute</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_ICE</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                    <Item>
+          <modelName>gstdomgt241_dragpack2</modelName>
+          <modShopLabel>Drag Wheelie Bar</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_ICE</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                    <Item>
+          <modelName>gstdomgt241_dragpack3</modelName>
+          <modShopLabel>Full Drag Pack</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_ICE</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+
+                    <Item>
+          <modelName>gstdomgt241_fendernonwide1</modelName>
+          <modShopLabel>Primary JDM Style Fenders</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+          <Item>bodyshell</Item>
+      </turnOffBones> 
+          <type>VMT_HYDRO</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                            <Item>
+          <modelName>gstdomgt241_fendernonwide3</modelName>
+          <modShopLabel>Plastic JDM Style Fenders</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+          <Item>bodyshell</Item>
+      </turnOffBones> 
+          <type>VMT_HYDRO</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+
+                                    <Item>
+          <modelName>gstdomgt241_roofscoop1</modelName>
+          <modShopLabel>Primary Simple Roof Scoop</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_ENGINEBAY2</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                            <Item>
+          <modelName>gstdomgt241_roofscoop2</modelName>
+          <modShopLabel>Secondary Simple Roof Scoop</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_ENGINEBAY2</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                            <Item>
+          <modelName>gstdomgt241_roofscoop4</modelName>
+          <modShopLabel>Primary Race Roof Scoop</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_ENGINEBAY2</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                            <Item>
+          <modelName>gstdomgt241_roofscoop5</modelName>
+          <modShopLabel>Secondary Race Roof Scoop</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_ENGINEBAY2</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+
+                                                    <Item>
+          <modelName>gstdomgt241_seat1</modelName>
+          <modShopLabel>Carbon Race Buckets</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_b</Item>
+      </turnOffBones> 
+          <type>VMT_CHASSIS2</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                            <Item>
+          <modelName>gstdomgt241_seat2</modelName>
+          <modShopLabel>Medium Height Carbon Back Race Seats</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_b</Item>
+      </turnOffBones> 
+          <type>VMT_CHASSIS2</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                            <Item>
+          <modelName>gstdomgt241_seat3</modelName>
+          <modShopLabel>Short Height Carbon Back Race Seats 1</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_b</Item>
+      </turnOffBones> 
+          <type>VMT_CHASSIS2</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                            <Item>
+          <modelName>gstdomgt241_seat4</modelName>
+          <modShopLabel>Short Height Carbon Back Race Seats 2</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_b</Item>
+      </turnOffBones> 
+          <type>VMT_CHASSIS2</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                            <Item>
+          <modelName>gstdomgt241_seat5</modelName>
+          <modShopLabel>Tall Carbon Back Race Seats</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_b</Item>
+      </turnOffBones> 
+          <type>VMT_CHASSIS2</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+
+                                                                    <Item>
+          <modelName>gstdomgt241_mudflapr1</modelName>
+          <modShopLabel>Plastic Rear Mudflaps</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_CHASSIS3</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                            <Item>
+          <modelName>gstdomgt241_mudflapr2</modelName>
+          <modShopLabel>Primary Rear Mudflaps</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_CHASSIS3</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                            <Item>
+          <modelName>gstdomgt241_mudflapr3</modelName>
+          <modShopLabel>Secondary Rear Mudflaps</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_CHASSIS3</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                    <Item>
+          <modelName>null</modelName>
+          <modShopLabel>Plastic Front Mudflaps</modShopLabel>
+          <linkedModels><Item>gstdomgt241_mudflapf1</Item></linkedModels>
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_CHASSIS3</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                            <Item>
+          <modelName>null</modelName>
+          <modShopLabel>Primary Front Mudflaps</modShopLabel>
+          <linkedModels><Item>gstdomgt241_mudflapf2</Item></linkedModels>
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_CHASSIS3</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                            <Item>
+          <modelName>null</modelName>
+          <modShopLabel>Secondary Front Mudflaps</modShopLabel>
+          <linkedModels><Item>gstdomgt241_mudflapf3</Item></linkedModels>
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_CHASSIS3</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                            <Item>
+          <modelName>gstdomgt241_mudflapr1</modelName>
+          <modShopLabel>Plastic Front N Rear Mudflaps</modShopLabel>
+          <linkedModels><Item>gstdomgt241_mudflapf1</Item></linkedModels>
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_CHASSIS3</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                            <Item>
+          <modelName>gstdomgt241_mudflapr2</modelName>
+          <modShopLabel>Primary Front N Rear Mudflaps</modShopLabel>
+          <linkedModels><Item>gstdomgt241_mudflapf2</Item></linkedModels>
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_CHASSIS3</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                            <Item>
+          <modelName>gstdomgt241_mudflapr3</modelName>
+          <modShopLabel>Secondary Front N Rear Mudflaps</modShopLabel>
+          <linkedModels><Item>gstdomgt241_mudflapf3</Item></linkedModels>
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_CHASSIS3</type>
+          <bone>chassis</bone>
+          <collisionBone>chassis</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+
+                                                                            <Item>
+          <modelName>gstdomgt241_mirrorl1</modelName>
+          <modShopLabel>Primary Race Mirrors</modShopLabel>
+          <linkedModels><Item>gstdomgt241_mirrorr1</Item></linkedModels>
+      <turnOffBones>
+        <Item>mod_i</Item>
+        <Item>mod_h</Item>
+      </turnOffBones> 
+          <type>VMT_DOOR_L</type>
+          <bone>door_dside_f</bone>
+          <collisionBone>door_dside_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                            <Item>
+          <modelName>gstdomgt241_mirrorl4</modelName>
+          <modShopLabel>Primary JDM Style Mirrors</modShopLabel>
+          <linkedModels><Item>gstdomgt241_mirrorr4</Item></linkedModels>
+      <turnOffBones>
+        <Item>mod_i</Item>
+        <Item>mod_h</Item>
+      </turnOffBones> 
+          <type>VMT_DOOR_L</type>
+          <bone>door_dside_f</bone>
+          <collisionBone>door_dside_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+
+                                                                                    <Item>
+          <modelName>gstdomgt241_hood1</modelName>
+          <modShopLabel>Simple Long Inset Vented Hood</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>bonnet</Item>
+      </turnOffBones> 
+          <type>VMT_BONNET</type>
+          <bone>bonnet</bone>
+          <collisionBone>bonnet</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                            <Item>
+          <modelName>gstdomgt241_hood2</modelName>
+          <modShopLabel>Inset W/ Primary Scoop Hood</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>bonnet</Item>
+      </turnOffBones> 
+          <type>VMT_BONNET</type>
+          <bone>bonnet</bone>
+          <collisionBone>bonnet</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                            <Item>
+          <modelName>gstdomgt241_hood3</modelName>
+          <modShopLabel>Inset W/ Secondary Scoop Hood</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>bonnet</Item>
+      </turnOffBones> 
+          <type>VMT_BONNET</type>
+          <bone>bonnet</bone>
+          <collisionBone>bonnet</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                            <Item>
+          <modelName>gstdomgt241_hood4</modelName>
+          <modShopLabel>Inset W/ Plastic Scoop Hood</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>bonnet</Item>
+      </turnOffBones> 
+          <type>VMT_BONNET</type>
+          <bone>bonnet</bone>
+          <collisionBone>bonnet</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                    <Item>
+          <modelName>gstdomgt241_hood5</modelName>
+          <modShopLabel>Reverse Inset Vented Hood</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>bonnet</Item>
+      </turnOffBones> 
+          <type>VMT_BONNET</type>
+          <bone>bonnet</bone>
+          <collisionBone>bonnet</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                            <Item>
+          <modelName>gstdomgt241_hood6</modelName>
+          <modShopLabel>Dual Inset Vented Hood</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>bonnet</Item>
+      </turnOffBones> 
+          <type>VMT_BONNET</type>
+          <bone>bonnet</bone>
+          <collisionBone>bonnet</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                    <Item>
+          <modelName>gstdomgt241_hood7</modelName>
+          <modShopLabel>Cowl Induction Hood</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>bonnet</Item>
+      </turnOffBones> 
+          <type>VMT_BONNET</type>
+          <bone>bonnet</bone>
+          <collisionBone>bonnet</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                            <Item>
+          <modelName>gstdomgt241_hood8</modelName>
+          <modShopLabel>Vented Cowl Induction Hood</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>bonnet</Item>
+      </turnOffBones> 
+          <type>VMT_BONNET</type>
+          <bone>bonnet</bone>
+          <collisionBone>bonnet</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                            <Item>
+          <modelName>gstdomgt241_hood9</modelName>
+          <modShopLabel>Vanity Showcase Hood</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>bonnet</Item>
+      </turnOffBones> 
+          <type>VMT_BONNET</type>
+          <bone>bonnet</bone>
+          <collisionBone>bonnet</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                            <Item>
+          <modelName>gstdomgt241_hood10</modelName>
+          <modShopLabel>JDM Style Hood</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>bonnet</Item>
+      </turnOffBones> 
+          <type>VMT_BONNET</type>
+          <bone>bonnet</bone>
+          <collisionBone>bonnet</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+
+                                                                                                                    <Item>
+          <modelName>gstdomgt241_grille1</modelName>
+          <modShopLabel>Primary Thick Bar Grille</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_k</Item>
+      </turnOffBones> 
+          <type>VMT_CHASSIS5</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                            <Item>
+          <modelName>gstdomgt241_grille2</modelName>
+          <modShopLabel>Secondary Thick Bar Grille</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_k</Item>
+      </turnOffBones> 
+          <type>VMT_CHASSIS5</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                            <Item>
+          <modelName>gstdomgt241_grille3</modelName>
+          <modShopLabel>Plastic Thick Bar Grille</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_k</Item>
+      </turnOffBones> 
+          <type>VMT_CHASSIS5</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                            <Item>
+          <modelName>gstdomgt241_grille4</modelName>
+          <modShopLabel>Primary Thin Bar Grille</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_k</Item>
+      </turnOffBones> 
+          <type>VMT_CHASSIS5</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                            <Item>
+          <modelName>gstdomgt241_grille5</modelName>
+          <modShopLabel>Secondary Thin Bar Grille</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_k</Item>
+      </turnOffBones> 
+          <type>VMT_CHASSIS5</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                            <Item>
+          <modelName>gstdomgt241_grille6</modelName>
+          <modShopLabel>Plastic Thin Bar Grille</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_k</Item>
+      </turnOffBones> 
+          <type>VMT_CHASSIS5</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                            <Item>
+          <modelName>gstdomgt241_grille4</modelName>
+          <modShopLabel>Primary Thin Bar Grille W/ Badge</modShopLabel>
+          <linkedModels><Item>gstdomgt241_grillelogo_thin1</Item></linkedModels>
+      <turnOffBones>
+        <Item>mod_k</Item>
+      </turnOffBones> 
+          <type>VMT_CHASSIS5</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                            <Item>
+          <modelName>gstdomgt241_grille5</modelName>
+          <modShopLabel>Secondary Thin Bar Grille W/ Badge</modShopLabel>
+          <linkedModels><Item>gstdomgt241_grillelogo_thin1</Item></linkedModels>
+      <turnOffBones>
+        <Item>mod_k</Item>
+      </turnOffBones> 
+          <type>VMT_CHASSIS5</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                            <Item>
+          <modelName>gstdomgt241_grille6</modelName>
+          <modShopLabel>Plastic Thin Bar Grille W/ Badge</modShopLabel>
+          <linkedModels><Item>gstdomgt241_grillelogo_thin1</Item></linkedModels>
+      <turnOffBones>
+        <Item>mod_k</Item>
+      </turnOffBones> 
+          <type>VMT_CHASSIS5</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+
+                                                                                                                    <Item>
+          <modelName>gstdomgt241_splitter1</modelName>
+          <modShopLabel>Primary Splitter</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_ENGINEBAY3</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                    <Item>
+          <modelName>gstdomgt241_splitter2</modelName>
+          <modShopLabel>Secondary Splitter</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_ENGINEBAY3</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                    <Item>
+          <modelName>gstdomgt241_splitter3</modelName>
+          <modShopLabel>Plastic Splitter</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_ENGINEBAY3</type>
+          <bone>bumper_f</bone>
+          <collisionBone>bumper_f</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+
+                                                                                                                            <Item>
+          <modelName>gstdomgt241_diffuser1</modelName>
+          <modShopLabel>Primary Diffuser</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_CHASSIS4</type>
+          <bone>bumper_r</bone>
+          <collisionBone>bumper_r</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                    <Item>
+          <modelName>gstdomgt241_diffuser2</modelName>
+          <modShopLabel>Secondary Diffuser</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_CHASSIS4</type>
+          <bone>bumper_r</bone>
+          <collisionBone>bumper_r</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                    <Item>
+          <modelName>gstdomgt241_diffuser3</modelName>
+          <modShopLabel>Plastic Diffuser</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_CHASSIS4</type>
+          <bone>bumper_r</bone>
+          <collisionBone>bumper_r</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+
+                                                                                                                                    <Item>
+          <modelName>gstdomgt241_rearbumpermisc1</modelName>
+          <modShopLabel>Primary Crowdkiller Diffuser Tape-Ons</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_GRILL</type>
+          <bone>bumper_r</bone>
+          <collisionBone>bumper_r</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                    <Item>
+          <modelName>gstdomgt241_rearbumpermisc2</modelName>
+          <modShopLabel>Secondary Crowdkiller Diffuser Tape-Ons</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_GRILL</type>
+          <bone>bumper_r</bone>
+          <collisionBone>bumper_r</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                            <Item>
+          <modelName>gstdomgt241_rearbumpermisc3</modelName>
+          <modShopLabel>Plastic Crowdkiller Diffuser Tape-Ons</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_GRILL</type>
+          <bone>bumper_r</bone>
+          <collisionBone>bumper_r</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                            <Item>
+          <modelName>gstdomgt241_rearbumpermisc4</modelName>
+          <modShopLabel>Primary Crowdkiller Aero Slit Tape-Ons</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_GRILL</type>
+          <bone>bumper_r</bone>
+          <collisionBone>bumper_r</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                    <Item>
+          <modelName>gstdomgt241_rearbumpermisc5</modelName>
+          <modShopLabel>Secondary Crowdkiller Aero Slit Tape-Ons</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_GRILL</type>
+          <bone>bumper_r</bone>
+          <collisionBone>bumper_r</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                            <Item>
+          <modelName>gstdomgt241_rearbumpermisc6</modelName>
+          <modShopLabel>Plastic Crowdkiller Aero Slit Tape-Ons</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_GRILL</type>
+          <bone>bumper_r</bone>
+          <collisionBone>bumper_r</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                            <Item>
+          <modelName>gstdomgt241_rearbumpermisc7</modelName>
+          <modShopLabel>Primary Crowdkiller Canard Tape-Ons</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_GRILL</type>
+          <bone>bumper_r</bone>
+          <collisionBone>bumper_r</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                    <Item>
+          <modelName>gstdomgt241_rearbumpermisc8</modelName>
+          <modShopLabel>Secondary Crowdkiller Canard Tape-Ons</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_GRILL</type>
+          <bone>bumper_r</bone>
+          <collisionBone>bumper_r</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                            <Item>
+          <modelName>gstdomgt241_rearbumpermisc9</modelName>
+          <modShopLabel>Plastic Crowdkiller Canard Tape-Ons</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+      </turnOffBones> 
+          <type>VMT_GRILL</type>
+          <bone>bumper_r</bone>
+          <collisionBone>bumper_r</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+
+                                                                                                                                                    <Item>
+          <modelName>gstdomgt241_spoiler1</modelName>
+          <modShopLabel>Primary GTll Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+
+                                                                                                                                                    <Item>
+          <modelName>gstdomgt241_spoiler2</modelName>
+          <modShopLabel>Secondary GTll Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler3</modelName>
+          <modShopLabel>Carbon GTll Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler4</modelName>
+          <modShopLabel>Primary GTOE Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler5</modelName>
+          <modShopLabel>Secondary GTOE Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler6</modelName>
+          <modShopLabel>Carbon GTOE Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler7</modelName>
+          <modShopLabel>Primary Race Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler8</modelName>
+          <modShopLabel>Secondary Race Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler9</modelName>
+          <modShopLabel>Carbon Race Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler10</modelName>
+          <modShopLabel>Primary GT Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler11</modelName>
+          <modShopLabel>Secondary GT Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler12</modelName>
+          <modShopLabel>Carbon GT Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler13</modelName>
+          <modShopLabel>Primary Low T/A Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler14</modelName>
+          <modShopLabel>Secondary Low T/A Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler15</modelName>
+          <modShopLabel>Carbon Low T/A Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler16</modelName>
+          <modShopLabel>Primary Hellenbach Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler17</modelName>
+          <modShopLabel>Secondary Hellenbach Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler18</modelName>
+          <modShopLabel>Carbon Hellenbach Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler19</modelName>
+          <modShopLabel>Primary Low GT Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler20</modelName>
+          <modShopLabel>Secondary Low GT Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler21</modelName>
+          <modShopLabel>Carbon Low GT Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler22</modelName>
+          <modShopLabel>Primary High T/A Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler23</modelName>
+          <modShopLabel>Secondary High T/A Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler24</modelName>
+          <modShopLabel>Carbon High T/A Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler25</modelName>
+          <modShopLabel>Primary EXTREME T/A Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler26</modelName>
+          <modShopLabel>Secondary EXTREME T/A Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler27</modelName>
+          <modShopLabel>Carbon EXTREME T/A Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler28</modelName>
+          <modShopLabel>Primary EXTREME GT Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler29</modelName>
+          <modShopLabel>Secondary EXTREME GT Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+                                                                                                                                                            <Item>
+          <modelName>gstdomgt241_spoiler30</modelName>
+          <modShopLabel>Carbon EXTREME GT Spoiler</modShopLabel>
+          <linkedModels />
+      <turnOffBones>
+        <Item>mod_q</Item>
+      </turnOffBones> 
+          <type>VMT_SPOILER</type>
+          <bone>boot</bone>
+          <collisionBone>boot</collisionBone>
+          <cameraPos>VMCP_DEFAULT</cameraPos>
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <turnOffExtra value="false" />
+          <disableBonnetCamera value="false" />
+          <allowBonnetSlide value="true" />
+        </Item>
+	</visibleMods>
+	<linkMods>
+		<Item>
+          <modelName>gstdomgt241_grillelogo_thin1</modelName>
+          <bone>bumper_f</bone>
+          <turnOffExtra value="false" />
+		</Item>
+        <Item>
+          <modelName>gstdomgt241_grillelogo_thick1</modelName>
+          <bone>bumper_f</bone>
+          <turnOffExtra value="false" />
+    </Item>
+        <Item>
+          <modelName>gstdomgt241_mirrorr1</modelName>
+          <bone>door_pside_f</bone>
+          <turnOffExtra value="false" />
+    </Item> 
+            <Item>
+          <modelName>gstdomgt241_mirrorr2</modelName>
+          <bone>door_pside_f</bone>
+          <turnOffExtra value="false" />
+		  </Item>
+            <Item>
+          <modelName>gstdomgt241_mirrorr4</modelName>
+          <bone>door_pside_f</bone>
+          <turnOffExtra value="false" />
+    </Item> 
+            <Item>
+          <modelName>gstdomgt241_mirrorr5</modelName>
+          <bone>door_pside_f</bone>
+          <turnOffExtra value="false" />
+    </Item> 
+            <Item>
+          <modelName>gstdomgt241_mudflapf1</modelName>
+          <bone>chassis</bone>
+          <turnOffExtra value="false" />
+    </Item> 
+                <Item>
+          <modelName>gstdomgt241_mudflapf2</modelName>
+          <bone>chassis</bone>
+          <turnOffExtra value="false" />
+    </Item> 
+                <Item>
+          <modelName>gstdomgt241_mudflapf3</modelName>
+          <bone>chassis</bone>
+          <turnOffExtra value="false" />
+    </Item>
+
+        <Item>
+          <modelName>gstdomgt241_i6t_anim</modelName>
+          <bone>anim_i6t</bone>
+          <turnOffExtra value="false" />
+    </Item>
+    <Item>
+          <modelName>gstdomgt241_i6tt_anim</modelName>
+          <bone>anim_i6tt</bone>
+          <turnOffExtra value="false" />
+    </Item>
+    <Item>
+          <modelName>gstdomgt241_v6tt_anim</modelName>
+          <bone>anim_v6tt</bone>
+          <turnOffExtra value="false" />
+    </Item>
+    <Item>
+          <modelName>gstdomgt241_v8t_anim</modelName>
+          <bone>anim_v8t</bone>
+          <turnOffExtra value="false" />
+    </Item>
+    <Item>
+          <modelName>gstdomgt241_v8tt_anim</modelName>
+          <bone>anim_v8tt</bone>
+          <turnOffExtra value="false" />
+    </Item>
+    <Item>
+          <modelName>gstdomgt241_v8tc_anim</modelName>
+          <bone>anim_v8tc</bone>
+          <turnOffExtra value="false" />
+    </Item>
+    <Item>
+          <modelName>gstdomgt241_v8sc_anim</modelName>
+          <bone>anim_v8sc</bone>
+          <turnOffExtra value="false" />
+    </Item>
+
+        <Item>
+          <modelName>gstdomgt241_skirtwide_kit_hycade</modelName>
+          <bone>chassis</bone>
+          <turnOffExtra value="false" />
+    </Item>
+        <Item>
+          <modelName>gstdomgt241_doorrightwide_kit_hycade</modelName>
+          <bone>door_pside_f</bone>
+          <turnOffExtra value="false" />
+    </Item>
+        <Item>
+          <modelName>gstdomgt241_doorleftwide_kit_hycade</modelName>
+          <bone>door_dside_f</bone>
+          <turnOffExtra value="false" />
+    </Item>
+        <Item>
+          <modelName>gstdomgt241_doorrightwide_kit_adry53</modelName>
+          <bone>door_pside_f</bone>
+          <turnOffExtra value="false" />
+    </Item>
+        <Item>
+          <modelName>gstdomgt241_doorleftwide_kit_adry53</modelName>
+          <bone>door_dside_f</bone>
+          <turnOffExtra value="false" />
+    </Item>
+	</linkMods>
+    <statMods>
+        <Item>
+          <identifier />
+          <modifier value="20" />
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <type>VMT_ENGINE</type>
+        </Item>
+        <Item>
+          <identifier />
+          <modifier value="50" />
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <type>VMT_ENGINE</type>
+        </Item>
+        <Item>
+          <identifier />
+          <modifier value="75" />
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <type>VMT_ENGINE</type>
+        </Item>
+		<Item>
+          <identifier />
+          <modifier value="900" />
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <type>VMT_ENGINE</type>
+        </Item>
+        <Item>
+          <identifier />
+          <modifier value="100" />
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <type>VMT_ENGINE</type>
+        </Item>
+        <Item>
+          <identifier />
+          <modifier value="25" />
+          <audioApply value="1.000000" />
+          <weight value="5" />
+          <type>VMT_BRAKES</type>
+        </Item>
+        <Item>
+          <identifier />
+          <modifier value="60" />
+          <audioApply value="1.000000" />
+          <weight value="5" />
+          <type>VMT_BRAKES</type>
+        </Item>
+        <Item>
+          <identifier />
+          <modifier value="120" />
+          <audioApply value="1.000000" />
+          <weight value="5" />
+          <type>VMT_BRAKES</type>
+        </Item>
+        <Item>
+          <identifier />
+          <modifier value="50" />
+          <audioApply value="1.000000" />
+          <weight value="5" />
+          <type>VMT_GEARBOX</type>
+        </Item>
+        <Item>
+          <identifier />
+          <modifier value="100" />
+          <audioApply value="1.000000" />
+          <weight value="5" />
+          <type>VMT_GEARBOX</type>
+        </Item>
+        <Item>
+          <identifier />
+          <modifier value="200" />
+          <audioApply value="1.000000" />
+          <weight value="5" />
+          <type>VMT_GEARBOX</type>
+        </Item>
+        <Item>
+          <identifier />
+          <modifier value="10" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_SUSPENSION</type>
+        </Item>
+        <Item>
+          <identifier />
+          <modifier value="20" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_SUSPENSION</type>
+        </Item>
+        <Item>
+          <identifier />
+          <modifier value="30" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_SUSPENSION</type>
+        </Item>
+        <Item>
+          <identifier />
+          <modifier value="40" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_SUSPENSION</type>
+        </Item>
+        <Item>
+          <identifier />
+          <modifier value="20" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_ARMOUR</type>
+        </Item>
+        <Item>
+          <identifier />
+          <modifier value="40" />
+          <audioApply value="1.000000" />
+          <weight value="10" />
+          <type>VMT_ARMOUR</type>
+        </Item>
+        <Item>
+          <identifier />
+          <modifier value="60" />
+          <audioApply value="1.000000" />
+          <weight value="20" />
+          <type>VMT_ARMOUR</type>
+        </Item>
+        <Item>
+          <identifier />
+          <modifier value="80" />
+          <audioApply value="1.000000" />
+          <weight value="30" />
+          <type>VMT_ARMOUR</type>
+        </Item>
+        <Item>
+          <identifier />
+          <modifier value="100" />
+          <audioApply value="1.000000" />
+          <weight value="40" />
+          <type>VMT_ARMOUR</type>
+        </Item>
+        <Item>
+          <identifier>HORN_TRUCK</identifier>
+          <modifier value="1766676233" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+        <Item>
+          <identifier>HORN_COP</identifier>
+          <modifier value="2904189469" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+        <Item>
+          <identifier>HORN_CLOWN</identifier>
+          <modifier value="2543206147" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+        <Item>
+          <identifier>HORN_MUSICAL_1</identifier>
+          <modifier value="1732399718" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+        <Item>
+          <identifier>HORN_MUSICAL_2</identifier>
+          <modifier value="2046162893" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+        <Item>
+          <identifier>HORN_MUSICAL_3</identifier>
+          <modifier value="2194999691" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+        <Item>
+          <identifier>HORN_MUSICAL_4</identifier>
+          <modifier value="2508304100" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+        <Item>
+          <identifier>HORN_MUSICAL_5</identifier>
+          <modifier value="3707223535" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+		<Item>
+          <identifier>HORN_SAD_TROMBONE</identifier>
+          <modifier value="632950117" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+        <Item>
+          <identifier>MUSICAL_HORN_BUSINESS_1</identifier>
+          <modifier value="3628534289" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+        <Item>
+          <identifier>MUSICAL_HORN_BUSINESS_2</identifier>
+          <modifier value="3892554122" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+        <Item>
+          <identifier>MUSICAL_HORN_BUSINESS_3</identifier>
+          <modifier value="4112892878" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+        <Item>
+          <identifier>MUSICAL_HORN_BUSINESS_4</identifier>
+          <modifier value="116877169" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+        <Item>
+          <identifier>MUSICAL_HORN_BUSINESS_5</identifier>
+          <modifier value="2684983719" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+        <Item>
+          <identifier>MUSICAL_HORN_BUSINESS_6</identifier>
+          <modifier value="2982690084" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+		</Item>
+		<Item>
+          <identifier>MUSICAL_HORN_BUSINESS_7</identifier>
+          <modifier value="3203290992" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+		</Item>
+		<Item>
+          <identifier>DLC_BUSI2_C_MAJOR_NOTES_C0</identifier>
+          <modifier value="771284519" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+		</Item>
+		<Item>
+          <identifier>DLC_BUSI2_C_MAJOR_NOTES_D0</identifier>
+          <modifier value="2586621229" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+		</Item>
+		<Item>
+          <identifier>DLC_BUSI2_C_MAJOR_NOTES_E0</identifier>
+          <modifier value="283386134" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+		</Item>
+		<Item>
+          <identifier>DLC_BUSI2_C_MAJOR_NOTES_F0</identifier>
+          <modifier value="3884502400" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+		</Item>
+		<Item>
+          <identifier>DLC_BUSI2_C_MAJOR_NOTES_G0</identifier>
+          <modifier value="265723083" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+		</Item>
+		<Item>
+          <identifier>DLC_BUSI2_C_MAJOR_NOTES_A0</identifier>
+          <modifier value="1746883687" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+		</Item>
+		<Item>
+          <identifier>DLC_BUSI2_C_MAJOR_NOTES_B0</identifier>
+          <modifier value="1919870950" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+		</Item>
+		<Item>
+          <identifier>DLC_BUSI2_C_MAJOR_NOTES_C1</identifier>
+          <modifier value="1085277077" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+		</Item>
+        <Item>
+          <identifier>HIPSTER_HORN_1</identifier>
+          <modifier value="444549672" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+        <Item>
+          <identifier>HIPSTER_HORN_2</identifier>
+          <modifier value="1603064898" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+        <Item>
+          <identifier>HIPSTER_HORN_3</identifier>
+          <modifier value="240366033" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+        <Item>
+          <identifier>HIPSTER_HORN_4</identifier>
+          <modifier value="960137118" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+        <Item>
+          <identifier>INDEP_HORN_1</identifier>
+          <modifier value="3572144790" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+        <Item>
+          <identifier>INDEP_HORN_2</identifier>
+          <modifier value="3801396714" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+        <Item>
+          <identifier>INDEP_HORN_3</identifier>
+          <modifier value="2843657151" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+        <Item>
+          <identifier>INDEP_HORN_4</identifier>
+          <modifier value="3341811489" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+        <Item>
+          <identifier>LUXE_HORN_1</identifier>
+          <modifier value="3199657341" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+    <Item>
+          <identifier>LUXE_HORN_2</identifier>
+          <modifier value="2900378064" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+    <Item>
+          <identifier>LUXE_HORN_3</identifier>
+          <modifier value="3956195248" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+		<!-- PREVIEW HORN - FOR MOD SHOP USE ONLY -->
+		<Item>
+          <identifier>LUXORY_HORN_1</identifier>
+          <modifier value="676333254" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+		<!-- PREVIEW HORN - FOR MOD SHOP USE ONLY -->
+		<Item>
+          <identifier>LUXURY_HORN_2</identifier>
+          <modifier value="2099578296" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+		<!-- PREVIEW HORN - FOR MOD SHOP USE ONLY -->
+		<Item>
+          <identifier>LUXURY_HORN_3</identifier>
+          <modifier value="1373384483" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+		<Item>
+          <identifier>ORGAN_HORN_LOOP_01</identifier>
+          <modifier value="2916775806" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+		<!-- PREVIEW HORN - FOR MOD SHOP USE ONLY -->
+		<Item>
+          <identifier>ORGAN_HORN_LOOP_01_PREVIEW</identifier>
+          <modifier value="3714706952" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+		<Item>
+          <identifier>ORGAN_HORN_LOOP_02</identifier>
+          <modifier value="2611860261" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+		<!-- PREVIEW HORN - FOR MOD SHOP USE ONLY -->
+		<Item>
+          <identifier>ORGAN_HORN_LOOP_02_PREVIEW</identifier>
+          <modifier value="3206770359" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+		<Item>
+          <identifier>LOWRIDER_HORN_1</identifier>
+          <modifier value="310529291" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+		<!-- PREVIEW HORN - FOR MOD SHOP USE ONLY -->
+		<Item>
+          <identifier>LOWRIDER_HORN_1_PREVIEW</identifier>
+          <modifier value="2965568987" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+		<Item>
+          <identifier>LOWRIDER_HORN_2</identifier>
+          <modifier value="55291550" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+		<!-- PREVIEW HORN - FOR MOD SHOP USE ONLY -->
+		<Item>
+          <identifier>LOWRIDER_HORN_2_PREVIEW</identifier>
+          <modifier value="965054819" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+		<Item>
+          <identifier>XM15_HORN_01</identifier>
+          <modifier value="55862314" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+		<!-- PREVIEW HORN - FOR MOD SHOP USE ONLY -->
+		<Item>
+          <identifier>XM15_HORN_01_PREVIEW</identifier>
+          <modifier value="2156743178" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+		<Item>
+          <identifier>XM15_HORN_02</identifier>
+          <modifier value="400002352" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+		<!-- PREVIEW HORN - FOR MOD SHOP USE ONLY -->
+		<Item>
+          <identifier>XM15_HORN_02_PREVIEW</identifier>
+          <modifier value="897484282" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+		<Item>
+          <identifier>XM15_HORN_03</identifier>
+          <modifier value="560832604" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+		<!-- PREVIEW HORN - FOR MOD SHOP USE ONLY -->
+		<Item>
+          <identifier>XM15_HORN_03_PREVIEW</identifier>
+          <modifier value="314232747" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+   		<Item>
+          <identifier>DLC_AW_Airhorn_01</identifier>
+          <modifier value="3851180092" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+		<!-- PREVIEW HORN - FOR MOD SHOP USE ONLY -->
+		<Item>
+          <identifier>DLC_AW_Airhorn_01_Preview</identifier>
+          <modifier value="246182814" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+		<Item>
+          <identifier>DLC_AW_Airhorn_02</identifier>
+          <modifier value="3412861948" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+		<!-- PREVIEW HORN - FOR MOD SHOP USE ONLY -->
+		<Item>
+          <identifier>DLC_AW_Airhorn_02_Preview</identifier>
+          <modifier value="1804608241" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+		<Item>
+          <identifier>DLC_AW_Airhorn_03</identifier>
+          <modifier value="3374260066" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+		<!-- PREVIEW HORN - FOR MOD SHOP USE ONLY -->
+		<Item>
+          <identifier>DLC_AW_Airhorn_03_Preview</identifier>
+          <modifier value="2798044638" />
+          <audioApply value="1.000000" />
+          <weight value="0" />
+          <type>VMT_HORN</type>
+        </Item>
+      </statMods>
+       <slotNames>  
+		<Item>
+          <slot>VMT_BONNET</slot>
+          <name>Hoods</name>
+        </Item>	
+		<Item>
+          <slot>VMT_ENGINEBAY3</slot>
+          <name>Splitters</name>
+        </Item>
+		<Item>
+          <slot>VMT_BUMPER_F</slot>
+          <name>Front Bumpers</name>
+        </Item>
+		<Item>
+          <slot>VMT_CHASSIS5</slot>
+          <name>Grilles</name>
+        </Item>
+            <Item>
+          <slot>VMT_BUMPER_R</slot>
+          <name>Rear Bumpers</name>
+        </Item> 
+    <Item>
+          <slot>VMT_CHASSIS4</slot>
+          <name>Rear Bumper Diffusers</name>
+        </Item>
+    <Item>
+          <slot>VMT_GRILL</slot>
+          <name>Rear Bumper Miscellaneous Parts</name>
+        </Item>
+    <Item>
+          <slot>VMT_ICE</slot>
+          <name>Drag Packs</name>
+        </Item> 
+            <Item>
+          <slot>VMT_SPOILER</slot>
+          <name>Spoilers</name>
+        </Item> 
+    <Item>
+          <slot>VMT_CHASSIS</slot>
+          <name>Rollcages</name>
+        </Item>
+    <Item>
+          <slot>VMT_CHASSIS2</slot>
+          <name>Seats</name>
+        </Item>
+    <Item>
+          <slot>VMT_CHASSIS3</slot>
+          <name>Mud Flaps</name>
+        </Item> 
+            <Item>
+          <slot>VMT_ENGINEBAY2</slot>
+          <name>Roof Scoops</name>
+        </Item> 
+    <Item>
+          <slot>VMT_INTERIOR1</slot>
+          <name>Side Scoops</name>
+        </Item>
+    <Item>
+          <slot>VMT_ENGINEBAY1</slot>
+          <name>Engine Aspirations</name>
+        </Item>
+    <Item>
+          <slot>VMT_EXHAUST</slot>
+          <name>Exhausts</name>
+        </Item> 
+            <Item>
+          <slot>VMT_HYDRO</slot>
+          <name>Slim Body Fenders</name>
+        </Item>
+    <Item>
+          <slot>VMT_DOOR_L</slot>
+          <name>Mirrors</name>
+        </Item> 
+      </slotNames>
+	<liveryNames />
+  </Item>
+  </Kits>
+     <Lights>           <!-- Light ID Customisation -->
+    <Item>
+      <id value="666"/>
+      <indicator>
+        <intensity value="0.37500000"/>
+        <falloffMax value="2.50000000"/>
+        <falloffExponent value="8.00000000"/>
+        <innerConeAngle value="30.00000000"/>
+        <outerConeAngle value="80.00000000"/>
+        <emmissiveBoost value="false"/>
+        <color value="0xFFFF8000"/>
+        <textureName/>
+        <mirrorTexture value="true"/>
+      </indicator>
+      <rearIndicatorCorona>
+        <size value="0.00000000"/>
+        <size_far value="0.00000000"/>
+        <intensity value="0.00000000"/>
+        <intensity_far value="0.00000000"/>
+        <color value="0x00000000"/>
+        <numCoronas value="1"/>
+        <distBetweenCoronas value="128"/>
+        <distBetweenCoronas_far value="255"/>
+        <xRotation value="0.00000000"/>
+        <yRotation value="0.00000000"/>
+        <zRotation value="0.00000000"/>
+        <zBias value="0.25000000"/>
+        <pullCoronaIn value="false"/>
+      </rearIndicatorCorona>
+      <frontIndicatorCorona>
+        <size value="0.00000000"/>
+        <size_far value="0.00000000"/>
+        <intensity value="0.00000000"/>
+        <intensity_far value="0.00000000"/>
+        <color value="0x00000000"/>
+        <numCoronas value="1"/>
+        <distBetweenCoronas value="128"/>
+        <distBetweenCoronas_far value="255"/>
+        <xRotation value="0.00000000"/>
+        <yRotation value="0.00000000"/>
+        <zRotation value="0.00000000"/>
+        <zBias value="0.25000000"/>
+        <pullCoronaIn value="false"/>
+      </frontIndicatorCorona>
+      <tailLight>
+        <intensity value="0.25000000"/>
+    <!-- <intensity value="0.25000000"/> -->
+        <falloffMax value="4.00000000"/>
+        <falloffExponent value="16.00000000"/>
+        <innerConeAngle value="45.00000000"/>
+        <outerConeAngle value="90.00000000"/>
+        <emmissiveBoost value="false"/>
+        <color value="0xFFFF0000"/>
+        <textureName/>
+        <mirrorTexture value="true"/>
+      </tailLight>
+      <tailLightCorona>
+        <size value="0.00000000"/>
+        <size_far value="8.00000000"/>
+    <intensity value="0.00000000"/>
+    <!-- <intensity value="4.00000000"/> -->
+        <intensity_far value="0.00000000"/>
+    <!-- <intensity_far value="1.00000000"/> -->
+        <color value="0xFFFF1E05"/>
+        <numCoronas value="1"/>
+        <distBetweenCoronas value="128"/>
+        <distBetweenCoronas_far value="255"/>
+        <xRotation value="0.00000000"/>
+        <yRotation value="0.00000000"/>
+        <zRotation value="0.00000000"/>
+        <zBias value="0.25000000"/>
+        <pullCoronaIn value="false"/>
+      </tailLightCorona>
+      <tailLightMiddleCorona>
+        <size value="0.00000000"/>
+        <size_far value="0.00000000"/>
+        <intensity value="0.00000000"/>
+        <intensity_far value="0.00000000"/>
+        <color value="0x00000000"/>
+        <numCoronas value="1"/>
+        <distBetweenCoronas value="128"/>
+        <distBetweenCoronas_far value="255"/>
+        <xRotation value="0.00000000"/>
+        <yRotation value="0.00000000"/>
+        <zRotation value="0.00000000"/>
+        <zBias value="0.25000000"/>
+        <pullCoronaIn value="false"/>
+      </tailLightMiddleCorona>
+      <headLight>
+    <intensity value="1.00000000"/>
+    <!-- <intensity value="1.00000000"/> -->
+        <falloffMax value="35.00000000"/>
+        <falloffExponent value="16.00000000"/>
+        <innerConeAngle value="0.00000000"/>
+        <outerConeAngle value="60.21000000"/>
+        <emmissiveBoost value="false"/>
+        <color value="0xFFFFFFCC"/>
+        <textureName>VehicleLight_car_oldsquare</textureName>
+        <mirrorTexture value="false"/>
+      </headLight>
+      <headLightCorona>
+        <size value="0.10000000"/>
+        <size_far value="10.00000000"/>
+        <intensity value="0.00000000"/>
+    <!-- <intensity value="5.00000000"/> -->
+        <intensity_far value="0.00000000"/>
+        <color value="0xFFFFFFFF"/>
+        <numCoronas value="1"/>
+        <distBetweenCoronas value="128"/>
+        <distBetweenCoronas_far value="255"/>
+        <xRotation value="0.00000000"/>
+        <yRotation value="0.00000000"/>
+        <zRotation value="0.00000000"/>
+        <zBias value="0.25000000"/>
+        <pullCoronaIn value="false"/>
+      </headLightCorona>
+      <reversingLight>
+        <intensity value="0.50000000"/>
+    <!-- <intensity value="0.50000000"/> -->
+        <falloffMax value="4.00000000"/>
+        <falloffExponent value="32.00000000"/>
+        <innerConeAngle value="45.00000000"/>
+        <outerConeAngle value="90.00000000"/>
+        <emmissiveBoost value="false"/>
+        <color value="0xFFFFFFFF"/>
+        <textureName/>
+        <mirrorTexture value="true"/>
+      </reversingLight>
+      <reversingLightCorona>
+        <size value="0.80000000"/>
+        <size_far value="2.00000000"/>
+        <intensity value="0.00000000"/>
+    <!-- <intensity value="1.50000000"/> -->
+        <intensity_far value="0.00000000"/>
+    <!-- <intensity_far value="1.00000000"/> -->
+        <color value="0xFFFFFFFF"/>
+        <numCoronas value="1"/>
+        <distBetweenCoronas value="128"/>
+        <distBetweenCoronas_far value="255"/>
+        <xRotation value="0.00000000"/>
+        <yRotation value="0.00000000"/>
+        <zRotation value="0.00000000"/>
+        <zBias value="0.25000000"/>
+        <pullCoronaIn value="false"/>
+      </reversingLightCorona>
+      <name>nation_default</name>
+    </Item>
+    </Lights> 
+</CVehicleModelInfoVarGlobal>

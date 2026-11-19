@@ -1,0 +1,8 @@
+Citizen.CreateThread(function()
+AddTextEntry("gstrh8s1a", "Elegy RH8-S")
+AddTextEntry("gstrh8s1b", "Elegy RH8-S CTX")
+AddTextEntry("gstrh8s1c", "Elegy RH8-S CTX EVO")
+AddTextEntry("gstrh8s1d", "Elegy RH8-S CTX C2")
+AddTextEntry("gstrh8s1e", "Elegy RH8-S CTX C3")
+AddTextEntry("gstrh8s1f", "Elegy RH8-S CTX C4")
+end)

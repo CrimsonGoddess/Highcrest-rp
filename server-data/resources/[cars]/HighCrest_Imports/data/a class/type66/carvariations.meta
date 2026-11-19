@@ -1,0 +1,115 @@
+<CVehicleModelInfoVariation>
+  <variationData>
+<Item>
+<modelName>t66ts</modelName>
+<colors>
+<Item>
+<indices content="char_array">
+112
+0
+0
+0
+0
+28
+</indices>
+</Item>
+</colors>
+      <kits>
+        <Item>990_t66ts_modkit</Item>
+      </kits>
+      <plateProbabilities>
+        <Probabilities>
+          <Item>
+            <Name>Standard White</Name>
+            <Value value="100" />
+          </Item>
+        </Probabilities>
+		</plateProbabilities>
+<lightSettings value="990" />
+</Item>
+
+<Item>
+<modelName>t66avenger</modelName>
+<colors>
+<Item>
+<indices content="char_array">
+118
+28
+112
+0
+0
+28
+</indices>
+</Item>
+</colors>
+      <kits>
+        <Item>899_t66avenger_modkit</Item>
+      </kits>
+      <plateProbabilities>
+        <Probabilities>
+          <Item>
+            <Name>Standard White</Name>
+            <Value value="100" />
+          </Item>
+        </Probabilities>
+		</plateProbabilities>
+<lightSettings value="990" />
+</Item>
+
+<Item>
+<modelName>t66jr</modelName>
+<colors>
+<Item>
+<indices content="char_array">
+38
+0
+1
+0
+0
+28
+</indices>
+</Item>
+</colors>
+      <kits>
+        <Item>993_t66jr_modkit</Item>
+      </kits>
+      <plateProbabilities>
+        <Probabilities>
+          <Item>
+            <Name>Standard White</Name>
+            <Value value="100" />
+          </Item>
+        </Probabilities>
+		</plateProbabilities>
+<lightSettings value="990" />
+</Item>
+
+<Item>
+<modelName>t66cthulhu</modelName>
+<colors>
+<Item>
+<indices content="char_array">
+13
+0
+1
+0
+0
+28
+</indices>
+</Item>
+</colors>
+      <kits>
+        <Item>994_t66cthulhu_modkit</Item>
+      </kits>
+      <plateProbabilities>
+        <Probabilities>
+          <Item>
+            <Name>Standard White</Name>
+            <Value value="100" />
+          </Item>
+        </Probabilities>
+		</plateProbabilities>
+<lightSettings value="990" />
+</Item>
+  </variationData>
+</CVehicleModelInfoVariation>

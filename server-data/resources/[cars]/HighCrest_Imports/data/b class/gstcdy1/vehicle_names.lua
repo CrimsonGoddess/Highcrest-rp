@@ -1,0 +1,6 @@
+Citizen.CreateThread(function()
+AddTextEntry("gstcdy1", "Cody")
+AddTextEntry("gstcdy1b", "Cody CTX")
+AddTextEntry("gstcdy1c", "Cody T/A")
+AddTextEntry("gstcdy1d", "Cody DRT")
+end)
