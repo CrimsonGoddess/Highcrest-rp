@@ -40,3 +40,10 @@ server-data/resources/[[]custom]/highcrest_phone/web/node_modules/
 # Clothing packs (large, built with DurtyClothTool from D:ivem, uploaded directly, not in git)
 server-data/resources/[[]clothing]/
 /server-data/resources/\[cars\]/HighCrest_Imports
+server-data/resources/\[scripts\]/peuren_chopshop/pawnshop.json
+txData/default/data/cachedData.json
+txData/default/data/playersDB.json
+txData/default/data/stats_playerDrop.json
+txData/default/data/stats_svRuntime.json
+txData/default/logs/fxserver.history
+txData/default/logs/server.history
