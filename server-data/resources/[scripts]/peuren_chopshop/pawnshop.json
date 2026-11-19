@@ -1,28 +1,28 @@
 {
     "basic": {
-        "boot": {
+        "wheel": {
+            "item": "wheel",
             "sales": [],
+            "price": 1650
+        },
+        "door": {
+            "item": "door",
+            "sales": [],
+            "price": 1900
+        },
+        "boot": {
             "item": "boot",
+            "sales": [],
             "price": 900
         },
         "bonnet": {
-            "sales": [],
             "item": "bonnet",
+            "sales": [],
             "price": 1150
         },
-        "door": {
-            "sales": [],
-            "item": "door",
-            "price": 1900
-        },
-        "wheel": {
-            "sales": [],
-            "item": "wheel",
-            "price": 1650
-        },
         "engine": {
-            "sales": [],
             "item": "engine",
+            "sales": [],
             "price": 2400
         }
     }
