@@ -35,12 +35,10 @@ local function canInteractWithDoor(entity, coords, door, useOffset)
 
     if not boneName then return false end
 
-    -- Handle first; fall back to the door bone on models without a handle bone.
-    local boneId = GetEntityBoneIndexByName(entity, 'handle_' .. boneName)
-    if boneId == -1 then boneId = GetEntityBoneIndexByName(entity, 'door_' .. boneName) end
+    local boneId = GetEntityBoneIndexByName(entity, 'door_' .. boneName)
 
     if boneId ~= -1 then
-        return #(coords - GetEntityBonePosition_2(entity, boneId)) < 0.6
+        return #(coords - GetEntityBonePosition_2(entity, boneId)) < 0.5 or #(coords - GetEntityBonePosition_2(entity, GetEntityBoneIndexByName(entity, 'seat_' .. boneName))) < 0.72
     end
 end
 
@@ -64,7 +62,7 @@ interact.addGlobalVehicle({
         name = 'ox_target:driverF',
         icon = 'fa-solid fa-car-side',
         label = "Toggle front driver door",
-        bones = 'handle_dside_f',
+        bones = 'door_dside_f',
         distance = 2,
         canInteract = function(entity, distance, coords, name)
             return canInteractWithDoor(entity, coords, 0)
@@ -77,7 +75,7 @@ interact.addGlobalVehicle({
         name = 'ox_target:passengerF',
         icon = 'fa-solid fa-car-side',
         label = "Toggle front passenger door",
-        bones = 'handle_pside_f',
+        bones = 'door_pside_f',
         distance = 2,
         canInteract = function(entity, distance, coords, name)
             return canInteractWithDoor(entity, coords, 1)
@@ -90,7 +88,7 @@ interact.addGlobalVehicle({
         name = 'ox_target:driverR',
         icon = 'fa-solid fa-car-side',
         label = "Toggle rear driver door",
-        bones = 'handle_dside_r',
+        bones = 'door_dside_r',
         distance = 2,
         canInteract = function(entity, distance, coords)
             return canInteractWithDoor(entity, coords, 2)
@@ -103,7 +101,7 @@ interact.addGlobalVehicle({
         name = 'ox_target:passengerR',
         icon = 'fa-solid fa-car-side',
         label = "Toggle rear passenger door",
-        bones = 'handle_pside_r',
+        bones = 'door_pside_r',
         distance = 2,
         canInteract = function(entity, distance, coords)
             return canInteractWithDoor(entity, coords, 3)

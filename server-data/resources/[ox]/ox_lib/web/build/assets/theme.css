@@ -1,0 +1,46 @@
+/* Gold/red skin to match ox_inventory. Mantine v6 static class names. */
+.mantine-Modal-content,
+.mantine-Paper-root,
+.mantine-Menu-dropdown,
+.mantine-Popover-dropdown,
+.mantine-Select-dropdown {
+  background: linear-gradient(180deg, rgba(43, 24, 22, 0.96), rgba(21, 11, 10, 0.96)) !important;
+  border: 1px solid rgba(230, 169, 74, 0.22) !important;
+  box-shadow: 0 0 2.4vh rgba(156, 59, 36, 0.28), inset 0 0 1.2vh rgba(230, 169, 74, 0.05) !important;
+}
+.mantine-Modal-title {
+  color: #e6a94a;
+  text-shadow: 0 0 0.6vh rgba(230, 150, 60, 0.36);
+}
+[class*='mantine-'][class*='Input-input']:focus,
+[class*='mantine-'][class*='Input-input']:focus-within {
+  border-color: #e6a94a !important;
+}
+.mantine-Progress-root,
+.mantine-RingProgress-root {
+  filter: drop-shadow(0 0 0.5vh rgba(230, 150, 60, 0.35));
+}
+
+/* Radial menu motion (used by the radial styles in index-*.js) */
+@keyframes oxRadPop {
+  0% { transform: scale(0.35); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes oxRadIn {
+  0% { transform: scale(0.6) rotate(-25deg); opacity: 0; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+@keyframes oxRadFade {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes oxRadSpin {
+  to { transform: rotate(360deg); }
+}
+@keyframes oxRadPulse {
+  0%, 100% { filter: drop-shadow(0 0 2px rgba(240, 191, 96, 0.35)); }
+  50% { filter: drop-shadow(0 0 9px rgba(240, 191, 96, 0.8)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  svg * { animation: none !important; transition: none !important; }
+}

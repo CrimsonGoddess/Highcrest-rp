@@ -234,6 +234,43 @@ function interact.addCoords(coords, options)
     return (#ids == 1 and ids[1]) or ids
 end
 
+--- Turns a vector3 or a { x, y, z } table into a vector3.
+---@param value vector3 | { x: number, y: number, z: number }
+---@param variable string
+---@return vector3
+local function toVector3(value, variable)
+    if type(value) == 'vector3' then return value end
+    if type(value) == 'table' and value.x and value.y and value.z then
+        return vec3(value.x, value.y, value.z)
+    end
+    typeError(variable, 'vector3', type(value))
+end
+
+--- Adds options to a rotated box zone, with the same input as ox_target's addBoxZone.
+--- Options show when you are near any side of the box. name, debug and drawSprite are accepted and ignored here.
+---@param data { coords: vector3, size: vector3, rotation?: number, options: InteractOption | InteractOption[] }
+---@return string id The ID of the box zone, for removeCoords.
+function interact.addBoxZone(data)
+    if type(data) ~= 'table' then typeError('data', 'table', type(data)) end
+
+    local center = toVector3(data.coords, 'coords')
+    local size = toVector3(data.size, 'size')
+    local rotation = data.rotation or 0.0
+    if type(rotation) ~= 'number' then typeError('rotation', 'number', type(rotation)) end
+
+    local resource = GetInvokingResource()
+    local options = checkOptions(data.options)
+    store.boxSeq = store.boxSeq + 1
+    local id = ('box_%d'):format(store.boxSeq)
+
+    store.coords[id] = {}
+    store.coordIds[id] = center
+    store.boxes[id] = { coords = center, size = size, rotation = rotation }
+    addOptions(store.coords[id], table.clone(options), resource, nil, nil)
+
+    return id
+end
+
 --- Removes options from a coordinate location.
 ---@param id string The coordinate ID to modify.
 ---@param remove? string | string[] Specific option names to remove, or nil to remove all for the resource.
@@ -247,6 +284,7 @@ function interact.removeCoords(id, remove)
     removeOptions(store.coords[id], remove, resource)
 
     if #store.coords[id] == 0 then
+        store.boxes[id] = nil
         store.coords[id] = nil
         store.coordIds[id] = nil
     end

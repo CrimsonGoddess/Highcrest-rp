@@ -295,6 +295,8 @@ function client.openInventory(inv, data)
         }
     })
 
+    CreateThread(function() client.refreshBag('backpack') end)
+
     if inv and not currentInventory.coords and inv ~= 'container' and inv ~= 'glovebox' then
         currentInventory.coords = GetEntityCoords(playerPed)
     end
@@ -511,6 +513,8 @@ local function useSlot(slot, noAnim)
 		data.slot = slot
 
 		if item.metadata.container then
+			if invOpen then return client.openBag(item.slot) end
+
 			return client.openInventory('container', item.slot)
 		elseif data.client then
 			if invOpen and data.close then client.closeInventory() end
@@ -1261,6 +1265,19 @@ RegisterNetEvent('ox_inventory:setPlayerInventory', function(currentDrops, inven
 		}
 	end
 
+	for i = 1, #shared.equipdefs do
+		local def = shared.equipdefs[i]
+
+		for name in pairs(shared.equipslots[def.index]) do
+			local data = ItemData[name]
+
+			if data then
+				data.clothing = data.clothing or {}
+				data.clothing[#data.clothing + 1] = def.name
+			end
+		end
+	end
+
 	for _, data in pairs(inventory) do
 		local item = Items[data.name]
 
@@ -1359,11 +1376,12 @@ RegisterNetEvent('ox_inventory:setPlayerInventory', function(currentDrops, inven
 			items = ItemData,
 			leftInventory = {
 				id = cache.playerId,
-				slots = shared.playerslots,
+				slots = shared.totalslots,
 				items = PlayerData.inventory,
 				maxWeight = shared.playerweight,
 			},
-			imagepath = client.imagepath
+			imagepath = client.imagepath,
+			uiConfig = { clothing = { enabled = #shared.equipdefs > 0, slots = shared.equipdefs } }
 		}
 	})
 
@@ -1825,6 +1843,54 @@ end)
 local swapActive = false
 
 ---Synchronise and validate all item movement between the NUI and server.
+-- Bag windows (Tarkov-style): equipped backpack + one extra bag next to the main inventory.
+local backpackSlot
+
+for i = 1, #shared.equipdefs do
+	if shared.equipdefs[i].name == 'backpack' then backpackSlot = shared.equipdefs[i].index end
+end
+
+local function sendBag(kind, data)
+	if kind == 'backpack' then
+		SendNUIMessage({ action = 'setupInventory', data = { backpackInventory = data or false } })
+	else
+		SendNUIMessage({ action = 'setContainer', data = data or false })
+	end
+end
+
+---Re-reads a bag window from the server (closes it if the bag is gone).
+function client.refreshBag(kind)
+	if invOpen == nil then return end -- server also requires an open inventory
+	if kind == 'container' then
+		lib.callback.await('ox_inventory:openBag', false, 'container')
+		return sendBag('container')
+	end
+
+	sendBag('backpack', lib.callback.await('ox_inventory:openBag', false, 'backpack'))
+end
+
+---Opens the bag in `slot` in its own window.
+function client.openBag(slot)
+	local kind = slot == backpackSlot and 'backpack' or 'container'
+	sendBag(kind, lib.callback.await('ox_inventory:openBag', false, kind, slot))
+end
+
+RegisterNetEvent('ox_inventory:refreshBag', function(kind)
+	if source == '' then return end
+	client.refreshBag(kind)
+end)
+
+-- ignition slot (assigned by the vehicle keys resource while driving)
+RegisterNetEvent('ox_inventory:setIgnition', function(data)
+	if source == '' then return end
+	SendNUIMessage({ action = 'setupInventory', data = { ignitionInventory = data or false } })
+end)
+
+RegisterNUICallback('closeBag', function(_, cb)
+	cb(1)
+	client.refreshBag('container')
+end)
+
 RegisterNUICallback('swapItems', function(data, cb)
     if swapActive or not invOpen or invBusy or usingItem then return cb(false) end
 

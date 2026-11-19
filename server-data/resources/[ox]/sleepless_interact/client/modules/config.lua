@@ -46,20 +46,20 @@ config.duiScale = 0.2
 config.duiResolution = 2048
 
 -- Prompt theme.
-config.theme = 'modern'
+config.theme = 'minimal'
 
 -- Accent color for each theme.
 config.themeColors = {
 	legacy = { 28, 100, 184, 200 },
 	modern = { 255, 255, 255, 255 },
-	minimal = { 168, 186, 204, 255 },
+	minimal = { 230, 169, 74, 255 },
 	light = { 37, 99, 235, 255 },
 	retro = { 255, 176, 32, 255 },
 	cyber = { 0, 229, 255, 255 },
 	vice = { 255, 64, 180, 255 },
 	kawaii = { 255, 111, 168, 255 },
-	industrial = { 212, 175, 55, 255 }, -- server gold #D4AF37
-	fantasy = { 212, 175, 110, 255 },
+	industrial = { 212, 168, 48, 255 },
+	fantasy = { 230, 169, 74, 255 },
 }
 
 -- Accent color used for every theme. Nil uses the theme color.

@@ -25,6 +25,35 @@ shared = {
 shared.dropslots = GetConvarInt('inventory:dropslots', shared.playerslots)
 shared.dropweight = GetConvarInt('inventory:dropweight', shared.playerweight)
 
+-- Equipment slots (data/equipment.lua) sit after the normal player slots.
+do
+    local equipment = lib.load('data.equipment')
+    shared.backpacks = equipment.backpacks or {}
+    shared.equipslots = {}
+    shared.equipdefs = {}
+
+    for i, def in ipairs(equipment.slots or {}) do
+        local index = shared.playerslots + i
+        local allowed = {}
+
+        for _, name in ipairs(def.items or {}) do allowed[name] = true end
+        if def.name == 'backpack' then
+            for name in pairs(shared.backpacks) do allowed[name] = true end
+        end
+
+        shared.equipslots[index] = allowed
+        shared.equipdefs[i] = { index = index, name = def.name, label = def.label, side = def.side or 'right' }
+    end
+
+    shared.totalslots = shared.playerslots + #shared.equipdefs
+
+    ---True when `itemName` may go in `slot` of a player inventory.
+    function shared.canEquip(slot, itemName)
+        local allowed = shared.equipslots[slot]
+        return not allowed or allowed[itemName] == true
+    end
+end
+
 do
     if type(shared.police) == 'string' then
         shared.police = { shared.police }

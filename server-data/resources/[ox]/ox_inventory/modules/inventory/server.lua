@@ -41,6 +41,7 @@ function OxInventory:closeInventory(noEvent)
     self.open = false
     self.currentShop = nil
     self.containerSlot = nil
+    Inventory.CloseBags(self)
 
 	if not noEvent then
 		TriggerClientEvent('ox_inventory:closeInventory', self.id, true)
@@ -1164,6 +1165,8 @@ function Inventory.AddItem(inv, item, count, metadata, slot, cb)
 
 	metadata = assertMetadata(metadata)
 
+	if slot and inv.type == 'player' and not shared.canEquip(slot, item.name) then slot = nil end
+
 	if slot then
 		local slotData = inv.items[slot]
 		slotMetadata, slotCount = Items.Metadata(inv.id, item, metadata and table.clone(metadata) or {}, count)
@@ -1177,7 +1180,7 @@ function Inventory.AddItem(inv, item, count, metadata, slot, cb)
 		local items = inv.items
 		slotMetadata, slotCount = Items.Metadata(inv.id, item, metadata and table.clone(metadata) or {}, count)
 
-		for i = 1, inv.slots do
+		for i = 1, inv.type == 'player' and math.min(inv.slots, shared.playerslots) or inv.slots do
 			local slotData = items[i]
 
 			if item.stack and slotData ~= nil and slotData.name == item.name and table.matches(slotData.metadata, slotMetadata) then
@@ -1706,22 +1709,161 @@ end
 
 local GetLocks = require 'modules.locks'
 
+-- Side bags (Tarkov-style windows): the equipped backpack and one extra bag open in
+-- their own windows next to the main open inventory. Always re-checked against the
+-- item currently in the slot, since a bag can leave by drop, give, robbery or script.
+local backpackSlot
+
+for i = 1, #shared.equipdefs do
+	if shared.equipdefs[i].name == 'backpack' then backpackSlot = shared.equipdefs[i].index end
+end
+
+local BAG_KEYS = { backpack = 'backpackBag', container = 'sideBag' }
+
+local function releaseBag(playerInv, key)
+	local bag = playerInv[key]
+	if not bag then return end
+
+	playerInv[key] = nil
+	local inv = Inventories[bag.id]
+
+	if inv then
+		inv.openedBy[playerInv.id] = nil
+		if not next(inv.openedBy) then inv:set('open', false) end
+	end
+end
+
+function Inventory.CloseBags(playerInv)
+	releaseBag(playerInv, 'backpackBag')
+	releaseBag(playerInv, 'sideBag')
+end
+
+local function openBag(playerInv, kind, slot)
+	local key = BAG_KEYS[kind]
+	if not key then return end
+	if kind == 'backpack' then slot = backpackSlot end
+
+	local item = slot and playerInv.items[slot]
+	local containerId = item and item.metadata and item.metadata.container
+
+	if not containerId or not Items.containers[item.name] or (kind == 'container' and slot == backpackSlot) then
+		return releaseBag(playerInv, key)
+	end
+
+	if playerInv[key] and playerInv[key].id ~= containerId then releaseBag(playerInv, key) end
+
+	local inv = Inventory(containerId) or Inventory.Create(containerId, item.label, 'container', item.metadata.size[1], 0, item.metadata.size[2], false)
+	if not inv then return end
+
+	inv:set('open', true)
+	inv.openedBy[playerInv.id] = true
+	playerInv[key] = { id = inv.id, slot = slot }
+
+	return inv
+end
+
+-- Ignition slot: a stash the vehicle keys resource assigns while you're driving
+-- (its own swapItems hook checks the seat and that only the matching key goes in).
+exports('setIgnition', function(playerId, stashId)
+	local playerInv = Inventory(playerId)
+	if not playerInv then return end
+
+	local inv = stashId and Inventory(stashId)
+	playerInv.ignition = inv and inv.id or nil
+
+	TriggerClientEvent('ox_inventory:setIgnition', playerId, inv and {
+		id = inv.id,
+		label = inv.label,
+		type = 'ignition',
+		slots = inv.slots,
+		weight = inv.weight,
+		maxWeight = inv.maxWeight,
+		items = inv.items,
+	} or false)
+end)
+
+---The inventory behind an open bag window, or false if the bag left its slot.
+local function getBag(playerInv, kind)
+	local bag = playerInv[BAG_KEYS[kind]]
+	local item = bag and playerInv.items[bag.slot]
+
+	if item and item.metadata and item.metadata.container == bag.id and Inventories[bag.id] then return Inventories[bag.id] end
+
+	releaseBag(playerInv, BAG_KEYS[kind])
+	TriggerClientEvent('ox_inventory:refreshBag', playerInv.id, kind)
+
+	return false
+end
+
+---Opens (or for 'container' with no slot, closes) a bag window. kind: 'backpack' | 'container'
+lib.callback.register('ox_inventory:openBag', function(source, kind, slot)
+	local playerInv = Inventory(source)
+	local key = BAG_KEYS[kind]
+
+	if not playerInv or not key then return end
+	if not playerInv.open or (kind == 'container' and type(slot) ~= 'number') then return releaseBag(playerInv, key) end
+
+	local inv = openBag(playerInv, kind, slot)
+	if not inv then return end
+
+	local hooks <close> = TriggerEventHooks('openInventory', {
+		source = source,
+		inventoryId = inv.id,
+		inventoryType = inv.type,
+		slot = playerInv[key].slot,
+	})
+
+	if not hooks.success then return releaseBag(playerInv, key) end
+
+	return {
+		id = inv.id,
+		label = inv.label,
+		type = kind,
+		slots = inv.slots,
+		weight = inv.weight,
+		maxWeight = inv.maxWeight,
+		items = inv.items,
+	}
+end)
+
 ---@param source number
 ---@param data SwapSlotData
 lib.callback.register('ox_inventory:swapItems', function(source, data)
-	if data.fromType ~= data.toType and data.toType ~= 'player' and data.fromType ~= 'player' then
-        Utils.LogExploit(source, 'swapItems', 'Triggered event with invalid data', true)
-        return
-    end
-
 	data.count = math.max(1, math.floor(data.count or 1))
 
 	local playerInventory = Inventory(source)
 
 	if not playerInventory or not playerInventory.open then return end
 
-	local toInventory = (data.toType == 'player' and playerInventory) or Inventory(playerInventory.open)
-	local fromInventory = (data.fromType == 'player' and playerInventory) or Inventory(playerInventory.open)
+	local fromBagWindow = BAG_KEYS[data.fromType] and playerInventory[BAG_KEYS[data.fromType]] and true or false
+	local toBagWindow = BAG_KEYS[data.toType] and playerInventory[BAG_KEYS[data.toType]] and true or false
+
+	local fromIgnition = data.fromType == 'ignition'
+	local toIgnition = data.toType == 'ignition'
+
+	if (fromIgnition or toIgnition) and not playerInventory.ignition then return false end
+	if fromIgnition and data.toType == 'newdrop' then return false end
+
+	if data.fromType ~= data.toType and data.toType ~= 'player' and data.fromType ~= 'player' and not fromBagWindow and not toBagWindow and not fromIgnition and not toIgnition then
+        Utils.LogExploit(source, 'swapItems', 'Triggered event with invalid data', true)
+        return
+    end
+
+	-- not supported from a bag window: dropping straight to the ground, or bag-to-bag (two bag weights)
+	if fromBagWindow and (data.toType == 'newdrop' or (toBagWindow and data.fromType ~= data.toType)) then return false end
+
+	local function resolve(invType, isBag)
+		if invType == 'player' then return playerInventory end
+		if invType == 'ignition' then return Inventory(playerInventory.ignition) or false end
+		if isBag then return getBag(playerInventory, invType) end
+
+		return Inventory(playerInventory.open)
+	end
+
+	local toInventory = resolve(data.toType, toBagWindow)
+	local fromInventory = resolve(data.fromType, fromBagWindow)
+
+	if fromInventory == false or toInventory == false then return false end
 
 	if not fromInventory or not toInventory then
 		playerInventory:closeInventory()
@@ -1796,10 +1938,33 @@ lib.callback.register('ox_inventory:swapItems', function(source, data)
             if fromData.metadata.container and toInventory.type == 'container' then return false end
             if toData and toData.metadata.container and fromInventory.type == 'container' then return false end
 
-			local container, containerItem = (not sameInventory and playerInventory.containerSlot) and (fromInventory.type == 'container' and fromInventory or toInventory)
+			-- equipment slots (data/equipment.lua) only take their listed items
+			if toInventory.type == 'player' and not shared.canEquip(data.toSlot, fromData.name) then return false end
+			if toData and toData.name ~= fromData.name and fromInventory.type == 'player' and not shared.canEquip(data.fromSlot, toData.name) then return false end
+
+			local function bagSlot(inv)
+				if inv.type ~= 'container' then return end
+
+				for _, key in pairs(BAG_KEYS) do
+					local bag = playerInventory[key]
+					if bag and bag.id == inv.id then return bag.slot end
+				end
+
+				if inv.id == playerInventory.open then return playerInventory.containerSlot end
+			end
+
+			local containerSlot = not sameInventory and (bagSlot(fromInventory) or bagSlot(toInventory))
+			local container, containerItem = containerSlot and (bagSlot(fromInventory) and fromInventory or toInventory)
 
 			if container then
-				containerItem = playerInventory.items[playerInventory.containerSlot]
+				containerItem = playerInventory.items[containerSlot]
+			end
+
+			-- filling a bag straight from a stash/ground adds to what you carry
+			if container and container == toInventory and fromInventory ~= playerInventory then
+				local gain = fromData.weight * (data.count / fromData.count)
+
+				if playerInventory.weight + gain > playerInventory.maxWeight then return false, 'cannot_carry' end
 			end
 
 			local hookPayload = {
@@ -1877,7 +2042,7 @@ lib.callback.register('ox_inventory:swapItems', function(source, data)
 
 				local totalWeight = toInventory.weight - toData.weight + toSlotWeight
 
-				if fromInventory.type == 'container' or sameInventory or totalWeight <= toInventory.maxWeight then
+				if (fromInventory.type == 'container' and toInventory == playerInventory) or sameInventory or totalWeight <= toInventory.maxWeight then
 					hookPayload.action = 'stack'
 
 					local hooks <close> = TriggerEventHooks('swapItems', hookPayload)
@@ -1918,7 +2083,7 @@ lib.callback.register('ox_inventory:swapItems', function(source, data)
 				toData.slot = data.toSlot
 				toData.weight = Inventory.SlotWeight(Items(toData.name), toData)
 
-				if fromInventory.type == 'container' or sameInventory or (toInventory.weight + toData.weight <= toInventory.maxWeight) then
+				if (fromInventory.type == 'container' and toInventory == playerInventory) or sameInventory or (toInventory.weight + toData.weight <= toInventory.maxWeight) then
 					hookPayload.action = 'move'
 
 					local hooks <close> = TriggerEventHooks('swapItems', hookPayload)
@@ -1996,6 +2161,21 @@ lib.callback.register('ox_inventory:swapItems', function(source, data)
 
 			if fromInventory.changed ~= nil then fromInventory.changed = true end
 			if toInventory.changed ~= nil then toInventory.changed = true end
+
+			-- bag weight changed without touching your inventory: push the bag item to you
+			if containerItem and fromInventory ~= playerInventory and toInventory ~= playerInventory then
+				playerInventory:syncSlotsWithClients({ { item = containerItem, inventory = playerInventory.id } }, true)
+			end
+
+			-- a bag window's own bag moved: refresh that window
+			for kind, key in pairs(BAG_KEYS) do
+				local bag = playerInventory[key]
+				local slot = bag and bag.slot or (kind == 'backpack' and backpackSlot)
+
+				if slot and ((fromInventory == playerInventory and data.fromSlot == slot) or (toInventory == playerInventory and data.toSlot == slot)) then
+					TriggerClientEvent('ox_inventory:refreshBag', source, kind)
+				end
+			end
 
             CreateThread(function()
                 if sameInventory then
@@ -2211,7 +2391,7 @@ function Inventory.GetEmptySlot(inv)
 
 	local items = inventory.items
 
-	for i = 1, inventory.slots do
+	for i = 1, inventory.type == 'player' and math.min(inventory.slots, shared.playerslots) or inventory.slots do
 		if not items[i] then
 			return i
 		end
@@ -2233,7 +2413,7 @@ function Inventory.GetSlotForItem(inv, itemName, metadata)
 	local items = inventory.items
 	local emptySlot
 
-	for i = 1, inventory.slots do
+	for i = 1, inventory.type == 'player' and math.min(inventory.slots, shared.playerslots) or inventory.slots do
 		local slotData = items[i]
 
 		if not slotData and not emptySlot then

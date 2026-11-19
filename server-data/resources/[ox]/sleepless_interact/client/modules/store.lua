@@ -5,6 +5,8 @@ store.nearby = {}
 
 store.coords = {}
 store.coordIds = {}
+store.boxes = {}   -- box zones by coord id: { coords, size, rotation }
+store.boxSeq = 0
 
 store.localEntities = {}
 store.entities = {}

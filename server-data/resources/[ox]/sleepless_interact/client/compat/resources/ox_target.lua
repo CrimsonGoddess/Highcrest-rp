@@ -79,7 +79,7 @@ local function addSphereZone(data)
 end
 
 local function addBoxZone(data)
-    local coordsId = interact.addCoords(data.coords, data.options)
+    local coordsId = interact.addBoxZone(data)
 
     if data.name then
         zoneToCoord[data.name] = coordsId

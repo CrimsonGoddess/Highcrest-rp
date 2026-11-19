@@ -215,6 +215,8 @@ lib.callback.register('ox_inventory:buyItem', function(source, data)
 		local fromData = shop.items[data.fromSlot]
 		local toData = playerInv.items[data.toSlot]
 
+		if fromData and not shared.canEquip(data.toSlot, fromData.name) then return false end
+
 		if fromData then
 			if fromData.count then
 				if fromData.count < 1 then

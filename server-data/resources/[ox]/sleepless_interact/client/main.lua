@@ -608,6 +608,8 @@ end
 local function checkNearbyCoords(coords, update, aspectRatio)
     for id, _coords in pairs(store.coordIds) do
         local distSq = utils.getDistanceSquared(coords, _coords)
+        local box = store.boxes[id]
+        if box then distSq = utils.closestPointOnBox(box, coords) end
         if distSq < config.maxInteractDistanceSq then
             update[#update + 1] = {
                 coords = _coords,
@@ -813,13 +815,16 @@ local function drawLoop()
                     end
 
                     local distanceSq = utils.getDistanceSquared(playerCoords, coords)
+                    local losCoords = coords
+                    local box = item.coordId and store.boxes[item.coordId]
+                    if box then distanceSq, losCoords = utils.closestPointOnBox(box, playerCoords) end
                     local screenDistSq = utils.getScreenDistanceSquared(coords, aspectRatio)
                     item.currentScreenDistance = screenDistSq
 
                     local validOpts, validCount, hideCompletely
                     if distanceSq > maxDistSq or screenDistSq == math.huge then
                         hideCompletely = true
-                    elseif not los.hasClear(item, coords, losOrigin) then
+                    elseif not los.hasClear(item, losCoords, losOrigin) then
                         hideCompletely = true
                     else
                         validOpts, validCount, hideCompletely = filterValidOptions(item.options, item.entity, distanceSq,
@@ -839,6 +844,7 @@ local function drawLoop()
                         shouldUpdate = shouldUpdate,
                         hideCompletely = hideCompletely,
                         distance = distanceSq,
+                        losCoords = losCoords,
                         validOpts = validOpts,
                         validCount = validCount
                     }
@@ -959,6 +965,7 @@ local function drawLoop()
                         entity = item.entity,
                         distance = data.distance,
                         coords = coords,
+                        losCoords = data.losCoords,
                         index = 1,
                     }
 
@@ -1103,7 +1110,7 @@ RegisterNUICallback('select', function(data, cb)
     local currentTime = GetGameTimer()
     if store.current.options and currentTime > (store.cooldownEndTime or 0) then
         local option = store.current.options?[data[1]]?[data[2]]
-        if option and los.hasClear({ entity = store.current.entity, coordId = store.current.coordsId }, store.current.coords) then
+        if option and los.hasClear({ entity = store.current.entity, coordId = store.current.coordsId }, store.current.losCoords or store.current.coords) then
             if option.canInteract then
                 local success, resp = pcall(option.canInteract, store.current.entity, store.current.distance,
                     store.current.coords, option.name)

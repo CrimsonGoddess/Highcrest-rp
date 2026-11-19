@@ -58,7 +58,7 @@ function server.setPlayerInventory(player, data)
     end
 
     player.source = tonumber(player.source)
-    local inv = Inventory.Create(player.source, player.name, 'player', shared.playerslots, totalWeight,
+    local inv = Inventory.Create(player.source, player.name, 'player', shared.totalslots, totalWeight,
         shared.playerweight, player.identifier, inventory)
 
     if inv then

@@ -310,4 +310,29 @@ SetTimeout(0, function()
     end
 end)
 
+--- Closest point on a rotated box zone to a point, and the squared distance to it.
+--- Heading rotates the box the same way as the offsets in ox_target and whey_crafting (degrees, around z).
+---@param box { coords: vector3, size: vector3, rotation: number }
+---@param point vector3
+---@return number distSq
+---@return vector3 closest
+function utils.closestPointOnBox(box, point)
+    local rad = math.rad(box.rotation)
+    local sin, cos = math.sin(rad), math.cos(rad)
+    local rx, ry = point.x - box.coords.x, point.y - box.coords.y
+    local lx = rx * cos + ry * sin
+    local ly = -rx * sin + ry * cos
+    local lz = point.z - box.coords.z
+    local hx, hy, hz = box.size.x * 0.5, box.size.y * 0.5, box.size.z * 0.5
+    lx = math.max(-hx, math.min(hx, lx))
+    ly = math.max(-hy, math.min(hy, ly))
+    lz = math.max(-hz, math.min(hz, lz))
+    local closest = vec3(
+        box.coords.x + lx * cos - ly * sin,
+        box.coords.y + lx * sin + ly * cos,
+        box.coords.z + lz
+    )
+    return utils.getDistanceSquared(point, closest), closest
+end
+
 return utils

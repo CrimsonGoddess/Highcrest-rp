@@ -65,4 +65,20 @@ setContainerProperties('wallet', {
 	whitelist = { 'money', 'id_card','driver_license','weaponlicense','lawyerpass' }
 })
 
+-- Backpacks from data/equipment.lua; backpacks can't hold other backpacks.
+local backpackNames = {}
+for name in pairs(shared.backpacks) do backpackNames[#backpackNames + 1] = name end
+
+for name, bag in pairs(shared.backpacks) do
+	local blacklist = table.clone(bag.blacklist or {})
+	for i = 1, #backpackNames do blacklist[#blacklist + 1] = backpackNames[i] end
+
+	setContainerProperties(name, {
+		slots = bag.slots,
+		maxWeight = bag.maxWeight,
+		whitelist = bag.whitelist,
+		blacklist = not bag.whitelist and blacklist or nil,
+	})
+end
+
 return containers
