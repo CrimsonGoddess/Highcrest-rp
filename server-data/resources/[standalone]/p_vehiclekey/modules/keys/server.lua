@@ -53,6 +53,15 @@ function Keys:removeKey(playerId, plate, removeAll)
     Bridge.Inventory.removeItem(playerId, 'car_key', removeCount, { plate = plate })
 end
 
+-- Server-side hooks for garages: the key item carries {plate} metadata, so only this car's keys move.
+exports('giveCarKey', function(playerId, plate)
+    Keys:createKey(playerId, plate)
+end)
+
+exports('removeCarKeys', function(playerId, plate)
+    Keys:removeKey(playerId, plate, true)
+end)
+
 RegisterNetEvent('p_vehiclekeys/createKey', function(plate, netId)
     Keys:createKey(source, plate, netId)
 end)
