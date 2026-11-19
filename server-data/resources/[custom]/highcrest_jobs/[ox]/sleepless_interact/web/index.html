@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="modern">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>sleepless_interact</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" />
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="themes/legacy.css" rel="stylesheet" type="text/css" />
+    <link href="themes/modern.css" rel="stylesheet" type="text/css" />
+    <link href="themes/minimal.css" rel="stylesheet" type="text/css" />
+    <link href="themes/light.css" rel="stylesheet" type="text/css" />
+    <link href="themes/retro.css" rel="stylesheet" type="text/css" />
+    <link href="themes/cyber.css" rel="stylesheet" type="text/css" />
+    <link href="themes/vice.css" rel="stylesheet" type="text/css" />
+    <link href="themes/kawaii.css" rel="stylesheet" type="text/css" />
+    <link href="themes/industrial.css" rel="stylesheet" type="text/css" />
+    <link href="themes/fantasy.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div class="browser-dock" id="browser-dock" hidden>
+      <span class="browser-dock-label">Theme</span>
+      <div class="browser-themes" id="browser-themes"></div>
+      <button type="button" id="browser-compact">Compact</button>
+      <button type="button" id="browser-cooldown">Cooldown</button>
+    </div>
+
+    <div id="container">
+      <div id="interact-container">
+        <div id="interact-progress"></div>
+        <svg class="hold-ring" viewBox="0 0 100 100" aria-hidden="true">
+          <path
+            class="hold-ring-path"
+            pathLength="100"
+            d="M50 4 H84 A12 12 0 0 1 96 16 V84 A12 12 0 0 1 84 96 H16 A12 12 0 0 1 4 84 V16 A12 12 0 0 1 16 4 H50"
+          />
+        </svg>
+        <div id="interact-key">E</div>
+      </div>
+
+      <div id="options-wrapper">
+        <div id="interact-summary" class="interact-summary">
+          <div class="animated-background"></div>
+          <p class="option-label">Interact</p>
+        </div>
+        <div class="options-list-shell">
+          <div id="options-scroll-up" class="options-scroll-hint options-scroll-up" aria-hidden="true">
+            <i class="fa-solid fa-chevron-up"></i>
+          </div>
+          <div id="options-list"></div>
+          <div id="options-scroll-down" class="options-scroll-hint options-scroll-down" aria-hidden="true">
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script defer type="module" src="js/main.js"></script>
+  </body>
+</html>
