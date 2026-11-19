@@ -1,164 +1,55 @@
 Config = {}
 
-Config.Debug = false -- Turn on only to troubleshoot (prints extra info to the console)
+Config.Debug = false
 
--- Menu language. Use any file name from the `locales/` folder without the .lua,
--- for example "en", "fr", "de", "pt-BR", "zh-CN".
--- Your own language: copy `locales/en.lua`, rename the copy to your language code
--- (e.g. `locales/tr.lua`), change the first line to Locales["tr"] = { and translate
--- the text on the right of each = . Drop it back in the folder and set the code
--- here — nothing else to register. Anything you leave untranslated stays English.
--- Note: if the old `illenium-appearance:locale` convar is still in your server.cfg
--- it overrides this setting, so remove it.
-Config.Language = "en"
+Config.ClothingCost = 100
+Config.BarberCost = 100
+Config.TattooCost = 100
+Config.SurgeonCost = 100
 
--- Top-left branding: show your server name as text, or your own logo image.
--- For a logo, put your image in the `branding/` folder and set logoFile below.
-Config.Branding = {
-    useLogo = true,           -- true = show the logo image, false = show the name text
-    name = "HIGHCREST RP",    -- the text shown when useLogo = false
-    logoFile = "highcrest.png",    -- your image file inside the branding/ folder (png/jpg/webp/svg)
-    logoWidth = 110,          -- logo width on screen, in pixels
-    logoHeight = 0            -- logo height on screen (0 = automatic, keeps the shape)
-}
+Config.ChargePerTattoo = true -- Charge players per tattoo. Config.TattooCost will become the cost of 1 tattoo. The cost can be overridden by adding `cost` key in shared/tattoos.lua for specific tattoos
 
--- Menu accent colour. Every highlight, glow, button gradient, active selection
--- and the scrollbar are derived from this single hex, so change it to match your
--- server's brand. Format: "#RRGGBB" (e.g. "#3b82f6" blue, "#22c55e" green).
-Config.PrimaryColor = "#C8102E"
-
--- Preview pictures shown in the menu. They're already included with the script,
--- so most servers can leave this exactly as it is.
-Config.ItemImages = {
-    resource = "uz_AutoShot", -- Highcrest: our own pictures, taken in game with /shotmaker (uz_AutoShot)
-    format = "png"            -- uz_AutoShot saves PNG
-}
-
--- Turn clothing into inventory items. When on, buying clothes gives you items for
--- them; use an item to put the piece on, use it again to take it off.
--- Needs community_bridge installed.
-Config.ClothingItems = {
-    enabled         = false, -- on/off for this whole feature (Highcrest: off, needs community_bridge + items)
-    giveOnPurchase  = true,  -- buying clothes at a shop gives you the items
-    onlyChanged     = true,  -- only give items for pieces you actually changed
-    persist         = true,  -- worn items stay on after relog/death
-    enforceOwnership= true,  -- removing the item from your inventory takes the clothing off (ox_inventory only)
-    dedupe          = true,  -- don't give an item you already own
-    -- Quick "getting dressed" animation when you put a piece on (uses GTA's
-    -- clothing-store animations). Set enabled = false to turn it off.
-    animation = {
-        enabled   = true,
-        duration  = 1200,              -- how long the animation lasts (ms)
-        canCancel = true,              -- player can cancel it
-        dict = "clothingtie",          -- default animation for any piece
-        clip = "try_tie_negative_a",
-        flag = 49,
-        -- Special animation for certain pieces; anything not listed uses the default above.
-        perItem = {
-            clothing_pants   = { dict = "clothingtrousers", clip = "try_trousers_negative_a" },
-            clothing_shoes   = { dict = "clothingshoes",    clip = "try_shoes_negative_a" },
-            clothing_shirt   = { dict = "clothingshirt",    clip = "try_shirt_positive_d" },
-            clothing_jacket  = { dict = "clothingshirt",    clip = "try_shirt_positive_d" },
-        },
-    },
-    -- What a slot resets to when the piece is taken off (0 for clothing, -1 for props = nothing).
-    unequipDrawable = { component = 0, prop = -1 },
-    unequipTexture  = 0,
-    -- The clothing slots that turn into items. `item` = the inventory item name,
-    -- which must already exist in your inventory's item list.
-    items = {
-        { item = "clothing_mask",      kind = "component", id = 1,  label = "Mask" },
-        { item = "clothing_arms",      kind = "component", id = 3,  label = "Gloves / Arms" },
-        { item = "clothing_pants",     kind = "component", id = 4,  label = "Pants" },
-        { item = "clothing_bag",       kind = "component", id = 5,  label = "Bag" },
-        { item = "clothing_shoes",     kind = "component", id = 6,  label = "Shoes" },
-        { item = "clothing_accessory", kind = "component", id = 7,  label = "Accessory" },
-        { item = "clothing_shirt",     kind = "component", id = 8,  label = "Shirt" },
-        { item = "clothing_armor",     kind = "component", id = 9,  label = "Body Armor" },
-        { item = "clothing_decal",     kind = "component", id = 10, label = "Decal" },
-        { item = "clothing_jacket",    kind = "component", id = 11, label = "Jacket" },
-        { item = "clothing_hat",       kind = "prop",      id = 0,  label = "Hat" },
-        { item = "clothing_glasses",   kind = "prop",      id = 1,  label = "Glasses" },
-        { item = "clothing_ear",       kind = "prop",      id = 2,  label = "Earwear" },
-        { item = "clothing_watch",     kind = "prop",      id = 6,  label = "Watch" },
-        { item = "clothing_bracelet",  kind = "prop",      id = 7,  label = "Bracelet" },
-    },
-}
-
--- ===== Prices (set any to 0 to make it free) =====
-Config.ClothingCost = 100   -- Cost to change clothes at a store
-Config.BarberCost = 100     -- Cost for a haircut at the barber
-Config.TattooCost = 100     -- Cost per tattoo
-Config.SurgeonCost = 100    -- Cost for plastic surgery (face)
-
--- Charge for each tattoo? false = tattoos are free.
--- (A specific tattoo can set its own price in shared/tattoos.lua.)
-Config.ChargePerTattoo = true
-
--- Only turn on if you use the rcore_tattoos script.
+-- Only set this to true if you're using rcore_tattoos
 Config.RCoreTattoosCompatibility = false
 
--- Only turn on if you use pinkfrog's ox_inventory v3 clothing items.
--- Also set Config.ClothingItems.enabled = false so clothes aren't given twice.
-Config.PinkFrogInventoryCompatibility = false
+Config.AsynchronousLoading = false -- Change this to false if you want the NUI data to load before displaying the appearance UI
 
--- ===== Menu behaviour =====
-
--- true  = menu opens instantly, character finishes loading right after
--- false = load everything first, then show the menu
-Config.AsynchronousLoading = false
-
--- Open shops by aiming at a ped and pressing a key (needs ox_target / qb-target).
 Config.UseTarget = false
 
--- Where the on-screen "press to open" text appears.
 Config.TextUIOptions = {
     position = "left-center"
 }
 
--- Where pop-up notifications appear.
 Config.NotifyOptions = {
     position = "top-right"
 }
 
--- Number of characters in a shareable outfit code.
 Config.OutfitCodeLength = 10
 
--- Open clothing / outfits from a radial (wheel) menu.
 Config.UseRadialMenu = false
-Config.UseOxRadial = false -- Use the ox_lib wheel menu (needs UseRadialMenu = true too)
+Config.UseOxRadial = false -- Set to true to use ox_lib radial menu, both this and UseRadialMenu must be true 
 
--- ===== Shops, peds & blips =====
-
--- Show a shopkeeper ped standing at each location.
 Config.EnablePedsForShops = true
 Config.EnablePedsForClothingRooms = true
 Config.EnablePedsForPlayerOutfitRooms = true
 
--- Admin tool to edit any nearby ped's outfit. PedMenuGroup = who's allowed to use it.
 Config.EnablePedMenu = true
 Config.PedMenuGroup = "group.admin"
 
--- Adds the /joboutfits and /gangoutfits commands.
-Config.EnableJobOutfitsCommand = false
+Config.EnableJobOutfitsCommand = false -- Enables /joboutfits and /gangoutfits commands
 
-Config.ShowNearestShopOnly = false -- Only show a map blip for the closest shop
-Config.HideRadar = false -- Hide the minimap while the menu is open
-Config.NearestShopBlipUpdateDelay = 10000 -- How often (ms) the nearest-shop blip updates
+Config.ShowNearestShopOnly = false
+Config.HideRadar = false -- Hides the minimap while the appearance menu is open
+Config.NearestShopBlipUpdateDelay = 10000
 
--- Players can't be hurt while in the customization menu.
 Config.InvincibleDuringCustomization = true
 
--- Block taking off "Scarf and Chains" while wearing a tracker.
-Config.PreventTrackerRemoval = true
+Config.PreventTrackerRemoval = true -- Disables "Scarf and Chains" section if the player has tracker
 Config.TrackerClothingOptions = {
     drawable = 13,
     texture = 0
 }
 
--- ===== Character & clothing options =====
-
--- Sections shown when creating a brand-new character (true = shown).
 Config.NewCharacterSections = {
     Ped = true,
     HeadBlend = true,
@@ -169,31 +60,19 @@ Config.NewCharacterSections = {
     Tattoos = true
 }
 
--- Decide male/female from the player's ped model.
 Config.GenderBasedOnPed = true
 
--- Keep hats/glasses on when switching outfits.
 Config.AlwaysKeepProps = false
 
-Config.PersistUniforms = false -- Keep job/gang outfits on after relog/logout
-Config.OnDutyOnlyClothingRooms = false -- Clothing rooms only work while On Duty
+Config.PersistUniforms = false -- Keeps Job / Gang Outfits on player reconnects / logout
+Config.OnDutyOnlyClothingRooms = false -- Set to `true` to make the clothing rooms accessible only to players who are On Duty
 
-Config.BossManagedOutfits = false -- Let job/gang bosses manage their own outfits
+Config.BossManagedOutfits = false -- Allows Job / Gang bosses to manage their own job / gang outfits
 
-Config.ReloadSkinCooldown = 5000 -- Wait time (ms) before a player can reload their skin again
+Config.ReloadSkinCooldown = 5000
 
-Config.AutomaticFade = false -- Auto-fade hair edges and hide the Fade option
+Config.AutomaticFade = false -- Enables automatic fading and hides the Fade section from Hair
 
--- Show the Chest Hair overlay on female peds too (hidden by default). Some
--- players use it as a base for custom torso tattoos.
-Config.AllowChestHairFemale = false
-
--- Addon face packs add extra "parent" faces on top of GTA's built-in 0-45 range.
--- Set this to the highest face number your pack goes up to so players can reach
--- them in the Face section. Leave at 45 if you don't use one.
-Config.MaxParentFace = 45
-
--- Hide clothing sections from players. Set any to true to hide that one.
 Config.DisableComponents = {
     Masks = false,
     UpperBody = false,
@@ -207,7 +86,6 @@ Config.DisableComponents = {
     Jackets = false
 }
 
--- Hide prop sections from players. Set any to true to hide that one.
 Config.DisableProps = {
     Hats = false,
     Glasses = false,
@@ -216,9 +94,8 @@ Config.DisableProps = {
     Bracelets = false
 }
 
--- Advanced: ace permissions used for blacklisting. Leave empty if unsure.
 ---@type string[]
-Config.Aces = {}
+Config.Aces = {} -- list of ace permissions used for blacklisting
 
 Config.Blips = {
     ["clothing"] = {
@@ -683,7 +560,7 @@ Config.Stores = {
 Config.ClothingRooms = {
     {
         -- Highcrest Motorworks (RFC LS Customs) changing room, on-duty mechanics
-        job = "lsc_mech",
+        job = "mechanic",
         coords = vector4(-350.65, -124.74, 39.05, 70.18),
         size = vector3(3, 3, 3),
         rotation = 70,
