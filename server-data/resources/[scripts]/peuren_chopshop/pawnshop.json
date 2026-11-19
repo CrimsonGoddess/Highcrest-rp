@@ -1,29 +1,29 @@
 {
     "basic": {
-        "engine": {
-            "price": 2400,
-            "item": "engine",
-            "sales": []
-        },
-        "door": {
-            "price": 1900,
-            "item": "door",
-            "sales": []
-        },
         "wheel": {
+            "sales": [],
             "price": 1650,
-            "item": "wheel",
-            "sales": []
+            "item": "wheel"
+        },
+        "engine": {
+            "sales": [],
+            "price": 2400,
+            "item": "engine"
         },
         "boot": {
+            "sales": [],
             "price": 900,
-            "item": "boot",
-            "sales": []
+            "item": "boot"
         },
         "bonnet": {
+            "sales": [],
             "price": 1150,
-            "item": "bonnet",
-            "sales": []
+            "item": "bonnet"
+        },
+        "door": {
+            "sales": [],
+            "price": 1900,
+            "item": "door"
         }
     }
 }

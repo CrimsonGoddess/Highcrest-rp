@@ -1,1 +1,1 @@
-{"version":1,"log":[{"author":"TheRustyPyro","ts":1794965756060,"keys":["general.serverName","server.dataPath"]}]}
+{"version":1,"log":[{"author":"TheRustyPyro","ts":1794965756060,"keys":["general.serverName","server.dataPath"]},{"author":"TheRustyPyro","ts":1795059024249,"keys":["restarter.schedule","restarter.resourceStartingTolerance"]},{"author":"TheRustyPyro","ts":1795059075568,"keys":["restarter.schedule"]},{"author":"TheRustyPyro","ts":1795059114472,"keys":["restarter.schedule"]}]}
