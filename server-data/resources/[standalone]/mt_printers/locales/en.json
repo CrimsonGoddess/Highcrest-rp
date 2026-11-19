@@ -1,0 +1,15 @@
+{
+  "textui_place": "[SCROLL] - Rotation    \n[ENTER] - Place    \n[BACKSPACE] - Cancel",
+  "target_use": "Use printer",
+  "target_pick": "Pick up printer",
+  "input_url_match": "^https?://r2%.fivemanage%.com/.+",
+  "notify_no_paper": "You don't have paper",
+  "notify_wrong_url": "The URL is incorrect",
+  "printer": "Printer",
+  "image_placeholder": "Beautiful image",
+  "image_name": "Image name",
+  "img_link": "Only links from Fivemanage",
+  "image_url": "URL of the image to print",
+  "img_to_print": "Image to print",
+  "quantity": "Quantity to print"
+}

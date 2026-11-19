@@ -9,6 +9,54 @@ onResourceStart(function()
 		print("^5Debug^7: ^2Missing Item from ^5Shared Items^7: '^6recyclablematerial^7'")
 	end
 
+    -- Register Sell Shops
+    for i = 1, #Config.Locations["BottleBanks"] do
+        local loc = Config.Locations["BottleBanks"][i]
+        local nameBank = "BottleBank:"..i
+        registerSellShop(nameBank, loc.coords)
+    end
+
+    for i = 1, #Config.Locations["Recycle"] do
+        local loc = Config.Locations["Recycle"][i]
+        local nameSell = "Recycle:"..i
+        registerSellShop(nameSell, loc.coords)
+    end
+
+    local authCheck = {}
+    createCallback(getScript()..":auth:requestReward", function(source, time)
+        local src = source
+        if authCheck[src] then
+            print("^1Error^7: ^1User tried to collect but was already collecting")
+            return false
+        else
+            authCheck[src] = {
+                time = GetGameTimer() + (debugMode and 1000 or time),
+            }
+            debugPrint("^5Debug^7: ^2Registering recycle collection for source^7: "..src)
+            return true
+        end
+    end)
+
+    createCallback(getScript()..":auth:collectReward", function(source)
+        local src = source
+        if not authCheck[src] then
+            print("^1Error^7: ^1User tried to collect but was already collecting")
+            return false
+        else
+            if authCheck[src].time < GetGameTimer() then
+                debugPrint("^5Debug^7: ^2Completing recycle collection for source^7: "..src)
+                debugPrint("^5Debug^7: ^2Time match^7 - ^2Saved^7: "..authCheck[src].time.." | ^2Current^7: "..GetGameTimer())
+                authCheck[src] = nil
+                addItem("recyclablematerial", math.random(Config.Other.RecycleAmounts["Recycle"].Min, Config.Other.RecycleAmounts["Recycle"].Max), nil, src)
+                return true
+            else
+                print("^1Error^7: ^1Time mismatch^7 - ^1Saved^7: "..authCheck[src].time.." | ^1Current^7: "..GetGameTimer())
+                authCheck[src] = nil
+                return false
+            end
+        end
+    end)
+
 end, true)
 
 RegisterServerEvent("jim-recycle:Server:DoorCharge", function()
@@ -16,15 +64,6 @@ RegisterServerEvent("jim-recycle:Server:DoorCharge", function()
 	chargePlayer(Config.RecyclingCenter.PayAtDoor, "cash", src)
 end)
 
-
--- Server-side grant: client-side addItem read a bridge token that jim-recycle never set, so nothing was given
-RegisterServerEvent("jim-recycle:Server:RecycleReward", function(token)
-    local src = source
-    if not checkToken(src, token, "stash", getPlayer(src).name) then
-        return
-    end
-    addItem("recyclablematerial", math.random(Config.Other.RecycleAmounts["Recycle"].Min, Config.Other.RecycleAmounts["Recycle"].Max), nil, src)
-end)
 
 RegisterServerEvent("jim-recycle:Server:TradeItems", function(data, token)
     local src = source
@@ -65,11 +104,3 @@ RegisterServerEvent("jim-recycle:Server:TradeItems", function(data, token)
         triggerNotify(nil, "Not Enough Items", "error", src)
     end
 end)
-
--- jim_bridge refuses every sellMenu call from an unregistered shop name
-for i = 1, #Config.Locations["Recycle"] do
-    registerSellShop("RecycleSell"..i, Config.Locations["Recycle"][i].coords, { Prices = Config.Other.Prices })
-end
-for i = 1, #Config.Locations["BottleBanks"] do
-    registerSellShop("BottleBank"..i, Config.Locations["BottleBanks"][i].coords, { Bottles = Config.Other.BottleBankTable })
-end

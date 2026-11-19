@@ -1,0 +1,50 @@
+--- a/server/functions.lua
++++ b/server/functions.lua
+@@ -259,10 +259,11 @@
+         json.encode(xPlayer.getLoadout(true)),
+         json.encode(xPlayer.getMeta()),
+         xPlayer.identifier,
++        tonumber(xPlayer.getMeta('zlomaWalletRevision')) or 0,
+     }
+ 
+     MySQL.prepare(
+-        "UPDATE `users` SET `accounts` = ?, `job` = ?, `job_grade` = ?, `group` = ?, `position` = ?, `inventory` = ?, `loadout` = ?, `metadata` = ? WHERE `identifier` = ?",
++        "UPDATE `users` SET `accounts` = ?, `job` = ?, `job_grade` = ?, `group` = ?, `position` = ?, `inventory` = ?, `loadout` = ?, `metadata` = ? WHERE `identifier` = ? AND `zloma_wallet_revision` <= ?", -- ZLOMA_DURABLE_WALLET_SAVE_GUARD
+         parameters,
+         function(affectedRows)
+             if affectedRows == 1 then
+@@ -299,11 +300,12 @@
+             json.encode(xPlayer.getLoadout(true)),
+             json.encode(xPlayer.getMeta()),
+             xPlayer.identifier,
++            tonumber(xPlayer.getMeta('zlomaWalletRevision')) or 0,
+         }
+     end
+ 
+     MySQL.prepare(
+-        "UPDATE `users` SET `accounts` = ?, `job` = ?, `job_grade` = ?, `group` = ?, `position` = ?, `inventory` = ?, `loadout` = ?, `metadata` = ? WHERE `identifier` = ?",
++        "UPDATE `users` SET `accounts` = ?, `job` = ?, `job_grade` = ?, `group` = ?, `position` = ?, `inventory` = ?, `loadout` = ?, `metadata` = ? WHERE `identifier` = ? AND `zloma_wallet_revision` <= ?", -- ZLOMA_DURABLE_WALLET_SAVE_GUARD
+         parameters,
+         function(results)
+             if not results then
+--- a/server/classes/player.lua
++++ b/server/classes/player.lua
+@@ -324,6 +324,8 @@
+ 
+     function self.getAccount(account)
+         account = string.lower(account)
++        -- ZLOMA_DURABLE_WALLET_READ_GUARD
++        if account == 'bank' and ZlomaWaitDurableWallet then ZlomaWaitDurableWallet(self.identifier) end
+         for i = 1, #self.accounts do
+             local accountName = string.lower(self.accounts[i].name)
+             if accountName == account then
+--- a/fxmanifest.lua
++++ b/fxmanifest.lua
+@@ -30,6 +30,7 @@
+ 	'server/classes/vehicle.lua',
+ 	'server/classes/overrides/*.lua',
+ 	'server/functions.lua',
++    'server/zloma_durable_wallet.lua',
+ 	'server/modules/onesync.lua',
+ 	'server/modules/paycheck.lua',
+ 

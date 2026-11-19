@@ -1,0 +1,1 @@
+ZlomaCore.RegisterClientNotification('g-notifications', function(msg, kind) exports['g-notifications']:Notify({ title = 'Notification', description = msg, type = kind == 'inform' and 'info' or kind }) end)

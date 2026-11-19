@@ -1,0 +1,3 @@
+86073eb02b40049d6e6cc2fb483c08321e64696669eb329e051b9a196c28251d  server\functions.lua
+7043686c6a383d41c875073f6514f1b096da1c9b50ac3eb231b3eeda033dfb7f  server\classes\player.lua
+dcfe7cea398ce37771af9eda658b1694da6321a1d9af5327fade80397f1ca152  fxmanifest.lua

@@ -1,0 +1,2 @@
+38bcf4c0e91f7e193da45401647853831baff588cfb088ba443ae73392385ab2  server/classes/addonaccount.lua
+a457824f74b10c2af07eb79d0d9dc156d277baad7ff0c0102e010a102b4f3282  fxmanifest.lua

@@ -1,0 +1,54 @@
+ui/node_modules/
+ui/.next/
+ui/out/
+tests/__pycache__/
+*.bak
+ui/tsconfig.tsbuildinfo
+
+# Browser test artifacts
+ui/test-results/
+ui/playwright-report/
+
+.work/
+tools/alarm-assets/bin/
+tools/alarm-assets/obj/
+
+# Generated UI ships only in the installable release archive.
+/ui/dist/
+/test-results/
+/releases/
+*.zip
+*.tar.gz
+
+# Local credentials, machine state and editor caches.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+*.log
+__pycache__/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+# External asset tools/keys are never redistributed.
+tools/alarm-assets/*.dll
+tools/alarm-assets/*.pdb
+tools/alarm-assets/keys*
+
+# Local raw assets and automated tests (kept locally, excluded from GitHub).
+/raw/
+/tests/
+/ui/tests/
+/ui/playwright.config.ts
+
+# Private release preparation and developer tooling.
+/release/
+/tools/
+/notices/
+
+# Local documentation/media and separate license workspace, omitted from public package.
+/docs/
+/LICENSES/

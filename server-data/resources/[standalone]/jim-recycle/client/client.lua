@@ -1,6 +1,8 @@
 onDuty, Peds, Targets, searchProps, Props, randPackage = false, {}, {}, {}, {}, nil
-local TradePeds = {}
 local TrollyProp = nil
+local CollectingReward = false
+local Picking = false
+local targetBlip = nil
 
 Recycling = {
     Functions = {},
@@ -18,6 +20,8 @@ onPlayerLoaded(function()
                 name = "Recycling:"..location,
                 debug = debugMode,
                 points = loc.Zone,
+                minZ = loc.zoneMinZ or nil,
+                maxZ = loc.zoneMaxZ or nil,
                 onEnter = function()
                     Recycling.Functions.createProps(location)
                 end,
@@ -26,7 +30,7 @@ onPlayerLoaded(function()
                     Recycling.Functions.CleanUpProps()
                     debugPrint("^5Debug^7: ^3PolyZone^7: ^2Leaving Area^7. ^2Clocking out and cleaning up^7")
                     if loc.Job then
-                        if onDuty then TriggerServerEvent("QBCore:ToggleDuty") end
+                        if onDuty then toggleDuty() end
                     elseif onDuty == true then
                         onDuty = false
                     end
@@ -54,7 +58,7 @@ onPlayerLoaded(function()
                         job = loc.Job,
                         label = locale("target", "enter")..(Config.PayAtDoor and " ($"..Config.PayAtDoor..")" or ""),
                     },
-                }, 3.0) -- point target sits mid-height in the box; 1.5 was too short to reach from the ground
+                }, 1.5)
 
             local nameExit = "RecycleExit_"..location
             Targets[nameExit] =
@@ -85,7 +89,7 @@ onPlayerLoaded(function()
                     }, }, {
                     {
                         action = function()
-                            Recycling.Functions.dutyToggle({ job = loc.Job, Trolly = jobLoc.Trolly, location = location })
+                            Recycling.Functions.dutyToggle({ job = loc.Job, Trolly = jobLoc.Trolly })
                         end,
                         icon = "fas fa-recycle",
                         job = loc.Job,
@@ -96,43 +100,56 @@ onPlayerLoaded(function()
             if jobLoc.Trade then
                 for i = 1, #jobLoc.Trade do
                     local nameTrade = "RecycleTrade:"..location..i
-                    -- Entity target on the trader's chest bone (a zone target has no entity, so it could not be interacted with)
                     makeDistPed(jobLoc.Trade[i].model, jobLoc.Trade[i].coords, true, false, jobLoc.Trade[i].scenario, false, false, function(ped)
-                        TradePeds[nameTrade] = ped
-                        exports.ox_target:addLocalEntity(ped, { {
-                            label = locale("target", "trade"),
-                            icon = "fas fa-box",
-                            distance = 2.0,
-                            groups = loc.Job,
-                            onSelect = function(data)
-                                Recycling.Trade.Menu({ Ped = data.entity })
-                            end,
-                        } })
+                        Targets[nameTrade] = createEntityTarget(ped, {
+                            {
+                                action = function()
+                                    Recycling.Trade.Menu({ Ped = ped })
+                                end,
+                                icon = "fas fa-box",
+                                job = loc.Job,
+                                label = locale("target", "trade"),
+                            },
+                        }, 1.5)
                     end)
                 end
             end
         end
     end
-
     --Sell Materials
     for i = 1, #Config.Locations["Recycle"] do
         local loc = Config.Locations["Recycle"][i]
+        local nameSell = "Recycle:"..i
 
-        local sellPed = makePed(loc.Ped.model, loc.coords, true, false, loc.Ped.scenario, nil, nil)
+        makePed(loc.Ped.model, loc.coords, true, false, loc.Ped.scenario, nil, nil)
 
         if loc.Blip.blipEnable then
             makeBlip({ coords = loc.coords, sprite = loc.Blip.sprite, col = loc.Blip.col, name = loc.Blip.name } )
         end
-        -- Entity target on the ped's chest bone. The old point target at the feet failed sleepless's line-of-sight check (the ped blocked it).
-        exports.ox_target:addLocalEntity(sellPed, { {
-            label = locale("menu", "sell_mats"),
-            icon = "fas fa-certificate",
-            distance = 2.0,
-            onSelect = function(data)
-                sellMenu({ sellTable = Config.Other.Prices, ped = data.entity, name = "RecycleSell"..i })
-                lookEnt(loc.coords)
-            end,
-        } })
+        Targets[nameSell] =
+            createBoxTarget(
+                { nameSell, vec3(loc.coords.x, loc.coords.y, loc.coords.z-1), 1.0, 1.0,
+                    {
+                        name = nameSell,
+                        heading = loc.coords.w,
+                        debugPoly = debugMode,
+                        minZ = loc.coords.z-1,
+                        maxZ=loc.coords.z+1
+                    },
+                }, {
+                {
+                    action = function(data)
+                        sellMenu({
+                            name = nameSell,
+                            ped = type(data) == "table" and data.entity or data,
+                            sellTable = Config.Other.Prices,
+                        })
+                        lookEnt(loc.coords)
+                    end,
+                    icon = "fas fa-certificate",
+                    label = locale("menu", "sell_mats"),
+                },
+            }, 1.5)
     end
     --Bottle Selling Third Eyes
     for i = 1, #Config.Locations["BottleBanks"] do
@@ -158,11 +175,10 @@ onPlayerLoaded(function()
                 }, {
                 {
                     action = function(data)
-                        -- Zone target, so no entity: animate the player. shortcut: bottle sell animates the player, not a ped; upgrade by spawning a ped at the bank.
                         sellMenu({
+                            name = nameBank,
                             sellTable = Config.Other.BottleBankTable,
-                            ped = PlayerPedId(),
-                            name = "BottleBank"..i
+                            ped = type(data) == "table" and data.entity or data
                         })
                         lookEnt(loc.coords)
                     end,
@@ -178,16 +194,19 @@ Recycling.Functions.createProps = function(location)
     local loc = Config.Locations["Centres"][location]
     debugPrint("^5Debug^7: ^3createProps^7() ^2Spawning props for '"..location.."'")
     for i = 1, #loc.SearchLocations do
+
         searchProps[#searchProps+1] = makeProp({
             prop = Config.RecyclingCenter.propTable[math.random(1, #Config.RecyclingCenter.propTable)],
             coords = loc.SearchLocations[i] - vec4(0, 0, 1.03, 0)
         }, 1, 0)
     end
     for i = 1, #loc.ExtraPropLocations do
+        if math.random(1, 2) == 1 then goto skip end
         Props[#Props+1] = makeProp({
             prop = Config.RecyclingCenter.propTable[math.random(1, #Config.RecyclingCenter.propTable)],
             coords = loc.ExtraPropLocations[i] - vec4(0, 0, 1.03, 0)
         }, 1, 0)
+        ::skip::
     end
     for k in pairs(Config.RecyclingCenter.scrapPool) do
         loadModel(Config.RecyclingCenter.scrapPool[k].model)
@@ -205,8 +224,10 @@ Recycling.Functions.EndJob = function()
         destroyProp(TrollyProp)
         TrollyProp = nil
     end
-    for i = 1, #searchProps do
-        SetEntityDrawOutline(searchProps[i], false)
+    if Config.Main.useLineHighlight then
+        for i = 1, #searchProps do
+            SetEntityDrawOutline(searchProps[i], false)
+        end
     end
     randPackage = nil
     if scrapProp then
@@ -235,6 +256,10 @@ Recycling.Functions.CleanUpProps = function()
     end
     unloadModel(GetEntityModel(TrollyProp))
     DeleteObject(TrollyProp)
+    if Config.Main.useblipTarget and targetBlip ~= nil and DoesBlipExist(targetBlip) then
+        RemoveBlip(targetBlip)
+        targetBlip = nil
+    end
 end
 
 
@@ -283,10 +308,14 @@ Recycling.PickUpPackage.PickRandomEntity = function(Trolly)
     end
     --Pick random prop to use
     randPackage = searchProps[math.random(1, #searchProps)]
-    SetEntityDrawOutline(randPackage, true)
-    SetEntityDrawOutlineColor(0, 255, 0, 1.0)
-    SetEntityDrawOutlineShader(1)
+
+    if Config.Main.useLineHighlight then
+        SetEntityDrawOutline(randPackage, true)
+        SetEntityDrawOutlineColor(0, 255, 0, 1.0)
+        SetEntityDrawOutlineShader(1)
+    end
     --Generate Target Location on the selected package
+
     Targets["Package"] =
         createEntityTarget(randPackage, { {
             action = function()
@@ -294,10 +323,21 @@ Recycling.PickUpPackage.PickRandomEntity = function(Trolly)
             end,
             icon = 'fas fa-magnifying-glass',
             label = locale("target", "search"),
+            canInteract = function()
+                return not Picking
+            end,
         } }, 2.5 )
+    if Config.Main.useblipTarget then
+        targetBlip = makeBlip({
+            name = locale("target", "search"),
+            coords = GetEntityCoords(randPackage),
+            sprite = 12,
+            col = 2,
+            scale = 0.6,
+        })
+    end
 end
 
-local Picking = false
 Recycling.PickUpPackage.startPickup = function(data)
     if Picking then
         triggerNotify(nil, "No", "error")
@@ -328,6 +368,11 @@ Recycling.PickUpPackage.holdItem = function(data)
     SetEntityDrawOutline(randPackage, false)
     randPackage = nil
 
+    if Config.Main.useblipTarget then
+        RemoveBlip(targetBlip)
+        targetBlip = nil
+    end
+
     --Make prop to put in hands
     playAnim("anim@heists@box_carry@", "idle", -1, 50, Ped)
 
@@ -342,9 +387,12 @@ Recycling.PickUpPackage.holdItem = function(data)
 
     debugPrint("^5Debug^7: ^2Adding target and outline to ^3TrollyProp^7: ", TrollyProp)
     --Create target for drop off location
-    SetEntityDrawOutline(TrollyProp, true)
-    SetEntityDrawOutlineColor(150, 1, 1, 1.0)
-    SetEntityDrawOutlineShader(1)
+
+    if Config.Main.useLineHighlight then
+        SetEntityDrawOutline(TrollyProp, true)
+        SetEntityDrawOutlineColor(150, 1, 1, 1.0)
+        SetEntityDrawOutlineShader(1)
+    end
 
     createEntityTarget(TrollyProp, { {
         action = function()
@@ -352,50 +400,76 @@ Recycling.PickUpPackage.holdItem = function(data)
         end,
         icon = 'fas fa-recycle',
         label = locale("target", "drop_off"),
+        canInteract = function()
+            return not CollectingReward
+        end
     } }, 2.5)
+    if Config.Main.useblipTarget then
+        targetBlip = makeBlip({
+            name = locale("target", "drop_off"),
+            coords = GetEntityCoords(TrollyProp),
+            sprite = 12,
+            col = 1,
+            scale = 0.6,
+        })
+    end
 end
 
-local CollectingReward = false
 Recycling.PickUpPackage.collectReward = function(data)
-    if CollectingReward then
+    local Ped = PlayerPedId()
+    local progressTime = 3000
+
+    if CollectingReward or not TrollyProp or (#(GetEntityCoords(TrollyProp) - GetEntityCoords(Ped)) > 10.0) then
         triggerNotify(nil, "No", "error")
         return
     else
         CollectingReward = true
     end
-    local Ped = PlayerPedId()
+
     lookEnt(TrollyProp)
     playAnim("mp_car_bomb", "car_bomb_mechanic", -1, 1, Ped)
 
-    if progressBar({
-        label = locale("progressbar", "search"),
-        time = 3000,
-        cancel = true,
-    }) then
-        --Once this is triggered it can't be stopped, so remove the target and prop
-        debugPrint("^5Debug^7: ^2Clearing target and outline from ^3TrollyProp^7, ", TrollyProp)
-        removeEntityTarget(TrollyProp)
-        destroyProp(TrollyProp)
-        SetEntityDrawOutline(TrollyProp, false)
-        TrollyProp = nil
-        TrollyProp = makeProp(data.Trolly, 1, 0)
+    if triggerCallback(getScript()..":auth:requestReward", progressTime) then
 
-        --Empty hands
-        destroyProp(scrapProp)
-        scrapProp = nil
+        if progressBar({
+            label = locale("progressbar", "search"),
+            time = progressTime,
+            cancel = true,
+        }) then
+            if triggerCallback(getScript()..":auth:collectReward") then end
 
-        stopAnim("mp_car_bomb", "car_bomb_mechanic", Ped)
-        TriggerServerEvent("jim-recycle:Server:RecycleReward", triggerCallback(AuthEvent))
-        Recycling.PickUpPackage.PickRandomEntity(data.Trolly)
+            --Once this is triggered it can't be stopped, so remove the target and prop
+            debugPrint("^5Debug^7: ^2Clearing target and outline from ^3TrollyProp^7, ", TrollyProp)
+            removeEntityTarget(TrollyProp)
+            destroyProp(TrollyProp)
+            if Config.Main.useLineHighlight then
+                SetEntityDrawOutline(TrollyProp, false)
+            end
+            TrollyProp = nil
+            TrollyProp = makeProp(data.Trolly, 1, 0)
+
+            --Empty hands
+            destroyProp(scrapProp)
+            scrapProp = nil
+
+            if Config.Main.useblipTarget then
+                RemoveBlip(targetBlip)
+                targetBlip = nil
+            end
+
+            stopAnim("mp_car_bomb", "car_bomb_mechanic", Ped)
+            stopAnim("anim@heists@box_carry@", "idle", Ped)
+
+
+            Recycling.PickUpPackage.PickRandomEntity(data.Trolly)
+        end
+    else
+        print("^1Error^7: ^1Server reported user already collecting^7")
     end
     CollectingReward = false
 end
 
 Recycling.Functions.dutyToggle = function(data)
-    -- Zone enter did not always spawn the crates (north warehouse came up empty), so spawn them here if missing
-    if #searchProps == 0 and data.location then
-        Recycling.Functions.createProps(data.location)
-    end
     if Config.JobRole then
         if onDuty then
             Recycling.Functions.EndJob()
@@ -510,13 +584,6 @@ end
 Recycling.Functions.sellAnim = function(data)
     local Ped = PlayerPedId()
     if Selling then return else Selling = true end
-    -- Get the auth token before locking the player, so a failed fetch cannot leave them frozen
-    currentToken = triggerCallback(AuthEvent)
-    if not currentToken then
-        Selling = false
-        triggerNotify(nil, "Trade failed: could not verify, try again", "error")
-        return
-    end
     lockInv(true)
     for _, obj in pairs(GetGamePool('CObject')) do
         for _, model in pairs({ `p_cs_clipboard` }) do
@@ -543,6 +610,7 @@ Recycling.Functions.sellAnim = function(data)
 
     Wait(1000)
     AttachEntityToEntity(bag, Ped, GetPedBoneIndex(Ped, 57005), 0.1, -0.0, 0.0, -90.0, 0.0, 0.0, true, true, false, true, 1, true)
+    currentToken = triggerCallback(AuthEvent)
     TriggerServerEvent("jim-recycle:Server:TradeItems", { item = data.item, amount = data.amount }, currentToken)
     currentToken = nil
     Wait(1000)

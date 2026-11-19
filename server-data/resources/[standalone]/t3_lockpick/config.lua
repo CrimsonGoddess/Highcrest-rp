@@ -5,4 +5,4 @@ Config.LockpickStrength = {
     ['advanced-lockpick'] = 0.75,
 }
 Config.DefaultDifficulty = 2
-Config.DefaultPinAmount = 4
+Config.DefaultPinAmount = 6

@@ -1,0 +1,989 @@
+{
+  "lua_files": {
+    "zloma_core": 103,
+    "zloma_antibump": 5,
+    "zloma_bossmenu": 18,
+    "zloma_keys": 15,
+    "zloma_hud": 27,
+    "zloma_tuning": 9,
+    "zloma_garages": 76,
+    "zloma_simplegarages": 48,
+    "zloma_stance": 8,
+    "zloma_vehicleshop": 52
+  },
+  "compile_errors": [],
+  "records": [
+    {
+      "product": "zloma_core",
+      "file": "client/fuel/providers/ox_fuel.lua",
+      "line": 7,
+      "realm": "CLIENT",
+      "kind": "state",
+      "snippet": "Entity(vehicle).state:set('fuel', fuelLevel, false)",
+      "classification": "S2 LOCAL PREVIEW ONLY (non-network entity guard); external provider S5"
+    },
+    {
+      "product": "zloma_core",
+      "file": "client/keys/init.lua",
+      "line": 200,
+      "realm": "CLIENT",
+      "kind": "state",
+      "snippet": "Entity(vehicle).state:set('Keys', {LocalPlayer.state.mk_identifier}, false)",
+      "classification": "S2 LOCAL PREVIEW ONLY (non-network entity guard); external provider S5"
+    },
+    {
+      "product": "zloma_core",
+      "file": "client/keys/init.lua",
+      "line": 363,
+      "realm": "CLIENT",
+      "kind": "state",
+      "snippet": "Entity(vehicle).state:set('Keys', {}, false)",
+      "classification": "S2 LOCAL PREVIEW ONLY (non-network entity guard); external provider S5"
+    },
+    {
+      "product": "zloma_core",
+      "file": "server/fuel/init.lua",
+      "line": 51,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "Entity(entity).state:set('fuel', fuelLevel, true)",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_core",
+      "file": "server/fuel/providers/lc_fuel.lua",
+      "line": 3,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "function(vehicle, fuelLevel) Entity(vehicle).state.fuel = fuelLevel end",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_core",
+      "file": "server/fuel/providers/ND_Fuel.lua",
+      "line": 2,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "function(vehicle, fuelLevel) Entity(vehicle).state:set('fuel', fuelLevel, true) end",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_core",
+      "file": "server/fuel/providers/ox_fuel.lua",
+      "line": 3,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "function(vehicle, fuelLevel) Entity(vehicle).state.fuel = fuelLevel end",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_core",
+      "file": "server/fuel/providers/qb-fuel.lua",
+      "line": 3,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "function(vehicle, fuelLevel) Entity(vehicle).state.fuel = fuelLevel end",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_bossmenu",
+      "file": "client/creator.lua",
+      "line": 298,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "PreviewProp = CreateObject(hash, coords.x, coords.y, coords.z, false, false, false)",
+      "classification": "CLIENT CREATED LOCAL; STRICT COMPATIBLE (native network flag false)"
+    },
+    {
+      "product": "zloma_bossmenu",
+      "file": "client/main.lua",
+      "line": 597,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "local prop = CreateObject(hash, x, y, z, false, false, false)",
+      "classification": "CLIENT CREATED LOCAL; STRICT COMPATIBLE (native network flag false)"
+    },
+    {
+      "product": "zloma_bossmenu",
+      "file": "client/stashes.lua",
+      "line": 94,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "PreviewStashProp = CreateObject(hash, initialPos.x, initialPos.y, initialPos.z, false, false, false)",
+      "classification": "CLIENT CREATED LOCAL; STRICT COMPATIBLE (native network flag false)"
+    },
+    {
+      "product": "zloma_keys",
+      "file": "client/functions.lua",
+      "line": 377,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "keyProp = CreateObject(propModel, 0.0, 0.0, 0.0, false, false, false) -- local handover animation cosmetic",
+      "classification": "CLIENT CREATED LOCAL; STRICT COMPATIBLE (native network flag false)"
+    },
+    {
+      "product": "zloma_hud",
+      "file": "server/mileage.lua",
+      "line": 63,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "Entity(s.entity).state:set('vehicleMileage', s.mileage, true)",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_hud",
+      "file": "server/state_bags.lua",
+      "line": 22,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "player.state:set(\"seatbelt\", toggle, true)",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_hud",
+      "file": "server/stress.lua",
+      "line": 153,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "player.state:set(\"stress\", clamp(value), true)",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "client/admin/tools/ped_prop_editor_tool.lua",
+      "line": 459,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "previewEntity = CreateObject(modelHash, location.x, location.y, location.z, false, false, false)",
+      "classification": "CLIENT CREATED LOCAL; STRICT COMPATIBLE (native network flag false)"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "client/admin/tools/ped_prop_editor_tool.lua",
+      "line": 461,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "previewEntity = CreatePed(4, modelHash, location.x, location.y, location.z, currentHeading, false, false)",
+      "classification": "CLIENT CREATED LOCAL; STRICT COMPATIBLE (native network flag false)"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "client/admin/tools/spawn_editor_tool.lua",
+      "line": 150,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "previewVehicle = CreateVehicle(modelHash, currentPos.x, currentPos.y, currentPos.z, currentHeading, false, false)",
+      "classification": "CLIENT CREATED LOCAL; STRICT COMPATIBLE (native network flag false)"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "client/garages/infinitive.lua",
+      "line": 249,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "local vehicle = CreateVehicle(model, coords.x, coords.y, coords.z, heading, true, false)",
+      "classification": "CLIENT CREATED NETWORKED GAMEPLAY; hybrid-only BLOCKER; ServerSetter TRUE skips path"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "client/garages/infinitive.lua",
+      "line": 260,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "local netId = EnsureEntityNetworked(vehicle, 3000)",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "client/garages/init.lua",
+      "line": 555,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "entity = CreateObject(hash, coords.x, coords.y, coords.z, false, false, false) -- Client side only to save network traffic if possible?",
+      "classification": "CLIENT CREATED LOCAL; STRICT COMPATIBLE (native network flag false)"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "client/garages/init.lua",
+      "line": 566,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "entity = CreatePed(4, hash, coords.x, coords.y, coords.z, heading, false, true)",
+      "classification": "CLIENT CREATED LOCAL; STRICT COMPATIBLE (native network flag false)"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "client/impound/manager.lua",
+      "line": 181,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "entity = CreateObject(hash, coords.x, coords.y, coords.z, false, false, false)",
+      "classification": "CLIENT CREATED LOCAL; STRICT COMPATIBLE (native network flag false)"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "client/impound/manager.lua",
+      "line": 188,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "entity = CreatePed(4, hash, coords.x, coords.y, coords.z, heading, false, true)",
+      "classification": "CLIENT CREATED LOCAL; STRICT COMPATIBLE (native network flag false)"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "client/main.lua",
+      "line": 108,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "local vehicle = CreateVehicle(hash, coords.x, coords.y, coords.z, heading, true, false)",
+      "classification": "CLIENT CREATED NETWORKED GAMEPLAY; hybrid-only BLOCKER; ServerSetter TRUE skips path"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "client/main.lua",
+      "line": 94,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "function SpawnVehicle(model, coords, heading, props, callback)",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "client/preview.lua",
+      "line": 118,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "local vehicle = CreateVehicle(hash, coords.x, coords.y, coords.z, heading, false, false)",
+      "classification": "CLIENT CREATED LOCAL; STRICT COMPATIBLE (native network flag false)"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "client/utils.lua",
+      "line": 200,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "NetworkRegisterEntityAsNetworked(entity)",
+      "classification": "HYBRID NETWORK HELPER; ServerSetter TRUE rejects local-to-network conversion"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "client/utils.lua",
+      "line": 460,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "local vehicle = CreateVehicle(model, coords.x, coords.y, coords.z, heading, true, false)",
+      "classification": "CLIENT CREATED NETWORKED GAMEPLAY; hybrid-only BLOCKER; ServerSetter TRUE skips path"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "client/utils.lua",
+      "line": 190,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "function EnsureEntityNetworked(entity, timeout)",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "client/utils.lua",
+      "line": 438,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "function SpawnVehicle(modelName, coords, heading, props, callback)",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "client/vehicle/spawn.lua",
+      "line": 111,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "local vehicle = CreateVehicle(model, coords.x, coords.y, coords.z, heading, true, false)",
+      "classification": "CLIENT CREATED NETWORKED GAMEPLAY; hybrid-only BLOCKER; ServerSetter TRUE skips path"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "client/vehicle/spawn.lua",
+      "line": 360,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "local vehicle = CreateVehicle(model, coords.x, coords.y, coords.z, heading, true, false)",
+      "classification": "CLIENT CREATED NETWORKED GAMEPLAY; hybrid-only BLOCKER; ServerSetter TRUE skips path"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "client/vehicle/spawn.lua",
+      "line": 23,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "function SpawnVehicleHybrid(data, callback)",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "client/vehicle/spawn.lua",
+      "line": 129,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "local netId = EnsureEntityNetworked(vehicle, 3000)",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "client/vehicle/spawn.lua",
+      "line": 250,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "return SpawnVehicleHybrid({",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "client/vehicle/spawn.lua",
+      "line": 260,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "return SpawnVehicleHybrid({",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "client/vehicle/spawn.lua",
+      "line": 272,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "return SpawnVehicleHybrid({",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "client/vehicle/spawn.lua",
+      "line": 284,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "return SpawnVehicleHybrid({",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "client/vehicle/spawn.lua",
+      "line": 375,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "local netId = EnsureEntityNetworked(vehicle, 3000)",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "server/admin/savecar.lua",
+      "line": 299,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "Entity(s.entity).state:set('VehicleProperties',props,true)",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "server/garages/infinitive.lua",
+      "line": 277,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "Entity(vehicle).state:set('VehicleProperties', props, true)",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "server/impound/vehicle_recovery.lua",
+      "line": 50,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "Entity(entity).state:set('zloma_garages:recoveryPlate', plate, true)",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "server/shared/access.lua",
+      "line": 801,
+      "realm": "SERVER",
+      "kind": "entity",
+      "snippet": "local vehicle = CreateVehicle(model, coords.x, coords.y, coords.z, heading, true, true)",
+      "classification": "SERVER CREATED; RPC creation staging required"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "server/shared/access.lua",
+      "line": 774,
+      "realm": "SERVER",
+      "kind": "wrapper",
+      "snippet": "local netId = SpawnVehicleFromData(vehicleData, coords, heading)",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "server/shared/access.lua",
+      "line": 794,
+      "realm": "SERVER",
+      "kind": "wrapper",
+      "snippet": "function SpawnVehicleFromData(vehicleData, coords, heading)",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "server/vehicle/fake_plate_authority.lua",
+      "line": 66,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "Entity(entity).state:set(FakePlates.GetStateBagKey(),installing and context.originalPlate or nil,true)",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "server/vehicle/serversetter.lua",
+      "line": 218,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "Entity(s.entity).state:set(initKey, nil, true)",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "server/vehicle/serversetter.lua",
+      "line": 234,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "Entity(entity).state:set(initKey,nil,true)",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "server/vehicle/serversetter.lua",
+      "line": 304,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "Entity(s.entity).state:set(initKey, { revision = revision, recordId = s.recordId, model=s.model, presentation=options.deferPresentation==true }, true)",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "server/vehicle/serversetter.lua",
+      "line": 400,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "Entity(s.entity).state:set(initKey, nil, true)",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "server/vehicle/serversetter.lua",
+      "line": 293,
+      "realm": "SERVER",
+      "kind": "entity",
+      "snippet": "s.entity = CreateVehicleServerSetter(s.model, kind, p.x, p.y, p.z, p.w or 0.0)",
+      "classification": "SERVER CREATED; lifecycle staging required"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "server/vehicle/spawn.lua",
+      "line": 529,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "Entity(vehicle).state:set('VehicleProperties', props, true)",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "shared/fake_plates.lua",
+      "line": 67,
+      "realm": "SHARED/CONFIG",
+      "kind": "state",
+      "snippet": "Entity(vehicle).state:set(FakePlates.GetStateBagKey(), originalPlate, true)",
+      "classification": "S1 SERVER BRANCH (IsDuplicityVersion guard)"
+    },
+    {
+      "product": "zloma_garages",
+      "file": "shared/fake_plates.lua",
+      "line": 91,
+      "realm": "SHARED/CONFIG",
+      "kind": "state",
+      "snippet": "Entity(vehicle).state:set(FakePlates.GetStateBagKey(), nil, true)",
+      "classification": "S1 SERVER BRANCH (IsDuplicityVersion guard)"
+    },
+    {
+      "product": "zloma_simplegarages",
+      "file": "client/garages/infinitive.lua",
+      "line": 221,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "local vehicle = CreateVehicle(model, coords.x, coords.y, coords.z, heading, true, false)",
+      "classification": "CLIENT CREATED NETWORKED GAMEPLAY; hybrid-only BLOCKER; ServerSetter TRUE skips path"
+    },
+    {
+      "product": "zloma_simplegarages",
+      "file": "client/garages/infinitive.lua",
+      "line": 232,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "local netId = EnsureEntityNetworked(vehicle, 3000)",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_simplegarages",
+      "file": "client/garages/init.lua",
+      "line": 338,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "entity = CreateObject(hash, coords.x, coords.y, coords.z, false, false, false) -- Client side only to save network traffic if possible?",
+      "classification": "CLIENT CREATED LOCAL; STRICT COMPATIBLE (native network flag false)"
+    },
+    {
+      "product": "zloma_simplegarages",
+      "file": "client/garages/init.lua",
+      "line": 349,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "entity = CreatePed(4, hash, coords.x, coords.y, coords.z, heading, false, true)",
+      "classification": "CLIENT CREATED LOCAL; STRICT COMPATIBLE (native network flag false)"
+    },
+    {
+      "product": "zloma_simplegarages",
+      "file": "client/impound/manager.lua",
+      "line": 193,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "entity = CreateObject(hash, coords.x, coords.y, coords.z, false, false, false)",
+      "classification": "CLIENT CREATED LOCAL; STRICT COMPATIBLE (native network flag false)"
+    },
+    {
+      "product": "zloma_simplegarages",
+      "file": "client/impound/manager.lua",
+      "line": 200,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "entity = CreatePed(4, hash, coords.x, coords.y, coords.z, heading, false, true)",
+      "classification": "CLIENT CREATED LOCAL; STRICT COMPATIBLE (native network flag false)"
+    },
+    {
+      "product": "zloma_simplegarages",
+      "file": "client/main.lua",
+      "line": 112,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "local vehicle = CreateVehicle(hash, coords.x, coords.y, coords.z, heading, true, false)",
+      "classification": "CLIENT CREATED NETWORKED GAMEPLAY; hybrid-only BLOCKER; ServerSetter TRUE skips path"
+    },
+    {
+      "product": "zloma_simplegarages",
+      "file": "client/main.lua",
+      "line": 98,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "function SpawnVehicle(model, coords, heading, props, callback)",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_simplegarages",
+      "file": "client/utils.lua",
+      "line": 248,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "NetworkRegisterEntityAsNetworked(entity)",
+      "classification": "HYBRID NETWORK HELPER; ServerSetter TRUE rejects local-to-network conversion"
+    },
+    {
+      "product": "zloma_simplegarages",
+      "file": "client/utils.lua",
+      "line": 692,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "local vehicle = CreateVehicle(model, coords.x, coords.y, coords.z, heading, true, false)",
+      "classification": "CLIENT CREATED NETWORKED GAMEPLAY; hybrid-only BLOCKER; ServerSetter TRUE skips path"
+    },
+    {
+      "product": "zloma_simplegarages",
+      "file": "client/utils.lua",
+      "line": 238,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "function EnsureEntityNetworked(entity, timeout)",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_simplegarages",
+      "file": "client/utils.lua",
+      "line": 670,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "function SpawnVehicle(modelName, coords, heading, props, callback)",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_simplegarages",
+      "file": "client/vehicle/spawn.lua",
+      "line": 109,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "local vehicle = CreateVehicle(model, coords.x, coords.y, coords.z, heading, true, false)",
+      "classification": "CLIENT CREATED NETWORKED GAMEPLAY; hybrid-only BLOCKER; ServerSetter TRUE skips path"
+    },
+    {
+      "product": "zloma_simplegarages",
+      "file": "client/vehicle/spawn.lua",
+      "line": 23,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "function SpawnVehicleHybrid(data, callback)",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_simplegarages",
+      "file": "client/vehicle/spawn.lua",
+      "line": 127,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "local netId = EnsureEntityNetworked(vehicle, 3000)",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_simplegarages",
+      "file": "client/vehicle/spawn.lua",
+      "line": 248,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "return SpawnVehicleHybrid({",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_simplegarages",
+      "file": "client/vehicle/spawn.lua",
+      "line": 258,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "return SpawnVehicleHybrid({",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_simplegarages",
+      "file": "client/vehicle/spawn.lua",
+      "line": 270,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "return SpawnVehicleHybrid({",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_simplegarages",
+      "file": "client/vehicle/spawn.lua",
+      "line": 282,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "return SpawnVehicleHybrid({",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_simplegarages",
+      "file": "server/garages/infinitive.lua",
+      "line": 247,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "Entity(vehicle).state:set('VehicleProperties', props, true)",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_simplegarages",
+      "file": "server/vehicle/serversetter.lua",
+      "line": 199,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "Entity(s.entity).state:set(initKey, nil, true)",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_simplegarages",
+      "file": "server/vehicle/serversetter.lua",
+      "line": 256,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "Entity(s.entity).state:set(initKey, { revision = revision, recordId = s.recordId }, true)",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_simplegarages",
+      "file": "server/vehicle/serversetter.lua",
+      "line": 302,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "Entity(s.entity).state:set(initKey, nil, true)",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_simplegarages",
+      "file": "server/vehicle/serversetter.lua",
+      "line": 245,
+      "realm": "SERVER",
+      "kind": "entity",
+      "snippet": "s.entity = CreateVehicleServerSetter(s.model, kind, p.x, p.y, p.z, p.w or 0.0)",
+      "classification": "SERVER CREATED; lifecycle staging required"
+    },
+    {
+      "product": "zloma_simplegarages",
+      "file": "server/vehicle/spawn.lua",
+      "line": 505,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "Entity(vehicle).state:set('VehicleProperties', props, true)",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_stance",
+      "file": "client/client.lua",
+      "line": 179,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "local prop = CreateObject(propModel, coords.x, coords.y, coords.z - 0.5, false, true, false)",
+      "classification": "CLIENT CREATED LOCAL; STRICT COMPATIBLE (native network flag false)"
+    },
+    {
+      "product": "zloma_stance",
+      "file": "server/server.lua",
+      "line": 425,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "for key, value in pairs(absData) do state[key] = value end",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_stance",
+      "file": "server/server.lua",
+      "line": 426,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "state.format = 'absolute'",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_stance",
+      "file": "server/server.lua",
+      "line": 428,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "state.stance, state.camber = data.stance or {}, data.camber or {}",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_stance",
+      "file": "server/server.lua",
+      "line": 429,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "state.format = 'delta'",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_stance",
+      "file": "server/server.lua",
+      "line": 431,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "state.model = GetEntityModel(veh)",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_stance",
+      "file": "server/server.lua",
+      "line": 432,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "state.displayPlate = trimPlate(GetVehicleNumberPlateText(veh))",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_stance",
+      "file": "server/server.lua",
+      "line": 433,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "Entity(veh).state:set('wheelFitment', state, true)",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_vehicleshop",
+      "file": "client/admin/tools/npc_chooser.lua",
+      "line": 105,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "_npcPreview = CreateObject(modelHash, location.x, location.y, location.z, false, false, false)",
+      "classification": "CLIENT CREATED LOCAL; STRICT COMPATIBLE (native network flag false)"
+    },
+    {
+      "product": "zloma_vehicleshop",
+      "file": "client/admin/tools/npc_chooser.lua",
+      "line": 107,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "_npcPreview = CreatePed(4, modelHash, location.x, location.y, location.z, _npcHeading, false, false)",
+      "classification": "CLIENT CREATED LOCAL; STRICT COMPATIBLE (native network flag false)"
+    },
+    {
+      "product": "zloma_vehicleshop",
+      "file": "client/admin/tools/spawn_editor_tool.lua",
+      "line": 308,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "previewVehicle = CreateVehicle(modelHash, currentPos.x, currentPos.y, currentPos.z, currentHeading, false, false)",
+      "classification": "CLIENT CREATED LOCAL; STRICT COMPATIBLE (native network flag false)"
+    },
+    {
+      "product": "zloma_vehicleshop",
+      "file": "client/business/delivery.lua",
+      "line": 118,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "if not Config.ServerControlledVehicles then return CreateObjectNoOffset(model,coords,true,false,false) end",
+      "classification": "CLIENT CREATED NETWORKED GAMEPLAY; hybrid-only BLOCKER; opt-in server path available"
+    },
+    {
+      "product": "zloma_vehicleshop",
+      "file": "client/business/delivery.lua",
+      "line": 117,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "local function SpawnDeliveryProp(model, coords, kind)",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_vehicleshop",
+      "file": "client/business/delivery.lua",
+      "line": 130,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "local function SpawnMissionVehicle(model, coords, kind)",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_vehicleshop",
+      "file": "client/business/delivery.lua",
+      "line": 136,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "return SpawnAuthorizedShopVehicle(authorization.ticket)",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_vehicleshop",
+      "file": "client/business/delivery.lua",
+      "line": 149,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "orderVehicle = SpawnMissionVehicle(orderData.spawnName, {",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_vehicleshop",
+      "file": "client/business/delivery.lua",
+      "line": 257,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "vehicleBed = SpawnDeliveryProp('inm_flatbed_base', GetEntityCoords(truck), 'bed') or 0",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_vehicleshop",
+      "file": "client/business/delivery.lua",
+      "line": 413,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "hookProp = SpawnDeliveryProp('prop_rope_hook_01', GetEntityCoords(playerPed), 'hook') or 0",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_vehicleshop",
+      "file": "client/business/delivery.lua",
+      "line": 930,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "d.towEntity = SpawnMissionVehicle(d.towModel, tc, 'tow')",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_vehicleshop",
+      "file": "client/shared/nui.lua",
+      "line": 403,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "local vehicle,reason,parked=SpawnAuthorizedShopVehicle(spawnTicket)",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_vehicleshop",
+      "file": "client/shared/security_spawn.lua",
+      "line": 28,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "vehicle=CreateVehicle(hash,c.x+0.0,c.y+0.0,c.z+0.0,(c.heading or c.w or 0)+0.0,true,false)",
+      "classification": "CLIENT CREATED NETWORKED GAMEPLAY; hybrid-only BLOCKER; opt-in server path available"
+    },
+    {
+      "product": "zloma_vehicleshop",
+      "file": "client/shared/security_spawn.lua",
+      "line": 15,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "function SpawnAuthorizedShopVehicle(ticketId)",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_vehicleshop",
+      "file": "client/shop/testdrive.lua",
+      "line": 47,
+      "realm": "CLIENT",
+      "kind": "wrapper",
+      "snippet": "local vehicle = SpawnAuthorizedShopVehicle(spawnTicket)",
+      "classification": "WRAPPER \u2014 follow native inventory and mode guards; not an extra entity"
+    },
+    {
+      "product": "zloma_vehicleshop",
+      "file": "client/showroom/manager.lua",
+      "line": 155,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "local ped = CreatePed(4, hash, coords.x, coords.y, coords.z, heading, false, true)",
+      "classification": "CLIENT CREATED LOCAL; STRICT COMPATIBLE (native network flag false)"
+    },
+    {
+      "product": "zloma_vehicleshop",
+      "file": "client/showroom/vehicle.lua",
+      "line": 65,
+      "realm": "CLIENT",
+      "kind": "entity",
+      "snippet": "local vehicle = CreateVehicle(hash, pos.x, pos.y, pos.z + 1.0, pos.heading or 0.0, false, false)",
+      "classification": "CLIENT CREATED LOCAL; STRICT COMPATIBLE (native network flag false)"
+    },
+    {
+      "product": "zloma_vehicleshop",
+      "file": "server/security.lua",
+      "line": 95,
+      "realm": "SERVER",
+      "kind": "state",
+      "snippet": "Entity(entity).state:set('fuel',100,true)",
+      "classification": "S1 SERVER WRITER; request authority requires separate review"
+    },
+    {
+      "product": "zloma_vehicleshop",
+      "file": "server/security.lua",
+      "line": 83,
+      "realm": "SERVER",
+      "kind": "entity",
+      "snippet": "local entity=CreateVehicleServerSetter(GetHashKey(ticket.model),vehicleType(ticket.type,ticket.model),c.x+0.0,c.y+0.0,c.z+0.0,heading+0.0)",
+      "classification": "SERVER CREATED; lifecycle staging required"
+    },
+    {
+      "product": "zloma_vehicleshop",
+      "file": "server/security.lua",
+      "line": 242,
+      "realm": "SERVER",
+      "kind": "entity",
+      "snippet": "entity=CreateObject(GetHashKey(kind=='bed' and 'inm_flatbed_base' or 'prop_rope_hook_01'),coords.x,coords.y,coords.z,true,true,false)",
+      "classification": "SERVER CREATED; lifecycle staging required"
+    }
+  ]
+}

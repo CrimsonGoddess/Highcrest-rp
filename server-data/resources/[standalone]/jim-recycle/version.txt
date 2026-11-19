@@ -1,9 +1,9 @@
-3.0.03
+3.1.0
 
-- Refactor trade menu code
-- Add extra item checks for server trade item event
-- Add explot protection to trade items event
-- Add old random trade items with a config toggle
-- Add limiters to stop targetting "trolly" prop while using it
+- Fix jim_bridge auto adjust message that was annoying people
+- Remove client sided item events
+- Include qb images for qbox items (get items on gitbook)
+- Update locale function
+- Force animation stop on reward collection
 
-https://github.com/jimathy/jim-recycle
+https://github.com/jimathy/jim-recycle/releases/latest

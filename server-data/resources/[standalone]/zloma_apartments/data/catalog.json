@@ -1,0 +1,1830 @@
+[
+  {
+    "id": "sofas",
+    "label": "Sofas & Couches",
+    "items": [
+      {
+        "label": "Corner Sofa (L-Shaped, Cream)",
+        "model": "apa_mp_h_stn_sofacorn_01"
+      },
+      {
+        "label": "Corner Sofa (Beige, Cushioned)",
+        "model": "apa_mp_h_stn_sofacorn_08"
+      },
+      {
+        "label": "Corner Sofa (Dark, Modern)",
+        "model": "apa_mp_h_stn_sofacorn_09"
+      },
+      {
+        "label": "Executive Sofa (Charcoal)",
+        "model": "ex_mp_h_off_sofa_003"
+      },
+      {
+        "label": "Executive Sofa (Gray)",
+        "model": "ex_mp_h_off_sofa_02"
+      },
+      {
+        "label": "Yacht Sofa (White & Brown)",
+        "model": "h4_mp_h_yacht_sofa_01"
+      },
+      {
+        "label": "Corner Sofa (Dark Blue)",
+        "model": "hei_heist_stn_sofacorn_05"
+      },
+      {
+        "label": "Corner Sofa (Green Cushions)",
+        "model": "hei_heist_stn_sofacorn_06"
+      },
+      {
+        "label": "Two-Seat Sofa (Pillows)",
+        "model": "prop_couch_01"
+      },
+      {
+        "label": "Rustic Couch (Beige Cushions)",
+        "model": "prop_couch_03"
+      },
+      {
+        "label": "Modern Couch (Wood Trim)",
+        "model": "prop_couch_lg_02"
+      },
+      {
+        "label": "Fabric Couch (Gray/Brown)",
+        "model": "prop_couch_lg_05"
+      },
+      {
+        "label": "Vintage Couch (Red/Brown)",
+        "model": "prop_couch_lg_06"
+      },
+      {
+        "label": "Couch with Pillows (Gray/Orange)",
+        "model": "prop_couch_lg_07"
+      },
+      {
+        "label": "Modern Couch (Brown/Gray)",
+        "model": "prop_couch_lg_08"
+      },
+      {
+        "label": "L-Shaped Sofa (Left Side)",
+        "model": "prop_couch_sm1_07"
+      },
+      {
+        "label": "L-Shaped Sofa (Right Side)",
+        "model": "prop_couch_sm2_07"
+      },
+      {
+        "label": "Compact Couch (Brown Fabric)",
+        "model": "prop_couch_sm_02"
+      },
+      {
+        "label": "Compact Couch (Beige Fabric)",
+        "model": "prop_couch_sm_05"
+      },
+      {
+        "label": "Compact Sofa (Gray)",
+        "model": "prop_couch_sm_06"
+      },
+      {
+        "label": "Vintage Leather Sofa",
+        "model": "prop_couch_sm_07"
+      },
+      {
+        "label": "Yacht Sofa (2-Seat, Black)",
+        "model": "prop_yaught_sofa_01"
+      },
+      {
+        "label": "L-Shaped Sofa (Modern)",
+        "model": "v_ilev_m_sofa"
+      }
+    ]
+  },
+  {
+    "id": "chairs",
+    "label": "Chairs & Seating",
+    "items": [
+      {
+        "label": "Modern Armchair (Mustard)",
+        "model": "apa_mp_h_stn_chairarm_01"
+      },
+      {
+        "label": "Armchair (Red Fabric)",
+        "model": "apa_mp_h_stn_chairstrip_03"
+      },
+      {
+        "label": "Armchair (Cyan Fabric)",
+        "model": "apa_mp_h_stn_chairstrip_08"
+      },
+      {
+        "label": "Leather Club Armchair (Brown)",
+        "model": "bkr_prop_biker_chairstrip_01"
+      },
+      {
+        "label": "Yacht Lounge Chair (White)",
+        "model": "h4_mp_h_yacht_strip_chair_01"
+      },
+      {
+        "label": "Dining Chair (Red Plastic)",
+        "model": "hei_heist_din_chair_02"
+      },
+      {
+        "label": "Rattan Lounger (Dark Frame)",
+        "model": "hei_prop_yah_lounger"
+      },
+      {
+        "label": "Rattan Chair (Single, Narrow)",
+        "model": "hei_prop_yah_seat_01"
+      },
+      {
+        "label": "Rattan Chair (Wide Seat)",
+        "model": "hei_prop_yah_seat_02"
+      },
+      {
+        "label": "Rattan Chair (Armrests)",
+        "model": "hei_prop_yah_seat_03"
+      },
+      {
+        "label": "Upholstered Armchair (Brown Fabric)",
+        "model": "prop_armchair_01"
+      },
+      {
+        "label": "Metal Chair (Blue Frame)",
+        "model": "prop_chair_01a"
+      },
+      {
+        "label": "Plastic Chair (Worn Red)",
+        "model": "prop_chair_01b"
+      },
+      {
+        "label": "Wicker Chair (Dark)",
+        "model": "prop_chair_02"
+      },
+      {
+        "label": "Antique Dining Chair (Round Back)",
+        "model": "prop_chair_03"
+      },
+      {
+        "label": "Modern Chair (Striped Back)",
+        "model": "prop_chair_04a"
+      },
+      {
+        "label": "Modern Chair (Flat Back)",
+        "model": "prop_chair_04b"
+      },
+      {
+        "label": "Classic Wicker Chair",
+        "model": "prop_chair_05"
+      },
+      {
+        "label": "Dining Chair (Dark Red)",
+        "model": "prop_chair_06"
+      },
+      {
+        "label": "Vintage Wooden Chair",
+        "model": "prop_chair_07"
+      },
+      {
+        "label": "Plastic Chair (White Legs)",
+        "model": "prop_chair_08"
+      },
+      {
+        "label": "Rattan Chair (Green Weave)",
+        "model": "prop_chair_09"
+      },
+      {
+        "label": "Ornate Armchair (Vintage)",
+        "model": "prop_chair_10"
+      },
+      {
+        "label": "Antique Chateau Armchair",
+        "model": "prop_chateau_chair_01"
+      },
+      {
+        "label": "Circus-Style Wooden Chair",
+        "model": "prop_clown_chair"
+      },
+      {
+        "label": "Basic Chair (Plastic Seat)",
+        "model": "prop_gc_chair02"
+      },
+      {
+        "label": "Office Chair (High Back)",
+        "model": "prop_off_chair_01"
+      },
+      {
+        "label": "Office Chair (Padded, Gray)",
+        "model": "prop_off_chair_03"
+      },
+      {
+        "label": "Office Chair (Worn Fabric)",
+        "model": "prop_off_chair_04"
+      },
+      {
+        "label": "Office Chair (Low Back, Gray)",
+        "model": "prop_off_chair_04b"
+      },
+      {
+        "label": "Office Chair (Mesh Armrests)",
+        "model": "prop_off_chair_05"
+      },
+      {
+        "label": "Folding Lounge Chair (Blue)",
+        "model": "prop_old_deck_chair"
+      },
+      {
+        "label": "Wooden Armchair (Gray, Aged)",
+        "model": "prop_old_wood_chair"
+      },
+      {
+        "label": "Old Wooden Chair (LOD)",
+        "model": "prop_old_wood_chair_lod"
+      },
+      {
+        "label": "Patio Lounger (Beige Cushion)",
+        "model": "prop_patio_lounger1"
+      },
+      {
+        "label": "Patio Lounger (No Cushion)",
+        "model": "prop_patio_lounger1b"
+      },
+      {
+        "label": "Green Patio Lounger (Foldable)",
+        "model": "prop_patio_lounger_2"
+      },
+      {
+        "label": "Patio Lounger (White)",
+        "model": "prop_patio_lounger_3"
+      },
+      {
+        "label": "Camping Chair (Dark Green)",
+        "model": "prop_skid_chair_01"
+      },
+      {
+        "label": "Camping Chair (Blue Fabric)",
+        "model": "prop_skid_chair_02"
+      },
+      {
+        "label": "Camping Chair (Plaid)",
+        "model": "prop_skid_chair_03"
+      },
+      {
+        "label": "Classic Armchair (Leather, Worn)",
+        "model": "prop_sol_chair"
+      },
+      {
+        "label": "Bar Stool (Metal)",
+        "model": "prop_stool_01"
+      },
+      {
+        "label": "Wooden Chair (With Armrests)",
+        "model": "prop_table_01_chr_a"
+      },
+      {
+        "label": "Wooden Chair (No Armrests)",
+        "model": "prop_table_01_chr_b"
+      },
+      {
+        "label": "Wooden Chair (Dark Wood)",
+        "model": "prop_table_02_chr"
+      },
+      {
+        "label": "Plastic Chair (Wide Back, White)",
+        "model": "prop_table_03b_chr"
+      },
+      {
+        "label": "Plastic Chair (Armrest, White)",
+        "model": "prop_table_03_chr"
+      },
+      {
+        "label": "Dining Chair (Metal Frame)",
+        "model": "prop_table_04_chr"
+      },
+      {
+        "label": "Wicker Chair (Dining)",
+        "model": "prop_table_05_chr"
+      },
+      {
+        "label": "Chair (Thin Metal Frame)",
+        "model": "prop_table_06_chr"
+      },
+      {
+        "label": "Waiting Seat (Brown Leather)",
+        "model": "prop_waiting_seat_01"
+      },
+      {
+        "label": "Yacht Chair (Single, Black)",
+        "model": "prop_yaught_chair_01"
+      },
+      {
+        "label": "Ornate Wooden Chair (Carved)",
+        "model": "p_dinechair_01_s"
+      },
+      {
+        "label": "Yacht Armchair (White)",
+        "model": "sf_mp_h_yacht_armchair_03"
+      },
+      {
+        "label": "Office Chair (Boss Style)",
+        "model": "v_club_officechair"
+      },
+      {
+        "label": "Desk Chair (Gray, No Arms)",
+        "model": "v_corp_bk_chair3"
+      },
+      {
+        "label": "Desk Chair (Red)",
+        "model": "v_corp_cd_chair"
+      },
+      {
+        "label": "Office Chair (Slim Back)",
+        "model": "v_corp_offchair"
+      },
+      {
+        "label": "Office Chair (Black Leather)",
+        "model": "v_ret_gc_chair03"
+      },
+      {
+        "label": "Office Chair (Wood Frame)",
+        "model": "xm_lab_chairarm_03"
+      }
+    ]
+  },
+  {
+    "id": "storage",
+    "label": "Storage",
+    "items": [
+      {
+        "label": "Locker",
+        "model": "p_cs_locker_01_s"
+      },
+      {
+        "label": "Safe",
+        "model": "prop_ld_int_safe_01"
+      },
+      {
+        "label": "Crafting Bench",
+        "model": "prop_toolchest_05"
+      },
+      {
+        "label": "Modern Chest of Drawers (Dark)",
+        "model": "apa_mp_h_bed_chestdrawer_02"
+      },
+      {
+        "label": "Floor Standing Shelf (Wood & Black)",
+        "model": "apa_mp_h_str_shelffloorm_02"
+      },
+      {
+        "label": "Low Sideboard (Dark Wood)",
+        "model": "apa_mp_h_str_sideboardl_11"
+      },
+      {
+        "label": "Low Sideboard (White & Gray)",
+        "model": "apa_mp_h_str_sideboardl_13"
+      },
+      {
+        "label": "Low Sideboard (White & Wood)",
+        "model": "apa_mp_h_str_sideboardl_14"
+      },
+      {
+        "label": "Gun Locker Cabinet",
+        "model": "bkr_prop_gunlocker_01a"
+      },
+      {
+        "label": "Green Crate",
+        "model": "gr_prop_gr_rsply_crate04a"
+      },
+      {
+        "label": "Weapon Wooden Crate",
+        "model": "m23_2_prop_m32_weaponcrate_01a"
+      },
+      {
+        "label": "White Cabinet (Tall, Drawers)",
+        "model": "prop_cabinet_01"
+      },
+      {
+        "label": "Filing Cabinet (3 Drawers, Beige)",
+        "model": "prop_cabinet_02b"
+      },
+      {
+        "label": "Warehouse Shelving Unit (Metal)",
+        "model": "prop_ff_shelves_01"
+      },
+      {
+        "label": "Wooden Shelf (Open, Aged)",
+        "model": "prop_rub_cabinet02"
+      },
+      {
+        "label": "Suitcase (Black)",
+        "model": "prop_suitcase_01"
+      },
+      {
+        "label": "Suitcase (Brown)",
+        "model": "prop_suitcase_01b"
+      },
+      {
+        "label": "Suitcase (Red)",
+        "model": "prop_suitcase_01c"
+      },
+      {
+        "label": "Suitcase (Dark Gray)",
+        "model": "prop_suitcase_01d"
+      },
+      {
+        "label": "Double Suitcase (Stacked)",
+        "model": "prop_suitcase_02"
+      },
+      {
+        "label": "Double Suitcase (Red + Black)",
+        "model": "prop_suitcase_03"
+      },
+      {
+        "label": "Double Suitcase (Black)",
+        "model": "prop_suitcase_03b"
+      },
+      {
+        "label": "TV Cabinet (Open Shelves)",
+        "model": "prop_tv_cabinet_03"
+      },
+      {
+        "label": "TV Cabinet (Bookshelf Style)",
+        "model": "prop_tv_cabinet_04"
+      },
+      {
+        "label": "TV Cabinet (Curved Front)",
+        "model": "prop_tv_cabinet_05"
+      },
+      {
+        "label": "Store Counter",
+        "model": "p_new_j_counter_03"
+      },
+      {
+        "label": "Vault Safe (Industrial)",
+        "model": "p_v_43_safe_s"
+      }
+    ]
+  },
+  {
+    "id": "wardrobe",
+    "label": "Wardrobe",
+    "items": [
+      {
+        "label": "Open Biker Locker",
+        "model": "bkr_prop_biker_garage_locker_01"
+      }
+    ]
+  },
+  {
+    "id": "electronics",
+    "label": "Electronics",
+    "items": [
+      {
+        "label": "Guitar Amplifier",
+        "model": "prop_amp_01"
+      },
+      {
+        "label": "CCTV Camera (Ceiling Dome)",
+        "model": "prop_cctv_cam_04c"
+      },
+      {
+        "label": "CCTV Camera (Ceiling Tube)",
+        "model": "prop_cctv_cam_05a"
+      },
+      {
+        "label": "CCTV Camera (Wall Box)",
+        "model": "prop_cctv_cam_06a"
+      },
+      {
+        "label": "Office Copier (Open Tray)",
+        "model": "prop_copier_01"
+      },
+      {
+        "label": "Keyboard (Black)",
+        "model": "prop_cs_keyboard_01"
+      },
+      {
+        "label": "TV Stand with Screen",
+        "model": "prop_cs_tv_stand"
+      },
+      {
+        "label": "Desktop Computer (Tower)",
+        "model": "prop_dyn_pc"
+      },
+      {
+        "label": "Oscillating Fan (Floor)",
+        "model": "prop_fan_01"
+      },
+      {
+        "label": "Office Fax Machine",
+        "model": "prop_fax_01"
+      },
+      {
+        "label": "Boombox Radio (Retro)",
+        "model": "prop_ghettoblast_01"
+      },
+      {
+        "label": "Keyboard (White)",
+        "model": "prop_keyboard_01a"
+      },
+      {
+        "label": "Laptop (Open, Green Wallpaper)",
+        "model": "prop_laptop_01a"
+      },
+      {
+        "label": "Microwave (Basic, White)",
+        "model": "prop_micro_01"
+      },
+      {
+        "label": "Microwave (Digital, White)",
+        "model": "prop_micro_02"
+      },
+      {
+        "label": "Microwave (Wooden Casing)",
+        "model": "prop_micro_04"
+      },
+      {
+        "label": "Monitor (Windows XP Style)",
+        "model": "prop_monitor_01c"
+      },
+      {
+        "label": "Monitor (Gameshow Display)",
+        "model": "prop_monitor_01d"
+      },
+      {
+        "label": "Monitor (Lifeinvader UI)",
+        "model": "prop_monitor_li"
+      },
+      {
+        "label": "Wide Office Monitor",
+        "model": "prop_monitor_w_large"
+      },
+      {
+        "label": "Mouse (Standard, Right)",
+        "model": "prop_mouse_02"
+      },
+      {
+        "label": "Office Telephone (TNT Model)",
+        "model": "prop_office_phone_tnt"
+      },
+      {
+        "label": "Old PC Tower (Beige)",
+        "model": "prop_pc_02a"
+      },
+      {
+        "label": "Portable Hi-Fi (Boombox)",
+        "model": "prop_portable_hifi_01"
+      },
+      {
+        "label": "Office Printer (Closed Lid)",
+        "model": "prop_printer_01"
+      },
+      {
+        "label": "Speaker Panel (Vertical, LED)",
+        "model": "prop_speaker_01"
+      },
+      {
+        "label": "Tall Wooden Speaker (Hi-Fi)",
+        "model": "prop_speaker_02"
+      },
+      {
+        "label": "Large Black Speaker",
+        "model": "prop_speaker_06"
+      },
+      {
+        "label": "Party Speaker (Dual)",
+        "model": "prop_speaker_07"
+      },
+      {
+        "label": "CRT TV (Wooden Frame)",
+        "model": "prop_trev_tv_01"
+      },
+      {
+        "label": "TV (Black Screen)",
+        "model": "prop_tv_01"
+      },
+      {
+        "label": "TV",
+        "model": "prop_tv_02"
+      },
+      {
+        "label": "CRT TV (Dark Gray)",
+        "model": "prop_tv_03"
+      },
+      {
+        "label": "CRT TV (Retro, Gray)",
+        "model": "prop_tv_04"
+      },
+      {
+        "label": "Vintage TV (Antenna)",
+        "model": "prop_tv_05"
+      },
+      {
+        "label": "CRT TV (Angled Edges)",
+        "model": "prop_tv_06"
+      },
+      {
+        "label": "CRT TV (Beveled Frame)",
+        "model": "prop_tv_07"
+      },
+      {
+        "label": "Flat TV (Modern, On Stand)",
+        "model": "prop_tv_flat_01"
+      },
+      {
+        "label": "Flat TV (Modern, Wide)",
+        "model": "prop_tv_flat_02"
+      },
+      {
+        "label": "Flat TV (Wide, Black Frame)",
+        "model": "prop_tv_flat_02b"
+      },
+      {
+        "label": "Flat TV (Modern Stand)",
+        "model": "prop_tv_flat_03"
+      },
+      {
+        "label": "Flat TV (Stand, No Logo)",
+        "model": "prop_tv_flat_03b"
+      },
+      {
+        "label": "TV Stand (Trust Poster)",
+        "model": "prop_tv_stand_01"
+      },
+      {
+        "label": "Test TV (Boxy, Placeholder)",
+        "model": "prop_tv_test"
+      },
+      {
+        "label": "Washing Machine (Modern)",
+        "model": "prop_washer_02"
+      },
+      {
+        "label": "Washing Machine (Vintage)",
+        "model": "prop_washer_03"
+      },
+      {
+        "label": "Club Speaker (Wall Mount 1)",
+        "model": "v_club_roc_eq1"
+      },
+      {
+        "label": "Club Speaker (Wall Mount 2)",
+        "model": "v_club_roc_eq2"
+      },
+      {
+        "label": "Monitor (Square)",
+        "model": "v_res_monitorsquare"
+      },
+      {
+        "label": "Monitor (Wide)",
+        "model": "v_res_monitorwidelarge"
+      },
+      {
+        "label": "Mouse with Mat",
+        "model": "v_res_mousemat"
+      },
+      {
+        "label": "PC Headset (Lying)",
+        "model": "v_res_pcheadset"
+      },
+      {
+        "label": "Tower Speaker (Standing)",
+        "model": "v_res_pcspeaker"
+      },
+      {
+        "label": "PC Tower (Black)",
+        "model": "v_res_pctower"
+      },
+      {
+        "label": "Printer (Multifunction)",
+        "model": "v_res_printer"
+      },
+      {
+        "label": "Vacuum Cleaner (Upright)",
+        "model": "v_res_vacuum"
+      },
+      {
+        "label": "Shredder (Office)",
+        "model": "v_ret_gc_shred"
+      }
+    ]
+  },
+  {
+    "id": "beds",
+    "label": "Beds",
+    "items": [
+      {
+        "label": "Double Bed (Black Upholstered)",
+        "model": "apa_mp_h_bed_double_09"
+      },
+      {
+        "label": "Wide Bed (Red Frame)",
+        "model": "apa_mp_h_bed_wide_05"
+      },
+      {
+        "label": "Double Bed with Built-in Table",
+        "model": "apa_mp_h_bed_with_table_02"
+      },
+      {
+        "label": "Executive Bed (Beige Upholstery)",
+        "model": "ex_prop_exec_bed_01"
+      },
+      {
+        "label": "Modern Double Bed (Dark Gray)",
+        "model": "hei_heist_bed_double_08"
+      },
+      {
+        "label": "Mattress (Old, Dirty)",
+        "model": "prop_rub_matress_01"
+      },
+      {
+        "label": "Double Bed (White Frame)",
+        "model": "prop_t_sofa_02"
+      },
+      {
+        "label": "Worn Wooden Bed (Blanket)",
+        "model": "p_lestersbed_s"
+      },
+      {
+        "label": "Yacht Bed (Single, Brown)",
+        "model": "sum_mp_h_yacht_bed_01"
+      },
+      {
+        "label": "Yacht Bed (Double, Gray)",
+        "model": "sum_mp_h_yacht_bed_02"
+      }
+    ]
+  },
+  {
+    "id": "lighting",
+    "label": "Lighting",
+    "items": [
+      {
+        "label": "Ceiling Light (Glass Dome)",
+        "model": "prop_wall_light_06a"
+      }
+    ]
+  },
+  {
+    "id": "tables",
+    "label": "Tables & Desks",
+    "items": [
+      {
+        "label": "HQ table",
+        "model": "apa_mp_h_yacht_side_table_02"
+      },
+      {
+        "label": "Weed Table",
+        "model": "bkr_prop_weed_table_01a"
+      },
+      {
+        "label": "Coke Mixer",
+        "model": "bkr_prop_coke_mixer_01"
+      },
+      {
+        "label": "Coke Table",
+        "model": "bkr_prop_coke_table01a"
+      },
+      {
+        "label": "Coke Press",
+        "model": "bkr_prop_coke_press_01b"
+      },
+      {
+        "label": "Meth Lab Kit",
+        "model": "prop_meth_setup_01"
+      },
+      {
+        "label": "Glass Dining Table",
+        "model": "apa_mp_h_din_table_01"
+      },
+      {
+        "label": "Modern Curved Chaise Lounger",
+        "model": "apa_mp_h_tab_sidelrg_02"
+      },
+      {
+        "label": "Yacht Dining Table (Wooden)",
+        "model": "hei_prop_yah_table_01"
+      },
+      {
+        "label": "Yacht Table (With Cloth)",
+        "model": "hei_prop_yah_table_02"
+      },
+      {
+        "label": "Yacht Table (Blue Legs)",
+        "model": "hei_prop_yah_table_03"
+      },
+      {
+        "label": "Modern Coffee Table (White Frame)",
+        "model": "prop_fbi3_coffee_table"
+      },
+      {
+        "label": "Low Farmhouse Table (Dark Wood)",
+        "model": "prop_ld_farm_table01"
+      },
+      {
+        "label": "Low Farm Table (Dark Wood)",
+        "model": "prop_ld_farm_table02"
+      },
+      {
+        "label": "Office Desk (Drawers, Gray)",
+        "model": "prop_office_desk_01"
+      },
+      {
+        "label": "Patio Table (Wooden)",
+        "model": "prop_patio_lounger1_table"
+      },
+      {
+        "label": "Wooden Picnic Table (Standard)",
+        "model": "prop_picnictable_01"
+      },
+      {
+        "label": "Wooden Picnic Table (LOD)",
+        "model": "prop_picnictable_01_lod"
+      },
+      {
+        "label": "Wooden Picnic Table (Red Accents)",
+        "model": "prop_picnictable_02"
+      },
+      {
+        "label": "Wooden Round Table (Chateau Style)",
+        "model": "prop_proxy_chateau_table"
+      },
+      {
+        "label": "Old Wooden Table (Worn)",
+        "model": "prop_rub_table_01"
+      },
+      {
+        "label": "Rustic Wooden Table (Damaged)",
+        "model": "prop_rub_table_02"
+      },
+      {
+        "label": "Low Wooden Table (Small)",
+        "model": "prop_tablesmall_01"
+      },
+      {
+        "label": "Coffee Table (Wooden)",
+        "model": "prop_table_01"
+      },
+      {
+        "label": "Round Table (Wood + Iron Base)",
+        "model": "prop_table_02"
+      },
+      {
+        "label": "Plastic Table (White)",
+        "model": "prop_table_03"
+      },
+      {
+        "label": "Plastic Table (Square, White)",
+        "model": "prop_table_03b"
+      },
+      {
+        "label": "Plastic Table (Square, White)",
+        "model": "prop_table_03b_cs"
+      },
+      {
+        "label": "Dining Bench (Dark Frame)",
+        "model": "prop_table_04"
+      },
+      {
+        "label": "Round Dining Table (Wicker)",
+        "model": "prop_table_05"
+      },
+      {
+        "label": "Modern Dining Table (Metal Legs)",
+        "model": "prop_table_06"
+      },
+      {
+        "label": "Round Table with Pole",
+        "model": "prop_table_07"
+      },
+      {
+        "label": "Old Wooden Table with Cover",
+        "model": "prop_table_08"
+      },
+      {
+        "label": "Parasol Table (Wood, Red Canopy)",
+        "model": "prop_table_para_comb_01"
+      },
+      {
+        "label": "Parasol Table (Blue Canopy)",
+        "model": "prop_table_para_comb_03"
+      },
+      {
+        "label": "Parasol Table (Gray Fabric)",
+        "model": "prop_table_para_comb_04"
+      },
+      {
+        "label": "Table Tennis Table (Foldable)",
+        "model": "prop_table_tennis"
+      },
+      {
+        "label": "Market Table (Foldable)",
+        "model": "prop_ven_market_table1"
+      },
+      {
+        "label": "Yacht Table (Dark Wicker)",
+        "model": "prop_yacht_table_01"
+      },
+      {
+        "label": "Yacht Table (Gray Wicker)",
+        "model": "prop_yacht_table_02"
+      },
+      {
+        "label": "Yacht Table (Black Wicker)",
+        "model": "prop_yacht_table_03"
+      },
+      {
+        "label": "Coffee Table (Modern, Black)",
+        "model": "v_ilev_liconftable_sml"
+      },
+      {
+        "label": "Wooden Coffee Table (Low)",
+        "model": "v_ind_rc_lowtable"
+      },
+      {
+        "label": "Modern Desk (Black&Wooden)",
+        "model": "xm_prop_lab_desk_02"
+      }
+    ]
+  },
+  {
+    "id": "bathroom",
+    "label": "Bathroom",
+    "items": [
+      {
+        "label": "Shower Rack (3 Shelves)",
+        "model": "prop_shower_rack_01"
+      },
+      {
+        "label": "Metal Sink (Wall Mounted)",
+        "model": "prop_sink_02"
+      },
+      {
+        "label": "Bathroom Sink (Rounded)",
+        "model": "prop_sink_05"
+      },
+      {
+        "label": "Bathroom Sink (Tall Pedestal)",
+        "model": "prop_sink_06"
+      },
+      {
+        "label": "Wall Soap Dispenser",
+        "model": "prop_soap_disp_01"
+      },
+      {
+        "label": "Toilet (Standard)",
+        "model": "prop_toilet_01"
+      },
+      {
+        "label": "Toilet (Modern)",
+        "model": "prop_toilet_02"
+      },
+      {
+        "label": "Toilet Brush (Holder)",
+        "model": "prop_toilet_brush_01"
+      },
+      {
+        "label": "Toilet Soap (With Dish)",
+        "model": "prop_toilet_soap_02"
+      },
+      {
+        "label": "Soap Dispenser (Pink)",
+        "model": "prop_toilet_soap_04"
+      },
+      {
+        "label": "Toothpaste Tube",
+        "model": "prop_toothpaste_01"
+      },
+      {
+        "label": "Towel Stack (White)",
+        "model": "prop_towel_01"
+      },
+      {
+        "label": "Public Sink (Stainless, Wide)",
+        "model": "prop_w_fountain_01"
+      },
+      {
+        "label": "Bathtub (Modern Oval)",
+        "model": "v_res_mbath"
+      },
+      {
+        "label": "Bathroom Sink (Wall Mount)",
+        "model": "v_res_mbsink"
+      }
+    ]
+  },
+  {
+    "id": "kitchen",
+    "label": "Kitchen",
+    "items": [
+      {
+        "label": "Blender / Food Processor",
+        "model": "prop_foodprocess_01"
+      },
+      {
+        "label": "Tall Fridge (Closed)",
+        "model": "prop_fridge_03"
+      },
+      {
+        "label": "Electric Kettle (Silver)",
+        "model": "prop_kettle"
+      },
+      {
+        "label": "Electric Juicer",
+        "model": "prop_kitch_juicer"
+      },
+      {
+        "label": "Frying Pan (Shallow)",
+        "model": "prop_kitch_pot_fry"
+      },
+      {
+        "label": "Cooking Pot (Large)",
+        "model": "prop_kitch_pot_lrg2"
+      },
+      {
+        "label": "Kitchen Knife (Used)",
+        "model": "prop_knife"
+      },
+      {
+        "label": "Jar of Lime",
+        "model": "prop_lime_jar"
+      },
+      {
+        "label": "Cooking Pot (Medium Size)",
+        "model": "prop_pot_03"
+      },
+      {
+        "label": "Toaster (Stainless)",
+        "model": "prop_toaster_01"
+      },
+      {
+        "label": "Toaster (White)",
+        "model": "prop_toaster_02"
+      },
+      {
+        "label": "Water Cooler (Plastic Jug)",
+        "model": "prop_watercooler"
+      },
+      {
+        "label": "Decorative Cake Dome (Glass)",
+        "model": "v_res_cakedome"
+      },
+      {
+        "label": "Food Jar (Chilli)",
+        "model": "v_res_foodjara"
+      },
+      {
+        "label": "Food Jar (Rice)",
+        "model": "v_res_foodjarb"
+      },
+      {
+        "label": "Fridge (Double Door, Water Dispenser)",
+        "model": "v_res_fridgemodsml"
+      },
+      {
+        "label": "Knife Block (Wood)",
+        "model": "v_res_mknifeblock"
+      },
+      {
+        "label": "Mug (Stoneware)",
+        "model": "v_res_mmug"
+      },
+      {
+        "label": "Dinner Plate (Blue Border)",
+        "model": "v_res_mplatesml"
+      },
+      {
+        "label": "Mortar and Pestle (Stone)",
+        "model": "v_res_pestle"
+      },
+      {
+        "label": "Fridge (Retro)",
+        "model": "v_res_tre_fridge"
+      },
+      {
+        "label": "Stack of Plates",
+        "model": "v_res_tt_bowlpile02"
+      }
+    ]
+  },
+  {
+    "id": "plants",
+    "label": "Plants & Nature",
+    "items": [
+      {
+        "label": "Palm Tree (Tall, Full)",
+        "model": "prop_palm_med_01a"
+      },
+      {
+        "label": "Palm Tree (Tall, Curved)",
+        "model": "prop_palm_med_01b"
+      },
+      {
+        "label": "Palm Tree (Medium Height, Wide)",
+        "model": "prop_palm_med_01c"
+      },
+      {
+        "label": "Palm Tree (Leaning Right)",
+        "model": "prop_palm_med_01d"
+      },
+      {
+        "label": "Palm Tree (Small Decorative)",
+        "model": "prop_palm_sm_01a"
+      },
+      {
+        "label": "Palm Tree (Small, Dense)",
+        "model": "prop_palm_sm_01d"
+      },
+      {
+        "label": "Palm Tree (Small, Thin)",
+        "model": "prop_palm_sm_01e"
+      },
+      {
+        "label": "Palm Tree (Small, Thick)",
+        "model": "prop_palm_sm_01f"
+      },
+      {
+        "label": "Rectangular Interior Planter",
+        "model": "prop_plant_interior_05a"
+      },
+      {
+        "label": "Indoor Plant (Short, Round Pot)",
+        "model": "prop_plant_int_01a"
+      },
+      {
+        "label": "Indoor Plant (Tall, Brown Pot)",
+        "model": "prop_plant_int_01b"
+      },
+      {
+        "label": "Topiary Ball (Square Pot)",
+        "model": "prop_plant_int_02a"
+      },
+      {
+        "label": "Topiary Ball (Round Pot)",
+        "model": "prop_plant_int_02b"
+      },
+      {
+        "label": "Indoor Fern (Stone Pot)",
+        "model": "prop_plant_int_03a"
+      },
+      {
+        "label": "Indoor Plant (Tall, White Pot)",
+        "model": "prop_plant_int_03b"
+      },
+      {
+        "label": "Indoor Plant (Pointed, Tall)",
+        "model": "prop_plant_int_03c"
+      },
+      {
+        "label": "Wide Indoor Plant (Low Pot)",
+        "model": "prop_plant_int_04a"
+      },
+      {
+        "label": "Indoor Bush (Flat Base)",
+        "model": "prop_plant_int_04b"
+      },
+      {
+        "label": "Leafy Plant (Round Pot)",
+        "model": "prop_plant_int_04c"
+      },
+      {
+        "label": "Wicker Planter with Flowers",
+        "model": "prop_plant_int_05a"
+      },
+      {
+        "label": "Basket Plant (Rectangular)",
+        "model": "prop_plant_int_05b"
+      },
+      {
+        "label": "Rectangular Planter (Tall Grass)",
+        "model": "prop_plant_int_06a"
+      },
+      {
+        "label": "Planter with Dense Shrub",
+        "model": "prop_plant_int_06b"
+      },
+      {
+        "label": "Boxwood Hedge Planter",
+        "model": "prop_plant_int_06c"
+      },
+      {
+        "label": "Indoor Plant (White Pot, Small)",
+        "model": "prop_pot_plant_01a"
+      },
+      {
+        "label": "Indoor Plant (Dark Pot, Spiked Leaves)",
+        "model": "prop_pot_plant_01b"
+      },
+      {
+        "label": "Indoor Plant (Tall, Curved Leaves)",
+        "model": "prop_pot_plant_01c"
+      },
+      {
+        "label": "Fan Palm (Short, Black Pot)",
+        "model": "prop_pot_plant_01d"
+      },
+      {
+        "label": "Fan Palm (Small, Gray Pot)",
+        "model": "prop_pot_plant_01e"
+      },
+      {
+        "label": "Round Pot with Shrub (Stone)",
+        "model": "prop_pot_plant_02a"
+      },
+      {
+        "label": "Planter with Flowers (Round, Tall)",
+        "model": "prop_pot_plant_02b"
+      },
+      {
+        "label": "Planter with Pink Flowers (Round)",
+        "model": "prop_pot_plant_02c"
+      },
+      {
+        "label": "Small Shrub in Round Pot",
+        "model": "prop_pot_plant_02d"
+      },
+      {
+        "label": "Cone Topiary (White Pot)",
+        "model": "prop_pot_plant_03a"
+      },
+      {
+        "label": "Shrub in Terracotta Pot",
+        "model": "prop_pot_plant_03b"
+      },
+      {
+        "label": "Topiary (Pedestal Pot)",
+        "model": "prop_pot_plant_03c"
+      },
+      {
+        "label": "Window Box Planter (Shrubs)",
+        "model": "prop_pot_plant_04a"
+      },
+      {
+        "label": "Ornamental Plant (Yellow Pot)",
+        "model": "prop_pot_plant_04b"
+      },
+      {
+        "label": "Ornamental Palm (Wide Pot)",
+        "model": "prop_pot_plant_04c"
+      },
+      {
+        "label": "Long Thin Plant (White Base)",
+        "model": "prop_pot_plant_05a"
+      },
+      {
+        "label": "Tall Cone Topiary (Gray Pot)",
+        "model": "prop_pot_plant_05b"
+      },
+      {
+        "label": "Rectangular Marble Planter",
+        "model": "prop_pot_plant_05c"
+      },
+      {
+        "label": "Round Stone Planter (Decorative)",
+        "model": "prop_pot_plant_05d"
+      },
+      {
+        "label": "Stone Planter with Flowers",
+        "model": "prop_pot_plant_05d_l1"
+      },
+      {
+        "label": "Hanging Fern Basket",
+        "model": "prop_pot_plant_6a"
+      },
+      {
+        "label": "Small Bush in Ceramic Pot",
+        "model": "prop_pot_plant_bh1"
+      },
+      {
+        "label": "Indoor Tall Plant (Minimalist)",
+        "model": "prop_pot_plant_inter_03a"
+      },
+      {
+        "label": "Bushy Olive Shrub",
+        "model": "prop_rus_olive"
+      },
+      {
+        "label": "Olive Tree (Large)",
+        "model": "prop_rus_olive_l2"
+      },
+      {
+        "label": "Winter Olive Tree",
+        "model": "prop_rus_olive_wint"
+      },
+      {
+        "label": "Young Sapling Tree (Thin)",
+        "model": "prop_sapling_break_01"
+      },
+      {
+        "label": "Tall Sapling (Pointed)",
+        "model": "prop_sapling_break_02"
+      },
+      {
+        "label": "Flowers in Vase (Yellow)",
+        "model": "v_ret_ps_flowers_01"
+      },
+      {
+        "label": "Flowers in Vase (Pink)",
+        "model": "v_ret_ps_flowers_02"
+      }
+    ]
+  },
+  {
+    "id": "decorations",
+    "label": "Decorations & Details",
+    "items": [
+      {
+        "label": "Wool Rug",
+        "model": "apa_mp_h_acc_rugwooll_03"
+      },
+      {
+        "label": "Glass Display Pedestal",
+        "model": "h4_prop_h4_glass_disp_01a"
+      },
+      {
+        "label": "Dog Sign",
+        "model": "prop_beware_dog_sign"
+      },
+      {
+        "label": "FIB Ashtray (Wall-Mounted)",
+        "model": "prop_fib_ashtray_01"
+      },
+      {
+        "label": "Magazine Holder (Black)",
+        "model": "prop_folder_02"
+      },
+      {
+        "label": "Wall Clock (White Face)",
+        "model": "prop_game_clock_01"
+      },
+      {
+        "label": "Wall Clock (Black Face)",
+        "model": "prop_game_clock_02"
+      },
+      {
+        "label": "Gravestone Statue (Angel Wings)",
+        "model": "prop_gravestones_10a"
+      },
+      {
+        "label": "Wall Cabinet (White, Small)",
+        "model": "prop_handdry_01"
+      },
+      {
+        "label": "Stacked Document Trays (3x)",
+        "model": "prop_inout_tray_02"
+      },
+      {
+        "label": "Black Garbage Bag (Full)",
+        "model": "prop_rub_binbag_01"
+      },
+      {
+        "label": "Cleaning Sponge (Yellow)",
+        "model": "prop_sponge_01"
+      },
+      {
+        "label": "Wall Clock (Sport Design)",
+        "model": "prop_sports_clock_01"
+      },
+      {
+        "label": "Dog Bed (Grey)",
+        "model": "sf_prop_sf_bed_dog_01a"
+      },
+      {
+        "label": "Dog Bed (Brown)",
+        "model": "sf_prop_sf_bed_dog_01b"
+      },
+      {
+        "label": "Stack of Folders",
+        "model": "v_res_paperfolders"
+      },
+      {
+        "label": "Perfume Bottle (Green)",
+        "model": "v_res_r_perfume"
+      },
+      {
+        "label": "Wall Mirror (Gold Frame)",
+        "model": "v_ret_mirror"
+      },
+      {
+        "label": "Toilet Paper Roll (Dark Texture)",
+        "model": "v_ret_ta_paproll"
+      }
+    ]
+  },
+  {
+    "id": "outdoor",
+    "label": "Outdoor",
+    "items": [
+      {
+        "label": "BBQ",
+        "model": "prop_bbq_1"
+      },
+      {
+        "label": "Brick BBQ",
+        "model": "prop_bbq_3"
+      },
+      {
+        "label": "BBQ",
+        "model": "prop_bbq_4"
+      },
+      {
+        "label": "BBQ",
+        "model": "prop_bbq_5"
+      },
+      {
+        "label": "Beach Campfire",
+        "model": "prop_beach_fire"
+      },
+      {
+        "label": "Inflatable Pool Mattress",
+        "model": "prop_beach_lilo_02"
+      },
+      {
+        "label": "Beach Parasol (Striped)",
+        "model": "prop_beach_parasol_05"
+      },
+      {
+        "label": "Inflatable Swim Ring",
+        "model": "prop_beach_ring_01"
+      },
+      {
+        "label": "Sandcastle",
+        "model": "prop_beach_sandcas_04"
+      },
+      {
+        "label": "Metal Bench (Classic)",
+        "model": "prop_bench_01a"
+      },
+      {
+        "label": "Metal Bench (Classic Blue)",
+        "model": "prop_bench_01b"
+      },
+      {
+        "label": "Metal Bench (Green)",
+        "model": "prop_bench_01c"
+      },
+      {
+        "label": "Metal Park Bench",
+        "model": "prop_bench_02"
+      },
+      {
+        "label": "Industrial Metal Bench",
+        "model": "prop_bench_03"
+      },
+      {
+        "label": "Wooden Bench",
+        "model": "prop_bench_04"
+      },
+      {
+        "label": "Garden Bench (Slatted)",
+        "model": "prop_bench_06"
+      },
+      {
+        "label": "Minimalist Park Bench",
+        "model": "prop_bench_07"
+      },
+      {
+        "label": "Wooden Bench (Concrete legs)",
+        "model": "prop_bench_08"
+      },
+      {
+        "label": "Bus Stop Bench",
+        "model": "prop_bench_10"
+      },
+      {
+        "label": "Heavy Duty Bench",
+        "model": "prop_bench_11"
+      },
+      {
+        "label": "Standard Trash Can",
+        "model": "prop_bin_01a"
+      },
+      {
+        "label": "Trash Can (Blue)",
+        "model": "prop_bin_02a"
+      },
+      {
+        "label": "Black Garbage Bin",
+        "model": "prop_bin_03a"
+      },
+      {
+        "label": "Commercial Trash Bin (Closed)",
+        "model": "prop_bin_04a"
+      },
+      {
+        "label": "Dumpster Bin (Blue)",
+        "model": "prop_bin_05a"
+      },
+      {
+        "label": "Industrial Garbage Bin",
+        "model": "prop_bin_06a"
+      },
+      {
+        "label": "Metal Trash Can (Empty)",
+        "model": "prop_bin_07a"
+      },
+      {
+        "label": "Metal Trash Can (Closed)",
+        "model": "prop_bin_07b"
+      },
+      {
+        "label": "Trash Can (Half-closed)",
+        "model": "prop_bin_07c"
+      },
+      {
+        "label": "Graffiti Trash Can",
+        "model": "prop_bin_07d"
+      },
+      {
+        "label": "Tall Public Bin",
+        "model": "prop_bin_08a"
+      },
+      {
+        "label": "Tall Public Bin (Open)",
+        "model": "prop_bin_08open"
+      },
+      {
+        "label": "Tall Trash Can (With Lid)",
+        "model": "prop_bin_09a"
+      },
+      {
+        "label": "Bin (Dark Blue)",
+        "model": "prop_bin_10a"
+      },
+      {
+        "label": "Bin (Red)",
+        "model": "prop_bin_10b"
+      },
+      {
+        "label": "Street Bin (Yellow)",
+        "model": "prop_bin_11a"
+      },
+      {
+        "label": "Street Bin (Green)",
+        "model": "prop_bin_11b"
+      },
+      {
+        "label": "City Trash Can (Metal Base)",
+        "model": "prop_bin_12a"
+      },
+      {
+        "label": "Del Perro Promenade Trash Bin",
+        "model": "prop_bin_delpiero"
+      },
+      {
+        "label": "Del Perro Trash Bin (Decorative)",
+        "model": "prop_bin_delpiero_b"
+      },
+      {
+        "label": "Wooden Doghouse",
+        "model": "prop_doghouse_01"
+      },
+      {
+        "label": "Pink Flamingo (Lawn Ornament)",
+        "model": "prop_flamingo"
+      },
+      {
+        "label": "Stone Fountain (Round)",
+        "model": "prop_fountain2"
+      },
+      {
+        "label": "Gazebo Tent (Open Sides)",
+        "model": "prop_gazebo_01"
+      },
+      {
+        "label": "Gazebo Tent (Side Walls)",
+        "model": "prop_gazebo_02"
+      },
+      {
+        "label": "Gazebo Tent (No Walls)",
+        "model": "prop_gazebo_03"
+      },
+      {
+        "label": "Garden Gnome (Smiling)",
+        "model": "prop_gnome1"
+      },
+      {
+        "label": "Garden Gnome (Lantern)",
+        "model": "prop_gnome2"
+      },
+      {
+        "label": "Garden Gnome (Digging)",
+        "model": "prop_gnome3"
+      },
+      {
+        "label": "Wooden Hot Tub (Lid Closed)",
+        "model": "prop_hottub2"
+      },
+      {
+        "label": "Inflatable Kayak (Yellow)",
+        "model": "prop_kayak_01b"
+      },
+      {
+        "label": "Parasol (Light Gray Fabric)",
+        "model": "prop_parasol_01"
+      },
+      {
+        "label": "Parasol (Dark Base, Lod Style)",
+        "model": "prop_parasol_01b_lod"
+      },
+      {
+        "label": "Parasol (Dark Blue Fabric)",
+        "model": "prop_parasol_01_b"
+      },
+      {
+        "label": "Parasol (Brown, Weathered)",
+        "model": "prop_parasol_01_c"
+      },
+      {
+        "label": "Parasol (Light Gray, Lod Style)",
+        "model": "prop_parasol_01_lod"
+      },
+      {
+        "label": "Parasol (White, Tilted)",
+        "model": "prop_parasol_02"
+      },
+      {
+        "label": "Parasol (Green Fabric)",
+        "model": "prop_parasol_02_b"
+      },
+      {
+        "label": "Parasol (Dark Blue Fabric)",
+        "model": "prop_parasol_02_c"
+      },
+      {
+        "label": "Parasol (Blue, Wide)",
+        "model": "prop_parasol_03"
+      },
+      {
+        "label": "Parasol (Yellow with Branding)",
+        "model": "prop_parasol_03_b"
+      },
+      {
+        "label": "Parasol (Green with Branding)",
+        "model": "prop_parasol_03_c"
+      },
+      {
+        "label": "Parasol (Red/White Sprunk Branding)",
+        "model": "prop_parasol_04c"
+      },
+      {
+        "label": "Parasol (Green/White Sprunk Branding)",
+        "model": "prop_parasol_04d"
+      },
+      {
+        "label": "Recycle Bin (Blue)",
+        "model": "prop_recyclebin_01a"
+      },
+      {
+        "label": "Recycle Bin (Red - Mixed Plastic)",
+        "model": "prop_recyclebin_02a"
+      },
+      {
+        "label": "Recycle Bin (Yellow - Cans Only)",
+        "model": "prop_recyclebin_02b"
+      },
+      {
+        "label": "Classic Bin",
+        "model": "prop_recyclebin_03_a"
+      },
+      {
+        "label": "Garden Rake (Green)",
+        "model": "prop_shrub_rake"
+      },
+      {
+        "label": "Camping Tent (Folded)",
+        "model": "prop_skid_tent_01"
+      },
+      {
+        "label": "Butterfly Decoration (Purple)",
+        "model": "prop_stickbfly"
+      },
+      {
+        "label": "Bird Decoration (Small, Brown)",
+        "model": "prop_stickhbird"
+      },
+      {
+        "label": "Mushroom Decoration (Purple Glow)",
+        "model": "prop_stoneshroom1"
+      },
+      {
+        "label": "Mushroom Decoration (Blue Glow)",
+        "model": "prop_stoneshroom2"
+      },
+      {
+        "label": "Classic Bin (Mesh)",
+        "model": "zprop_bin_01a_old"
+      }
+    ]
+  },
+  {
+    "id": "recreation",
+    "label": "Recreation",
+    "items": [
+      {
+        "label": "Air Hockey Table",
+        "model": "prop_airhockey_01"
+      },
+      {
+        "label": "Dumbbell 30kg",
+        "model": "prop_barbell_01"
+      },
+      {
+        "label": "Barbell 110kg",
+        "model": "prop_barbell_02"
+      },
+      {
+        "label": "Barbell 100kg",
+        "model": "prop_barbell_100kg"
+      },
+      {
+        "label": "Barbell 10kg",
+        "model": "prop_barbell_10kg"
+      },
+      {
+        "label": "Barbell 20kg",
+        "model": "prop_barbell_20kg"
+      },
+      {
+        "label": "Barbell 30kg",
+        "model": "prop_barbell_30kg"
+      },
+      {
+        "label": "Barbell 40kg",
+        "model": "prop_barbell_40kg"
+      },
+      {
+        "label": "Barbell 50kg",
+        "model": "prop_barbell_50kg"
+      },
+      {
+        "label": "Barbell 60kg",
+        "model": "prop_barbell_60kg"
+      },
+      {
+        "label": "Barbell 80kg",
+        "model": "prop_barbell_80kg"
+      },
+      {
+        "label": "Basketball Hoop",
+        "model": "prop_basketball_net"
+      },
+      {
+        "label": "Dartboard (Wood Backing)",
+        "model": "prop_dart_bd_01"
+      },
+      {
+        "label": "Dartboard with Cabinet",
+        "model": "prop_dart_bd_cab_01"
+      },
+      {
+        "label": "Exercise Bike (Stationary)",
+        "model": "prop_exer_bike_01"
+      },
+      {
+        "label": "Workout Bench (Flat)",
+        "model": "prop_muscle_bench_01"
+      },
+      {
+        "label": "Workout Bench (Inclined)",
+        "model": "prop_muscle_bench_03"
+      },
+      {
+        "label": "Workout Machine (Arms & Pull)",
+        "model": "prop_muscle_bench_05"
+      },
+      {
+        "label": "Modern Pool Table (Gray Trim)",
+        "model": "prop_pooltable_02"
+      },
+      {
+        "label": "Pool Table (Purple)",
+        "model": "prop_pooltable_3b"
+      },
+      {
+        "label": "Punching Bag (Hanging)",
+        "model": "prop_punch_bag_l"
+      },
+      {
+        "label": "Speedball Lamp (Modern)",
+        "model": "prop_speedball_01"
+      },
+      {
+        "label": "Weight Bench (Barbell)",
+        "model": "prop_weight_bench_02"
+      },
+      {
+        "label": "Weight Rack (Dumbbells)",
+        "model": "prop_weight_rack_02"
+      },
+      {
+        "label": "Squat Rack (Weights)",
+        "model": "prop_weight_squat"
+      },
+      {
+        "label": "Mop",
+        "model": "m23_2_prop_m32_bucket_mop_01b"
+      },
+      {
+        "label": "Lawn Mower",
+        "model": "prop_lawnmower_01"
+      }
+    ]
+  }
+]

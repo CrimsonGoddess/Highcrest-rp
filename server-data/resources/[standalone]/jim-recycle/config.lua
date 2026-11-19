@@ -2,16 +2,22 @@
 Config = {
 	Lan = "en",
 	System = {
-		Debug = true, 			-- enable debug mode
+		Debug = false, 			-- enable debug mode
 
 		Menu = "ox",			-- "qb", "ox", "gta"
 		ProgressBar = "ox",	-- "qb", "ox", "gta"
 		Notify = "ox",			-- "qb", "ox", "gta"
 		drawText = "ox",		-- "qb", "ox", "gta"
 
-		skillCheck = "ox",		-- "qb", "ox", "gta"
+		skillCheck = "gta",		-- "qb", "ox", "gta"
 
 		DontUseTarget = false,
+
+		useSkillCheck = true,
+	},
+	Main = {
+		useLineHighlight = true,		-- Renders outlines for recycle targets, set this to false if you have users crashing due to QuantV
+		useblipTarget = true,			-- Shows small blips for recycle targets, set this to false to disable these
 	},
 	Crafting = {
 		showItemBox = true,
@@ -31,8 +37,14 @@ Config.ScrapyardSearching = {
 	searchTime = 5000,
 
 	ScrapItems = {
-		{item = "iron", 		rarity = 75, min = 1, max = 5},
-		{item = "copper", 		rarity = 80, min = 1, max = 5},
+		{item = "iron", 		rarity = 80, min = 3, max = 9},
+		{item = "aluminum", 	rarity = 65, min = 3, max = 9},
+		{item = "rubber", 		rarity = 70, min = 3, max = 7},
+		{item = "glass",		rarity = 6, min = 1, max = 2},
+		{item = "copper", 		rarity = 75, min = 2, max = 6},
+		{item = "steel", 		rarity = 45, min = 3, max = 6},
+		{item = "plastic", 		rarity = 75, min = 2, max = 9},
+		{item = "metalscrap", 	rarity = 45, min = 2, max = 7},
 	},
 }
 
@@ -45,25 +57,16 @@ Config.DumpsterDiving = {
 		`prop_bin_09a`, `prop_bin_10a`, `prop_bin_10b`, `prop_bin_11a`, `prop_bin_12a`, `prop_bin_13a`, `prop_bin_14a`, `prop_bin_14b`,
 		`prop_bin_beach_01d`, `prop_bin_delpiero`, `prop_bin_delpiero_b`, `prop_recyclebin_01a`, `prop_recyclebin_02_c`, `prop_recyclebin_02_d`,
 		`prop_recyclebin_02a`, `prop_recyclebin_02b`, `prop_recyclebin_03_a`, `prop_recyclebin_04_a`, --[[ `prop_recyclebin_04_b`, ]] `prop_recyclebin_05_a`,
-		`zprop_bin_01a_old`, `hei_heist_kit_bin_01`, `ch_prop_casino_bin_01a`, `vw_prop_vw_casino_bin_01a`, `mp_b_kit_bin_01`,`prop_bin_01a`, 
+		`zprop_bin_01a_old`, `hei_heist_kit_bin_01`, `ch_prop_casino_bin_01a`, `vw_prop_vw_casino_bin_01a`, `mp_b_kit_bin_01`,
 	},
 	searchTime = 3000,
 
 	DumpItems = {
-		{ item = 'steel', rarity = 1 },
+		{ item = 'can', 	rarity = 4 },
+		{ item = 'bottle', 	rarity = 4 },
+		{ item = 'plastic', rarity = 3 },
 		{ item = 'glass', 	rarity = 2 },
-		{ item = 'plastic', 	rarity = 3 },
-		{ item = 'iron', 	rarity = 4 },
-		{ item = 'copper', 	rarity = 5 },
-		{ item = 'metalscrap', 	rarity = 6 },
-		{ item = 'aluminum', 	rarity = 7 },
-		{ item = 'ls_plain_jane_seed', 	rarity = 8 },
- 		{ item = 'ls_banana_kush_seed', 	rarity = 10 },
-		{ item = 'ls_blue_dream_seed', 	rarity = 12 },
-		{ item = 'ls_purple_haze_seed', 	rarity = 14 },
-		{ item = 'ls_orange_crush_seed', 	rarity = 16 },
-		{ item = 'ls_cosmic_kush_seed', 	rarity = 18 },
-		{ item = 'ls_coca_seed', 	rarity = 20 },
+		{ item = 'steel', 	rarity = 1 },
 	},
 }
 
@@ -140,14 +143,16 @@ Config.Other = {
 	Prices = {
 		Header = Loc[Config.Lan].menu["sell_mats"],
 		Items = {
-			copper = 24,
-			plastic = 13,
-			metalscrap = 7,
-			steel = 15,
-			glass = 5,
+			copper = 34,
+			plastic = 6,
+			metalscrap = 14,
+			steel = 24,
+			glass = 11,
 			iron = 12,
-			rubber = 3,
-			aluminum = 4,
+			rubber = 15,
+			aluminum = 8,
+			bottle = 5,
+			can = 5,
 		},
 	},
 	BottleBankTable = {
@@ -159,39 +164,58 @@ Config.Other = {
 	},
 	-- Trading menu
 	TradeTable = {	-- The items you can trade reycle boxes for
-        "plastic",
+		"copper",
+		"plastic",
+		"metalscrap",
+		"steel",
 		"glass",
+		"iron",
 		"rubber",
 		"aluminum",
-		"copper",
-		"iron",
-		"steel",
-
-		
 	},
 	RecycleAmounts = {		-- How much you can get per run to recycle box in
 		["Recycle"] = {
-			Min = 7,
-			Max = 13,
+			Min = 2,
+			Max = 5,
 		},
         ["Trade"] = {		-- How much per item you will recieve
-            { amount = 1, itemGive = 1, Min = 2, Max = 2, },
-            { amount = 10, itemGive = 1, Min = 20, Max = 30, },
-            { amount = 50, itemGive = 1, Min = 50, Max = 100, },
-            { amount = 100, itemGive = 1, Min = 150, Max = 200, },
-            { amount = 1000, itemGive = 1, Min = 1300, Max = 1600, },			
+            { amount = 25, itemGive = 25, Min = 25, Max = 35, },
+            { amount = 50, itemGive = 50, Min = 50, Max = 60, },
+            { amount = 75, itemGive = 75, Min = 75, Max = 85, },
+            { amount = 100, itemGive = 108, Min = 126, Max = 146, },
         },
 	}
 }
 
+-- Function for locales
+-- Don't touch unless you know what you're doing
+-- This needs to be here because it loads before everything else
 function locale(section, string)
-    if not string then
-        print(section, "string is nil")
+    if not Config.Lan or Config.Lan == "" then
+        print("^1Error^7: ^3Config^7.^3Lan ^1not set^7, ^2falling back to Config.Lan = 'en'")
+        Config = Config or {}
+        Config.Lan = "en"
     end
-    if not Config.Lan or Config.Lan == "" then return print("Error, no langauge set") end
+
     local localTable = Loc[Config.Lan]
-    if not localTable then return "Locale Table Not Found" end
-    if not localTable[section] then return "["..section.."] Invalid" end
-    if not localTable[section][string] then return "["..string.."] Invalid" end
+    -- If Loc[..] doesn't exist, warn user
+    if not localTable then
+		print("Locale Table '"..Config.Lan.."' Not Found")
+        return "Locale Table '"..Config.Lan.."' Not Found"
+    end
+
+    -- If Loc[..].section doesn't exist, warn user
+    if not localTable[section] then
+		print("^1Error^7: Locale Section: ['"..section.."'] Invalid")
+        return "Locale Section: ['"..section.."'] Invalid"
+    end
+
+    -- If Loc[..].section.string doesn't exist, warn user
+    if not localTable[section][string] then
+		print("^1Error^7: Locale String: ['"..section.."']['"..string.."'] Invalid")
+        return "Locale String: ['"..string.."'] Invalid"
+    end
+
+    -- If no issues, return the string
     return localTable[section][string]
 end

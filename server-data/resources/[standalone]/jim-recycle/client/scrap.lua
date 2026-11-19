@@ -8,7 +8,7 @@ if Config.ScrapyardSearching.Enable then
         createModelTarget(Config.ScrapyardSearching.models, {
             {
                 action = function(data)
-                    Scrapping.StartSearch(data.entity)
+                    Scrapping.StartSearch(type(data) == "table" and data.entity or data)
                 end,
                 icon = "fas fa-dumpster",
                 label = locale("target", "search"),
@@ -34,7 +34,7 @@ if Config.ScrapyardSearching.Enable then
             lookEnt(entity)
             playAnim("anim@amb@machinery@speed_drill@", "look_around_left_02_amy_skater_01", 35000, 1, Ped)
 
-            if Config.System.skillCheck then
+            if Config.System.useSkillCheck then
                 searchSuccess = skillCheck()
             else
                 searchSuccess = true

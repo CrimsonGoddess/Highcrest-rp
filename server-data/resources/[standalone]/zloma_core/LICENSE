@@ -1,0 +1,31 @@
+ZLOMA CORE - Source Available License
+
+Copyright (c) 2025 Zloma. All rights reserved.
+
+Permission is hereby granted to any person obtaining a copy of this software
+and associated documentation files (the "Software"), to use and modify the
+Software for personal or commercial server use, subject to the following
+conditions:
+
+1. ALLOWED:
+   - Using the Software on your FiveM server(s)
+   - Modifying the Software for your own server(s)
+   - Adding support for new systems (inventory, keys, etc.)
+   - Creating pull requests to the official repository
+
+2. NOT ALLOWED:
+   - Redistributing the Software (modified or unmodified) to third parties
+   - Selling, sublicensing, or reselling the Software
+   - Rebranding or repackaging the Software as your own product
+   - Including the Software in paid script bundles or packages
+   - Sharing the Software on forums, leak sites, or file sharing platforms
+
+3. ATTRIBUTION:
+   - The original copyright notice and this license must be retained in all
+     copies or modifications of the Software
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY ARISING FROM
+THE USE OF THE SOFTWARE.
