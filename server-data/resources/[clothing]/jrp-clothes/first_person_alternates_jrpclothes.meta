@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FirstPersonAlternateData>
+    <alternates>
+        <Item>
+            <assetName>mp_m_freemode_01_jrpclothes/jbib_008_u</assetName>
+            <alternate value="1" />
+        </Item>
+        <Item>
+            <assetName>mp_f_freemode_01_jrpclothes/jbib_006_u</assetName>
+            <alternate value="1" />
+        </Item>
+    </alternates>
+</FirstPersonAlternateData>
