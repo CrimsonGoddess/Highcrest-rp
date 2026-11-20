@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ShopPedApparel>
+	<pedName>mp_m_freemode_01</pedName>
+	<dlcName>mp_m_bag2025lsdicecreabyblabfivem</dlcName>
+	<fullDlcName>mp_m_freemode_01_mp_m_bag2025lsdicecreabyblabfivem</fullDlcName>
+	<eCharacter>SCR_CHAR_MULTIPLAYER</eCharacter>
+	<creatureMetaData>MP_CreatureMetadata_bag2025byblabfivem</creatureMetaData>
+	<pedOutfits>
+	</pedOutfits>
+	<pedComponents>
+        <!-- Bag: Bag - 1 -->
+        <Item>
+            <lockHash />
+            <cost value="0"/>
+            <textLabel />
+            <uniqueNameHash>CLO_DCT_BAG_0_0_M</uniqueNameHash>
+            <eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <variantComponents />
+			<drawableIndex value="0" />
+			<localDrawableIndex value="0" />
+			<eCompType>PV_COMP_HAND</eCompType>
+			<textureIndex value="0" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- Bag: Bag - 2 -->
+        <Item>
+            <lockHash />
+            <cost value="0"/>
+            <textLabel />
+            <uniqueNameHash>CLO_DCT_BAG_0_1_M</uniqueNameHash>
+            <eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <variantComponents />
+			<drawableIndex value="0" />
+			<localDrawableIndex value="0" />
+			<eCompType>PV_COMP_HAND</eCompType>
+			<textureIndex value="1" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- Bag: Bag - 3 -->
+        <Item>
+            <lockHash />
+            <cost value="0"/>
+            <textLabel />
+            <uniqueNameHash>CLO_DCT_BAG_0_2_M</uniqueNameHash>
+            <eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <variantComponents />
+			<drawableIndex value="0" />
+			<localDrawableIndex value="0" />
+			<eCompType>PV_COMP_HAND</eCompType>
+			<textureIndex value="2" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- Bag: Bag - 4 -->
+        <Item>
+            <lockHash />
+            <cost value="0"/>
+            <textLabel />
+            <uniqueNameHash>CLO_DCT_BAG_0_3_M</uniqueNameHash>
+            <eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <variantComponents />
+			<drawableIndex value="0" />
+			<localDrawableIndex value="0" />
+			<eCompType>PV_COMP_HAND</eCompType>
+			<textureIndex value="3" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- Bag: Bag - 5 -->
+        <Item>
+            <lockHash />
+            <cost value="0"/>
+            <textLabel />
+            <uniqueNameHash>CLO_DCT_BAG_0_4_M</uniqueNameHash>
+            <eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <variantComponents />
+			<drawableIndex value="0" />
+			<localDrawableIndex value="0" />
+			<eCompType>PV_COMP_HAND</eCompType>
+			<textureIndex value="4" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- Bag: Bag - 6 -->
+        <Item>
+            <lockHash />
+            <cost value="0"/>
+            <textLabel />
+            <uniqueNameHash>CLO_DCT_BAG_0_5_M</uniqueNameHash>
+            <eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <variantComponents />
+			<drawableIndex value="0" />
+			<localDrawableIndex value="0" />
+			<eCompType>PV_COMP_HAND</eCompType>
+			<textureIndex value="5" />
+			<isInOutfit value="false" />
+		</Item>
+	</pedComponents>
+	<pedProps>
+	</pedProps>
+</ShopPedApparel>

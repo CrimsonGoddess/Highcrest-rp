@@ -1,0 +1,1400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ShopPedApparel>
+	<pedName>mp_f_freemode_01</pedName>
+	<dlcName>mp_f_bunnyhelmet</dlcName>
+	<fullDlcName>mp_f_freemode_01_mp_f_bunnyhelmet</fullDlcName>
+	<eCharacter>SCR_CHAR_MULTIPLAYER_F</eCharacter>
+	<creatureMetaData>MP_CreatureMetadata_bunnyhelmet</creatureMetaData>
+	<pedOutfits>
+	</pedOutfits>
+	<pedComponents>
+	</pedComponents>
+	<pedProps>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_000_a -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_0_0_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="0" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="0" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_000_b -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_0_1_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="0" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="1" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_000_c -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_0_2_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="0" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="2" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_000_d -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_0_3_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="0" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="3" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_000_e -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_0_4_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="0" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="4" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_000_f -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_0_5_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="0" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="5" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_000_g -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_0_6_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="0" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="6" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_000_h -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_0_7_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="0" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="7" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_001_a -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_1_0_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="1" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="0" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_001_b -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_1_1_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="1" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="1" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_001_c -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_1_2_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="1" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="2" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_001_d -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_1_3_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="1" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="3" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_001_e -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_1_4_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="1" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="4" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_001_f -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_1_5_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="1" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="5" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_001_g -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_1_6_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="1" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="6" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_001_h -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_1_7_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="1" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="7" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_002_a -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_2_0_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="2" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="0" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_002_b -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_2_1_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="2" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="1" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_002_c -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_2_2_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="2" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="2" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_002_d -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_2_3_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="2" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="3" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_002_e -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_2_4_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="2" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="4" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_002_f -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_2_5_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="2" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="5" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_002_g -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_2_6_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="2" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="6" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_002_h -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_2_7_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="2" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="7" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_003_a -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_3_0_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="3" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="0" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_003_b -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_3_1_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="3" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="1" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_003_c -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_3_2_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="3" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="2" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_003_d -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_3_3_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="3" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="3" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_003_e -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_3_4_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="3" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="4" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_003_f -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_3_5_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="3" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="5" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_003_g -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_3_6_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="3" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="6" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_003_h -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_3_7_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="3" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="7" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_004_a -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_4_0_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="4" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="0" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_004_b -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_4_1_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="4" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="1" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_004_c -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_4_2_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="4" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="2" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_004_d -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_4_3_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="4" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="3" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_004_e -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_4_4_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="4" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="4" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_004_f -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_4_5_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="4" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="5" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_004_g -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_4_6_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="4" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="6" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_004_h -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_4_7_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="4" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="7" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_005_a -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_5_0_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="5" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="0" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_005_b -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_5_1_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="5" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="1" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_005_c -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_5_2_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="5" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="2" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_005_d -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_5_3_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="5" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="3" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_005_e -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_5_4_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="5" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="4" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_005_f -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_5_5_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="5" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="5" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_005_g -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_5_6_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="5" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="6" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_005_h -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_5_7_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="5" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="7" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_006_a -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_6_0_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="6" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="0" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_006_b -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_6_1_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="6" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="1" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_006_c -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_6_2_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="6" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="2" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_006_d -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_6_3_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="6" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="3" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_006_e -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_6_4_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="6" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="4" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_006_f -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_6_5_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="6" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="5" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_006_g -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_6_6_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="6" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="6" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_006_h -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_6_7_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="6" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="7" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_006_i -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_6_8_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="6" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="8" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_007_a -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_7_0_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="7" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="0" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_007_b -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_7_1_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="7" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="1" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_007_c -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_7_2_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="7" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="2" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_007_d -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_7_3_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="7" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="3" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_007_e -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_7_4_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="7" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="4" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_007_f -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_7_5_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="7" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="5" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_007_g -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_7_6_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="7" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="6" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_007_h -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_7_7_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="7" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="7" />
+			<isInOutfit value="false" />
+		</Item>
+        <!-- PropHead: PropHead - mp_f_freemode_01_p_mp_f_bunnycp^p_head_diff_007_i -->
+		<Item>
+			<lockHash />
+			<cost value="0"/>
+			<textLabel />
+			<uniqueNameHash>CLO_DCT_PROPHEAD_7_8_F</uniqueNameHash>
+			<eShopEnum>CLO_SHOP_NONE</eShopEnum>
+			<locate value="-99" />
+			<scriptSaveData value="0" />
+			<restrictionTags>
+			</restrictionTags>
+            <forcedComponents />
+            <forcedProps />
+            <variantComponents />
+            <variantProps />
+			<propIndex value="0" />
+			<localPropIndex value="7" />
+			<eAnchorPoint>ANCHOR_HEAD</eAnchorPoint>
+			<textureIndex value="8" />
+			<isInOutfit value="false" />
+		</Item>
+	</pedProps>
+</ShopPedApparel>
