@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8"/>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+   <title>RTX Shell Creator</title>
+   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+   <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+   <link rel="stylesheet" href="styles.css">
+   <link rel="stylesheet" href="home.css">
+   <script type="module" crossorigin src="gizmoapi.js"></script>
+</head>
+<body>
+   <div id="root"></div>
+
+   <div id="dock" class="tk-dock hidden">
+      <div class="tk-dock-head">
+         <button class="tk-icon-btn small" id="dock-back"><i class="fa-solid fa-chevron-left"></i></button>
+         <div class="tk-dock-mark" id="dock-mark"></div>
+         <div class="tk-dock-titles">
+            <div class="tk-kicker" id="dock-kicker"></div>
+            <div class="tk-dock-title" id="dock-title"></div>
+         </div>
+         <button class="tk-icon-btn small" id="dock-close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="tk-dock-body" id="dock-body"></div>
+      <div class="tk-dock-foot" id="dock-foot"></div>
+   </div>
+
+   <div id="shellplan" class="tk-shellplan hidden"></div>
+
+   <div id="hints" class="tk-hints hidden"></div>
+
+   <div id="modal" class="tk-modal hidden">
+      <div class="tk-modal-card">
+         <div class="tk-kicker" id="modal-kicker"></div>
+         <div class="tk-modal-title" id="modal-title"></div>
+         <div class="tk-modal-body" id="modal-body"></div>
+         <div class="tk-modal-actions" id="modal-actions"></div>
+      </div>
+   </div>
+
+   <div id="notify-stack" class="notify-stack"></div>
+
+   <textarea id="clipboard" class="tk-clipboard" readonly></textarea>
+
+   <script src="notify.js"></script>
+   <script src="scripts.js"></script>
+   <script src="core.js"></script>
+   <script src="shellgeo.js"></script>
+   <script src="pako.min.js"></script>
+   <script src="shellbake.js"></script>
+   <script src="shelllift.js"></script>
+   <script src="shell.js"></script>
+   <script src="shellguide.js"></script>
+   <script src="shellruntime.js"></script>
+   <script src="liftsound.js"></script>
+   <script src="home.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+["rtx_shell_my_shell"] = {
+	label = "My shell",
+	object = "rtx_shell_my_shell",
+	tags = {"Empty", "RTX", "creator"},
+	exitcoords = {coords = vector3(1.700000, 0.900000, 0.470000), heading = 180.00},
+	managmentcoords = {coords = vector3(0.000000, 0.000000, 0.000000)},
+	wardrobecoords = {coords = vector3(0.000000, 0.000000, 0.000000)},
+	storagecoords = {coords = vector3(0.000000, 0.000000, 0.000000)},
+	cookcoords = {coords = vector3(0.000000, 0.000000, 0.000000)},
+	sinkcoords = {},
+	showercoords = {},
+	cleanpoints = {
+	},
+	images = {},
+},

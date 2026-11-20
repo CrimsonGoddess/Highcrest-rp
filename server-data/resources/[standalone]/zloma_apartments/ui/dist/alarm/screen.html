@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Alarm link</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050e10;color:#d5f7ef;font-family:'Cascadia Code','Consolas',monospace;user-select:none}body{padding:34px 28px;background:linear-gradient(145deg,#102023,#050e10 70%)}body:after{content:'';position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 3px,#0002 3px 4px);z-index:50}header{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #2c4d4e;padding-bottom:22px;font-size:19px;letter-spacing:3px;color:#81b5b1}.led{width:10px;height:10px;background:#77e4c0;border-radius:100%;box-shadow:0 0 18px #77e4c080}.identity{margin:24px 0 0;font-size:17px;color:#648c89;letter-spacing:2px}.step{display:inline-block;margin-top:54px;padding:9px 13px;border:1px solid #2b5856;color:#7de9d1;font-size:18px;letter-spacing:2px}h1{font-size:42px;line-height:1.22;font-weight:500;margin:26px 0;overflow-wrap:break-word}p{font-size:24px;line-height:1.5;color:#8aaca8;margin:0}.diagram{height:134px;display:flex;align-items:center;justify-content:center;gap:13px;margin:26px 0}.phone{width:43px;height:73px;border:3px solid #76d8c4;border-radius:7px;position:relative}.phone:after{content:'';position:absolute;width:17px;height:2px;background:#76d8c4;bottom:6px;left:10px}.cable{width:110px;height:1px;background:#527d78;position:relative}.cable:after{content:'';width:21px;height:13px;border:2px solid #76d8c4;position:absolute;right:0;top:-7px;background:#0a1719}.panel{width:62px;height:80px;border:3px solid #76d8c4;border-radius:4px}.panel:before{content:'';display:block;width:38px;height:15px;border:2px solid #76d8c4;margin:10px auto}#terminal{font-size:20px;line-height:1.65;color:#7eb6ab;margin-top:34px;min-height:110px;white-space:pre-line}.bar{height:12px;background:#17312f;margin-top:24px;overflow:hidden}#fill{height:100%;width:0;background:#72e1bd;transition:width .1s linear}footer{position:absolute;bottom:30px;left:28px;right:28px;display:flex;justify-content:space-between;color:#537c77;font-size:16px;letter-spacing:1px}.success h1{color:#81f0bc}.success .diagram{display:none}.success #terminal{font-size:23px;color:#80e4bb}.success .step{border-color:#5baf8c}.panel-mode{padding:12px 18px;background:#0a1917;display:flex;align-items:center;justify-content:center;text-align:center}.panel-mode header,.panel-mode .identity,.panel-mode .step,.panel-mode .diagram,.panel-mode p,.panel-mode #terminal,.panel-mode .bar,.panel-mode footer{display:none}.panel-mode h1{font-size:48px;line-height:1.1;letter-spacing:2px;margin:0;text-transform:uppercase;color:#b9e7b3}.panel-mode.disabled h1{color:#edc681}.panel-mode:before{content:'';width:12px;height:12px;flex-shrink:0;margin-right:18px;border-radius:50%;background:#a1e298}.panel-mode.disabled:before{background:#e5b363}
+
+body{display:flex;flex-direction:column;padding:30px 26px}header{padding-bottom:16px;font-size:17px;flex-shrink:0}.identity{margin-top:18px;font-size:15px;flex-shrink:0}.step{align-self:flex-start;margin-top:30px;font-size:16px;padding:8px 11px;flex-shrink:0}h1{font-size:36px;margin:22px 0;flex-shrink:0}p{font-size:22px;line-height:1.4;flex-shrink:0}.diagram{flex:1;min-height:75px;max-height:120px;margin:22px 0}.connect #terminal,.connect .bar{display:none}#terminal{font-size:20px;min-height:0;margin-top:24px;flex-shrink:0}.linking .diagram{display:none}.bar{flex-shrink:0}footer{position:static;margin-top:auto;padding-top:24px;font-size:14px;flex-shrink:0}.panel-mode{flex-direction:row;padding:12px 18px}
+@media (max-height:600px) and (min-width:650px){body{padding:22px 28px}header{font-size:17px;padding-bottom:10px}.identity{display:none}.step{margin-top:14px;font-size:15px;padding:6px 10px}h1{font-size:48px;line-height:1.15;margin:14px 0;max-width:712px}p{font-size:25px;line-height:1.3}.diagram{min-height:50px;max-height:70px;margin:8px 0}.phone{height:56px;width:34px}.phone:after{left:7px;width:14px}.panel{height:62px;width:48px}.panel:before{width:28px;margin:8px auto}.cable{width:100px}#terminal{font-size:20px;margin-top:16px;line-height:1.45}footer{padding-top:16px;font-size:13px}.success #terminal{font-size:21px}}
+
+/* Start button after the cable is connected */
+#start{display:none;margin-top:18px;padding:18px 0;text-align:center;font-size:34px;letter-spacing:4px;color:#04140f;background:#7ff0c2;border:2px solid #b8ffe3;box-shadow:0 0 30px #7ff0c260,inset 0 0 0 3px #04140f20;cursor:pointer;flex-shrink:0;animation:pulse 1.4s ease-in-out infinite}
+#start:hover{background:#a6ffd9}#start.pending{background:#2c4d4e;color:#9fd8c8;box-shadow:none;animation:none}
+.ready #start{display:block}.ready #terminal{display:none}
+@keyframes pulse{50%{box-shadow:0 0 46px #7ff0c2a0,inset 0 0 0 3px #04140f20}}
+
+/* Hack */
+#hack{display:none;position:fixed;inset:0;padding:16px 20px 18px;flex-direction:column;background:radial-gradient(ellipse at 50% 0,#0f2a2a,#040b0c 75%)}
+.hacking #hack{display:flex}
+.hbar{display:flex;align-items:center;justify-content:space-between;font-size:17px;letter-spacing:3px;color:#7fb3ad;height:34px;flex-shrink:0}
+#pips{display:flex;gap:8px}.pip{width:44px;height:8px;background:#163432;border:1px solid #2c5552}.pip.on{background:#7ff0c2;box-shadow:0 0 10px #7ff0c2}.pip.now{background:#e8c26a;box-shadow:0 0 10px #e8c26a;animation:blink .8s steps(2) infinite}
+#strikes{display:flex;gap:6px;font-size:20px}.strike{color:#7ff0c2}.strike.lost{color:#ff5a5a;text-shadow:0 0 8px #ff5a5a}
+.timer{height:6px;background:#132b29;margin:8px 0 12px;flex-shrink:0;overflow:hidden}#timerFill{height:100%;width:100%;background:#7ff0c2}#timerFill.low{background:#ff6b5a}
+#stage{flex:1;position:relative;display:flex;flex-direction:column;min-height:0}
+#banner{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;background:#040b0ce8;z-index:20;text-align:center}
+#banner.show{display:flex}#bannerTitle{font-size:46px;letter-spacing:5px;color:#7ff0c2;text-shadow:0 0 18px #7ff0c280}#bannerSub{margin-top:14px;font-size:22px;letter-spacing:2px;color:#8ab6af}
+#banner.bad #bannerTitle{color:#ff5a5a;text-shadow:0 0 18px #ff5a5a90}#banner.warn #bannerTitle{color:#e8c26a;text-shadow:0 0 18px #e8c26a90}
+.glitch{animation:glitch .35s steps(3) 2}
+@keyframes glitch{0%{transform:translate(0)}33%{transform:translate(-6px,2px);filter:hue-rotate(90deg)}66%{transform:translate(5px,-3px);filter:invert(.2)}100%{transform:translate(0)}}
+@keyframes blink{50%{opacity:.35}}
+.title{font-size:20px;letter-spacing:3px;color:#9fd8c8;display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}.title b{color:#e8c26a;font-weight:500}
+
+/* sync */
+.sync canvas{width:100%;height:230px;background:#061212;border:1px solid #1f4341}
+.slider{display:flex;align-items:center;gap:14px;margin-top:14px;font-size:18px;letter-spacing:2px;color:#86bdb5}.slider label{width:86px}
+.track{flex:1;height:34px;position:relative;background:#0c2120;border:1px solid #2c5552;cursor:pointer}.track:before{content:'';position:absolute;left:0;right:0;top:16px;height:2px;background:#24504c}
+.knob{position:absolute;top:-4px;width:22px;height:40px;margin-left:-11px;background:#7ff0c2;box-shadow:0 0 12px #7ff0c2}
+.lock{margin-top:16px;height:30px;position:relative;background:#0c2120;border:1px solid #2c5552;font-size:17px;letter-spacing:3px}.lock div{height:100%;width:0;background:linear-gradient(90deg,#3fb98d,#7ff0c2)}.lock span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#d8fff1;text-shadow:0 0 6px #000}
+
+/* pattern */
+.pattern{flex:1;display:flex;gap:26px;align-items:center;justify-content:center}
+.grid{display:grid;gap:10px}.cell{background:#0c2120;border:2px solid #2c5552;border-radius:6px;cursor:pointer;transition:background .08s,box-shadow .08s}
+.cell.flash{background:#7ff0c2;border-color:#d4fff0;box-shadow:0 0 26px #7ff0c2}.cell.hit{background:#3c9e7f;border-color:#7ff0c2}.cell.miss{background:#ff5a5a;border-color:#ffb3b3;box-shadow:0 0 26px #ff5a5a}
+.side{width:190px;display:flex;flex-direction:column;gap:14px;font-size:20px;letter-spacing:2px;color:#86bdb5}
+.status{font-size:30px;letter-spacing:4px;color:#e8c26a}.status.go{color:#7ff0c2}
+.leds{display:flex;flex-wrap:wrap;gap:8px}.leds i{width:22px;height:22px;border-radius:50%;background:#163432;border:1px solid #2c5552}.leds i.on{background:#7ff0c2;box-shadow:0 0 10px #7ff0c2}
+.inputs{display:flex;flex-wrap:wrap;gap:5px}.inputs i{width:14px;height:14px;background:#163432}.inputs i.on{background:#7ff0c2}
+
+/* pin */
+.pin{flex:1;display:flex;gap:22px;min-height:0}
+.pad{width:330px;display:flex;flex-direction:column;gap:10px}
+.slots{display:flex;gap:8px;justify-content:center;height:58px}.slot{width:50px;border-bottom:3px solid #2c5552;font-size:40px;text-align:center;color:#d8fff1;line-height:54px}.slot.cur{border-color:#7ff0c2}
+.keys{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;flex:1}.key{display:flex;align-items:center;justify-content:center;font-size:30px;background:#0c2120;border:2px solid #2c5552;border-radius:6px;cursor:pointer;color:#c9f5e8}.key:hover{border-color:#7ff0c2}.key:active,.key.press{background:#1d4b44}.key.ok{color:#04140f;background:#7ff0c2;border-color:#b8ffe3}.key.del{color:#e8c26a}
+.log{flex:1;display:flex;flex-direction:column;gap:6px;overflow:hidden}.log .head{font-size:17px;letter-spacing:2px;color:#86bdb5;display:flex;justify-content:space-between}
+.row{display:flex;gap:6px;align-items:center}.row i{width:40px;height:38px;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:24px;background:#0c2120;border:1px solid #2c5552;color:#c9f5e8}
+.row i.g{background:#2fb47e;border-color:#7ff0c2;color:#04140f}.row i.y{background:#c99a2e;border-color:#ffd77a;color:#1a1100}.row i.x{background:#1a2423;color:#5c7470}
+.legend{font-size:14px;color:#6f9993;letter-spacing:1px;margin-top:auto}.legend b{display:inline-block;width:12px;height:12px;margin:0 4px 0 10px;vertical-align:-1px}
+</style></head><body>
+<header><span>ZLOMA / LINK</span><span class="led"></span></header>
+<div class="identity">ALARM INTERFACE · USB / TTL</div>
+<div class="step" id="step">01 / LINK</div>
+<h1 id="title"></h1><p id="sub"></p>
+<div class="diagram"><span class="phone"></span><span class="cable"></span><span class="panel"></span></div>
+<div id="terminal"></div><div class="bar"><div id="fill"></div></div>
+<div id="start"></div>
+<footer><span>LINK OS 1.0</span><span id="status">● STANDBY</span></footer>
+<section id="hack">
+ <div class="hbar"><span>ZLOMA / BREACH</span><div id="pips"></div><div id="strikes"></div></div>
+ <div class="timer"><div id="timerFill"></div></div>
+ <div id="stage"></div>
+</section>
+<div id="banner"><div id="bannerTitle"></div><div id="bannerSub"></div></div>
+<script>
+// Runtime identity check; this source remains editable under its GPL terms.
+(() => {
+  const host = location.hostname;
+  const current = typeof GetParentResourceName === 'function' ? GetParentResourceName()
+    : host.startsWith('cfx-nui-') ? host.slice(8) : location.protocol === 'nui:' ? host : null;
+  if (current !== null && current !== 'zloma_apartments') {
+    document.body.textContent = 'Resource must be named zloma_apartments.';
+    throw new Error('[zloma_apartments] Invalid resource name: ' + current);
+  }
+})();
+
+const params=new URLSearchParams(location.search),kind=params.get('kind')||'device',hr=params.get('lang')==='hr';
+const labels=hr?{connect:'Spoji konektor u alarm panel',drag:'Klikni i drži konektor, zatim ga povuci do priključka.',linking:'Uspostavljanje veze',success:'Uspješno spojeno',ready:'Uređaj je spreman.',armed:'Alarm aktivan',disabled:'Alarm isključen',start:'ZAPOČNI HACK',starting:'POKREĆEM...'}:{connect:'Connect the cable to the alarm panel',drag:'Click and hold the connector, then drag it to the port.',linking:'Establishing connection',success:'Connected successfully',ready:'Device ready.',armed:'Alarm armed',disabled:'Alarm disabled',start:'START HACK',starting:'STARTING...'};
+const T=hr?{sync:'SINKRONIZACIJA SIGNALA',syncHelp:'Poklopi svoj signal s nosiocem alarma',freq:'FREKV',phase:'FAZA',lock:'ZAKLJUČAVANJE SIGNALA',pattern:'MEMORIJSKI UZORAK',watch:'GLEDAJ',repeat:'PONOVI',round:'RUNDA',pin:'PROBIJANJE PIN-a',tries:'POKUŠAJI',legend:['točno','krivo mjesto','nema'],stage:'FAZA',stageOk:'FAZA PROBIJENA',trace:'UPOZORENJE: TRAG',retry:'Nova zagonetka, još jedna greška je kraj',bypass:'ALARM ZAOBIĐEN',bypassSub:'Alarm je isključen',failed:'PROBOJ NEUSPJEŠAN',failedSub:'Sustav je otkrio upad',police:'Policija je obaviještena',aborted:'PREKINUTO',wait:'Provjera...',code:'KOD'}:{sync:'SIGNAL SYNC',syncHelp:'Match your signal to the alarm carrier',freq:'FREQ',phase:'PHASE',lock:'SIGNAL LOCK',pattern:'MEMORY PATTERN',watch:'WATCH',repeat:'REPEAT',round:'ROUND',pin:'PIN CRACK',tries:'ATTEMPTS',legend:['right','wrong place','none'],stage:'STAGE',stageOk:'STAGE BREACHED',trace:'TRACE WARNING',retry:'New puzzle, one more mistake ends it',bypass:'ALARM BYPASSED',bypassSub:'The alarm is off',failed:'BREACH FAILED',failedSub:'The system detected the intrusion',police:'Police have been alerted',aborted:'ABORTED',wait:'Verifying...',code:'CODE'};
+const $=id=>document.getElementById(id);
+const resource=location.hostname.startsWith('cfx-nui-')?location.hostname.slice(8):null;
+function post(name,data){if(resource)fetch('https://'+resource+'/'+name,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data||{})}).catch(()=>{})}
+
+// ---------------------------------------------------------------- sound
+let ac,master;
+function audio(){if(!ac){ac=new(window.AudioContext||window.webkitAudioContext)();master=ac.createGain();master.gain.value=.7;master.connect(ac.destination)}if(ac.state==='suspended')ac.resume();return ac}
+function tone(freq,dur,type='square',vol=.06,delay=0,slide){const a=audio(),t=a.currentTime+delay,o=a.createOscillator(),g=a.createGain();o.type=type;o.frequency.setValueAtTime(freq,t);if(slide)o.frequency.exponentialRampToValueAtTime(slide,t+dur);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+.005);g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.connect(g);g.connect(master);o.start(t);o.stop(t+dur+.02)}
+function noise(dur,vol=.05,delay=0){const a=audio(),t=a.currentTime+delay,b=a.createBuffer(1,Math.ceil(a.sampleRate*dur),a.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*(1-i/d.length);const s=a.createBufferSource(),g=a.createGain(),f=a.createBiquadFilter();f.type='bandpass';f.frequency.value=2400;s.buffer=b;g.gain.value=vol;s.connect(f);f.connect(g);g.connect(master);s.start(t)}
+const SFX={
+ click:()=>tone(2200,.025,'square',.035),
+ key:()=>{tone(1200,.035,'square',.05);noise(.02,.03)},
+ ok:()=>{tone(880,.07,'sine',.08);tone(1320,.09,'sine',.07,.06)},
+ err:()=>{tone(180,.28,'sawtooth',.09,0,90);noise(.18,.07)},
+ cell:i=>tone(392*Math.pow(2,i/5),.22,'triangle',.09),
+ tick:()=>tone(2600,.03,'square',.03),
+ lock:()=>{tone(660,.08,'sine',.07);tone(990,.08,'sine',.07,.07);tone(1480,.16,'sine',.07,.14)},
+ stage:()=>[523,659,784,1047].forEach((f,i)=>tone(f,.14,'square',.05,i*.07)),
+ win:()=>[523,659,784,1047,1319,1568].forEach((f,i)=>tone(f,.2,'square',.05,i*.08)),
+ fail:()=>{tone(300,.5,'sawtooth',.09,0,60);tone(220,.6,'square',.05,.1,50);noise(.4,.08)},
+ glitch:()=>{noise(.25,.09);tone(90,.25,'sawtooth',.06)},
+ boot:()=>{tone(200,.25,'sine',.05,0,1200);[0,1,2,3].forEach(i=>tone(1400+i*200,.03,'square',.03,.25+i*.05))},
+};
+// continuous hum for signal sync: two oscillators, the beat slows as signals match
+let hum=null;
+function humStart(){const a=audio();const g=a.createGain();g.gain.value=0;g.connect(master);const o1=a.createOscillator(),o2=a.createOscillator(),o3=a.createOscillator(),g3=a.createGain();o1.type=o2.type='sawtooth';o1.frequency.value=110;o2.frequency.value=113;o3.type='sine';o3.frequency.value=880;g3.gain.value=0;const f=a.createBiquadFilter();f.type='lowpass';f.frequency.value=700;o1.connect(f);o2.connect(f);f.connect(g);o3.connect(g3);g3.connect(master);[o1,o2,o3].forEach(o=>o.start());g.gain.linearRampToValueAtTime(.05,a.currentTime+.3);hum={g,o1,o2,o3,g3}}
+function humSet(err,lock){if(!hum)return;const t=audio().currentTime;hum.o2.frequency.setTargetAtTime(110+Math.min(40,err*90),t,.05);hum.g3.gain.setTargetAtTime(lock>0?.015+lock*.03:0,t,.05);hum.o3.frequency.setTargetAtTime(660+lock*660,t,.05)}
+function humStop(){if(!hum)return;const h=hum;hum=null;const t=audio().currentTime;h.g.gain.setTargetAtTime(0,t,.05);h.g3.gain.setTargetAtTime(0,t,.05);setTimeout(()=>{[h.o1,h.o2,h.o3].forEach(o=>{try{o.stop()}catch(e){}})},300)}
+
+// ---------------------------------------------------------------- link screens
+let lastData=null;
+function render(data){
+ lastData=data;
+ const state=['connect','linking','success','armed','disabled'].includes(data.state)?data.state:'connect';
+ document.body.className=(kind==='device'?'':'panel-mode ')+state+(data.start?' ready':'');
+ $('title').textContent=data.title||labels[state];
+ $('sub').textContent=data.sub||(state==='connect'?labels.drag:state==='success'?labels.ready:'');
+ $('step').textContent=state==='connect'?'01 / LINK':state==='linking'?'02 / HANDSHAKE':'LINK / OK';
+ $('terminal').textContent=(data.lines||(state==='success'?['> LINK ESTABLISHED','> INTERFACE READY']:[])).filter(Boolean).join('\n');
+ const progress=Math.max(0,Math.min(1,Number(data.progress)||0));$('fill').style.width=(progress*100)+'%';
+ $('status').textContent=state==='linking'?Math.round(progress*100)+'%':state==='success'?'● CONNECTED':'● STANDBY';
+ const start=$('start');start.className=data.start==='pending'?'pending':'';start.textContent=data.start==='pending'?labels.starting:'▶ '+(data.startLabel||labels.start);
+}
+$('start').addEventListener('mousedown',()=>{if(!lastData||lastData.start!==true)return;SFX.ok();lastData.start='pending';render(lastData);post('alarm_hack',{event:'start'})});
+
+// ---------------------------------------------------------------- hack engine
+const H={gen:0,stop:[],fails:0};
+const rand=(a,b)=>a+Math.random()*(b-a),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function el(tag,cls,html){const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e}
+function wait(ms,gen){return new Promise(r=>{const t=setTimeout(()=>r(gen===H.gen),ms);H.stop.push(()=>clearTimeout(t))})}
+function cleanupStage(){H.stop.splice(0).forEach(f=>{try{f()}catch(e){}});humStop();$('stage').innerHTML='';setTimer(null)}
+function banner(title,sub,cls,ms){const b=$('banner');b.className='show '+(cls||'');$('bannerTitle').textContent=title;$('bannerSub').textContent=sub||'';if(ms)return wait(ms,H.gen).then(ok=>{if(ok)b.className='';return ok});return Promise.resolve(true)}
+function hideBanner(){$('banner').className=''}
+function glitch(){const h=$('hack');h.classList.remove('glitch');void h.offsetWidth;h.classList.add('glitch');SFX.glitch()}
+function pips(stages,i){const p=$('pips');p.innerHTML='';stages.forEach((_,k)=>p.appendChild(el('div','pip'+(k<i?' on':k===i?' now':''))))}
+function strikes(total,used){const s=$('strikes');s.innerHTML='';for(let k=0;k<=total;k++)s.appendChild(el('span','strike'+(k<used?' lost':''),k<used?'✕':'◆'))}
+// stage countdown; calls onEnd when time runs out
+let timerRaf=null;
+function setTimer(seconds,onEnd){
+ if(timerRaf){cancelAnimationFrame(timerRaf);timerRaf=null}
+ const fill=$('timerFill');if(!seconds){fill.style.width='100%';fill.className='';return}
+ const end=performance.now()+seconds*1000;let lastTick=Math.ceil(seconds);
+ const step=now=>{const left=Math.max(0,end-now)/1000;fill.style.width=(left/seconds*100)+'%';fill.className=left<5?'low':'';
+  const whole=Math.ceil(left);if(left<5&&whole<lastTick){lastTick=whole;SFX.tick()}
+  if(left<=0){timerRaf=null;onEnd();return}timerRaf=requestAnimationFrame(step)};
+ timerRaf=requestAnimationFrame(step)
+}
+
+async function runHack(cfg){
+ const gen=++H.gen;cleanupStage();hideBanner();
+ document.body.className='hacking';
+ const stages=cfg.stages||[];const allowed=Math.max(0,cfg.strikes|0);H.fails=0;
+ strikes(allowed,0);pips(stages,0);SFX.boot();
+ for(let i=0;i<stages.length;i++){
+  for(;;){
+   pips(stages,i);
+   const name={sync:T.sync,pattern:T.pattern,pin:T.pin}[stages[i].game]||stages[i].game;
+   if(!await banner(T.stage+' '+(i+1)+' / '+stages.length,name,'',1300))return;
+   const ok=await playStage(stages[i],gen);
+   if(gen!==H.gen)return;
+   cleanupStage();
+   if(ok){SFX.stage();if(!await banner(T.stageOk,'','',900))return;break}
+   H.fails++;strikes(allowed,H.fails);
+   if(H.fails>allowed){finish(false,gen);return}
+   glitch();if(!await banner(T.trace,T.retry,'warn',1700))return;
+  }
+ }
+ pips(stages,stages.length);finish(true,gen);
+}
+function finish(success,gen){if(gen!==H.gen)return;(success?SFX.win:SFX.fail)();banner(success?T.bypass:T.failed,T.wait,success?'':'bad');post('alarm_hack',{event:'done',success,fails:H.fails})}
+function result(data){
+ H.gen++;cleanupStage();document.body.className='hacking';
+ if(data.result==='success')banner(T.bypass,T.bypassSub);
+ else if(data.result==='cancel')banner(T.aborted,'','warn');
+ else banner(T.failed,data.dispatched?T.police:T.failedSub,'bad');
+}
+function abort(){H.gen++;cleanupStage();document.body.className='hacking';banner(T.aborted,'','warn')}
+function playStage(s,gen){return new Promise(resolve=>{let done=false;const end=ok=>{if(done)return;done=true;resolve(ok)};H.stop.push(()=>end(false));
+ const root=$('stage');({sync,pattern,pin}[s.game]||(()=>end(true)))(s,root,end,gen)})}
+
+// ---- signal sync: two sliders steer your wave onto the alarm carrier
+function sync(s,root,end,gen){
+ const hold=s.hold||2.5,tol=s.tolerance||.12,drift=s.drift||.5,glitchEvery=s.glitch||0;
+ const box=el('div','sync');box.appendChild(el('div','title',`<span>${T.syncHelp}</span><b id="syncRead"></b>`));
+ const cv=el('canvas');cv.width=728;cv.height=230;box.appendChild(cv);
+ const sliders={};
+ for(const [k,label] of [['f',T.freq],['p',T.phase]]){const row=el('div','slider');row.appendChild(el('label',null,label));const tr=el('div','track'),kn=el('div','knob');tr.appendChild(kn);row.appendChild(tr);box.appendChild(row);sliders[k]={tr,kn}}
+ const lockBar=el('div','lock','<div></div><span>'+T.lock+'</span>');box.appendChild(lockBar);root.appendChild(box);
+ const st={tf:rand(1.4,3.6),tp:rand(0,6.283),vf:0,vp:0,pf:0,pp:0,lock:0,t:0,next:glitchEvery?glitchEvery*rand(.7,1.3):1e9};
+ st.pf=st.tf>2.5?rand(1,1.8):rand(3.2,4);st.pp=(st.tp+Math.PI)%6.283;
+ let drag=null;
+ const setFrom=(k,x)=>{const r=sliders[k].tr.getBoundingClientRect();const v=clamp((x-r.left)/r.width,0,1);if(k==='f')st.pf=1+3*v;else st.pp=v*6.283};
+ for(const k of ['f','p'])sliders[k].tr.addEventListener('mousedown',e=>{drag=k;setFrom(k,e.clientX);SFX.click()});
+ const move=e=>{if(drag)setFrom(drag,e.clientX)},up=()=>{drag=null};
+ window.addEventListener('mousemove',move);window.addEventListener('mouseup',up);
+ H.stop.push(()=>{window.removeEventListener('mousemove',move);window.removeEventListener('mouseup',up)});
+ humStart();setTimer(s.seconds||40,()=>end(false));
+ const ctx=cv.getContext('2d');let last=performance.now(),raf,wasLocked=false;
+ const wave=(f,p,color,width,glow)=>{ctx.beginPath();for(let x=0;x<=cv.width;x+=3){const y=cv.height/2+Math.sin(6.283*f*x/cv.width+p)*80;x?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.strokeStyle=color;ctx.lineWidth=width;ctx.shadowColor=color;ctx.shadowBlur=glow;ctx.stroke();ctx.shadowBlur=0};
+ const frame=now=>{
+  if(gen!==H.gen)return;const dt=Math.min(.05,(now-last)/1000);last=now;st.t+=dt;
+  // The carrier wanders slowly in both frequency and phase (no constant spin).
+  st.vf=clamp(st.vf+(Math.random()-.5)*drift*dt*3,-drift*.35,drift*.35);st.tf+=st.vf*dt;if(st.tf<1.1||st.tf>3.9){st.vf=-st.vf;st.tf=clamp(st.tf,1.1,3.9)}
+  st.vp=clamp(st.vp+(Math.random()-.5)*drift*dt*4,-drift*.7,drift*.7);st.tp=(st.tp+st.vp*dt+6.283)%6.283;
+  // A glitch nudges the carrier a little away, it does not throw it across the screen.
+  if(st.t>st.next){const sf=Math.random()<.5?-1:1,sp=Math.random()<.5?-1:1;st.tf=clamp(st.tf+sf*rand(.35,.7),1.1,3.9);st.tp=(st.tp+sp*rand(.7,1.3)+6.283)%6.283;st.next=st.t+glitchEvery*rand(.8,1.3);glitch()}
+  const ef=Math.abs(st.pf-st.tf)/3;let dp=Math.abs(st.pp-st.tp)%6.283;if(dp>Math.PI)dp=6.283-dp;dp/=Math.PI;
+  const locked=ef<tol&&dp<tol*1.6;
+  st.lock=clamp(st.lock+(locked?dt/hold:-dt/(hold*2.2)),0,1);
+  if(locked&&!wasLocked)SFX.click();wasLocked=locked;
+  humSet(ef*1.5+dp,locked?st.lock:0);
+  ctx.clearRect(0,0,cv.width,cv.height);ctx.strokeStyle='#123230';ctx.lineWidth=1;
+  for(let x=0;x<cv.width;x+=52){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,cv.height);ctx.stroke()}
+  for(let y=0;y<cv.height;y+=46){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(cv.width,y);ctx.stroke()}
+  wave(st.tf,st.tp,'#e8c26a',3,8);wave(st.pf,st.pp,locked?'#7ff0c2':'#3fb0c8',3,locked?18:6);
+  sliders.f.kn.style.left=((st.pf-1)/3*100)+'%';sliders.p.kn.style.left=(st.pp/6.283*100)+'%';
+  lockBar.firstChild.style.width=(st.lock*100)+'%';
+  // 100% = close enough to lock
+  const off=Math.max(ef/tol,dp/(tol*1.6));const read=$('syncRead');if(read)read.textContent=locked?'100%':Math.min(99,Math.round(100/Math.max(1,off)))+'%';
+  if(st.lock>=1){SFX.lock();end(true);return}
+  raf=requestAnimationFrame(frame)};
+ raf=requestAnimationFrame(frame);H.stop.push(()=>cancelAnimationFrame(raf));
+}
+
+// ---- memory pattern: watch the flashes, click them back; each round adds one
+async function pattern(s,root,end,gen){
+ const n=s.grid===4?4:3,rounds=s.rounds||4,start=s.start||3,speed=(s.speed||.5)*1000,inputSeconds=s.inputSeconds||9;
+ const box=el('div','pattern'),grid=el('div','grid'),side=el('div','side');
+ const size=n===4?88:112;grid.style.gridTemplateColumns=`repeat(${n},${size}px)`;grid.style.gridAutoRows=size+'px';
+ const cells=[];for(let i=0;i<n*n;i++){const c=el('div','cell');c.dataset.i=i;grid.appendChild(c);cells.push(c)}
+ const status=el('div','status',T.watch),roundLabel=el('div',null,''),leds=el('div','leds'),inputs=el('div','inputs');
+ for(let r=0;r<rounds;r++)leds.appendChild(el('i'));
+ side.append(el('div',null,T.pattern),roundLabel,leds,status,inputs);box.append(grid,side);root.appendChild(box);
+ const seq=[];for(let k=0;k<start+rounds-1;k++){let c;do{c=Math.floor(Math.random()*n*n)}while(c===seq[k-1]);seq.push(c)}
+ let accept=false,pos=0,len=0,resolveRound=null;
+ const flash=(i,cls,ms)=>{cells[i].classList.add(cls);setTimeout(()=>cells[i].classList.remove(cls),ms)};
+ grid.addEventListener('mousedown',e=>{
+  const c=e.target.closest('.cell');if(!c||!accept)return;const i=+c.dataset.i;
+  if(i!==seq[pos]){accept=false;flash(i,'miss',500);SFX.err();resolveRound&&resolveRound(false);return}
+  flash(i,'hit',180);SFX.cell(i);pos++;inputs.children[pos-1]&&inputs.children[pos-1].classList.add('on');
+  if(pos>=len){accept=false;resolveRound&&resolveRound(true)}
+ });
+ for(let r=1;r<=rounds;r++){
+  len=start+r-1;pos=0;roundLabel.textContent=T.round+' '+r+' / '+rounds;
+  inputs.innerHTML='';for(let k=0;k<len;k++)inputs.appendChild(el('i'));
+  status.className='status';status.textContent=T.watch;setTimer(null);
+  if(!await wait(500,gen))return;
+  for(let k=0;k<len;k++){flash(seq[k],'flash',speed*.7);SFX.cell(seq[k]);if(!await wait(speed,gen))return}
+  status.className='status go';status.textContent=T.repeat;accept=true;
+  const ok=await new Promise(res=>{resolveRound=res;setTimer(inputSeconds,()=>{accept=false;SFX.err();res(false)})});
+  resolveRound=null;setTimer(null);if(gen!==H.gen)return;
+  if(!ok){end(false);return}
+  leds.children[r-1].classList.add('on');SFX.ok();if(!await wait(450,gen))return;
+ }
+ end(true);
+}
+
+// ---- PIN crack: guess the code from green / amber feedback
+function pin(s,root,end,gen){
+ const len=clamp(s.length||4,3,6),attempts=s.attempts||7,repeats=!!s.repeats;
+ const code=[];const pool=[0,1,2,3,4,5,6,7,8,9];
+ for(let k=0;k<len;k++){if(repeats)code.push(Math.floor(Math.random()*10));else code.push(pool.splice(Math.floor(Math.random()*pool.length),1)[0])}
+ const box=el('div','pin'),pad=el('div','pad'),slots=el('div','slots'),keys=el('div','keys'),log=el('div','log');
+ for(let k=0;k<len;k++)slots.appendChild(el('div','slot'));
+ for(const k of ['1','2','3','4','5','6','7','8','9','⌫','0','✓'])keys.appendChild(el('div','key'+(k==='✓'?' ok':k==='⌫'?' del':''),k));
+ const head=el('div','head');log.appendChild(head);
+ pad.append(slots,keys);box.append(pad,log);root.appendChild(box);
+ log.appendChild(el('div','legend',`<b style="background:#2fb47e"></b>${T.legend[0]}<b style="background:#c99a2e"></b>${T.legend[1]}<b style="background:#1a2423"></b>${T.legend[2]}`));
+ let entry=[],left=attempts,busy=false;
+ const draw=()=>{[...slots.children].forEach((sl,k)=>{sl.textContent=entry[k]!=null?entry[k]:'';sl.className='slot'+(k===entry.length?' cur':'')});head.innerHTML=`<span>${T.pin} · ${len}</span><span>${T.tries} ${left}</span>`};
+ draw();setTimer(s.seconds||75,()=>end(false));
+ keys.addEventListener('mousedown',async e=>{
+  const key=e.target.closest('.key');if(!key||busy||gen!==H.gen)return;const v=key.textContent;
+  key.classList.add('press');setTimeout(()=>key.classList.remove('press'),110);
+  if(v==='⌫'){if(entry.length){entry.pop();SFX.click()}draw();return}
+  if(v==='✓'){
+   if(entry.length<len){SFX.err();return}
+   busy=true;const guess=entry.slice();entry=[];left--;draw();
+   const marks=Array(len).fill('x'),rest=[];
+   guess.forEach((d,k)=>{if(d===code[k])marks[k]='g';else rest.push(code[k])});
+   guess.forEach((d,k)=>{if(marks[k]!=='g'){const at=rest.indexOf(d);if(at>=0){marks[k]='y';rest.splice(at,1)}}});
+   const row=el('div','row');guess.forEach(d=>row.appendChild(el('i',null,d)));log.insertBefore(row,log.children[1]);
+   for(let k=0;k<len;k++){if(!await wait(110,gen))return;row.children[k].className=marks[k];marks[k]==='g'?tone(1320,.06,'square',.05):marks[k]==='y'?tone(880,.06,'square',.05):tone(330,.06,'square',.04)}
+   if(marks.every(m=>m==='g')){SFX.lock();await wait(500,gen);end(true);return}
+   if(left<=0){SFX.err();const reveal=el('div','row');code.forEach(d=>reveal.appendChild(el('i','x',d)));log.insertBefore(reveal,log.children[1]);await wait(900,gen);end(false);return}
+   busy=false;return
+  }
+  if(entry.length<len){entry.push(+v);SFX.key();draw()}
+ });
+}
+
+// ---------------------------------------------------------------- messages
+window.addEventListener('message',event=>{
+ const data=event.data;if(!data||typeof data!=='object')return;
+ if(data.state==='hack')return runHack(data);
+ if(data.state==='hack_result')return result(data);
+ if(data.state==='hack_abort')return abort();
+ if(document.body.classList.contains('hacking'))return; // link screens never interrupt a hack
+ render(data);
+});
+render({state:kind==='device'?'connect':kind});
+post('alarm_screen_ready',{kind});
+</script></body></html>

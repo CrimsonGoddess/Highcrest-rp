@@ -1,0 +1,32 @@
+{
+ "by": "rtx_shellcreator",
+ "from": "game",
+ "created": 1793025341,
+ "updated": 1794513913,
+ "collection": "shells",
+ "head": [
+  "shared_script 'config.lua'",
+  "client_script 'client/main.lua'",
+  "server_script 'server/main.lua'",
+  "ui_page 'html/sound.html'"
+ ],
+ "items": {
+  "rtx_shell_my_shell": {
+   "label": "My shell",
+   "at": 1794513913,
+   "files": [
+    "items/rtx_shell_my_shell/shell.json",
+    "html/sound.html"
+   ],
+   "data": [
+    {
+     "type": "DLC_ITYP_REQUEST",
+     "file": "stream/rtx_shell_my_shell/rtx_shell_my_shell.ytyp"
+    }
+   ],
+   "map": false,
+   "meta": null
+  }
+ },
+ "files": 24
+}

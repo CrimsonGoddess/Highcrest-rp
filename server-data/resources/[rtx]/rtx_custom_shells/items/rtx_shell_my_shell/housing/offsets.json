@@ -1,0 +1,17 @@
+{
+ "model": "rtx_shell_my_shell",
+ "name": "My shell",
+ "points": {
+  "exit": {
+   "coords": {
+    "x": 1.7,
+    "y": 0.9,
+    "z": 0
+   },
+   "heading": 180
+  },
+  "sinks": [],
+  "showers": [],
+  "clean": []
+ }
+}
